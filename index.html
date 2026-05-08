@@ -27,18 +27,37 @@
         <link rel="stylesheet" href="./assets/css/retina-80.css" />
         <link rel="stylesheet" href="./assets/css/ui-scale.css" />
 
-        <!-- <link rel="prefetch" as="document" href="./work/frogbazar/">
-        <link rel="prefetch" as="document" href="./work/estudio32/">
-        <link rel="prefetch" as="document" href="./work/opame/">
-        <link rel="prefetch" as="document" href="./work/nmp/">
-        <link rel="prefetch" as="document" href="./work/cleo/">
-        <link rel="prefetch" as="document" href="./work/michi/">
-        <link rel="prefetch" as="document" href="./work/broke/">
-        <link rel="prefetch" as="document" href="./work/big-mother-energy/">
-        <link rel="prefetch" as="document" href="./work/ui-ux/">
-        <link rel="prefetch" as="document" href="./work/web/">
-        <link rel="prefetch" as="document" href="./work/logofolio/">
-        <link rel="prefetch" as="document" href="./work/photography/"> -->
+        <style>
+            .home-title {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.05em;
+            }
+            .home-title span {
+                display: flex;
+                overflow: hidden;
+            }
+            .home-title .letter {
+                display: inline-block;
+                position: relative;
+                cursor: default;
+            }
+            .home-title .letter::after {
+                content: attr(data-char);
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                color: #FF6600;
+                clip-path: inset(100% 0 0 0);
+                transition: clip-path 0.35s cubic-bezier(0.77, 0, 0.18, 1);
+            }
+            .home-title:hover .letter::after {
+                clip-path: inset(0% 0 0 0);
+                transition-delay: calc(var(--i) * 0.03s);
+            }
+        </style>
 
         <script src="./assets/js/sessionStorage.js"></script>
     </head>
@@ -197,7 +216,7 @@
 
                                 <div class="hover-fv">
                                     <h1 class="ph-caption-title font-bold text-center color-fv">
-                                        <a href="#about" data-offset="60" class="home-title noise-fill-hover">
+                                        <a href="#about" data-offset="60" class="home-title">
                                             <span>Federico</span>
                                             <span>Vaccarezza</span>
                                         </a>
@@ -599,11 +618,11 @@
                                                         <div>
                                                             <p><span>Dana Johonson</span> (Dotted 8)</p>
                                                             <p>
-                                                                “As a US-based agency, it can be tricky to find
+                                                                "As a US-based agency, it can be tricky to find
                                                                 reliable international talent that aligns with our
                                                                 time constraints and quality expectations. Fede has
                                                                 been an incredible resource and a valued member of
-                                                                our team for many years!”
+                                                                our team for many years!"
                                                             </p>
                                                         </div>
                                                     </article>
@@ -613,22 +632,22 @@
                                                         <div>
                                                             <p><span>Ramiro Nieto Moreno</span> (N.M,P.)</p>
                                                             <p>
-                                                                “From the first call to the final delivery,
+                                                                "From the first call to the final delivery,
                                                                 everything just flowed. The site captures our vibe
                                                                 perfectly—and the whole process was smoother than
-                                                                expected!”
+                                                                expected!"
                                                             </p>
                                                         </div>
                                                     </article>
 
                                                     <article class="verbatim next" tabindex="0">
                                                         <img src="./assets/img/word3.jpg" alt="" />
-                                                        <div>
+<div>
                                                             <p><span>Nayoung S. Kim</span> (Highfive)</p>
                                                             <p>
-                                                                “Fede did an amazing job with HighFive! Our vet
+                                                                "Fede did an amazing job with HighFive! Our vet
                                                                 purchase app is sleek, intuitive, and exactly what
-                                                                we needed. Highly recommend!”
+                                                                we needed. Highly recommend!"
                                                             </p>
                                                         </div>
                                                     </article>
@@ -640,9 +659,9 @@
                                                                 <span>Tristan Kemitzis</span> (Kemitzis Consulting)
                                                             </p>
                                                             <p>
-                                                                “Working with Fede has been a true pleasure. Quick
+                                                                "Working with Fede has been a true pleasure. Quick
                                                                 turnarounds, immediate responsiveness... all in all
-                                                                extremely high quality, white-glove service.”
+                                                                extremely high quality, white-glove service."
                                                             </p>
                                                         </div>
                                                     </article>
@@ -651,10 +670,10 @@
                                                         <div>
                                                             <p><span>Nick Godin</span> (Netwrk Ventures)</p>
                                                             <p>
-                                                                “Fede nailed it. He instantly got what we were about
+                                                                "Fede nailed it. He instantly got what we were about
                                                                 and came up with fresh, modern branding that tells
                                                                 our story perfectly. Super easy to work with and
-                                                                always on point”
+                                                                always on point"
                                                             </p>
                                                         </div>
                                                     </article>
@@ -778,8 +797,7 @@
                                                 the start.
                                             </p>
                                             <a href="https://calendly.com/fvaccarezza/intro-call" target="_blank"
-                                                class="btn">Book
-                                                a Call</a>
+                                                class="btn">Book a Call</a>
                                             <a href="tel:+5491165093091">+54 9 11 6509 3091</a>
                                             <a href="mailto:fvaccarezza@gmail.com"><img src="./assets/img/contact.svg"
                                                     alt="" />fvaccarezza@gmail.com</a>
@@ -847,8 +865,7 @@
                             <p><strong>(02)</strong> Concept & Ideation</p>
                             <p class="ans">
                                 Time to brainstorm! I sketch out ideas and share early concepts to get your input,
-                                so
-                                we're aligned from the start.
+                                so we're aligned from the start.
                             </p>
                         </div>
                     </div>
@@ -857,8 +874,7 @@
                             <p><strong>(03)</strong> Design & Development</p>
                             <p class="ans">
                                 I bring the design to life, from wireframes to the final look. Your feedback helps
-                                me
-                                fine-tune until everything's just right.
+                                me fine-tune until everything's just right.
                             </p>
                         </div>
                     </div>
@@ -910,8 +926,7 @@
                             <p class="ans">
                                 It depends on the project. A logo might take a week or two, while a full branding
                                 package or website could take a month. I'll provide a timeline once we figure out
-                                the
-                                details.
+                                the details.
                             </p>
                         </div>
                     </div>
@@ -929,8 +944,7 @@
                             <p><strong>(04)</strong> What if I want changes?</p>
                             <p class="ans">
                                 Most projects include 2-3 rounds of revisions. If you need more tweaks, we can
-                                discuss
-                                about that.
+                                discuss about that.
                             </p>
                         </div>
                     </div>
@@ -963,8 +977,22 @@
         <script src="./assets/js/noise.js"></script>
         <script src="./assets/js/scroll.js"></script>
         <script src="./assets/js/transition.js" defer></script>
-        <!-- <script src="./assets/js/preloadThumbs.js"></script>
-        <script src="./assets/js/preloadPhotos.js"></script> -->
+
+        <script>
+            document.querySelectorAll('.home-title span').forEach(span => {
+                const text = span.textContent.trim();
+                span.innerHTML = '';
+                [...text].forEach((ch, i) => {
+                    const letter = document.createElement('span');
+                    letter.className = 'letter';
+                    letter.dataset.char = ch;
+                    letter.style.setProperty('--i', i);
+                    letter.textContent = ch;
+                    span.appendChild(letter);
+                });
+            });
+        </script>
+
     </body>
 
 </html>
