@@ -979,6 +979,25 @@
         <script src="./assets/js/transition.js" defer></script>
 
         <script>
+            // Blur/fade in del título con ScrollTrigger
+            window.addEventListener('load', () => {
+                if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                    gsap.fromTo('.ph-caption-title', 
+                        { filter: 'blur(20px)', opacity: 0, y: 30 },
+                        {
+                            filter: 'blur(0px)', opacity: 1, y: 0,
+                            duration: 1.2,
+                            ease: 'power3.out',
+                            scrollTrigger: {
+                                trigger: '.ph-caption-title',
+                                start: 'top 80%',
+                                toggleActions: 'play none none none'
+                            }
+                        }
+                    );
+                }
+            });
+
             // Espera que noise.js haya procesado el título
             setTimeout(() => {
                 document.querySelectorAll('.home-title span').forEach(span => {
@@ -998,6 +1017,7 @@
                     });
                 });
             }, 100);
+            });
         </script>
 
     </body>
