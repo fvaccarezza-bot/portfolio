@@ -979,18 +979,25 @@
         <script src="./assets/js/transition.js" defer></script>
 
         <script>
-            document.querySelectorAll('.home-title span').forEach(span => {
-                const text = span.textContent.trim();
-                span.innerHTML = '';
-                [...text].forEach((ch, i) => {
-                    const letter = document.createElement('span');
-                    letter.className = 'letter';
-                    letter.dataset.char = ch;
-                    letter.style.setProperty('--i', i);
-                    letter.textContent = ch;
-                    span.appendChild(letter);
+            // Espera que noise.js haya procesado el título
+            setTimeout(() => {
+                document.querySelectorAll('.home-title span').forEach(span => {
+                    // noise.js crea .noise-fill-hover__solid con el texto
+                    const solid = span.querySelector('.noise-fill-hover__solid');
+                    const target = solid || span;
+                    const text = target.textContent.trim();
+                    if (!text) return;
+                    target.textContent = '';
+                    [...text].forEach((ch, i) => {
+                        const letter = document.createElement('span');
+                        letter.className = 'letter';
+                        letter.dataset.char = ch;
+                        letter.style.setProperty('--i', i);
+                        letter.textContent = ch;
+                        target.appendChild(letter);
+                    });
                 });
-            });
+            }, 100);
         </script>
 
     </body>
