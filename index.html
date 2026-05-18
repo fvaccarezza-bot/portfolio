@@ -744,12 +744,15 @@
                             </div>
 
                             <style>
-                                .footer-ink {
+                                /* texto SVG sube al hover */
+                                .footer-probe {
                                     transition: transform 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                                 }
-                                #contact:hover .footer-ink {
-                                    transform: translateY(16px);
-                                }
+                                #contact:hover .footer-ink.footer1 .footer-probe { transform: translateY(-40px); }
+                                #contact:hover .footer-ink.footer2 .footer-probe { transform: translateY(-24px); }
+                                #contact:hover .footer-ink.footer3 .footer-probe { transform: translateY(-12px); }
+
+                                /* links */
                                 .footer-contact-links {
                                     display: flex;
                                     justify-content: space-between;
@@ -761,13 +764,18 @@
                                     z-index: 10;
                                 }
                                 .footer-contact-links a {
-                                    color: inherit;
+                                    color: #2a2a2a;
                                     text-decoration: none;
                                     text-transform: uppercase;
+                                    font-weight: 500;
                                 }
                                 .footer-contact-links a:hover { opacity: 0.6; }
-                                .footer-contact-socials { display: flex; gap: 16px; align-items: center; }
-                                .footer-contact-socials img { width: 20px; height: 20px; }
+                                .footer-contact-socials { display: flex; gap: 20px; align-items: center; }
+                                .footer-contact-socials img { 
+                                    width: 22px; 
+                                    height: 22px;
+                                    filter: brightness(0) invert(0);
+                                }
                             </style>
 
                             <div class="tt-section-inner tt-wrap">
@@ -775,9 +783,9 @@
                                     <a href="https://calendly.com/fvaccarezza/intro-call" target="_blank">Call me</a>
                                     <a href="mailto:fvaccarezza@gmail.com">Write me</a>
                                     <div class="footer-contact-socials">
-                                        <a href="https://www.behance.net/Vaccarezza" target="_blank"><img src="./assets/img/social-behance.svg" alt="" /></a>
-                                        <a href="https://dribbble.com/Vaccarezza" target="_blank"><img src="./assets/img/social-dribble.svg" alt="" /></a>
-                                        <a href="https://vsco.co/fedevaccarezza/" target="_blank"><img src="./assets/img/social-vsco.svg" alt="" /></a>
+                                        <a href="https://www.behance.net/Vaccarezza" target="_blank"><img src="./assets/img/social-behance.svg" alt="Behance" /></a>
+                                        <a href="https://dribbble.com/Vaccarezza" target="_blank"><img src="./assets/img/social-dribble.svg" alt="Dribbble" /></a>
+                                        <a href="https://vsco.co/fedevaccarezza/" target="_blank"><img src="./assets/img/social-vsco.svg" alt="VSCO" /></a>
                                     </div>
                                 </div>
                             </div>
