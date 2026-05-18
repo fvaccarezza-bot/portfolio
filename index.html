@@ -743,12 +743,67 @@
                                 <div class="footer-bottom-cut"></div>
                             </div>
 
-                            <div class="tt-section-inner tt-wrap">
-                                <h2 class="section-title noise-fill-hover">Get in touch</h2>
-                                <span>
-                                    <img src="./assets/img/contact.svg" alt="" />
-                                    <p>Ready when you are!</p>
-                                </span>
+                            <style>
+                                .footer-big-text h2 {
+                                    font-size: clamp(60px, 14vw, 200px);
+                                    font-weight: 900;
+                                    line-height: 0.88;
+                                    color: #2a2a2a;
+                                    text-transform: uppercase;
+                                    margin: 0;
+                                    text-align: center;
+                                    letter-spacing: -0.02em;
+                                    transition: transform 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                                    transform: translateY(0);
+                                    position: relative;
+                                    z-index: 10;
+                                }
+                                .footer-hover-wrap:hover .footer-big-text h2:nth-child(1) {
+                                    transform: translateY(-40px);
+                                }
+                                .footer-hover-wrap:hover .footer-big-text h2:nth-child(2) {
+                                    transform: translateY(-24px);
+                                }
+                                .footer-ink {
+                                    transition: transform 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                                }
+                                .footer-hover-wrap:hover .footer-ink {
+                                    transform: translateY(20px);
+                                }
+                                .footer-contact-links {
+                                    display: flex;
+                                    justify-content: space-between;
+                                    align-items: center;
+                                    padding: 0 48px 24px;
+                                    letter-spacing: 0.15em;
+                                    font-size: 11px;
+                                    position: relative;
+                                    z-index: 10;
+                                }
+                                .footer-contact-links a {
+                                    color: inherit;
+                                    text-decoration: none;
+                                    text-transform: uppercase;
+                                }
+                                .footer-contact-links a:hover { opacity: 0.6; }
+                                .footer-contact-socials { display: flex; gap: 16px; align-items: center; }
+                                .footer-contact-socials img { width: 20px; height: 20px; }
+                            </style>
+
+                            <div class="footer-hover-wrap">
+                                <div class="footer-contact-links">
+                                    <a href="https://calendly.com/fvaccarezza/intro-call" target="_blank">Call me</a>
+                                    <a href="mailto:fvaccarezza@gmail.com">Write me</a>
+                                    <div class="footer-contact-socials">
+                                        <a href="https://www.behance.net/Vaccarezza" target="_blank"><img src="./assets/img/social-behance.svg" alt="" /></a>
+                                        <a href="https://dribbble.com/Vaccarezza" target="_blank"><img src="./assets/img/social-dribble.svg" alt="" /></a>
+                                        <a href="https://vsco.co/fedevaccarezza/" target="_blank"><img src="./assets/img/social-vsco.svg" alt="" /></a>
+                                    </div>
+                                </div>
+                                <div class="footer-big-text">
+                                    <h2>LET'S BUILD</h2>
+                                    <h2>SOMETHING</h2>
+                                </div>
                             </div>
 
                             <div class="tt-section-inner tt-wrap">
