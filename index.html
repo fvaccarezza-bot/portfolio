@@ -34,17 +34,46 @@
                 align-items: center;
                 gap: 0.05em;
             }
+
+            /* stroke más grueso en el título principal */
+            .ph-caption-title {
+                -webkit-text-stroke: 1.5px currentColor;
+            }
+
+            /* elementos que se mueven: Portfolio, Federico, Vaccarezza, 2026 */
+            .ph-caption .min-titles,
             .home-title span {
                 display: block;
                 transform: translateY(0px);
                 transition: transform 1.2s cubic-bezier(0.45, 0, 0.55, 1);
             }
-            .home-title:hover span:nth-child(1) {
-                transform: translateY(-10px);
+
+            /* Portfolio — se mueve primero, más sutil */
+            .ph-caption-hover:hover .min-titles:first-child {
+                transform: translateY(-6px);
+                transition: transform 1.4s cubic-bezier(0.45, 0, 0.55, 1);
+                transition-delay: 0s;
             }
-            .home-title:hover span:nth-child(2) {
-                transform: translateY(-10px);
-                transition-delay: 0.18s;
+
+            /* Federico */
+            .ph-caption-hover:hover .home-title span:nth-child(1) {
+                transform: translateY(-18px);
+                transition: transform 1.4s cubic-bezier(0.45, 0, 0.55, 1);
+                transition-delay: 0.1s;
+            }
+
+            /* Vaccarezza */
+            .ph-caption-hover:hover .home-title span:nth-child(2) {
+                transform: translateY(-18px);
+                transition: transform 1.4s cubic-bezier(0.45, 0, 0.55, 1);
+                transition-delay: 0.25s;
+            }
+
+            /* 2026 — el último, más sutil */
+            .ph-caption-hover:hover .min-titles:last-child {
+                transform: translateY(-6px);
+                transition: transform 1.4s cubic-bezier(0.45, 0, 0.55, 1);
+                transition-delay: 0.38s;
             }
         </style>
 
@@ -200,7 +229,7 @@
                                 </div>
                             </div>
 
-                            <div class="ph-caption text-uppercase">
+                            <div class="ph-caption text-uppercase ph-caption-hover">
                                 <div class="text-center color-fv min-titles spacing">Portfolio</div>
 
                                 <div class="hover-fv">
@@ -306,7 +335,7 @@
                                 <div class="gallery">
 
                                     <!-- Frog Bazar -->
-                                    <div class="card" alt="frog-bazar" id="frog-bazar">
+                                    <div class="card" id="frog-bazar">
                                         <a href="https://www.behance.net/gallery/157959551/Frog-Bazar-2023"
                                             target="_blank" class="stamp" data-vt-mode="fade">
                                             <img src="./assets/img/stamp/project-be.svg" alt="" />
