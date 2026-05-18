@@ -35,15 +35,8 @@
                 gap: 0.05em;
             }
 
-            /* stroke más grueso en el título principal */
-            .ph-caption-title {
-                -webkit-text-stroke: 1.5px currentColor;
-            }
-
             /* base: todo listo para transicionar */
             .ph-caption-hover {
-                transition: transform 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                transform: translateY(0px) scale(1);
                 display: block;
             }
 
@@ -51,23 +44,22 @@
             .ph-caption .min-titles {
                 display: block;
                 transform: translateY(0px);
-                filter: blur(0px);
-                transition: transform 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                            filter 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                transition: transform 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             }
 
             /* Federico y Vaccarezza */
             .home-title span {
                 display: block;
                 transform: translateY(0px);
-                filter: blur(0px);
-                transition: transform 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                            filter 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                transition: transform 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             }
 
-            .ph-caption-hover:hover .min-titles,
-            .ph-caption-hover:hover .home-title span {
-                filter: blur(1.5px);
+            /* sin color en hover */
+            .home-title:hover,
+            .home-title:hover span,
+            .ph-caption-hover:hover .min-titles {
+                color: inherit;
+                -webkit-text-stroke: 0;
             }
 
             /* hover: parallax — los de arriba suben más, los de abajo menos */
