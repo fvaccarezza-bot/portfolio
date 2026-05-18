@@ -764,10 +764,9 @@
                                 #contact:hover .footer-ink.footer2 .footer-probe { transform: translateY(-24px); }
                                 #contact:hover .footer-ink.footer3 .footer-probe { transform: translateY(-12px); }
 
-                                /* links */
                                 .footer-contact-links {
-                                    display: flex;
-                                    justify-content: space-between;
+                                    display: grid;
+                                    grid-template-columns: 1fr 1fr 1fr;
                                     align-items: center;
                                     padding-bottom: 24px;
                                     letter-spacing: 0.15em;
@@ -775,6 +774,9 @@
                                     position: relative;
                                     z-index: 10;
                                 }
+                                .footer-col-left { text-align: left; }
+                                .footer-col-center { text-align: center; }
+                                .footer-col-right { text-align: right; justify-content: flex-end; }
                                 .footer-contact-links a {
                                     color: #3A3A39;
                                     text-decoration: none;
@@ -782,7 +784,7 @@
                                     font-weight: 500;
                                 }
                                 .footer-contact-links a:hover { opacity: 0.6; }
-                                .footer-contact-socials { display: flex; gap: 20px; align-items: center; }
+                                .footer-contact-socials { display: flex; gap: 20px; align-items: center; justify-content: flex-end; }
                                 .footer-contact-socials img { 
                                     width: 22px; 
                                     height: 22px;
@@ -792,9 +794,13 @@
 
                             <div class="tt-section-inner tt-wrap">
                                 <div class="footer-contact-links">
-                                    <a href="https://calendly.com/fvaccarezza/intro-call" target="_blank">Call me</a>
-                                    <a href="mailto:fvaccarezza@gmail.com">Write me</a>
-                                    <div class="footer-contact-socials">
+                                    <div class="footer-col-left">
+                                        <a href="https://calendly.com/fvaccarezza/intro-call" target="_blank">Call me</a>
+                                    </div>
+                                    <div class="footer-col-center">
+                                        <a href="mailto:fvaccarezza@gmail.com">Write me</a>
+                                    </div>
+                                    <div class="footer-col-right footer-contact-socials">
                                         <a href="https://www.behance.net/Vaccarezza" target="_blank"><img src="./assets/img/social-behance.svg" alt="Behance" /></a>
                                         <a href="https://dribbble.com/Vaccarezza" target="_blank"><img src="./assets/img/social-dribble.svg" alt="Dribbble" /></a>
                                         <a href="https://vsco.co/fedevaccarezza/" target="_blank"><img src="./assets/img/social-vsco.svg" alt="VSCO" /></a>
