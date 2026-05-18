@@ -710,136 +710,142 @@
                             </div>
                         </div>
 
-                        <footer id="contact" class="tt-section fv-footer">
+                        <footer id="contact" class="tt-section">
+                            <div class="bg-vectors" id="bg-vectors-4">
+                                <div class="pos bottom-center">
+                                    <img class="mob-no" src="./assets/img/footer-4.svg" />
+                                    <img class="mob-ok block" src="./assets/img/footer-4-mob.svg" alt="" />
+                                </div>
+                            </div>
+                            <div class="footer-masked footer1">
+                                <div class="footer-ink footer1">
+                                    <img class="footer-probe mob-no" src="./assets/img/footer-1.svg" alt="" />
+                                    <img class="footer-probe mob-ok block" src="./assets/img/footer-1-mob.svg" alt="" />
+                                    <div class="footer-texture orange" aria-hidden="true"></div>
+                                </div>
+                            </div>
+                            <div class="footer-masked footer1">
+                                <div class="footer-ink footer2">
+                                    <img class="footer-probe mob-no" src="./assets/img/footer-2.svg" alt="" />
+                                    <img class="footer-probe mob-ok block" src="./assets/img/footer-2-mob.svg" alt="" />
+                                    <div class="footer-texture yellow" aria-hidden="true"></div>
+                                </div>
+                            </div>
+                            <div class="footer-masked footer3">
+                                <div class="footer-ink footer3">
+                                    <img class="footer-probe mob-no" src="./assets/img/footer-3.svg" alt="" />
+                                    <img class="footer-probe mob-ok block" src="./assets/img/footer-3-mob.svg" alt="" />
+                                    <div class="footer-texture yellow" aria-hidden="true"></div>
+                                </div>
+                            </div>
+                            <div class="footer-bottom-full" aria-hidden="true"></div>
+                            <div class="footer-bottom-mask" aria-hidden="true">
+                                <div class="footer-bottom-cut"></div>
+                            </div>
 
-                            <style>
-                                .fv-footer {
-                                    position: relative;
-                                    background: transparent;
-                                    overflow: hidden;
-                                    padding: 0;
-                                }
+                            <div class="tt-section-inner tt-wrap">
+                                <h2 class="section-title noise-fill-hover">Get in touch</h2>
+                                <span>
+                                    <img src="./assets/img/contact.svg" alt="" />
+                                    <p>Ready when you are!</p>
+                                </span>
+                            </div>
 
-                                .fv-footer-bg {
-                                    position: absolute;
-                                    inset: 0;
-                                    background: #F60;
-                                    z-index: 0;
-                                }
-
-                                /* ola superior */
-                                .fv-footer-wave {
-                                    position: absolute;
-                                    top: -1px;
-                                    left: 0;
-                                    width: 100%;
-                                    z-index: 1;
-                                    pointer-events: none;
-                                }
-
-                                /* blobs */
-                                .fv-blob {
-                                    position: absolute;
-                                    z-index: 1;
-                                    pointer-events: none;
-                                    transition: transform 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                                }
-                                .fv-blob-left  { left: -120px; bottom: -60px; }
-                                .fv-blob-right { right: -120px; bottom: -60px; }
-
-                                /* contenido */
-                                .fv-footer-inner {
-                                    position: relative;
-                                    z-index: 2;
-                                    padding-top: 120px;
-                                }
-
-                                /* links top */
-                                .fv-footer-links {
-                                    display: flex;
-                                    justify-content: space-between;
-                                    align-items: center;
-                                    padding: 0 48px 32px;
-                                    letter-spacing: 0.15em;
-                                    font-size: 11px;
-                                    color: #2a2a2a;
-                                }
-                                .fv-footer-links a {
-                                    color: #2a2a2a;
-                                    text-decoration: none;
-                                    text-transform: uppercase;
-                                }
-                                .fv-footer-links a:hover { opacity: 0.6; }
-                                .fv-socials { display: flex; gap: 16px; align-items: center; }
-                                .fv-socials a { color: #2a2a2a; font-size: 13px; font-weight: 600; text-decoration: none; }
-                                .fv-socials a:hover { opacity: 0.6; }
-
-                                /* texto gigante */
-                                .fv-big-text {
-                                    overflow: hidden;
-                                    cursor: default;
-                                }
-                                .fv-big-text h2 {
-                                    font-size: clamp(80px, 16vw, 220px);
-                                    font-weight: 900;
-                                    line-height: 0.88;
-                                    color: #2a2a2a;
-                                    text-transform: uppercase;
-                                    margin: 0;
-                                    padding: 0;
-                                    white-space: nowrap;
-                                    text-align: center;
-                                    letter-spacing: -0.02em;
-                                    transition: transform 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                                    transform: translateY(0);
-                                }
-                                .fv-big-text:hover h2:nth-child(1) { transform: translateY(-40px); }
-                                .fv-big-text:hover h2:nth-child(2) { transform: translateY(-24px); }
-                                .fv-big-text:hover .fv-blob-left   { transform: translateY(-30px) scale(1.05); }
-                                .fv-big-text:hover .fv-blob-right  { transform: translateY(-20px) scale(1.05); }
-                            </style>
-
-                            <!-- fondo naranja -->
-                            <div class="fv-footer-bg"></div>
-
-                            <!-- ola superior -->
-                            <svg class="fv-footer-wave" viewBox="0 0 1440 160" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-                                <path d="M0,160 L0,80 C200,160 400,20 720,60 C1040,100 1240,10 1440,80 L1440,160 Z" fill="#f5f5f3"/>
-                            </svg>
-
-                            <div class="fv-footer-inner">
-
-                                <!-- links -->
-                                <div class="fv-footer-links">
-                                    <a href="https://calendly.com/fvaccarezza/intro-call" target="_blank">Call me</a>
-                                    <a href="mailto:fvaccarezza@gmail.com">Write me</a>
-                                    <div class="fv-socials">
-                                        <a href="https://www.behance.net/Vaccarezza" target="_blank">Bē</a>
-                                        <a href="https://dribbble.com/Vaccarezza" target="_blank">⊕</a>
-                                        <a href="https://vsco.co/fedevaccarezza/" target="_blank">◎</a>
+                            <div class="tt-section-inner tt-wrap">
+                                <div class="tt-row">
+                                    <div class="tt-col-md-6">
+                                        <h3>Fill the form.</h3>
+                                        <p class="fw-200">
+                                            Fill out the form below and share a bit about your vision, budget
+                                            and any details you'd like to include.
+                                        </p>
+                                        <form class="form-wrap" action="#" method="post" novalidate>
+                                            <div class="field">
+                                                <label for="name">Name</label>
+                                                <input class="input" id="name" name="name" type="text" required />
+                                            </div>
+                                            <div class="field">
+                                                <label for="email">Email</label>
+                                                <input class="input" id="email" name="email" type="email" required />
+                                            </div>
+                                            <div class="field">
+                                                <legend>Project type</legend>
+                                                <div class="chips-group" role="group" aria-label="Project type"
+                                                    id="project-type-group">
+                                                    <div class="chip">
+                                                        <input type="checkbox" id="type-uiux" name="project_type[]"
+                                                            value="UI/UX" />
+                                                        <label for="type-uiux">UI/UX</label>
+                                                    </div>
+                                                    <div class="chip">
+                                                        <input type="checkbox" id="type-web" name="project_type[]"
+                                                            value="Web" />
+                                                        <label for="type-web">Web</label>
+                                                    </div>
+                                                    <div class="chip">
+                                                        <input type="checkbox" id="type-branding" name="project_type[]"
+                                                            value="Branding" />
+                                                        <label for="type-branding">Branding</label>
+                                                    </div>
+                                                    <div class="chip">
+                                                        <input type="checkbox" id="type-deck" name="project_type[]"
+                                                            value="Deck" />
+                                                        <label for="type-deck">Deck</label>
+                                                    </div>
+                                                    <div class="chip">
+                                                        <input type="checkbox" id="type-other" name="project_type[]"
+                                                            value="Other" />
+                                                        <label for="type-other">Other</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <label for="desc">Project description</label>
+                                                <textarea id="desc" name="project_description"></textarea>
+                                            </div>
+                                            <div class="actions">
+                                                <button class="btn" type="submit">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="tt-col-md-6">
+                                        <div class="col">
+                                            <h3>Or talk to me.</h3>
+                                            <p class="fw-200">
+                                                Book a quick 15-min call, and we'll dive into your ideas,
+                                                explore your goals, and see how I can support your vision from
+                                                the start.
+                                            </p>
+                                            <a href="https://calendly.com/fvaccarezza/intro-call" target="_blank"
+                                                class="btn">Book a Call</a>
+                                            <a href="tel:+5491165093091">+54 9 11 6509 3091</a>
+                                            <a href="mailto:fvaccarezza@gmail.com"><img src="./assets/img/contact.svg"
+                                                    alt="" />fvaccarezza@gmail.com</a>
+                                        </div>
+                                        <div class="col">
+                                            <h3>Social.</h3>
+                                            <div class="socials">
+                                                <a href="https://www.behance.net/Vaccarezza" target="_blank">
+                                                    <img src="./assets/img/social-behance.svg" alt="" />
+                                                    <p>Behance</p>
+                                                    <div class="circle"></div>
+                                                </a>
+                                                <a href="https://dribbble.com/Vaccarezza" target="_blank">
+                                                    <img src="./assets/img/social-dribble.svg" alt="" />
+                                                    <p>Dribble</p>
+                                                    <div class="circle"></div>
+                                                </a>
+                                                <a href="https://vsco.co/fedevaccarezza/" target="_blank">
+                                                    <img src="./assets/img/social-vsco.svg" alt="" />
+                                                    <p>Vsco</p>
+                                                    <div class="circle"></div>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-
-                                <!-- texto gigante con blobs -->
-                                <div class="fv-big-text">
-
-                                    <!-- blob izquierdo -->
-                                    <svg class="fv-blob fv-blob-left" width="340" height="340" viewBox="0 0 340 340" xmlns="http://www.w3.org/2000/svg">
-                                        <ellipse cx="170" cy="200" rx="160" ry="180" fill="#ffcc00" opacity="0.9"/>
-                                        <ellipse cx="130" cy="260" rx="110" ry="120" fill="#ff8800" opacity="0.7"/>
-                                    </svg>
-
-                                    <!-- blob derecho -->
-                                    <svg class="fv-blob fv-blob-right" width="340" height="340" viewBox="0 0 340 340" xmlns="http://www.w3.org/2000/svg">
-                                        <ellipse cx="170" cy="200" rx="160" ry="180" fill="#ffcc00" opacity="0.9"/>
-                                        <ellipse cx="210" cy="260" rx="110" ry="120" fill="#ff8800" opacity="0.7"/>
-                                    </svg>
-
-                                    <h2>LET'S BUILD</h2>
-                                    <h2>SOMETHING</h2>
-                                </div>
-
                             </div>
+
                         </footer>
                     </div>
                 </div>
