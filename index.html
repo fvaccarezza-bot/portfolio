@@ -596,7 +596,7 @@
                                         font-size: 16px;
                                         font-weight: 400;
                                         color: #3A3A39;
-                                        letter-spacing: 0.05em;
+                                        letter-spacing: 0;
                                         margin-bottom: 12px;
                                         padding-top: 0;
                                     }
@@ -609,7 +609,7 @@
                                         font-size: 16px;
                                         font-weight: 400;
                                         color: #979797;
-                                        letter-spacing: 0.05em;
+                                        letter-spacing: 0.03em;
                                         line-height: 1.6;
                                     }
 
@@ -624,7 +624,7 @@
                                     }
                                     .services-btns-row {
                                         display: flex;
-                                        gap: 12px;
+                                        gap: 45px;
                                         width: 100%;
                                         justify-content: center;
                                     }
@@ -635,19 +635,22 @@
                                         display: flex;
                                         align-items: center;
                                         justify-content: center;
-                                        border: none;
+                                        border: 1.5px dashed #3A3A39;
                                         border-radius: 5px;
-                                        outline: none;
-                                        background: transparent;
-                                        background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='5' ry='5' stroke='%233A3A39' stroke-width='1.5' stroke-dasharray='10%2c 10' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
                                         text-decoration: none;
                                         color: #3A3A39;
                                         font-family: 'PP Telegraf', sans-serif;
                                         font-size: 16px;
-                                        letter-spacing: 0.05em;
+                                        letter-spacing: 0;
                                         box-sizing: border-box;
+                                        background: transparent;
+                                        transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease;
                                     }
-                                    .services-btns-row a:hover { opacity: 0.6; }
+                                    .services-btns-row a:hover {
+                                        background: #3A3A39;
+                                        color: #fff;
+                                        border-color: transparent;
+                                    }
                                     .services-btns-connect {
                                         display: flex;
                                         width: 100%;
@@ -659,11 +662,14 @@
                                         text-decoration: none;
                                         font-family: 'PP Telegraf', sans-serif;
                                         font-size: 16px;
-                                        letter-spacing: 0.05em;
+                                        letter-spacing: 0;
                                         box-sizing: border-box;
                                         border-radius: 5px;
+                                        transition: background 0.4s ease;
                                     }
-                                    .services-btns-connect:hover { opacity: 0.9; }
+                                    .services-btns-connect:hover {
+                                        background: #3A3A39;
+                                    }
                                 </style>
 
                                 <!-- texto grande con breathe -->
