@@ -35,40 +35,15 @@
                 gap: 0.05em;
             }
             .home-title span {
-                display: flex;
-                overflow: hidden;
-                transition: transform 0.8s cubic-bezier(0.45, 0, 0.55, 1);
+                display: block;
                 transform: translateY(0px);
-            }
-            .home-title .letter {
-                display: inline-block;
-                position: relative;
-                cursor: default;
-            }
-            .home-title .letter::after {
-                content: attr(data-char);
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                color: #FF6600;
-                clip-path: inset(100% 0 0 0);
-                transition: clip-path 0.35s cubic-bezier(0.77, 0, 0.18, 1);
-            }
-            .home-title:hover .letter::after {
-                clip-path: inset(0% 0 0 0);
-                transition-delay: calc(var(--i) * 0.03s);
-            }
-            .home-title .letter {
-                opacity: 0;
+                transition: transform 1.2s cubic-bezier(0.45, 0, 0.55, 1);
             }
             .home-title:hover span:nth-child(1) {
                 transform: translateY(-10px);
-                transition: transform 1.2s cubic-bezier(0.45, 0, 0.55, 1);
             }
             .home-title:hover span:nth-child(2) {
                 transform: translateY(-10px);
-                transition: transform 1.2s cubic-bezier(0.45, 0, 0.55, 1);
                 transition-delay: 0.18s;
             }
         </style>
@@ -331,7 +306,7 @@
                                 <div class="gallery">
 
                                     <!-- Frog Bazar -->
-                                    <div class="card" alt="frog-bazar" id="frog-bazar" alt="frog-bazar">
+                                    <div class="card" alt="frog-bazar" id="frog-bazar">
                                         <a href="https://www.behance.net/gallery/157959551/Frog-Bazar-2023"
                                             target="_blank" class="stamp" data-vt-mode="fade">
                                             <img src="./assets/img/stamp/project-be.svg" alt="" />
@@ -351,7 +326,7 @@
                                     </div>
 
                                     <!-- ESTUDIO 32 -->
-                                    <div class="card" id="estudio32" alt="estudio32">
+                                    <div class="card" id="estudio32">
                                         <a href="http://behance.net/gallery/164603319/estudio32" target="_blank"
                                             class="stamp" data-vt-mode="fade">
                                             <img src="./assets/img/stamp/project-be.svg" alt="" />
@@ -371,7 +346,7 @@
                                     </div>
 
                                     <!-- OPAME -->
-                                    <div class="card" id="opame" alt="opame">
+                                    <div class="card" id="opame">
                                         <a class="media" href="work/opame/" alt="opame" data-vt-mode="fade">
                                             <img class="img-base" src="./assets/home/opame.jpg" alt="OPAME" />
                                             <img class="img-hover" src="./assets/home/opame-b.jpg" alt=""
@@ -385,7 +360,7 @@
                                     </div>
 
                                     <!-- N.M,P -->
-                                    <div class="card" id="nmp" alt="nmp">
+                                    <div class="card" id="nmp">
                                         <a class="media" href="work/nmp/" alt="nmp" data-vt-mode="fade">
                                             <img class="img-base" src="./assets/home/nmp.jpg" alt="N.M, P" />
                                             <img class="img-hover" src="./assets/home/nmp-b.jpg" alt=""
@@ -399,7 +374,7 @@
                                     </div>
 
                                     <!-- CLEO PAY -->
-                                    <div class="card" id="cleo" alt="cleo">
+                                    <div class="card" id="cleo">
                                         <a class="media" href="work/cleo/" alt="cleo" data-vt-mode="fade">
                                             <img class="img-base" src="./assets/home/cleo.jpg" alt="CLEO PAY" />
                                             <img class="img-hover" src="./assets/home/cleo-b.jpg" alt=""
@@ -413,7 +388,7 @@
                                     </div>
 
                                     <!-- MICHI BISTRO -->
-                                    <div class="card" id="michi" alt="michi">
+                                    <div class="card" id="michi">
                                         <a href="https://www.behance.net/gallery/162858615/Michi-Dine-In-Take-Away"
                                             target="_blank" class="stamp" data-vt-mode="fade">
                                             <img src="./assets/img/stamp/project-be.svg" alt="" />
@@ -433,7 +408,7 @@
                                     </div>
 
                                     <!-- BROKE -->
-                                    <div class="card" id="broke" alt="broke">
+                                    <div class="card" id="broke">
                                         <a href="https://www.behance.net/gallery/161530441/Broke-Music" target="_blank"
                                             class="stamp" data-vt-mode="fade">
                                             <img src="./assets/img/stamp/project-be.svg" alt="" />
@@ -453,7 +428,7 @@
                                     </div>
 
                                     <!-- BIG MOTHER ENERGY -->
-                                    <div class="card" id="big-mother-energy" alt="big-mother-energy">
+                                    <div class="card" id="big-mother-energy">
                                         <a class="media" href="work/big-mother-energy/" alt="big-mother-energy"
                                             data-vt-mode="fade">
                                             <img class="img-base" src="./assets/home/big-mother-energy.jpg"
@@ -469,7 +444,7 @@
                                     </div>
 
                                     <!-- UI / UX -->
-                                    <div class="card" id="ui-ux" alt="ui-ux">
+                                    <div class="card" id="ui-ux">
                                         <a class="media" href="work/ui-ux/" alt="ui-ux" data-vt-mode="fade">
                                             <img class="img-base" src="./assets/home/ui-ux.jpg" alt="UI / UX" />
                                             <img class="img-hover" src="./assets/home/ui-ux-b.jpg" alt=""
@@ -482,7 +457,7 @@
                                     </div>
 
                                     <!-- WEB -->
-                                    <div class="card" id="web" alt="web">
+                                    <div class="card" id="web">
                                         <a class="media" href="work/web/" alt="web" data-vt-mode="fade">
                                             <img class="img-base" src="./assets/home/web.jpg" alt="Web" />
                                             <img class="img-hover" src="./assets/home/web-b.jpg" alt=""
@@ -495,7 +470,7 @@
                                     </div>
 
                                     <!-- LOGOFOLIO -->
-                                    <div class="card" id="logofolio" alt="logofolio">
+                                    <div class="card" id="logofolio">
                                         <a class="media" href="work/logofolio/" alt="logofolio" data-vt-mode="fade">
                                             <img class="img-base" src="./assets/home/logofolio.jpg" alt="Logofolio" />
                                             <img class="img-hover" src="./assets/home/logofolio-b.jpg" alt=""
@@ -508,7 +483,7 @@
                                     </div>
 
                                     <!-- PHOTOGRAPHY -->
-                                    <div class="card" id="photography" alt="photography">
+                                    <div class="card" id="photography">
                                         <a class="media" href="work/photography/" alt="photography" data-vt-mode="fade">
                                             <img class="img-base" src="./assets/home/photography.jpg"
                                                 alt="photography" />
@@ -679,6 +654,7 @@
                                                             </p>
                                                         </div>
                                                     </article>
+
                                                     <article class="verbatim hidden" tabindex="0">
                                                         <img src="./assets/img/word5.jpg" alt="" />
                                                         <div>
@@ -756,7 +732,6 @@
                                                 <label for="name">Name</label>
                                                 <input class="input" id="name" name="name" type="text" required />
                                             </div>
-
                                             <div class="field">
                                                 <label for="email">Email</label>
                                                 <input class="input" id="email" name="email" type="email" required />
@@ -796,7 +771,6 @@
                                                 <label for="desc">Project description</label>
                                                 <textarea id="desc" name="project_description"></textarea>
                                             </div>
-
                                             <div class="actions">
                                                 <button class="btn" type="submit">Submit</button>
                                             </div>
@@ -995,7 +969,7 @@
         <script>
             window.addEventListener('load', () => {
                 if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-                    gsap.fromTo('.ph-caption-title', 
+                    gsap.fromTo('.ph-caption-title',
                         { filter: 'blur(20px)', opacity: 0, y: 30 },
                         {
                             filter: 'blur(0px)', opacity: 1, y: 0,
@@ -1006,24 +980,6 @@
                     );
                 }
             });
-
-            setTimeout(() => {
-                document.querySelectorAll('.home-title span').forEach(span => {
-                    const solid = span.querySelector('.noise-fill-hover__solid');
-                    const target = solid || span;
-                    const text = target.textContent.trim();
-                    if (!text) return;
-                    target.textContent = '';
-                    [...text].forEach((ch, i) => {
-                        const letter = document.createElement('span');
-                        letter.className = 'letter';
-                        letter.dataset.char = ch;
-                        letter.style.setProperty('--i', i);
-                        letter.textContent = ch;
-                        target.appendChild(letter);
-                    });
-                });
-            }, 100);
         </script>
 
     </body>
