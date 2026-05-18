@@ -786,8 +786,10 @@
                                 /* letter roll effect */
                                 .footer-roll {
                                     display: inline-flex;
-                                    overflow: hidden;
                                     vertical-align: top;
+                                    position: relative;
+                                    overflow: hidden;
+                                    max-height: 1.2em;
                                 }
                                 .footer-roll .letter-wrap {
                                     display: inline-flex;
@@ -798,11 +800,9 @@
                                 .footer-roll:hover .letter-wrap {
                                     transform: translateY(-50%);
                                 }
-                                .letter-a {
+                                .letter-a, .letter-b {
                                     display: block;
-                                }
-                                .letter-b {
-                                    display: block;
+                                    height: 1.2em;
                                 }
 
                                 .footer-col-left { text-align: left; }
