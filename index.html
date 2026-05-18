@@ -539,7 +539,7 @@
                                     /* services big text */
                                     .services-big {
                                         position: relative;
-                                        margin-bottom: 100px;
+                                        margin-bottom: 180px;
                                         cursor: default;
                                         text-align: center;
                                     }
@@ -549,13 +549,13 @@
                                         max-width: 100%;
                                         margin: 0 auto;
                                         transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                                        transform: translateY(0);
+                                        transform: translateY(0) scale(1);
                                     }
-                                    .services-big:hover .sb-line1 { transform: translateY(-40px); }
-                                    .services-big:hover .sb-line2 { transform: translateY(-28px); }
-                                    .services-big:hover .sb-line3 { transform: translateY(-16px); }
-                                    .services-big:hover .sb-tag1  { transform: translateY(-10px); transition-delay: 0.05s; }
-                                    .services-big:hover .sb-tag2  { transform: translateY(-6px);  transition-delay: 0.1s; }
+                                    .services-big:hover .sb-line1 { transform: translateY(-40px) scale(1.01); }
+                                    .services-big:hover .sb-line2 { transform: translateY(-28px) scale(1.01); }
+                                    .services-big:hover .sb-line3 { transform: translateY(-16px) scale(1.01); }
+                                    .services-big:hover .sb-tag1  { transform: translateY(-10px) scale(1.01); transition-delay: 0.05s; }
+                                    .services-big:hover .sb-tag2  { transform: translateY(-6px) scale(1.01);  transition-delay: 0.1s; }
 
                                     .sb-tag {
                                         position: absolute;
@@ -568,7 +568,7 @@
                                         gap: 0;
                                     }
                                     .sb-tag2 {
-                                        margin-top: -12px;
+                                        margin-top: -24px;
                                     }
                                     .sb-tag img {
                                         display: block;
