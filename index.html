@@ -44,14 +44,14 @@
             .ph-caption .min-titles {
                 display: block;
                 transform: translateY(0px);
-                transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             }
 
             /* Federico y Vaccarezza */
             .home-title span {
                 display: block;
                 transform: translateY(0px);
-                transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             }
 
             /* sin color en hover */
@@ -309,7 +309,7 @@
 
                             <div class="tt-section-inner tt-wrap">
                                 <h2 class="section-title hola"><a href="#works" class="noise-fill-hover"
-                                        data-offset="40">Hola!</a></h2>
+                                        data-offset="40">hola!</a></h2>
 
                                 <a href="#works" data-offset="40" id="hola-foto" class="tt-row">
                                     <div class="tt-col-md-6">
@@ -373,7 +373,7 @@
                             </div>
 
                             <div class="tt-section-inner tt-wrap">
-                                <h2 class="section-title noise-fill-hover">Works</h2>
+                                <h2 class="section-title noise-fill-hover">works</h2>
                                 <span>
                                     <p>Some of what I've done over the years.</p>
                                 </span>
@@ -591,7 +591,7 @@
                                         width: auto;
                                         max-width: 100%;
                                         margin: 0 auto;
-                                        transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                                        transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                                         transform: translateY(0) scale(1);
                                     }
                                     .services-big:hover .sb-line1 { transform: translateY(-55px) scale(1.02); }
@@ -602,7 +602,7 @@
 
                                     .sb-tag {
                                         position: absolute;
-                                        bottom: -80px;
+                                        bottom: -120px;
                                         right: 0;
                                         width: 28%;
                                         display: flex;
@@ -611,22 +611,23 @@
                                         gap: 0;
                                     }
                                     .sb-tag2 {
-                                        margin-top: -24px;
+                                        margin-top: -32px;
                                     }
                                     .sb-tag img {
                                         display: block;
                                         width: auto;
                                         max-width: none;
-                                        transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                                        transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                                         transform: translateY(0);
                                     }
 
                                         .trusted-track img {
                                             filter: none;
-                                            transition: filter 0.4s ease;
+                                            transition: filter 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.5, 0.9, 1);
                                         }
                                         .trusted-track img:hover {
                                             filter: brightness(0) saturate(100%) invert(45%) sepia(99%) saturate(1200%) hue-rotate(1deg) brightness(103%) contrast(104%);
+                                            transform: translateY(-6px);
                                         }
                                     .services-grid {
                                         display: grid;
@@ -1136,20 +1137,20 @@
 
                     // Scroll reveal en toda la página
                     const revealElements = [
-                        '.section-title',
-                        '.card',
-                        '.services-grid-item',
-                        '.services-btns',
-                        '.trusted-track',
-                        '.verbatim',
-                        '.services-big',
-                        '.info p',
-                        '.photo',
-                        'footer .tt-section-inner',
-                        '.footer-contact-links',
+                        { selector: '.section-title', start: 'top 95%' },
+                        { selector: '.card', start: 'top 90%' },
+                        { selector: '.services-grid-item', start: 'top 90%' },
+                        { selector: '.services-btns', start: 'top 90%' },
+                        { selector: '.trusted-track', start: 'top 90%' },
+                        { selector: '.verbatim', start: 'top 90%' },
+                        { selector: '.services-big', start: 'top 95%' },
+                        { selector: '.info p', start: 'top 90%' },
+                        { selector: '.photo', start: 'top 90%' },
+                        { selector: 'footer .tt-section-inner', start: 'top 90%' },
+                        { selector: '.footer-contact-links', start: 'top 90%' },
                     ];
 
-                    revealElements.forEach(selector => {
+                    revealElements.forEach(({ selector, start }) => {
                         gsap.utils.toArray(selector).forEach((el, i) => {
                             gsap.fromTo(el,
                                 { opacity: 0 },
@@ -1159,7 +1160,7 @@
                                     ease: 'power2.out',
                                     scrollTrigger: {
                                         trigger: el,
-                                        start: 'top 88%',
+                                        start: start,
                                         toggleActions: 'play none none none',
                                     },
                                     delay: (i % 4) * 0.08
