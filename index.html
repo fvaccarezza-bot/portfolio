@@ -1099,6 +1099,41 @@
                             ease: 'power3.out'
                         }
                     );
+
+                    // Scroll reveal en toda la página
+                    const revealElements = [
+                        '.section-title',
+                        '.card',
+                        '.services-grid-item',
+                        '.services-btns',
+                        '.trusted-track',
+                        '.verbatim',
+                        '.services-big',
+                        '.info p',
+                        '.photo',
+                        'footer .tt-section-inner',
+                        '.footer-contact-links',
+                    ];
+
+                    revealElements.forEach(selector => {
+                        gsap.utils.toArray(selector).forEach((el, i) => {
+                            gsap.fromTo(el,
+                                { opacity: 0, y: 40 },
+                                {
+                                    opacity: 1,
+                                    y: 0,
+                                    duration: 0.9,
+                                    ease: 'power3.out',
+                                    scrollTrigger: {
+                                        trigger: el,
+                                        start: 'top 88%',
+                                        toggleActions: 'play none none none',
+                                    },
+                                    delay: (i % 4) * 0.08
+                                }
+                            );
+                        });
+                    });
                 }
             });
         </script>
