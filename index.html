@@ -74,10 +74,11 @@
             #services .trusted-container,
             #services .trusted-container .trusted-track {
                 margin-top: 0 !important;
+                margin-bottom: 200px !important;
             }
             #services h4.section-title {
-                margin-top: 65px !important;
-                margin-bottom: 0 !important;
+                margin-top: 200px !important;
+                margin-bottom: 64px !important;
             }
             .ph-caption .min-titles,
             .ph-caption-hover:hover .min-titles,
@@ -1157,6 +1158,25 @@
                                     delay: (i % 4) * 0.08
                                 }
                             );
+                        });
+                    });
+
+                    // Tilt en cards de testimonials
+                    document.querySelectorAll('.verbatim').forEach(card => {
+                        card.addEventListener('mousemove', (e) => {
+                            const rect = card.getBoundingClientRect();
+                            const x = e.clientX - rect.left;
+                            const y = e.clientY - rect.top;
+                            const cx = rect.width / 2;
+                            const cy = rect.height / 2;
+                            const rotateX = ((y - cy) / cy) * -6;
+                            const rotateY = ((x - cx) / cx) * 6;
+                            card.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+                            card.style.transition = 'transform 0.1s ease';
+                        });
+                        card.addEventListener('mouseleave', () => {
+                            card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+                            card.style.transition = 'transform 0.5s ease';
                         });
                     });
                 }
