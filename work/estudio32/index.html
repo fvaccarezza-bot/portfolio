@@ -17,6 +17,7 @@
       <link rel="stylesheet" href="../../assets/css/config.css">
       <link rel="stylesheet" href="../../assets/css/fede.css" />
       <link rel="stylesheet" href="../../assets/css/preload-work.css" />
+      <link rel="stylesheet" href="../../assets/css/preload.css" />
       <link rel="stylesheet" href="../../assets/css/work.css" />
       <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
       <link rel="stylesheet" href="../../assets/css/gallery.css" />
@@ -46,7 +47,15 @@
    <body id="body" class="tt-boxed tt-smooth-scroll work estudio32" data-prev="../frogbazar/" data-next="../opame/">
       <main id="body-inner">
 
-         <div id="preloader" aria-hidden="true"></div>
+         <div id="preloader-under" aria-hidden="true"></div>
+         <div id="preloader" aria-live="polite" aria-label="Loading">
+            <div class="pl-sweep" aria-hidden="true"></div>
+            <div class="pl-inner">
+               <div class="pl-top">LOADING</div>
+               <div class="pl-percent" data-percent>(0%)</div>
+               <div class="pl-bottom">PF FV 2026</div>
+            </div>
+         </div>
 
          <div class="fx-cursor" aria-hidden="true"></div>
          <div class="nav-work">
@@ -395,7 +404,7 @@
       <script src="../../assets/vendor/jquery.mousewheel.min.js"></script>
       <script src="../../assets/js/ui-scale.js"></script>
       <script src="../../assets/js/theme.js"></script>
-      <script src="../../assets/js/preload-work.js"></script>
+      <script src="../../assets/js/preload.js"></script>
       <script src="../../assets/js/menu.js"></script>
       <script src="../../assets/js/gallery.js"></script>
       <script src="../../assets/js/modal.js"></script>
