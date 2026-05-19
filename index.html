@@ -32,7 +32,7 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                gap: 0.05em;
+                gap: 0.15em;
             }
 
             /* base: todo listo para transicionar */
@@ -60,11 +60,18 @@
             .home-title:focus,
             .home-title span,
             .home-title:hover span,
-            .home-title:focus span,
-            .ph-caption-hover:hover .min-titles {
+            .home-title:focus span {
                 color: inherit !important;
-                -webkit-text-stroke: 1.5px #3A3A39 !important;
+                -webkit-text-stroke: 0 !important;
                 text-decoration: none !important;
+            }
+
+            /* sin stroke en Portfolio y 2026 siempre */
+            .ph-caption .min-titles,
+            .ph-caption-hover:hover .min-titles,
+            .ph-caption .min-titles:hover {
+                -webkit-text-stroke: 0 !important;
+                text-stroke: 0 !important;
             }
 
             .home-title span img {
