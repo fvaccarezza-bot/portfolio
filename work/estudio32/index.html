@@ -420,18 +420,35 @@
             if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
                gsap.registerPlugin(ScrollTrigger);
 
-               // Parallax en cada imagen de contenido
+               // Conectar ScrollTrigger con smooth scrollbar del tema
+               const scroller = document.getElementById('scroll-container');
+               if (scroller && typeof Scrollbar !== 'undefined') {
+                  const bodyScrollBar = Scrollbar.init(scroller, { damping: 0.1 });
+                  ScrollTrigger.scrollerProxy(scroller, {
+                     scrollTop(value) {
+                        if (arguments.length) bodyScrollBar.scrollTop = value;
+                        return bodyScrollBar.scrollTop;
+                     },
+                     getBoundingClientRect() {
+                        return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
+                     }
+                  });
+                  bodyScrollBar.addListener(ScrollTrigger.update);
+                  ScrollTrigger.defaults({ scroller });
+               }
+
+               // Parallax en cada imagen
                document.querySelectorAll('.work-content img').forEach(img => {
                   gsap.fromTo(img,
-                     { y: 30 },
+                     { y: 40 },
                      {
-                        y: -30,
+                        y: -40,
                         ease: 'none',
                         scrollTrigger: {
                            trigger: img,
                            start: 'top bottom',
                            end: 'bottom top',
-                           scrub: 1.5,
+                           scrub: 2,
                         }
                      }
                   );
