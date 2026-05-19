@@ -405,6 +405,31 @@
       <script src="../../assets/js/transition.js" defer></script>
       <script src="../../assets/js/preloadThumbs.js"></script>
       <script src="../../assets/js/preloadPhotos.js"></script>
+
+      <script>
+         window.addEventListener('load', () => {
+            if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+               gsap.registerPlugin(ScrollTrigger);
+
+               // Parallax en cada imagen de contenido
+               document.querySelectorAll('.work-content img').forEach(img => {
+                  gsap.fromTo(img,
+                     { y: 30 },
+                     {
+                        y: -30,
+                        ease: 'none',
+                        scrollTrigger: {
+                           trigger: img,
+                           start: 'top bottom',
+                           end: 'bottom top',
+                           scrub: 1.5,
+                        }
+                     }
+                  );
+               });
+            }
+         });
+      </script>
    </body>
 
 </html>
