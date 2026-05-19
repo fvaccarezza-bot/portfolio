@@ -1138,6 +1138,7 @@
                     // Scroll reveal en toda la página
                     const revealElements = [
                         { selector: '.section-title', start: 'top 95%' },
+                        { selector: '.section-title + span', start: 'top 95%' },
                         { selector: '.card', start: 'top 90%' },
                         { selector: '.services-grid-item', start: 'top 90%' },
                         { selector: '.services-btns', start: 'top 90%' },
@@ -1166,6 +1167,18 @@
                                     delay: (i % 4) * 0.08
                                 }
                             );
+                        });
+                    });
+
+                    // Mostrar preloader al navegar a proyectos
+                    document.querySelectorAll('a.media').forEach(link => {
+                        link.addEventListener('click', () => {
+                            const preloader = document.getElementById('preloader');
+                            if (preloader) {
+                                preloader.style.opacity = '1';
+                                preloader.style.visibility = 'visible';
+                                preloader.style.pointerEvents = 'all';
+                            }
                         });
                     });
 
