@@ -93,11 +93,13 @@
                 text-stroke: 0 !important;
             }
 
-            .home-title span img {
-                display: block;
-                width: auto;
-                max-width: 100%;
-                margin: 0 auto;
+            .home-title .name-line {
+                display: flex;
+                justify-content: center;
+            }
+            .home-title .name-letter {
+                display: inline-block;
+                transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             }
 
             /* breathe hover */
@@ -282,8 +284,12 @@
                                 <div class="hover-fv">
                                     <h1 class="ph-caption-title font-bold text-center color-fv">
                                         <a href="#about" data-offset="60" class="home-title">
-                                            <span><img src="./assets/img/federico.svg" alt="Federico" /></span>
-                                            <span><img src="./assets/img/vaccarezza.svg" alt="Vaccarezza" /></span>
+                                            <span class="name-line" id="line-federico">
+                                                <span class="name-letter">F</span><span class="name-letter">e</span><span class="name-letter">d</span><span class="name-letter">e</span><span class="name-letter">r</span><span class="name-letter">i</span><span class="name-letter">c</span><span class="name-letter">o</span>
+                                            </span>
+                                            <span class="name-line" id="line-vaccarezza">
+                                                <span class="name-letter">V</span><span class="name-letter">a</span><span class="name-letter">c</span><span class="name-letter">c</span><span class="name-letter">a</span><span class="name-letter">r</span><span class="name-letter">e</span><span class="name-letter">z</span><span class="name-letter">z</span><span class="name-letter">a</span>
+                                            </span>
                                         </a>
                                     </h1>
                                     <div class="stamp">
@@ -1168,6 +1174,38 @@
                             );
                         });
                     });
+
+                    // Efecto parallax al click en el nombre
+                    const homeTitle = document.querySelector('.home-title');
+                    if (homeTitle) {
+                        homeTitle.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            const letters = document.querySelectorAll('.name-letter');
+                            letters.forEach((letter, i) => {
+                                const speed = 0.6 + Math.random() * 1.4;
+                                const x = (Math.random() - 0.5) * 40;
+                                gsap.to(letter, {
+                                    y: -(200 + Math.random() * 300),
+                                    x: x,
+                                    opacity: 0,
+                                    duration: speed,
+                                    ease: 'power3.in',
+                                    delay: i * 0.03,
+                                    onComplete: () => {
+                                        if (i === letters.length - 1) {
+                                            // scroll a about despues
+                                            const about = document.querySelector('#about');
+                                            if (about) about.scrollIntoView({ behavior: 'smooth' });
+                                            // reset
+                                            setTimeout(() => {
+                                                gsap.to(letters, { y: 0, x: 0, opacity: 1, duration: 0 });
+                                            }, 800);
+                                        }
+                                    }
+                                });
+                            });
+                        });
+                    }
 
                 }
             });
