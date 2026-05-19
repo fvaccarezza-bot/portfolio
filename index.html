@@ -55,16 +55,23 @@
             }
 
             /* sin color en hover */
+            .home-title,
             .home-title:hover,
+            .home-title:focus,
+            .home-title span,
             .home-title:hover span,
+            .home-title:focus span,
             .ph-caption-hover:hover .min-titles {
-                color: inherit;
-                -webkit-text-stroke: 0;
+                color: inherit !important;
+                -webkit-text-stroke: 1.5px #3A3A39 !important;
+                text-decoration: none !important;
             }
 
-            /* stroke negro en el nombre */
-            .ph-caption-title {
-                -webkit-text-stroke: 1.5px #3A3A39;
+            .home-title span img {
+                display: block;
+                width: auto;
+                max-width: 100%;
+                margin: 0 auto;
             }
 
             /* breathe hover */
@@ -249,8 +256,8 @@
                                 <div class="hover-fv">
                                     <h1 class="ph-caption-title font-bold text-center color-fv">
                                         <a href="#about" data-offset="60" class="home-title">
-                                            <span>Federico</span>
-                                            <span>Vaccarezza</span>
+                                            <span><img src="./assets/img/federico.svg" alt="Federico" /></span>
+                                            <span><img src="./assets/img/vaccarezza.svg" alt="Vaccarezza" /></span>
                                         </a>
                                     </h1>
                                     <div class="stamp">
@@ -342,7 +349,6 @@
                             <div class="tt-section-inner tt-wrap">
                                 <h2 class="section-title noise-fill-hover">Works</h2>
                                 <span>
-                                    <img src="./assets/img/work-brush.svg" alt="" />
                                     <p>Some of what I've done over the years.</p>
                                 </span>
 
@@ -1118,12 +1124,11 @@
                     revealElements.forEach(selector => {
                         gsap.utils.toArray(selector).forEach((el, i) => {
                             gsap.fromTo(el,
-                                { opacity: 0, y: 40 },
+                                { opacity: 0 },
                                 {
                                     opacity: 1,
-                                    y: 0,
                                     duration: 0.9,
-                                    ease: 'power3.out',
+                                    ease: 'power2.out',
                                     scrollTrigger: {
                                         trigger: el,
                                         start: 'top 88%',
