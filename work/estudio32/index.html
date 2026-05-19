@@ -414,48 +414,6 @@
       <script src="../../assets/js/transition.js" defer></script>
       <script src="../../assets/js/preloadThumbs.js"></script>
       <script src="../../assets/js/preloadPhotos.js"></script>
-
-      <script>
-         window.addEventListener('load', () => {
-            if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-               gsap.registerPlugin(ScrollTrigger);
-
-               // Conectar ScrollTrigger con smooth scrollbar del tema
-               const scroller = document.getElementById('scroll-container');
-               if (scroller && typeof Scrollbar !== 'undefined') {
-                  const bodyScrollBar = Scrollbar.init(scroller, { damping: 0.1 });
-                  ScrollTrigger.scrollerProxy(scroller, {
-                     scrollTop(value) {
-                        if (arguments.length) bodyScrollBar.scrollTop = value;
-                        return bodyScrollBar.scrollTop;
-                     },
-                     getBoundingClientRect() {
-                        return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
-                     }
-                  });
-                  bodyScrollBar.addListener(ScrollTrigger.update);
-                  ScrollTrigger.defaults({ scroller });
-               }
-
-               // Parallax en cada imagen
-               document.querySelectorAll('.work-content img').forEach(img => {
-                  gsap.fromTo(img,
-                     { y: 40 },
-                     {
-                        y: -40,
-                        ease: 'none',
-                        scrollTrigger: {
-                           trigger: img,
-                           start: 'top bottom',
-                           end: 'bottom top',
-                           scrub: 2,
-                        }
-                     }
-                  );
-               });
-            }
-         });
-      </script>
    </body>
 
 </html>
