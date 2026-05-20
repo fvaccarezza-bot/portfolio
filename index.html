@@ -78,12 +78,7 @@
                 align-items: center !important;
             }
             .tt-wrap {
-                max-width: 1320px !important;
-            }
-
-            /* Retina display - escalar a 80% */
-            @media (-webkit-min-device-pixel-ratio: 2) and (min-width: 1280px) {
-                html { zoom: 0.8; }
+                max-width: min(1320px, 91.67vw) !important;
             }
             /* arreglar gap trusted by */
             #services .trusted-container,
