@@ -1197,24 +1197,6 @@
                         });
                     });
 
-                    // Overlay al navegar a proyectos
-                    const navOverlay = document.createElement('div');
-                    navOverlay.style.cssText = 'position:fixed;inset:0;background:#f8f8f8;z-index:999999;opacity:0;pointer-events:none;transition:opacity 0.3s ease;';
-                    document.body.appendChild(navOverlay);
-
-                    document.querySelectorAll('a.media').forEach(link => {
-                        link.addEventListener('click', (e) => {
-                            const href = link.getAttribute('href');
-                            if (!href || href === '#' || href.startsWith('#')) return;
-                            e.preventDefault();
-                            navOverlay.style.opacity = '1';
-                            navOverlay.style.pointerEvents = 'all';
-                            setTimeout(() => {
-                                window.location.href = href;
-                            }, 350);
-                        });
-                    });
-
                 }
             });
         </script>
