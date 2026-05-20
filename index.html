@@ -1123,6 +1123,27 @@
         <script src="./assets/js/testimonials.js"></script>
         <script src="./assets/js/form.js"></script>
         <script src="./assets/js/modal.js"></script>
+        <script>
+            // Cerrar modal Works antes de navegar
+            document.addEventListener('click', (e) => {
+                const link = e.target.closest('#modal-works a[href]:not([data-modal-close])');
+                if (!link) return;
+                const href = link.getAttribute('href');
+                if (!href || href === '#') return;
+                e.preventDefault();
+                e.stopPropagation();
+                const modal = document.getElementById('modal-works');
+                if (modal && modal.classList.contains('is-open')) {
+                    modal.classList.remove('is-open');
+                    modal.classList.add('is-closing');
+                    setTimeout(() => {
+                        window.location.href = href;
+                    }, 600);
+                } else {
+                    window.location.href = href;
+                }
+            }, true);
+        </script>
         <script src="./assets/js/cursor-follow.js" defer></script>
         <script src="./assets/js/noise.js"></script>
         <script src="./assets/js/scroll.js"></script>
