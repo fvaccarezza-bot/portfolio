@@ -16,7 +16,7 @@
       <link rel="stylesheet" href="../../assets/fonts/fonts.css" />
       <link rel="stylesheet" href="../../assets/css/config.css">
       <link rel="stylesheet" href="../../assets/css/fede.css" />
-      <link rel="stylesheet" href="../../assets/css/preload-work.css" />
+      <link rel="stylesheet" href="../../assets/css/preload.css" />
       <link rel="stylesheet" href="../../assets/css/work.css" />
       <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
       <link rel="stylesheet" href="../../assets/css/gallery.css" />
@@ -40,13 +40,23 @@
       <link rel="prefetch" as="document" href="../logofolio/">
       <link rel="prefetch" as="document" href="../photography/">
 
+      <link rel="preload" href="../../assets/fonts/PPTelegraf-Regular.woff2" as="font" type="font/woff2" crossorigin />
+      <link rel="preload" href="../../assets/fonts/PPTelegraf-Ultrabold.woff2" as="font" type="font/woff2" crossorigin />
       <script src="../../assets/js/sessionStorage.js"></script>
    </head>
 
    <body id="body" class="tt-boxed tt-smooth-scroll work big-mother-energy" data-prev="../broke/" data-next="../ui-ux/">
       <main id="body-inner">
 
-         <div id="preloader" aria-hidden="true"></div>
+         <div id="preloader-under" aria-hidden="true"></div>
+         <div id="preloader" aria-live="polite" aria-label="Loading">
+            <div class="pl-sweep" aria-hidden="true"></div>
+            <div class="pl-inner">
+               <div class="pl-top">LOADING</div>
+               <div class="pl-percent" data-percent>(0%)</div>
+               <div class="pl-bottom">PF FV 2026</div>
+            </div>
+         </div>
 
          <div class="fx-cursor" aria-hidden="true"></div>
          <div class="nav-work">
@@ -135,42 +145,18 @@
                                        </div>
                                        <div class="tt-ol-submenu">
                                           <ul class="tt-ol-submenu-list">
-                                             <li><a class="media" href="../frogbazar/" alt="frog-bazar"
-                                                   data-vt-mode="slide" data-vt-dir="prev">
-                                                   / FROG BAZAR.</a></li>
-                                             <li><a class="media" href="../estudio32/" alt="estudio32"
-                                                   data-vt-mode="slide" data-vt-dir="prev">
-                                                   / ESTUDIO 32.</a></li>
-                                             <li><a class="media" href="../opame/" alt="opame" data-vt-mode="slide"
-                                                   data-vt-dir="prev">
-                                                   / OPAME.</a></li>
-                                             <li><a class="media" href="../nmp/" alt="nmp" data-vt-mode="slide"
-                                                   data-vt-dir="prev">
-                                                   / NM, P.</a></li>
-                                             <li><a class="media" href="../cleo/" alt="cleo" data-vt-mode="slide"
-                                                   data-vt-dir="prev">
-                                                   / CLEO.</a></li>
-                                             <li><a class="media" href="../michi/" alt="michi" data-vt-mode="slide"
-                                                   data-vt-dir="prev">
-                                                   / MICHI BISTRO.</a></li>
-                                             <li><a class="media" href="../broke/" alt="broke" data-vt-mode="slide"
-                                                   data-vt-dir="prev">
-                                                   / BROKE.</a></li>
-                                             <li><a class="media" href="../big-mother-energy/" alt="big-mother-energy"
-                                                   class="active">
-                                                   / BIG MOTHER ENERGY.</a></li>
-                                             <li><a class="media" href="../ui-ux/" alt="ui-ux" data-vt-mode="slide"
-                                                   data-vt-dir="next">
-                                                   / UI / UX.</a></li>
-                                             <li><a class="media" href="../web/" alt="web" data-vt-mode="slide"
-                                                   data-vt-dir="next">
-                                                   / WEB.</a></li>
-                                             <li><a class="media" href="../logofolio/" alt="logofolio"
-                                                   data-vt-mode="slide" data-vt-dir="next">
-                                                   / LOGOFOLIO.</a></li>
-                                             <li><a class="media" href="../photography/" alt="photography"
-                                                   data-vt-mode="slide" data-vt-dir="next">
-                                                   / PHOTOGRAPHY.</a></li>
+                                             <li><a class="media" href="../frogbazar/" alt="frog-bazar" data-vt-mode="slide" data-vt-dir="prev">/ FROG BAZAR.</a></li>
+                                             <li><a class="media" href="../estudio32/" alt="estudio32" data-vt-mode="slide" data-vt-dir="prev">/ ESTUDIO 32.</a></li>
+                                             <li><a class="media" href="../opame/" alt="opame" data-vt-mode="slide" data-vt-dir="prev">/ OPAME.</a></li>
+                                             <li><a class="media" href="../nmp/" alt="nmp" data-vt-mode="slide" data-vt-dir="prev">/ NM, P.</a></li>
+                                             <li><a class="media" href="../cleo/" alt="cleo" data-vt-mode="slide" data-vt-dir="prev">/ CLEO.</a></li>
+                                             <li><a class="media" href="../michi/" alt="michi" data-vt-mode="slide" data-vt-dir="prev">/ MICHI BISTRO.</a></li>
+                                             <li><a class="media" href="../broke/" alt="broke" data-vt-mode="slide" data-vt-dir="prev">/ BROKE.</a></li>
+                                             <li><a class="media" href="../big-mother-energy/" alt="big-mother-energy" class="active">/ BIG MOTHER ENERGY.</a></li>
+                                             <li><a class="media" href="../ui-ux/" alt="ui-ux" data-vt-mode="slide" data-vt-dir="next">/ UI / UX.</a></li>
+                                             <li><a class="media" href="../web/" alt="web" data-vt-mode="slide" data-vt-dir="next">/ WEB.</a></li>
+                                             <li><a class="media" href="../logofolio/" alt="logofolio" data-vt-mode="slide" data-vt-dir="next">/ LOGOFOLIO.</a></li>
+                                             <li><a class="media" href="../photography/" alt="photography" data-vt-mode="slide" data-vt-dir="next">/ PHOTOGRAPHY.</a></li>
                                           </ul>
                                        </div>
                                     </li>
@@ -193,29 +179,16 @@
 
             <div id="content-wrap" class="work">
                <div class="bg-vectors" id="bg-vectors-1">
-                  <div class="pos top-left">
-                     <img src="../../assets/img/bg-lines/work-bg-lines1.svg" />
-                  </div>
-                  <div class="pos top-right">
-                     <img src="../../assets/img/bg-lines/work-bg-lines2.svg" />
-                  </div>
-                  <div class="pos top-left">
-                     <img src="../../assets/img/bg-lines/work-bg-lines3.svg" />
-                  </div>
-                  <div class="pos top-right">
-                     <img src="../../assets/img/bg-lines/work-bg-lines4.svg" />
-                  </div>
-                  <div class="pos top-left">
-                     <img src="../../assets/img/bg-lines/work-bg-lines5.svg" />
-                  </div>
-                  <div class="pos top-right">
-                     <img src="../../assets/img/bg-lines/work-bg-lines6.svg" />
-                  </div>
+                  <div class="pos top-left"><img src="../../assets/img/bg-lines/work-bg-lines1.svg" /></div>
+                  <div class="pos top-right"><img src="../../assets/img/bg-lines/work-bg-lines2.svg" /></div>
+                  <div class="pos top-left"><img src="../../assets/img/bg-lines/work-bg-lines3.svg" /></div>
+                  <div class="pos top-right"><img src="../../assets/img/bg-lines/work-bg-lines4.svg" /></div>
+                  <div class="pos top-left"><img src="../../assets/img/bg-lines/work-bg-lines5.svg" /></div>
+                  <div class="pos top-right"><img src="../../assets/img/bg-lines/work-bg-lines6.svg" /></div>
                </div>
 
                <div id="page-content">
-                  <div
-                     class="tt-section title-work padding-top-xlg-100 padding-left-sm-3-p padding-right-sm-3-p no-padding-bottom work-header">
+                  <div class="tt-section title-work padding-top-xlg-100 padding-left-sm-3-p padding-right-sm-3-p no-padding-bottom work-header">
                      <div class="tt-section-inner tt-wrap max-width-1000">
                         <div class="text-center work-title">
                            <h3>Big Mother Energy</h3>
@@ -225,13 +198,11 @@
                      </div>
                   </div>
 
-                  <div
-                     class="tt-section padding-bottom-xlg-150 padding-left-sm-3-p padding-right-sm-3-p no-padding-bottom work-content">
+                  <div class="tt-section padding-bottom-xlg-150 padding-left-sm-3-p padding-right-sm-3-p no-padding-bottom work-content">
                      <div class="tt-section-inner tt-wrap center">
                         <div class="tt-row mob-no">
                            <div class="tt-col-md-12">
                               <img src="content/big-mother-energy-1.jpg" alt="Big Mother Energy" class="full-min" />
-
                               <a href="#details" id="scroll-inside" class="scroll">
                                  <div class="arrow">
                                     <img src="../../assets/img/work-scroll.svg" alt="" class="scroll-circle" />
@@ -244,7 +215,6 @@
                         <div class="tt-row" id="details">
                            <div class="tt-col-md-6 mob-no">
                               <img src="content/big-mother-energy-2.png" alt="Big Mother Energy" />
-
                            </div>
                            <div class="tt-col-md-6 mob-no">
                               <img src="content/big-mother-energy-3.png" alt="Big Mother Energy" />
@@ -252,24 +222,17 @@
                         </div>
                         <div class="tt-row">
                            <div class="tt-col-md-12">
-                              <img src="content/big-mother-energy-mob-1.png" alt="Big Mother Energy"
-                                 class="full-min mob-ok" />
-                              <img src="content/big-mother-energy-mob-2b.jpg" alt="Big Mother Energy"
-                                 class="full-min mob-ok" />
-                              <img src="content/big-mother-energy-mob-2.png" alt="Big Mother Energy"
-                                 class="full-min mob-ok mob2" />
-                              <img src="content/big-mother-energy-mob-3.png" alt="Big Mother Energy"
-                                 class="full-min mob-ok mob3" />
-                              <img src="content/big-mother-energy-mob-4.jpg" alt="Big Mother Energy"
-                                 class="full-min mob-ok mob4" />
-                              <img src="content/big-mother-energy-mob-5.jpg" alt="Big Mother Energy"
-                                 class="full-min mob-ok mob5" />
+                              <img src="content/big-mother-energy-mob-1.png" alt="Big Mother Energy" class="full-min mob-ok" />
+                              <img src="content/big-mother-energy-mob-2b.jpg" alt="Big Mother Energy" class="full-min mob-ok" />
+                              <img src="content/big-mother-energy-mob-2.png" alt="Big Mother Energy" class="full-min mob-ok mob2" />
+                              <img src="content/big-mother-energy-mob-3.png" alt="Big Mother Energy" class="full-min mob-ok mob3" />
+                              <img src="content/big-mother-energy-mob-4.jpg" alt="Big Mother Energy" class="full-min mob-ok mob4" />
+                              <img src="content/big-mother-energy-mob-5.jpg" alt="Big Mother Energy" class="full-min mob-ok mob5" />
                               <img src="content/big-mother-energy-4.jpg" alt="Big Mother Energy" class="full-min" />
                               <img src="content/big-mother-energy-5.jpg" alt="Big Mother Energy" class="full-min" />
                               <img src="content/big-mother-energy-6.jpg" alt="Big Mother Energy" class="full-min" />
                            </div>
                         </div>
-
                      </div>
                   </div>
 
@@ -283,24 +246,21 @@
                      <div class="footer-masked footer1">
                         <div class="footer-ink footer1">
                            <img class="footer-probe mob-no" src="../../assets/img/footer-works-1.svg" alt="" />
-                           <img class="footer-probe mob-ok block" src="../../assets/img/footer-works-1-mob.svg"
-                              alt="" />
+                           <img class="footer-probe mob-ok block" src="../../assets/img/footer-works-1-mob.svg" alt="" />
                            <div class="footer-texture orange" aria-hidden="true"></div>
                         </div>
                      </div>
                      <div class="footer-masked footer1">
                         <div class="footer-ink footer2">
                            <img class="footer-probe mob-no" src="../../assets/img/footer-works-2.svg" alt="" />
-                           <img class="footer-probe mob-ok block" src="../../assets/img/footer-works-2-mob.svg"
-                              alt="" />
+                           <img class="footer-probe mob-ok block" src="../../assets/img/footer-works-2-mob.svg" alt="" />
                            <div class="footer-texture yellow" aria-hidden="true"></div>
                         </div>
                      </div>
                      <div class="footer-masked footer3">
                         <div class="footer-ink footer3">
                            <img class="footer-probe mob-no" src="../../assets/img/footer-works-3.svg" alt="" />
-                           <img class="footer-probe mob-ok block" src="../../assets/img/footer-works-3-mob.svg"
-                              alt="" />
+                           <img class="footer-probe mob-ok block" src="../../assets/img/footer-works-3-mob.svg" alt="" />
                            <div class="footer-texture yellow" aria-hidden="true"></div>
                         </div>
                      </div>
@@ -313,11 +273,8 @@
                         <div class="talk-section">
                            <h3>Get in touch.</h3>
                            <div class="talk-buttons">
-                              <a href="../../#contact" class="btn" data-vt-mode="fade">
-                                 write me</a>
-                              <a href="https://calendly.com/fvaccarezza/intro-call" target="_blank" class="btn"
-                                 data-vt-mode="fade">
-                                 book a call</a>
+                              <a href="../../#contact" class="btn" data-vt-mode="fade">write me</a>
+                              <a href="https://calendly.com/fvaccarezza/intro-call" target="_blank" class="btn" data-vt-mode="fade">book a call</a>
                            </div>
                         </div>
                         <div class="talk-section">
@@ -341,9 +298,7 @@
                            </div>
                         </div>
                      </div>
-
                   </footer>
-
                </div>
             </div>
          </div>
@@ -354,12 +309,8 @@
          <div class="modal__backdrop" data-modal-close></div>
          <div class="modal__dialog" role="document">
             <div class="bg-vectors" id="bg-vectors-3">
-               <div class="pos bottom-left">
-                  <img src="../../assets/img/bg-lines/modal-bg1.svg" />
-               </div>
-               <div class="pos top-right">
-                  <img src="../../assets/img/bg-lines/modal-bg2.svg" />
-               </div>
+               <div class="pos bottom-left"><img src="../../assets/img/bg-lines/modal-bg1.svg" /></div>
+               <div class="pos top-right"><img src="../../assets/img/bg-lines/modal-bg2.svg" /></div>
             </div>
             <header>
                <h3 class="section-title">WORKS</h3>
@@ -402,7 +353,7 @@
       <script src="../../assets/vendor/jquery.mousewheel.min.js"></script>
       <script src="../../assets/js/ui-scale.js"></script>
       <script src="../../assets/js/theme.js"></script>
-      <script src="../../assets/js/preload-work.js"></script>
+      <script src="../../assets/js/preload.js"></script>
       <script src="../../assets/js/menu.js"></script>
       <script src="../../assets/js/gallery.js"></script>
       <script src="../../assets/js/modal.js"></script>
