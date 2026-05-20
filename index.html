@@ -1198,30 +1198,32 @@
                     });
 
                     // Parallax scroll en services-big (breathe con scroll)
-                    if (typeof ScrollTrigger !== 'undefined') {
-                        gsap.registerPlugin(ScrollTrigger);
-                        const servicesBig = document.querySelector('.services-big');
-                        if (servicesBig) {
-                            const line1 = servicesBig.querySelector('.sb-line1');
-                            const line2 = servicesBig.querySelector('.sb-line2');
-                            const line3 = servicesBig.querySelector('.sb-line3');
-                            const tag1  = servicesBig.querySelector('.sb-tag1');
-                            const tag2  = servicesBig.querySelector('.sb-tag2');
-                            const items = [[line1, -55], [line2, -38], [line3, -22], [tag1, -14], [tag2, -8]];
-                            items.forEach(([el, yVal]) => {
-                                if (!el) return;
-                                gsap.to(el, {
-                                    y: yVal,
-                                    ease: 'none',
-                                    scrollTrigger: {
-                                        trigger: servicesBig,
-                                        start: 'top bottom',
-                                        end: 'bottom top',
-                                        scrub: 1.5,
-                                    }
-                                });
+                    gsap.registerPlugin(ScrollTrigger);
+                    const servicesBig = document.querySelector('.services-big');
+                    if (servicesBig) {
+                        [
+                            ['.sb-line1', -60],
+                            ['.sb-line2', -40],
+                            ['.sb-line3', -24],
+                            ['.sb-tag1',  -14],
+                            ['.sb-tag2',  -8],
+                        ].forEach(([sel, y]) => {
+                            const el = servicesBig.querySelector(sel);
+                            if (!el) return;
+                            gsap.to(el, {
+                                y,
+                                ease: 'none',
+                                scrollTrigger: {
+                                    trigger: servicesBig,
+                                    start: 'top bottom',
+                                    end: 'bottom top',
+                                    scrub: 2,
+                                }
                             });
+                        });
                     }
+
+                }
             });
         </script>
 
