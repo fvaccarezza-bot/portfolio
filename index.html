@@ -80,6 +80,11 @@
             .tt-wrap {
                 max-width: 1320px !important;
             }
+
+            /* Retina display - escalar a 80% */
+            @media (-webkit-min-device-pixel-ratio: 2) and (min-width: 1280px) {
+                html { zoom: 0.8; }
+            }
             /* arreglar gap trusted by */
             #services .trusted-container,
             #services .trusted-container .trusted-track {
@@ -1169,8 +1174,7 @@
                             duration: 1.4,
                             delay: 0,
                             ease: 'power3.out',
-                            onStart: () => {
-                                // breathe apenas empieza a aparecer el nombre
+                            onComplete: () => {
                                 const spans = document.querySelectorAll('.home-title span');
                                 const minTitles = document.querySelectorAll('.ph-caption .min-titles');
                                 gsap.to(minTitles[0], { y: -40, duration: 0.7, ease: 'power2.out' });
