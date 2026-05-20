@@ -58,15 +58,15 @@
 }
 
 /* -------- Slide -------- */
-:root[data-vt-mode="slide"]::view-transition-old(root),
-:root[data-vt-mode="slide"]::view-transition-new(root) {
+:root[data-vt-mode="fade"]::view-transition-old(root),
+:root[data-vt-mode="fade"]::view-transition-new(root) {
   animation: none; /* mata el cross-fade default */
 }
 
-:root[data-vt-mode="slide"]::view-transition-old(root) {
+:root[data-vt-mode="fade"]::view-transition-old(root) {
   animation: vt-old-slide var(--slide-dur) var(--slide-ease) both;
 }
-:root[data-vt-mode="slide"]::view-transition-new(root) {
+:root[data-vt-mode="fade"]::view-transition-new(root) {
   animation: vt-new-slide var(--slide-dur) var(--slide-ease) both;
 }
 
