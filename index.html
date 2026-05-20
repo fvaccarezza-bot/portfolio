@@ -7,11 +7,14 @@
         <meta name="Graphic Designer"
             content="I'm based in Tigre, Argentina, and I spent several years studying at the University of Buenos Aires (UBA), switching from industrial to graphic design. I've always had a passion for style in all its forms and have been diving into this creative world for many years.orium." />
         <meta name="Federico Vaccarezza" content="fvaccarezza.com" />
-        <meta name="viewport" content="width=1440" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <script>
-            if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-                document.querySelector('meta[name="viewport"]').setAttribute('content', 'width=device-width, initial-scale=1, shrink-to-fit=no');
-            }
+            (function() {
+                if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) return;
+                var scale = Math.min(1, screen.width / 1440);
+                document.querySelector('meta[name="viewport"]').setAttribute('content', 
+                    'width=1440, initial-scale=' + scale + ', shrink-to-fit=no');
+            })();
         </script>
         <link rel="icon" type="image/png" href="./assets/img/favicon.png" />
         <link rel="stylesheet" href="./assets/vendor/normalize/normalize.min.css" />
