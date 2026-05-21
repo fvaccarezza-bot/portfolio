@@ -670,15 +670,15 @@ window.addEventListener('load', () => {
         if (gallery) {
             gsap.utils.toArray('.card').forEach((card, i) => {
                 const fromLeft = i % 2 === 0;
-                gsap.set(card, { x: fromLeft ? -100 : 100 });
+                gsap.set(card, { x: fromLeft ? -40 : 40 });
                 gsap.to(card, {
                     x: 0,
                     ease: 'none',
                     scrollTrigger: {
                         trigger: gallery,
                         start: 'top bottom',
-                        end: 'bottom top',
-                        scrub: 1.2,
+                        end: 'center center',
+                        scrub: true,
                     }
                 });
             });
