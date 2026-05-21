@@ -52,6 +52,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     display: block;
     height: 143px;
     width: auto;
+    flex-shrink: 0;
     transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .ph-caption-hover { display: block; }
@@ -545,22 +546,79 @@ window.addEventListener('load', () => {
                 if (fxCursor) { fxCursor.style.filter='blur(0px)'; fxCursor.style.opacity='1'; fxCursor.style.transition='opacity 0.3s ease, filter 0.3s ease'; }
             });
         });
-        document.querySelectorAll('.footer-contact-links a').forEach(btn => {
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const dx = (e.clientX - (rect.left + rect.width/2)) * 0.15;
-                const dy = (e.clientY - (rect.top + rect.height/2)) * 0.15;
-                btn.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
-                btn.style.transition = 'transform 0.3s ease';
+        // Efecto CALL ME / WRITE ME: lift + imagen flotante al hover
+        (function() {
+            const links = document.querySelectorAll('.footer-contact-links a.footer-roll');
+
+            // Crear el preview flotante
+            const preview = document.createElement('div');
+            preview.id = 'footer-preview';
+            preview.style.cssText = [
+                'position:fixed',
+                'pointer-events:none',
+                'z-index:999997',
+                'opacity:0',
+                'width:220px',
+                'height:160px',
+                'border-radius:12px',
+                'overflow:hidden',
+                'transition:opacity 0.35s ease',
+                'will-change:left,top',
+                'box-shadow:0 8px 32px rgba(0,0,0,0.18)'
+            ].join(';');
+
+            // Dos imágenes, una por cada botón
+            const imgs = {
+                'CALL ME':  './assets/home/frogbazar.jpg',
+                'WRITE ME': './assets/home/estudio32.jpg'
+            };
+
+            const img = document.createElement('img');
+            img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+            preview.appendChild(img);
+            document.body.appendChild(preview);
+
+            // Seguimiento suave del cursor
+            let px = -300, py = -300, tx = -300, ty = -300;
+            (function loop() {
+                px += (tx - px) * 0.12;
+                py += (ty - py) * 0.12;
+                preview.style.left = px + 'px';
+                preview.style.top  = py + 'px';
+                preview.style.transform = 'translate(-50%, -60%)';
+                requestAnimationFrame(loop);
+            })();
+
+            document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
+
+            links.forEach(btn => {
+                const label = btn.textContent.trim();
+
+                btn.addEventListener('mouseenter', () => {
+                    img.src = imgs[label] || imgs['CALL ME'];
+                    preview.style.opacity = '1';
+                    // lift sutil
+                    btn.style.transform = 'translateY(-4px)';
+                    btn.style.transition = 'transform 0.4s cubic-bezier(0.34,1.5,0.9,1)';
+                });
+
+                btn.addEventListener('mouseleave', () => {
+                    preview.style.opacity = '0';
+                    btn.style.transform = 'translateY(0)';
+                    btn.style.transition = 'transform 0.5s cubic-bezier(0.34,1.5,0.9,1)';
+                });
+
+                // magnético suave también
+                btn.addEventListener('mousemove', e => {
+                    const rect = btn.getBoundingClientRect();
+                    const dx = (e.clientX - (rect.left + rect.width/2))  * 0.12;
+                    const dy = (e.clientY - (rect.top  + rect.height/2)) * 0.12;
+                    btn.style.transform = 'translate(' + dx + 'px,' + (dy - 4) + 'px)';
+                });
             });
-            btn.addEventListener('mouseleave', () => { btn.style.transform='translate(0,0)'; btn.style.transition='transform 0.6s cubic-bezier(0.34,1.5,0.9,1)'; });
-        });
+        })();
         gsap.registerPlugin(ScrollTrigger);
-        gsap.utils.toArray('.card').forEach((card, i) => {
-            gsap.to(card, { y: i%2===0 ? -40 : -100, ease:'none',
-                scrollTrigger: { trigger:'.gallery', start:'top bottom', end:'bottom top', scrub:2 }
-            });
-        });
+        // parallax cards removido
         const servicesBig = document.querySelector('.services-big');
         if (servicesBig) {
             [['.sb-line1',-120],['.sb-line2',-80],['.sb-line3',-50],['.sb-tag1',-30],['.sb-tag2',-15]].forEach(([sel,y]) => {
