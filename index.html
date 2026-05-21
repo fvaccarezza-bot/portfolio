@@ -668,18 +668,14 @@ window.addEventListener('load', () => {
         // ── Cards: parallax desde los costados ──────────────────────────
         gsap.utils.toArray('.card').forEach((card, i) => {
             const fromLeft = i % 2 === 0;
-            const xOffset = fromLeft ? -120 : 120;
-            gsap.to(card, {
-                x: 0,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: card,
-                    start: 'top bottom',
-                    end: 'top 30%',
-                    scrub: 1.2,
-                    onUpdate: (self) => {
-                        gsap.set(card, { x: xOffset * (1 - self.progress) });
-                    }
+            const xOffset = fromLeft ? -100 : 100;
+            ScrollTrigger.create({
+                trigger: card,
+                start: 'top bottom',
+                end: 'top top',
+                scrub: 1.2,
+                onUpdate: (self) => {
+                    gsap.set(card, { x: xOffset * (1 - self.progress) });
                 }
             });
         });
