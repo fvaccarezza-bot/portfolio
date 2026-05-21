@@ -71,6 +71,13 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     -webkit-text-stroke: 0 !important;
     text-decoration: none !important;
 }
+/* hover breathe sutil en letras */
+.name-letter {
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+.home-title:hover .name-letter {
+    transform: translateY(-6px) scale(1.03) !important;
+}
 #modal-works .modal__dialog { display:flex; flex-direction:column; align-items:center; justify-content:center; }
 #modal-works .content { justify-content:center !important; align-items:center !important; }
 .tt-wrap { max-width: min(1320px, 91.67vw) !important; }
@@ -83,24 +90,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .ph-caption-hover:hover .min-titles,
 .ph-caption .min-titles:hover { -webkit-text-stroke:0 !important; text-stroke:0 !important; }
 .home-title span img { display:block; width:auto; max-width:100%; margin:0 auto; }
-/* Blur orgánico — sin forma de círculo evidente */
-.hero-blur-circle {
-    position: fixed;
-    width: 320px;
-    height: 320px;
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 10;
-    opacity: 0;
-    transform: translate(-50%, -50%);
-    transition: opacity 0.5s ease;
-    will-change: left, top;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    /* Máscara radial que disuelve los bordes — hace que parezca una mancha */
-    -webkit-mask-image: radial-gradient(ellipse 55% 55% at 50% 50%, black 0%, black 30%, transparent 70%);
-    mask-image: radial-gradient(ellipse 55% 55% at 50% 50%, black 0%, black 30%, transparent 70%);
-}
+
 
 /* breathe hover — apunta a .name-line */
 .ph-caption-hover:hover .min-titles:first-child { transform: translateY(-40px); }
@@ -162,16 +152,6 @@ document.addEventListener('click', function(e) {
 </head>
 <body id="body" class="tt-transition tt-boxed tt-smooth-scroll">
 <main id="body-inner" class="ui-scale-root">
-<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute">
-    <defs>
-        <filter id="blob-filter" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
-            <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="3" seed="2" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="45" xChannelSelector="R" yChannelSelector="G" result="displaced" />
-            <feGaussianBlur in="displaced" stdDeviation="14" result="blurred" />
-            <feComposite in="blurred" in2="SourceGraphic" operator="atop" />
-        </filter>
-    </defs>
-</svg>
 <div id="preloader-under" aria-hidden="true"></div>
 <div id="preloader" aria-live="polite" aria-label="Loading">
     <div class="pl-sweep" aria-hidden="true"></div>
@@ -719,41 +699,7 @@ window.addEventListener('load', () => {
             });
         })();
 
-        // Círculo blur que sigue el mouse en el hero
-        (function() {
-            const circle = document.createElement('div');
-            circle.className = 'hero-blur-circle';
-            document.body.appendChild(circle);
 
-            let bx = -300, by = -300, btx = -300, bty = -300;
-            let isOverHero = false;
-
-            // Mismo lerp que la pelotita (0.15)
-            (function animateBlur() {
-                bx += (btx - bx) * 0.15;
-                by += (bty - by) * 0.15;
-                circle.style.left = bx + 'px';
-                circle.style.top  = by + 'px';
-                requestAnimationFrame(animateBlur);
-            })();
-
-            document.addEventListener('mousemove', (e) => {
-                btx = e.clientX;
-                bty = e.clientY;
-            });
-
-            const hero = document.getElementById('page-header');
-            if (hero) {
-                hero.addEventListener('mouseenter', () => {
-                    isOverHero = true;
-                    circle.style.opacity = '1';
-                });
-                hero.addEventListener('mouseleave', () => {
-                    isOverHero = false;
-                    circle.style.opacity = '0';
-                });
-            }
-        })();
 
         // Click en el nombre: animar letras hacia arriba y scrollear a #about
         (function() {
@@ -836,32 +782,23 @@ window.addEventListener('load', () => {
             // Color transition: negro → naranja via filter
             // Usamos GSAP para animar brightness/saturate con un hack de filter
             // El truco: animar de filter:none a un sepia+hue-rotate que da naranja
-            // Overlay naranja para transición de color — más limpio que filter en imgs
-            const colorOverlay = document.createElement('div');
-            colorOverlay.style.cssText = [
-                'position:absolute',
-                'inset:0',
-                'background:#FF6600',
-                'mix-blend-mode:multiply',
-                'opacity:0',
-                'pointer-events:none',
-                'z-index:5',
-            ].join(';');
-            const heroEl = document.getElementById('page-header');
-            if (heroEl) {
-                heroEl.style.position = 'relative';
-                heroEl.appendChild(colorOverlay);
-                gsap.to(colorOverlay, {
-                    opacity: 0.85,
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: '#page-header',
-                        start: 'top top',
-                        end: '60% top',
-                        scrub: 0.6,
+            // Transición de color negro → naranja via CSS filter en las letras
+            const allLetters2 = document.querySelectorAll('.name-letter');
+            allLetters2.forEach(letter => {
+                gsap.fromTo(letter,
+                    { filter: 'brightness(1) sepia(0) saturate(1) hue-rotate(0deg) invert(0%)' },
+                    {
+                        filter: 'invert(40%) sepia(1) saturate(6) hue-rotate(349deg) brightness(1.1)',
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: '#page-header',
+                            start: 'top top',
+                            end: '60% top',
+                            scrub: 0.6,
+                        }
                     }
-                });
-            }
+                );
+            });
 
             const triggerCfg = {
                 trigger: '#page-header',
