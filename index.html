@@ -42,6 +42,18 @@
                 align-items: center;
                 gap: 36px;
             }
+            .name-line {
+                display: flex;
+                align-items: flex-end;
+                justify-content: center;
+                gap: 0;
+            }
+            .name-letter {
+                display: block;
+                height: 143px;
+                width: auto;
+                transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            }
 
             /* base: todo listo para transicionar */
             .ph-caption-hover {
@@ -302,8 +314,28 @@
                                 <div class="hover-fv">
                                     <h1 class="ph-caption-title font-bold text-center color-fv">
                                         <a href="#about" data-offset="60" class="home-title">
-                                            <span><img src="./assets/img/federico.svg" alt="Federico" /></span>
-                                            <span><img src="./assets/img/vaccarezza.svg" alt="Vaccarezza" /></span>
+                                            <span class="name-line" id="line-federico">
+                                                <img class="name-letter" src="./assets/img/F.svg" alt="F" style="height:143px;width:105px;" />
+                                                <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:107px;" />
+                                                <img class="name-letter" src="./assets/img/D.svg" alt="D" style="height:143px;width:130px;" />
+                                                <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:107px;" />
+                                                <img class="name-letter" src="./assets/img/R.svg" alt="R" style="height:143px;width:122px;" />
+                                                <img class="name-letter" src="./assets/img/I.svg" alt="I" style="height:143px;width:82px;" />
+                                                <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:140px;" />
+                                                <img class="name-letter" src="./assets/img/O.svg" alt="O" style="height:143px;width:143px;" />
+                                            </span>
+                                            <span class="name-line" id="line-vaccarezza">
+                                                <img class="name-letter" src="./assets/img/V.svg" alt="V" style="height:143px;width:143px;" />
+                                                <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:145px;" />
+                                                <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:140px;" />
+                                                <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:140px;" />
+                                                <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:145px;" />
+                                                <img class="name-letter" src="./assets/img/R.svg" alt="R" style="height:143px;width:122px;" />
+                                                <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:107px;" />
+                                                <img class="name-letter" src="./assets/img/Z.svg" alt="Z" style="height:143px;width:120px;" />
+                                                <img class="name-letter" src="./assets/img/Z.svg" alt="Z" style="height:143px;width:120px;" />
+                                                <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:145px;" />
+                                            </span>
                                         </a>
                                     </h1>
                                     <div class="stamp">
@@ -1209,11 +1241,14 @@
                             delay: 0,
                             ease: 'power3.out',
                             onComplete: () => {
-                                const spans = document.querySelectorAll('.home-title span');
+                                const letters = document.querySelectorAll('.name-letter');
                                 const minTitles = document.querySelectorAll('.ph-caption .min-titles');
+                                // breathe con stagger por letra
+                                letters.forEach((letter, i) => {
+                                    const delay = i * 0.03;
+                                    gsap.to(letter, { y: -20 + (i * -2), duration: 0.7, ease: 'power2.out', delay });
+                                });
                                 gsap.to(minTitles[0], { y: -40, duration: 0.7, ease: 'power2.out' });
-                                gsap.to(spans[0],     { y: -28, duration: 0.7, ease: 'power2.out' });
-                                gsap.to(spans[1],     { y: -16, duration: 0.7, ease: 'power2.out' });
                                 gsap.to(minTitles[1], { y: -6,  duration: 0.7, ease: 'power2.out' });
                             }
                         }
