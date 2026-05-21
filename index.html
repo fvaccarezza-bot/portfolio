@@ -372,7 +372,7 @@ document.addEventListener('click', function(e) {
                     .services-grid-item p { font-family:'PP Telegraf',sans-serif !important; font-size:16px; font-weight:400; color:#979797; letter-spacing:0.03em; line-height:1.6; }
                     .services-btns { display:flex; flex-direction:column; align-items:center; gap:32px; width:445px; margin:0 auto; padding-bottom:40px; }
                     .services-btns-row { display:flex; gap:45px; width:100%; justify-content:center; }
-                    .services-btns-row a { width:200px; text-align:center; height:40px; display:flex; align-items:center; justify-content:center; border:none; border-radius:5px; text-decoration:none; color:#3A3A39; font-family:'PP Telegraf',sans-serif; font-size:16px; letter-spacing:0; box-sizing:border-box; background:transparent; background-image:url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='5' ry='5' stroke='%233A3A39' stroke-width='1.5' stroke-dasharray='8%2c8' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e"); transition:background-color 0.4s ease, color 0.4s ease, background-image 0.4s ease; }
+                    .services-btns-row a { width:200px; text-align:center; height:40px; display:flex; align-items:center; justify-content:center; border:none; border-radius:5px; text-decoration:none; color:#3A3A39; font-family:'PP Telegraf',sans-serif; font-size:16px; letter-spacing:0; box-sizing:border-box; background:transparent; background-image:url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='5' ry='5' stroke='%233A3A39' stroke-width='1.5' stroke-dasharray='8%2c8' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e"); transition:background-color 0.6s ease, color 0.6s ease, background-image 0.6s ease; }
                     .services-btns-row a:hover { background-color:#3A3A39; background-image:none; color:#fff; }
                     .services-btns-connect { display:flex; width:100%; height:40px; align-items:center; justify-content:center; background:#FF6600; color:#fff; text-decoration:none; font-family:'PP Telegraf',sans-serif; font-size:16px; letter-spacing:0; box-sizing:border-box; border-radius:5px; position:relative; overflow:hidden; transition:color 0.4s ease; }
                     .services-btns-connect::before { content:''; position:absolute; bottom:-100%; left:0; width:100%; height:100%; background:#3A3A39; transition:bottom 0.5s cubic-bezier(0.76,0,0.24,1); z-index:0; }
@@ -402,7 +402,7 @@ document.addEventListener('click', function(e) {
                     <a href="#contact" class="services-btns-connect"><span>Connect</span></a>
                 </div>
                 <div class="tt-row" style="margin-top:80px;">
-                    <div class="tt-col-md-6 d-flex-center flex-col max-width-full" style="max-width:100%;width:100%;padding:0 40px;">
+                    <div class="tt-col-md-6 d-flex-center flex-col max-width-full" style="max-width:1400px;width:100%;">
                         <h4 class="section-title" style="margin:0 auto 0 !important;padding-bottom:0 !important;">Trusted By:</h4>
                         <div style="height:64px;"></div>
                         <div class="trusted-container"><div class="trusted-track">
@@ -448,7 +448,7 @@ document.addEventListener('click', function(e) {
                 #contact:hover .footer-col-center a { transform: translateY(-8px); }
                 #contact:hover .footer-col-right  a { transform: translateY(-5px); }
                 .footer-contact-links { display:grid; grid-template-columns:1fr 1fr 1fr; width:100%; align-items:center; padding-bottom:24px; letter-spacing:0.5em; font-size:11px; position:relative; z-index:10; box-sizing:border-box; }
-                .card a.media, .card .pgi-image-holder { position:relative; overflow:hidden; display:block; border-radius:10px 10px 0 0 !important; -webkit-mask-image: -webkit-radial-gradient(white, black); }
+                .card a.media, .card .pgi-image-holder { position:relative; overflow:hidden; display:block; border-radius:10px 10px 0 0 !important; transform: translateZ(0); }
                 .card .meta { padding-top: 14px; } .card .meta h3, .card .meta p { transform: none !important; }
                 .card .img-hover { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transform:scale(1); transition:opacity 1s ease, transform 1s ease; }
                 .card .img-base { transition:transform 1s ease; display:block; width:100%; }
@@ -734,6 +734,23 @@ window.addEventListener('load', () => {
             });
         })();
 
+        // Verbatim cards: mismo tilt que las cards de proyecto
+        document.querySelectorAll('.verbatim').forEach(card => {
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
+                card.style.transition = 'transform 0.6s cubic-bezier(0.34,1.5,0.9,1)';
+            });
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const cx = rect.left + rect.width  / 2;
+                const cy = rect.top  + rect.height / 2;
+                const dx = (e.clientX - cx) / (rect.width  / 2);
+                const dy = (e.clientY - cy) / (rect.height / 2);
+                card.style.transform = 'perspective(1200px) rotateX(' + (-dy * 1.5) + 'deg) rotateY(' + (dx * 1.5) + 'deg)';
+                card.style.transition = 'transform 0.15s ease';
+            });
+        });
+
         // Faqs y Process: tilt magnético sutil
         document.querySelectorAll('.services-btns-row a').forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
@@ -780,9 +797,9 @@ window.addEventListener('load', () => {
 
             const triggerCfg = {
                 trigger: '#page-header',
-                start: 'top top',
-                end: '60% top',        // termina antes — efecto más inmediato
-                scrub: 0.6,            // menos delay
+                start: '8% top',       // pequeño margen para no pisar el breathe
+                end: '65% top',
+                scrub: 0.6,
             };
 
             function applyParallax(letters, centerIndex) {
@@ -813,10 +830,10 @@ window.addEventListener('load', () => {
         })();
         const servicesBig = document.querySelector('.services-big');
         if (servicesBig) {
-            [['.sb-line1',-120],['.sb-line2',-80],['.sb-line3',-50],['.sb-tag1',-30],['.sb-tag2',-15]].forEach(([sel,y]) => {
+            [['.sb-line1',-180],['.sb-line2',-120],['.sb-line3',-70],['.sb-tag1',-40],['.sb-tag2',-20]].forEach(([sel,y]) => {
                 const el = servicesBig.querySelector(sel);
                 if (!el) return;
-                gsap.to(el, { y, ease:'none', scrollTrigger: { trigger:servicesBig, start:'top bottom', end:'bottom top', scrub:2 } });
+                gsap.to(el, { y, ease:'none', scrollTrigger: { trigger:servicesBig, start:'top bottom', end:'bottom top', scrub:0.8 } });
             });
         }
     }
