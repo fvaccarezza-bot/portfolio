@@ -668,6 +668,7 @@ window.addEventListener('load', () => {
         // ── Cards: parallax desde los costados ──────────────────────────
         gsap.utils.toArray('.card').forEach((card, i) => {
             const fromLeft = i % 2 === 0;
+            gsap.set(card, { x: fromLeft ? -100 : 100 });
             gsap.to(card, {
                 x: 0,
                 ease: 'none',
@@ -676,7 +677,6 @@ window.addEventListener('load', () => {
                     start: 'top bottom',
                     end: 'top center',
                     scrub: 1.2,
-                    onEnter: () => gsap.set(card, { x: fromLeft ? -100 : 100 }),
                 }
             });
         });
