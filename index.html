@@ -747,55 +747,23 @@ window.addEventListener('load', () => {
             });
         });
         gsap.registerPlugin(ScrollTrigger);
-        // Cards: entran desde los costados — solo x, sin opacity
+        // Cards: entran desde los costados — scrub puro
         gsap.utils.toArray('.card').forEach((card, i) => {
             const fromLeft = i % 2 === 0;
             gsap.fromTo(card,
                 { x: fromLeft ? -60 : 60 },
                 {
                     x: 0,
-                    ease: 'power3.out',
-                    duration: 1.2,
+                    ease: 'none',
                     scrollTrigger: {
                         trigger: card,
-                        start: 'top 92%',
-                        toggleActions: 'play none none none',
+                        start: 'top 95%',
+                        end: 'top 35%',
+                        scrub: 2.5,
                     }
                 }
             );
         });
-
-        // Parallax scroll hero: letras + Portfolio + 2026
-        (function() {
-            const fedLetters = document.querySelectorAll('#line-federico .name-letter');
-            const vacLetters = document.querySelectorAll('#line-vaccarezza .name-letter');
-            const minTitles  = document.querySelectorAll('.ph-caption .min-titles');
-            const allLetters = document.querySelectorAll('.name-letter');
-
-            // Color transition: negro → naranja via filter
-            // Usamos GSAP para animar brightness/saturate con un hack de filter
-            // El truco: animar de filter:none a un sepia+hue-rotate que da naranja
-
-
-            const triggerCfg = {
-                trigger: '#page-header',
-                start: '8% top',
-                end: '80% top',        // más recorrido = más suave
-                scrub: 1.8,            // más inercia = sin snap tosco
-            };
-
-            function applyParallax(letters, centerIndex) {
-                letters.forEach((letter, i) => {
-                    const dist  = Math.abs(i - centerIndex);
-                    const yMove = -180 + dist * 18;   // más pronunciado: centro -180px, extremos -108px
-                    gsap.to(letter, {
-                        y: yMove,
-                        ease: 'none',
-                        scrollTrigger: {
-                            ...triggerCfg,
-                            scrub: 1.8 + dist * 0.3,
-                        }
-                    });
                 });
             }
 
