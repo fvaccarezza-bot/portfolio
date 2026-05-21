@@ -951,6 +951,7 @@
                                     position: relative;
                                     overflow: hidden;
                                     display: block;
+                                    border-radius: inherit;
                                 }
                                 .card .img-hover {
                                     position: absolute;
@@ -960,10 +961,12 @@
                                     object-fit: cover;
                                     opacity: 0;
                                     transform: scale(1);
-                                    transition: opacity 0.5s ease, transform 0.5s ease;
+                                    transition: opacity 0.8s ease, transform 0.8s ease;
+                                    border-radius: inherit;
                                 }
                                 .card .img-base {
-                                    transition: transform 0.5s ease;
+                                    transition: transform 0.8s ease;
+                                    border-radius: inherit;
                                 }
                                 .card:hover .img-hover {
                                     opacity: 1;
@@ -1251,14 +1254,24 @@
                     // Cursor VIEW + en cards - elemento separado
                     const viewCursor = document.createElement('div');
                     viewCursor.id = 'view-cursor';
-                    viewCursor.style.cssText = 'position:fixed;pointer-events:none;z-index:999998;opacity:0;display:flex;align-items:center;justify-content:center;gap:8px;padding:4px 12px;border-radius:10px;background:#FF6600;font-family:"PP Telegraf",sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;color:white;transform:translate(-50%,-50%);transition:opacity 0.3s ease;white-space:nowrap;';
-                    viewCursor.innerHTML = `<span>VIEW</span><img src="./assets/img/plus.svg" style="width:16px;height:16px;display:block;" />`;
+                    viewCursor.style.cssText = 'position:fixed;pointer-events:none;z-index:999998;opacity:0;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 12px;height:28px;border-radius:5px;background:#FF6600;font-family:"PP Telegraf",sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;color:white;transition:opacity 0.3s ease;white-space:nowrap;will-change:left,top;';
+                    viewCursor.innerHTML = `<span style="line-height:1;padding-left:0.5em;">VIEW</span><img src="./assets/img/plus.svg" style="width:16px;height:16px;display:block;flex-shrink:0;" />`;
                     document.body.appendChild(viewCursor);
 
+                    // Seguir al cursor con el mismo delay que el puntito
+                    let vcX = -200, vcY = -200, vcTargetX = -200, vcTargetY = -200;
                     document.addEventListener('mousemove', (e) => {
-                        viewCursor.style.left = e.clientX + 'px';
-                        viewCursor.style.top = e.clientY + 'px';
+                        vcTargetX = e.clientX;
+                        vcTargetY = e.clientY;
                     });
+                    (function animateViewCursor() {
+                        vcX += (vcTargetX - vcX) * 0.15;
+                        vcY += (vcTargetY - vcY) * 0.15;
+                        viewCursor.style.left = vcX + 'px';
+                        viewCursor.style.top = vcY + 'px';
+                        viewCursor.style.transform = `translate(-50%, -50%)`;
+                        requestAnimationFrame(animateViewCursor);
+                    })();
 
                     const fxCursor = document.querySelector('.fx-cursor');
                     const cards = document.querySelectorAll('.card');
