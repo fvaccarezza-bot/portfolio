@@ -606,7 +606,21 @@
                                         cursor: default;
                                         text-align: center;
                                     }
-                                    .services-big > img {
+                                    .hover-rise {
+                                        position: absolute;
+                                        top: 50%;
+                                        left: 50%;
+                                        transform: translate(-50%, -50%) scale(0.8) rotate(0deg);
+                                        width: 40%;
+                                        opacity: 0;
+                                        pointer-events: none;
+                                        transition: opacity 0.5s ease, transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                                        z-index: 0;
+                                    }
+                                    .services-big:hover .hover-rise {
+                                        opacity: 1;
+                                        transform: translate(-50%, -50%) scale(1.05) rotate(10deg);
+                                    }
                                         display: block;
                                         width: auto;
                                         max-width: 100%;
@@ -760,6 +774,7 @@
 
                                 <!-- texto grande con breathe -->
                                 <div class="services-big">
+                                    <img class="hover-rise" src="./assets/img/hover-rise.svg" alt="" />
                                     <img class="sb-line1" src="./assets/img/services-1.svg" alt="" />
                                     <img class="sb-line2" src="./assets/img/services-2.svg" alt="" />
                                     <img class="sb-line3" src="./assets/img/services-3.svg" alt="" />
