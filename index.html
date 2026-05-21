@@ -668,19 +668,20 @@ window.addEventListener('load', () => {
         // ── Cards: parallax desde los costados ──────────────────────────
         gsap.utils.toArray('.card').forEach((card, i) => {
             const fromLeft = i % 2 === 0;
-            gsap.fromTo(card,
-                { x: fromLeft ? -250 : 250 },
-                {
-                    x: 0,
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: card,
-                        start: 'top bottom',
-                        end: 'top 20%',
-                        scrub: true,
+            const xOffset = fromLeft ? -120 : 120;
+            gsap.to(card, {
+                x: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: card,
+                    start: 'top bottom',
+                    end: 'top 30%',
+                    scrub: 1.2,
+                    onUpdate: (self) => {
+                        gsap.set(card, { x: xOffset * (1 - self.progress) });
                     }
                 }
-            );
+            });
         });
 
         // ── Parallax hero ───────────────────────────────────────────────────
