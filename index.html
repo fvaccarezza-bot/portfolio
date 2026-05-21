@@ -312,8 +312,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
                     .services-btns-row a { width:200px; text-align:center; height:40px; display:flex; align-items:center; justify-content:center; border:none; border-radius:5px; text-decoration:none; color:#3A3A39; font-family:'PP Telegraf',sans-serif; font-size:16px; letter-spacing:0; box-sizing:border-box; background:transparent; background-image:url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='5' ry='5' stroke='%233A3A39' stroke-width='1.5' stroke-dasharray='8%2c8' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e"); transition:color 0.4s ease, background-color 0.4s ease; }
                     .services-btns-row a:hover { background-color:#3A3A39; background-image:none; color:#fff; }
                     .services-btns-connect { display:flex; width:100%; height:40px; align-items:center; justify-content:center; background:#FF6600; color:#fff; text-decoration:none; font-family:'PP Telegraf',sans-serif; font-size:16px; letter-spacing:0; box-sizing:border-box; border-radius:5px; position:relative; overflow:hidden; transition:color 0.4s ease; }
-                    .services-btns-connect::before { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%; background:#3A3A39; transition:left 0.5s cubic-bezier(0.76,0,0.24,1); z-index:0; }
-                    .services-btns-connect:hover::before { left:0; }
+                    .services-btns-connect::before { content:''; position:absolute; top:-100%; left:0; width:100%; height:100%; background:#3A3A39; transition:top 0.5s cubic-bezier(0.76,0,0.24,1); z-index:0; }
+                    .services-btns-connect:hover::before { top:0; }
                     .services-btns-connect span { position:relative; z-index:1; }
                 </style>
                 <div class="services-big">
@@ -339,7 +339,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
                     <a href="#contact" class="services-btns-connect"><span>Connect</span></a>
                 </div>
                 <div class="tt-row" style="margin-top:80px;">
-                    <div class="tt-col-md-6 d-flex-center flex-col max-width-full" style="max-width:1320px;width:100%;">
+                    <div class="tt-col-md-6 d-flex-center flex-col max-width-full" style="max-width:100%;width:100%;padding:0 40px;">
                         <h4 class="section-title" style="margin:0 auto 0 !important;padding-bottom:0 !important;">Trusted By:</h4>
                         <div style="height:64px;"></div>
                         <div class="trusted-container"><div class="trusted-track">
@@ -378,10 +378,16 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
                 #contact:hover .footer-ink.footer1 .footer-probe { transform:translateY(-40px); }
                 #contact:hover .footer-ink.footer2 .footer-probe { transform:translateY(-24px); }
                 #contact:hover .footer-ink.footer3 .footer-probe { transform:translateY(-12px); }
+                /* breathe en los links del footer */
+                .footer-contact-links a,
+                .footer-contact-socials a { transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+                #contact:hover .footer-col-left   a { transform: translateY(-12px); }
+                #contact:hover .footer-col-center a { transform: translateY(-8px); }
+                #contact:hover .footer-col-right  a { transform: translateY(-5px); }
                 .footer-contact-links { display:grid; grid-template-columns:1fr 1fr 1fr; width:100%; align-items:center; padding-bottom:24px; letter-spacing:0.5em; font-size:11px; position:relative; z-index:10; box-sizing:border-box; }
-                .card a.media, .card .pgi-image-holder { position:relative; overflow:hidden; display:block; border-radius:10px !important; }
-                .card .img-hover { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transform:scale(1); transition:opacity 1s ease, transform 1s ease; border-radius:10px; }
-                .card .img-base { transition:transform 1s ease; border-radius:10px; display:block; width:100%; }
+                .card a.media, .card .pgi-image-holder { position:relative; overflow:hidden; display:block; border-radius:10px 10px 0 0 !important; }
+                .card .img-hover { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transform:scale(1); transition:opacity 1s ease, transform 1s ease; border-radius:10px 10px 0 0; }
+                .card .img-base { transition:transform 1s ease; border-radius:10px 10px 0 0; display:block; width:100%; }
                 .card:hover .img-hover { opacity:1; transform:scale(1.02); }
                 .card:hover .img-base { transform:scale(1.02); }
                 .card .meta h3 { letter-spacing:0.5em; text-transform:uppercase; }
@@ -540,79 +546,35 @@ window.addEventListener('load', () => {
             card.addEventListener('mouseleave', () => {
                 viewCursor.style.opacity = '0';
                 if (fxCursor) { fxCursor.style.filter='blur(0px)'; fxCursor.style.opacity='1'; fxCursor.style.transition='opacity 0.3s ease, filter 0.3s ease'; }
+                // reset tilt
+                card.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg)';
+                card.style.transition = 'transform 0.6s cubic-bezier(0.34,1.5,0.9,1)';
+            });
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const cx = rect.left + rect.width  / 2;
+                const cy = rect.top  + rect.height / 2;
+                const dx = (e.clientX - cx) / (rect.width  / 2);
+                const dy = (e.clientY - cy) / (rect.height / 2);
+                // tilt muy sutil: max 3deg
+                card.style.transform = 'perspective(800px) rotateX(' + (-dy * 3) + 'deg) rotateY(' + (dx * 3) + 'deg)';
+                card.style.transition = 'transform 0.15s ease';
             });
         });
-        // Efecto CALL ME / WRITE ME: lift + imagen flotante al hover
-        (function() {
-            const links = document.querySelectorAll('.footer-contact-links a.footer-roll');
-
-            // Crear el preview flotante
-            const preview = document.createElement('div');
-            preview.id = 'footer-preview';
-            preview.style.cssText = [
-                'position:fixed',
-                'pointer-events:none',
-                'z-index:999997',
-                'opacity:0',
-                'width:220px',
-                'height:160px',
-                'border-radius:12px',
-                'overflow:hidden',
-                'transition:opacity 0.35s ease',
-                'will-change:left,top',
-                'box-shadow:0 8px 32px rgba(0,0,0,0.18)'
-            ].join(';');
-
-            // Dos imágenes, una por cada botón
-            const imgs = {
-                'CALL ME':  './assets/home/frogbazar.jpg',
-                'WRITE ME': './assets/home/estudio32.jpg'
-            };
-
-            const img = document.createElement('img');
-            img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
-            preview.appendChild(img);
-            document.body.appendChild(preview);
-
-            // Seguimiento suave del cursor
-            let px = -300, py = -300, tx = -300, ty = -300;
-            (function loop() {
-                px += (tx - px) * 0.12;
-                py += (ty - py) * 0.12;
-                preview.style.left = px + 'px';
-                preview.style.top  = py + 'px';
-                preview.style.transform = 'translate(-50%, -60%)';
-                requestAnimationFrame(loop);
-            })();
-
-            document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
-
-            links.forEach(btn => {
-                const label = btn.textContent.trim();
-
-                btn.addEventListener('mouseenter', () => {
-                    img.src = imgs[label] || imgs['CALL ME'];
-                    preview.style.opacity = '1';
-                    // lift sutil
-                    btn.style.transform = 'translateY(-4px)';
-                    btn.style.transition = 'transform 0.4s cubic-bezier(0.34,1.5,0.9,1)';
-                });
-
-                btn.addEventListener('mouseleave', () => {
-                    preview.style.opacity = '0';
-                    btn.style.transform = 'translateY(0)';
-                    btn.style.transition = 'transform 0.5s cubic-bezier(0.34,1.5,0.9,1)';
-                });
-
-                // magnético suave también
-                btn.addEventListener('mousemove', e => {
-                    const rect = btn.getBoundingClientRect();
-                    const dx = (e.clientX - (rect.left + rect.width/2))  * 0.12;
-                    const dy = (e.clientY - (rect.top  + rect.height/2)) * 0.12;
-                    btn.style.transform = 'translate(' + dx + 'px,' + (dy - 4) + 'px)';
-                });
+        // CALL ME / WRITE ME: magnético suave
+        document.querySelectorAll('.footer-contact-links a').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const dx = (e.clientX - (rect.left + rect.width/2))  * 0.12;
+                const dy = (e.clientY - (rect.top  + rect.height/2)) * 0.12;
+                btn.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+                btn.style.transition = 'transform 0.3s ease';
             });
-        })();
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0,0)';
+                btn.style.transition = 'transform 0.6s cubic-bezier(0.34,1.5,0.9,1)';
+            });
+        });
         gsap.registerPlugin(ScrollTrigger);
         // parallax cards removido
 
