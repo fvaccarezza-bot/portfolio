@@ -6,6 +6,7 @@
   // ── ENTRADA: si venimos de una card (slide), animar desde abajo ───────────
   // sessionStorage.js ya borró vt_mode pero copió el valor a dataset.vtMode
   const vtMode = document.documentElement.dataset.vtMode;
+
   if (vtMode === "slide") {
     preloader.classList.add("is-entering");
     if (underlay) underlay.classList.add("is-entering");
@@ -13,7 +14,13 @@
     preloader.addEventListener("animationend", (e) => {
       if (e.animationName !== "preloader-in") return;
       preloader.classList.remove("is-entering");
-      if (underlay) underlay.classList.remove("is-entering");
+      preloader.style.transform = '';
+      if (underlay) {
+        underlay.classList.remove("is-entering");
+        underlay.style.transform = '';
+      }
+      // Mostrar página después de que el loader entró
+      document.body.classList.add('is-ready');
     }, { once: true });
   }
 
@@ -69,6 +76,7 @@
     preloader?.remove();
     underlay?.remove();
     document.documentElement.classList.remove("no-scroll");
+    document.body.classList.add('is-ready');
   };
 
   const finish = () => {
