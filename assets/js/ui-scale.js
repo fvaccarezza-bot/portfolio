@@ -8,18 +8,11 @@
 (function () {
   const CFG = {
     breakpointOff: 960,
-
     baseWNonRetina: 1730,
     baseWRetina: 1400,
-
-    // Máximo scale para ultrawide (1 = sin crecer, 1.4 = crece hasta 40%)
-    maxScale: 1.35,
-
     requireFinePointer: true,
-
     htmlOnClass: "ui-scale-on",
     rootSelector: "#scroll-container",
-
     eps: 0.0005,
   };
 
@@ -104,8 +97,7 @@
     const retina = isRetinaDesktop();
     const baseW = retina ? CFG.baseWRetina : CFG.baseWNonRetina;
 
-    // ← CAMBIO: permitir scale > 1 para ultrawide, hasta maxScale
-    const scale = clamp(vw / baseW, 0, CFG.maxScale);
+    const scale = clamp(vw / baseW, 0, 1);
 
     enable(baseW, scale);
   }
