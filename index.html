@@ -576,8 +576,8 @@ window.addEventListener('load', () => {
             }
         );
         const revealElements = [
-            { selector: '.section-title', start: 'top 95%' },
-            { selector: '.section-title + span', start: 'top 95%' },
+            { selector: '.section-title', start: 'top 90%' },
+            { selector: '.section-title + span', start: 'top 85%' },
             // .card manejado por efecto cierre
             { selector: '.services-grid-item', start: 'top 90%' },
             { selector: '.services-btns', start: 'top 90%' },
@@ -768,22 +768,21 @@ window.addEventListener('load', () => {
             });
         });
         gsap.registerPlugin(ScrollTrigger);
-        // Cards: entran desde los costados hacia el centro (efecto cierre)
+        // Cards: entran desde los costados ligado al scroll (scrub)
         gsap.utils.toArray('.card').forEach((card, i) => {
             const fromLeft = i % 2 === 0;
             gsap.fromTo(card,
-                { x: fromLeft ? -80 : 80, opacity: 0 },
+                { x: fromLeft ? -60 : 60, opacity: 0 },
                 {
                     x: 0,
                     opacity: 1,
-                    duration: 0.8,
-                    ease: 'power3.out',
+                    ease: 'none',
                     scrollTrigger: {
                         trigger: card,
-                        start: 'top 88%',
-                        toggleActions: 'play none none none',
-                    },
-                    delay: (i % 2) * 0.08
+                        start: 'top 95%',
+                        end: 'top 55%',
+                        scrub: 1.5,
+                    }
                 }
             );
         });
