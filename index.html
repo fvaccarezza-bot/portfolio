@@ -1229,28 +1229,38 @@
 
                     cards.forEach(card => {
                         card.addEventListener('mouseenter', () => {
-                            cursor.style.cssText = `
-                                width: 114px;
-                                height: 36px;
-                                border-radius: 10px;
-                                background: #FF6600;
-                                display: flex;
-                                align-items: center;
-                                justify-content: center;
-                                gap: 8px;
-                                font-family: 'PP Telegraf', sans-serif;
-                                font-size: 11px;
-                                font-weight: 400;
-                                letter-spacing: 0.5em;
-                                color: white;
-                                transform: translate3d(var(--x, -100px), var(--y, -100px), 0) translate(-50%, -50%);
-                                transition: width 0.3s ease, height 0.3s ease, border-radius 0.3s ease;
-                            `;
-                            cursor.innerHTML = `VIEW <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="16" height="16" rx="4" stroke="white" stroke-width="1.5"/><line x1="9" y1="5" x2="9" y2="13" stroke="white" stroke-width="1.5" stroke-linecap="round"/><line x1="5" y1="9" x2="13" y2="9" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>`;
+                            cursor.style.width = '114px';
+                            cursor.style.height = '36px';
+                            cursor.style.borderRadius = '10px';
+                            cursor.style.background = '#FF6600';
+                            cursor.style.display = 'flex';
+                            cursor.style.alignItems = 'center';
+                            cursor.style.justifyContent = 'center';
+                            cursor.style.gap = '8px';
+                            cursor.style.fontFamily = "'PP Telegraf', sans-serif";
+                            cursor.style.fontSize = '14px';
+                            cursor.style.fontWeight = '400';
+                            cursor.style.letterSpacing = '0.5em';
+                            cursor.style.color = 'white';
+                            cursor.style.transition = 'width 0.3s ease, height 0.3s ease, border-radius 0.3s ease';
+                            cursor.innerHTML = `<span style="letter-spacing:0.5em;font-family:'PP Telegraf',sans-serif;font-size:14px;color:white;">VIEW</span><img src="./assets/img/plus.svg" style="width:18px;height:18px;" />`;
                         });
 
                         card.addEventListener('mouseleave', () => {
-                            cursor.style.cssText = '';
+                            cursor.style.width = '10px';
+                            cursor.style.height = '10px';
+                            cursor.style.borderRadius = '50%';
+                            cursor.style.background = '#ff6600';
+                            cursor.style.display = '';
+                            cursor.style.alignItems = '';
+                            cursor.style.justifyContent = '';
+                            cursor.style.gap = '';
+                            cursor.style.fontFamily = '';
+                            cursor.style.fontSize = '';
+                            cursor.style.fontWeight = '';
+                            cursor.style.letterSpacing = '';
+                            cursor.style.color = '';
+                            cursor.style.transition = 'width 0.3s ease, height 0.3s ease, border-radius 0.3s ease';
                             cursor.innerHTML = '';
                         });
                     });
