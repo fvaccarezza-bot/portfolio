@@ -71,13 +71,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     -webkit-text-stroke: 0 !important;
     text-decoration: none !important;
 }
-/* hover breathe sutil en letras */
-.name-letter {
-    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
-}
-.home-title:hover .name-letter {
-    transform: translateY(-6px) scale(1.03) !important;
-}
+
 #modal-works .modal__dialog { display:flex; flex-direction:column; align-items:center; justify-content:center; }
 #modal-works .content { justify-content:center !important; align-items:center !important; }
 .tt-wrap { max-width: min(1320px, 91.67vw) !important; }
@@ -782,23 +776,7 @@ window.addEventListener('load', () => {
             // Color transition: negro → naranja via filter
             // Usamos GSAP para animar brightness/saturate con un hack de filter
             // El truco: animar de filter:none a un sepia+hue-rotate que da naranja
-            // Transición de color negro → naranja via CSS filter en las letras
-            const allLetters2 = document.querySelectorAll('.name-letter');
-            allLetters2.forEach(letter => {
-                gsap.fromTo(letter,
-                    { filter: 'brightness(1) sepia(0) saturate(1) hue-rotate(0deg) invert(0%)' },
-                    {
-                        filter: 'invert(40%) sepia(1) saturate(6) hue-rotate(349deg) brightness(1.1)',
-                        ease: 'none',
-                        scrollTrigger: {
-                            trigger: '#page-header',
-                            start: 'top top',
-                            end: '60% top',
-                            scrub: 0.6,
-                        }
-                    }
-                );
-            });
+
 
             const triggerCfg = {
                 trigger: '#page-header',
