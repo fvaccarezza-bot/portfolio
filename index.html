@@ -947,11 +947,12 @@
                                 }
 
                                 /* dissolve + scale en cards al hover */
-                                .card a.media {
+                                .card a.media,
+                                .card .pgi-image-holder {
                                     position: relative;
                                     overflow: hidden;
                                     display: block;
-                                    border-radius: 10px;
+                                    border-radius: 10px !important;
                                 }
                                 .card .img-hover {
                                     position: absolute;
@@ -1257,7 +1258,7 @@
                     const viewCursor = document.createElement('div');
                     viewCursor.id = 'view-cursor';
                     viewCursor.style.cssText = 'position:fixed;pointer-events:none;z-index:999998;opacity:0;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 12px;height:28px;border-radius:5px;background:#FF6600;font-family:"PP Telegraf",sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;color:white;transition:opacity 0.3s ease;white-space:nowrap;will-change:left,top;';
-                    viewCursor.innerHTML = `<span style="line-height:1;letter-spacing:0.5em;padding-left:0.5em;margin-right:-0.5em;">VIEW</span><img src="./assets/img/plus.svg" style="width:16px;height:16px;display:block;flex-shrink:0;margin-left:6px;" />`;
+                    viewCursor.innerHTML = `<span style="line-height:1;letter-spacing:0.5em;padding-left:0.5em;margin-right:-0.5em;margin-top:2px;">VIEW</span><img src="./assets/img/plus.svg" style="width:16px;height:16px;display:block;flex-shrink:0;margin-left:6px;" />`;
                     document.body.appendChild(viewCursor);
 
                     // Seguir al cursor con el mismo delay que el puntito
@@ -1280,56 +1281,36 @@
                     cards.forEach(card => {
                         card.addEventListener('mouseenter', () => {
                             viewCursor.style.opacity = '1';
-                            if (fxCursor) fxCursor.style.opacity = '0';
+                            if (fxCursor) {
+                                fxCursor.style.filter = 'blur(4px)';
+                                fxCursor.style.opacity = '0';
+                                fxCursor.style.transition = 'opacity 0.3s ease, filter 0.3s ease';
+                            }
                         });
                         card.addEventListener('mouseleave', () => {
                             viewCursor.style.opacity = '0';
-                            if (fxCursor) fxCursor.style.opacity = '1';
+                            if (fxCursor) {
+                                fxCursor.style.filter = 'blur(0px)';
+                                fxCursor.style.opacity = '1';
+                                fxCursor.style.transition = 'opacity 0.3s ease, filter 0.3s ease';
+                            }
                         });
                     });
 
-                    // Stagger letter flip en menú
-                    document.querySelectorAll('.tt-main-menu-list > li > a').forEach(link => {
-                        const text = link.textContent.trim();
-                        link.innerHTML = text.split('').map(char => 
-                            `<span class="menu-letter" style="display:inline-block;transition:transform 0.3s ease,opacity 0.3s ease;">${char === ' ' ? '&nbsp;' : char}</span>`
-                        ).join('');
-
-                        link.addEventListener('mouseenter', () => {
-                            const letters = link.querySelectorAll('.menu-letter');
-                            letters.forEach((letter, i) => {
-                                const delay = (letters.length - 1 - i) * 0.04;
-                                letter.style.transitionDelay = delay + 's';
-                                letter.style.transform = 'translateY(-100%)';
-                                letter.style.opacity = '0';
-                                setTimeout(() => {
-                                    letter.style.transform = 'translateY(0)';
-                                    letter.style.opacity = '1';
-                                }, delay * 1000 + 50);
-                            });
-                        });
-
-                        link.addEventListener('mouseleave', () => {
-                            link.querySelectorAll('.menu-letter').forEach(letter => {
-                                letter.style.transitionDelay = '0s';
-                                letter.style.transform = 'translateY(0)';
-                                letter.style.opacity = '1';
-                            });
-                        });
-                    });
+                    // Efecto magnético suave en CALL ME y WRITE ME
                     document.querySelectorAll('.footer-contact-links a').forEach(btn => {
                         btn.addEventListener('mousemove', (e) => {
                             const rect = btn.getBoundingClientRect();
                             const cx = rect.left + rect.width / 2;
                             const cy = rect.top + rect.height / 2;
-                            const dx = (e.clientX - cx) * 0.25;
-                            const dy = (e.clientY - cy) * 0.25;
+                            const dx = (e.clientX - cx) * 0.15;
+                            const dy = (e.clientY - cy) * 0.15;
                             btn.style.transform = `translate(${dx}px, ${dy}px)`;
-                            btn.style.transition = 'transform 0.15s ease';
+                            btn.style.transition = 'transform 0.3s ease';
                         });
                         btn.addEventListener('mouseleave', () => {
                             btn.style.transform = 'translate(0, 0)';
-                            btn.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.5, 0.9, 1)';
+                            btn.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.5, 0.9, 1)';
                         });
                     });
 
