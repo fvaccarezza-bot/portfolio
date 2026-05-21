@@ -575,27 +575,7 @@ window.addEventListener('load', () => {
               }
             }
         );
-        const revealElements = [
-            { selector: '.section-title', start: 'top 90%' },
-            { selector: '.section-title + span', start: 'top 85%' },
-            // .card manejado por efecto cierre
-            { selector: '.services-grid-item', start: 'top 90%' },
-            { selector: '.services-btns', start: 'top 90%' },
-            { selector: '.trusted-track', start: 'top 90%' },
-            { selector: '.verbatim', start: 'top 90%' },
-            { selector: '.services-big', start: 'top 95%' },
-            { selector: '.info p', start: 'top 90%' },
-            { selector: '.photo', start: 'top 90%' },
-            { selector: 'footer .tt-section-inner', start: 'top 90%' },
-            { selector: '.footer-contact-links', start: 'top 90%' },
-        ];
-        revealElements.forEach(({ selector, start }) => {
-            gsap.utils.toArray(selector).forEach((el, i) => {
-                gsap.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.9, ease: 'power2.out',
-                    scrollTrigger: { trigger: el, start: start, toggleActions: 'play none none none' },
-                    delay: (i % 4) * 0.08
-                });
-            });
+        // reveal removido
         });
         const viewCursor = document.createElement('div');
         viewCursor.id = 'view-cursor';
@@ -768,21 +748,22 @@ window.addEventListener('load', () => {
             });
         });
         gsap.registerPlugin(ScrollTrigger);
-        // Cards: entran desde los costados ligado al scroll (scrub)
+        // Cards: entran desde los costados
         gsap.utils.toArray('.card').forEach((card, i) => {
             const fromLeft = i % 2 === 0;
             gsap.fromTo(card,
-                { x: fromLeft ? -60 : 60, opacity: 0 },
+                { x: fromLeft ? -50 : 50, opacity: 0 },
                 {
                     x: 0,
                     opacity: 1,
-                    ease: 'none',
+                    ease: 'power2.out',
+                    duration: 1,
                     scrollTrigger: {
                         trigger: card,
-                        start: 'top 95%',
-                        end: 'top 55%',
-                        scrub: 1.5,
-                    }
+                        start: 'top 92%',
+                        toggleActions: 'play none none none',
+                    },
+                    delay: i % 2 === 0 ? 0 : 0.1,
                 }
             );
         });
