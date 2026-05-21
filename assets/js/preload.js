@@ -4,7 +4,8 @@
   if (!preloader) return;
 
   // ── ENTRADA: si venimos de una card (slide), animar desde abajo ───────────
-  const vtMode = sessionStorage.getItem("vt_mode");
+  // sessionStorage.js ya borró vt_mode pero copió el valor a dataset.vtMode
+  const vtMode = document.documentElement.dataset.vtMode;
   if (vtMode === "slide") {
     preloader.classList.add("is-entering");
     if (underlay) underlay.classList.add("is-entering");
