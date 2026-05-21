@@ -615,6 +615,38 @@ window.addEventListener('load', () => {
         })();
         gsap.registerPlugin(ScrollTrigger);
         // parallax cards removido
+
+        // Parallax scroll hero: letras suben desde el centro hacia los costados
+        (function() {
+            // FEDERICO: F E D E R I C O  (índices 0-7, centro = entre 3 y 4)
+            // Distancia al centro → más lejos = más delay, menos y
+            const fedLetters = document.querySelectorAll('#line-federico .name-letter');
+            const vacLetters = document.querySelectorAll('#line-vaccarezza .name-letter');
+
+            function applyParallax(letters, centerIndex) {
+                letters.forEach((letter, i) => {
+                    const dist = Math.abs(i - centerIndex); // 0=centro, mayor=extremo
+                    const yMove   = -120 + dist * 15;  // centro sube más, extremos menos
+                    const delay   = dist * 0.04;        // extremos se retrasan
+
+                    gsap.to(letter, {
+                        y: yMove,
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: '#page-header',
+                            start: 'top top',
+                            end: 'bottom top',
+                            scrub: 1.5 + dist * 0.2,  // extremos más suaves
+                        }
+                    });
+                });
+            }
+
+            // FEDERICO: 8 letras, centro entre índice 3 y 4 → centerIndex 3.5
+            applyParallax(fedLetters, 3.5);
+            // VACCAREZZA: 10 letras, centro entre índice 4 y 5 → centerIndex 4.5
+            applyParallax(vacLetters, 4.5);
+        })();
         const servicesBig = document.querySelector('.services-big');
         if (servicesBig) {
             [['.sb-line1',-120],['.sb-line2',-80],['.sb-line3',-50],['.sb-tag1',-30],['.sb-tag2',-15]].forEach(([sel,y]) => {
