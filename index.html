@@ -666,20 +666,23 @@ window.addEventListener('load', () => {
         gsap.registerPlugin(ScrollTrigger);
 
         // ── Cards: parallax desde los costados ──────────────────────────
-        gsap.utils.toArray('.card').forEach((card, i) => {
-            const fromLeft = i % 2 === 0;
-            gsap.set(card, { x: fromLeft ? -100 : 100 });
-            gsap.to(card, {
-                x: 0,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: card,
-                    start: 'top bottom',
-                    end: 'top center',
-                    scrub: 1.2,
-                }
+        const gallery = document.querySelector('.gallery');
+        if (gallery) {
+            gsap.utils.toArray('.card').forEach((card, i) => {
+                const fromLeft = i % 2 === 0;
+                gsap.set(card, { x: fromLeft ? -100 : 100 });
+                gsap.to(card, {
+                    x: 0,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: gallery,
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: 1.2,
+                    }
+                });
             });
-        });
+        }
 
         // ── Parallax hero ───────────────────────────────────────────────────
         (function() {
