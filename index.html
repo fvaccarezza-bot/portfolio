@@ -1272,7 +1272,6 @@
                             if (fxCursor) fxCursor.style.opacity = '1';
                         });
                     });
-                    gsap.utils.toArray('.card').forEach((card, i) => {
 
                     // Efecto magnético en CALL ME y WRITE ME
                     document.querySelectorAll('.footer-contact-links a').forEach(btn => {
@@ -1291,6 +1290,8 @@
                         });
                     });
 
+                    // Parallax desfasado en cards
+                    gsap.registerPlugin(ScrollTrigger);
                     gsap.utils.toArray('.card').forEach((card, i) => {
                         const isLeft = i % 2 === 0;
                         gsap.to(card, {
@@ -1304,7 +1305,8 @@
                             }
                         });
                     });
-                    gsap.registerPlugin(ScrollTrigger);
+
+                    // Parallax scroll en services-big
                     const servicesBig = document.querySelector('.services-big');
                     if (servicesBig) {
                         [
