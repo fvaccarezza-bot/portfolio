@@ -951,7 +951,7 @@
                                     position: relative;
                                     overflow: hidden;
                                     display: block;
-                                    border-radius: inherit;
+                                    border-radius: 10px;
                                 }
                                 .card .img-hover {
                                     position: absolute;
@@ -961,19 +961,21 @@
                                     object-fit: cover;
                                     opacity: 0;
                                     transform: scale(1);
-                                    transition: opacity 0.8s ease, transform 0.8s ease;
-                                    border-radius: inherit;
+                                    transition: opacity 1s ease, transform 1s ease;
+                                    border-radius: 10px;
                                 }
                                 .card .img-base {
-                                    transition: transform 0.8s ease;
-                                    border-radius: inherit;
+                                    transition: transform 1s ease;
+                                    border-radius: 10px;
+                                    display: block;
+                                    width: 100%;
                                 }
                                 .card:hover .img-hover {
                                     opacity: 1;
-                                    transform: scale(1.04);
+                                    transform: scale(1.02);
                                 }
                                 .card:hover .img-base {
-                                    transform: scale(1.04);
+                                    transform: scale(1.02);
                                 }
                                 .card .meta h3 {
                                     letter-spacing: 0.5em;
@@ -1255,7 +1257,7 @@
                     const viewCursor = document.createElement('div');
                     viewCursor.id = 'view-cursor';
                     viewCursor.style.cssText = 'position:fixed;pointer-events:none;z-index:999998;opacity:0;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 12px;height:28px;border-radius:5px;background:#FF6600;font-family:"PP Telegraf",sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;color:white;transition:opacity 0.3s ease;white-space:nowrap;will-change:left,top;';
-                    viewCursor.innerHTML = `<span style="line-height:1;padding-left:0.5em;">VIEW</span><img src="./assets/img/plus.svg" style="width:16px;height:16px;display:block;flex-shrink:0;" />`;
+                    viewCursor.innerHTML = `<span style="line-height:1;letter-spacing:0.5em;padding-left:0.5em;margin-right:-0.5em;">VIEW</span><img src="./assets/img/plus.svg" style="width:16px;height:16px;display:block;flex-shrink:0;margin-left:6px;" />`;
                     document.body.appendChild(viewCursor);
 
                     // Seguir al cursor con el mismo delay que el puntito
@@ -1286,7 +1288,35 @@
                         });
                     });
 
-                    // Efecto magnético en CALL ME y WRITE ME
+                    // Stagger letter flip en menú
+                    document.querySelectorAll('.tt-main-menu-list > li > a').forEach(link => {
+                        const text = link.textContent.trim();
+                        link.innerHTML = text.split('').map(char => 
+                            `<span class="menu-letter" style="display:inline-block;transition:transform 0.3s ease,opacity 0.3s ease;">${char === ' ' ? '&nbsp;' : char}</span>`
+                        ).join('');
+
+                        link.addEventListener('mouseenter', () => {
+                            const letters = link.querySelectorAll('.menu-letter');
+                            letters.forEach((letter, i) => {
+                                const delay = (letters.length - 1 - i) * 0.04;
+                                letter.style.transitionDelay = delay + 's';
+                                letter.style.transform = 'translateY(-100%)';
+                                letter.style.opacity = '0';
+                                setTimeout(() => {
+                                    letter.style.transform = 'translateY(0)';
+                                    letter.style.opacity = '1';
+                                }, delay * 1000 + 50);
+                            });
+                        });
+
+                        link.addEventListener('mouseleave', () => {
+                            link.querySelectorAll('.menu-letter').forEach(letter => {
+                                letter.style.transitionDelay = '0s';
+                                letter.style.transform = 'translateY(0)';
+                                letter.style.opacity = '1';
+                            });
+                        });
+                    });
                     document.querySelectorAll('.footer-contact-links a').forEach(btn => {
                         btn.addEventListener('mousemove', (e) => {
                             const rect = btn.getBoundingClientRect();
