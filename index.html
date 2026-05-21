@@ -451,9 +451,8 @@ document.addEventListener('click', function(e) {
                 #contact:hover .footer-col-center a { transform: translateY(-8px); }
                 #contact:hover .footer-col-right  a { transform: translateY(-5px); }
                 .footer-contact-links { display:grid; grid-template-columns:1fr 1fr 1fr; width:100%; align-items:center; padding-bottom:24px; letter-spacing:0.5em; font-size:11px; position:relative; z-index:10; box-sizing:border-box; }
-                .card a.media, .card .pgi-image-holder { position:relative; overflow:hidden; display:block; border-radius:10px 10px 0 0 !important; transform: translateZ(0); }
-                .card { border-radius:10px 10px 0 0; }
-                .card > a.media { clip-path: inset(0 round 10px 10px 0px 0px); }
+                .card a.media, .card .pgi-image-holder { position:relative; overflow:hidden; display:block; border-radius:10px 10px 0 0 !important; isolation:isolate; will-change:transform; }
+                .card { border-radius:10px 10px 0 0; overflow:hidden; }
                 .card .meta { padding-top: 14px; } .card .meta h3, .card .meta p { transform: none !important; }
                 .card .img-hover { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transform:scale(1); transition:opacity 1s ease, transform 1s ease; }
                 .card .img-base { transition:transform 1s ease; display:block; width:100%; }
@@ -584,7 +583,7 @@ window.addEventListener('load', () => {
         const viewCursor = document.createElement('div');
         viewCursor.id = 'view-cursor';
         viewCursor.style.cssText = 'position:fixed;pointer-events:none;z-index:999998;opacity:0;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 12px;height:28px;border-radius:5px;background:#FF6600;font-family:"PP Telegraf",sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;color:white;transition:opacity 0.3s ease;white-space:nowrap;will-change:left,top;';
-        viewCursor.innerHTML = '<span style="line-height:1;letter-spacing:0.5em;padding-left:0.5em;margin-right:-0.5em;margin-top:2px;">VIEW</span><img src="./assets/img/plus.svg" style="width:16px;height:16px;display:block;flex-shrink:0;margin-left:6px;" />';
+        viewCursor.innerHTML = '<span style="line-height:1;letter-spacing:0.5em;padding-left:0.5em;margin-right:-0.5em;position:relative;top:1px;">VIEW</span><img src="./assets/img/plus.svg" style="width:16px;height:16px;display:block;flex-shrink:0;margin-left:6px;" />';
         document.body.appendChild(viewCursor);
 
         let vcX = -200, vcY = -200, vcTargetX = -200, vcTargetY = -200;
