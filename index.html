@@ -42,12 +42,18 @@
                 align-items: center;
                 gap: 36px;
             }
+
+            /* las líneas Federico y Vaccarezza: siempre flex horizontal */
             .name-line {
-                display: flex;
+                display: flex !important;
+                flex-direction: row !important;
                 align-items: flex-end;
                 justify-content: center;
                 gap: 0;
+                transform: translateY(0px);
+                transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             }
+
             .name-letter {
                 display: block;
                 height: 143px;
@@ -67,23 +73,24 @@
                 transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             }
 
-            /* Federico y Vaccarezza */
-            .home-title span {
-                display: block;
-                transform: translateY(0px);
-                transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            }
-
             /* sin color en hover */
             .home-title,
             .home-title:hover,
             .home-title:focus,
-            .home-title span,
-            .home-title:hover span,
-            .home-title:focus span {
+            .home-title .name-line,
+            .home-title:hover .name-line,
+            .home-title:focus .name-line {
                 color: inherit !important;
                 -webkit-text-stroke: 0 !important;
                 text-decoration: none !important;
+            }
+
+            /* sin stroke en Portfolio y 2026 siempre */
+            .ph-caption .min-titles,
+            .ph-caption-hover:hover .min-titles,
+            .ph-caption .min-titles:hover {
+                -webkit-text-stroke: 0 !important;
+                text-stroke: 0 !important;
             }
 
             /* modal works centrado */
@@ -116,12 +123,6 @@
             #services .words-container {
                 margin-top: 0 !important;
             }
-            .ph-caption .min-titles,
-            .ph-caption-hover:hover .min-titles,
-            .ph-caption .min-titles:hover {
-                -webkit-text-stroke: 0 !important;
-                text-stroke: 0 !important;
-            }
 
             .home-title span img {
                 display: block;
@@ -130,28 +131,11 @@
                 margin: 0 auto;
             }
 
-            /* breathe hover */
+            /* breathe hover — apunta a .name-line ahora */
             .ph-caption-hover:hover .min-titles:first-child { transform: translateY(-40px); }
-            .ph-caption-hover:hover .home-title span:nth-child(1) { transform: translateY(-28px); }
-            .ph-caption-hover:hover .home-title span:nth-child(2) { transform: translateY(-16px); }
-            .ph-caption-hover:hover .min-titles:last-child { transform: translateY(-6px); }
-
-            /* hover: parallax — los de arriba suben más, los de abajo menos */
-            .ph-caption-hover:hover .min-titles:first-child {
-                transform: translateY(-40px);
-            }
-
-            .ph-caption-hover:hover .home-title span:nth-child(1) {
-                transform: translateY(-28px);
-            }
-
-            .ph-caption-hover:hover .home-title span:nth-child(2) {
-                transform: translateY(-16px);
-            }
-
-            .ph-caption-hover:hover .min-titles:last-child {
-                transform: translateY(-6px);
-            }
+            .ph-caption-hover:hover .name-line:nth-child(1) { transform: translateY(-28px); }
+            .ph-caption-hover:hover .name-line:nth-child(2) { transform: translateY(-16px); }
+            .ph-caption-hover:hover .min-titles:last-child  { transform: translateY(-6px); }
         </style>
 
         <link rel="preload" href="./assets/fonts/PPTelegraf-Regular.woff2" as="font" type="font/woff2" crossorigin />
@@ -1032,368 +1016,4 @@
                                 .footer-contact-links a:hover { opacity: 1; }
                                 .footer-contact-socials { display: flex; gap: 20px; align-items: center; justify-content: flex-end; }
                                 .footer-contact-socials img { 
-                                    width: 22px; 
-                                    height: 22px;
-                                    filter: invert(21%) sepia(5%) saturate(200%) hue-rotate(10deg) brightness(95%);
-                                }
-                            </style>
-
-                            <div class="tt-section-inner tt-wrap">
-                                <div class="footer-contact-links">
-                                    <div class="footer-col-left">
-                                        <a href="https://calendly.com/fvaccarezza/intro-call" target="_blank" class="footer-roll">CALL ME</a>
-                                    </div>
-                                    <div class="footer-col-center">
-                                        <a href="mailto:fvaccarezza@gmail.com" class="footer-roll">WRITE ME</a>
-                                    </div>
-                                    <div class="footer-col-right footer-contact-socials">
-                                        <a href="https://www.behance.net/Vaccarezza" target="_blank"><img src="./assets/img/social-behance.svg" alt="Behance" /></a>
-                                        <a href="https://dribbble.com/Vaccarezza" target="_blank"><img src="./assets/img/social-dribble.svg" alt="Dribbble" /></a>
-                                        <a href="https://vsco.co/fedevaccarezza/" target="_blank"><img src="./assets/img/social-vsco.svg" alt="VSCO" /></a>
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-                        </footer>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <!-- MODAL Process -->
-        <div class="modal-simple submmodal" id="modal-process" role="dialog" aria-modal="true" aria-hidden="true">
-            <div class="modal__backdrop" data-modal-close></div>
-            <div class="modal__dialog" role="document">
-                <div class="bg-vectors" id="bg-vectors-5">
-                    <div class="pos bottom-left">
-                        <img src="./assets/img/bg-lines/modal-bg1.svg" />
-                    </div>
-                    <div class="pos top-right">
-                        <img src="./assets/img/bg-lines/modal-bg2.svg" />
-                    </div>
-                </div>
-                <header>
-                    <h3 class="section-title">PROCESS</h3>
-                    <a href="#" data-modal-close class="submodal-close">
-                        <img src="./assets/img/icon-close.svg" alt="">
-                    </a>
-                </header>
-                <div class="content">
-                    <div class="modal-item">
-                        <div>
-                            <p><strong>(01)</strong> Discovery & Research</p>
-                            <p class="ans">
-                                It all starts with getting to know your needs. I dive into your goals and audience,
-                                making sure we're clear on the vision and direction.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="modal-item">
-                        <div>
-                            <p><strong>(02)</strong> Concept & Ideation</p>
-                            <p class="ans">
-                                Time to brainstorm! I sketch out ideas and share early concepts to get your input,
-                                so we're aligned from the start.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="modal-item">
-                        <div>
-                            <p><strong>(03)</strong> Design & Development</p>
-                            <p class="ans">
-                                I bring the design to life, from wireframes to the final look. Your feedback helps
-                                me fine-tune until everything's just right.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="modal-item">
-                        <div>
-                            <p><strong>(04)</strong> Review & Delivery</p>
-                            <p class="ans">
-                                I'll walk you through the final design, make any last tweaks, and hand over all the
-                                files. I'm here if you need further support, too!
-                            </p>
-                        </div>
-                    </div>
-                    <a href="#" data-modal-close class="close">Close</a>
-                </div>
-            </div>
-        </div>
-
-        <!-- MODAL FAQs -->
-        <div class="modal-simple submmodal" id="modal-faqs" role="dialog" aria-modal="true" aria-hidden="true">
-            <div class="modal__backdrop" data-modal-close></div>
-            <div class="modal__dialog" role="document">
-                <div class="bg-vectors" id="bg-vectors-6">
-                    <div class="pos bottom-left">
-                        <img src="./assets/img/bg-lines/modal-bg1.svg" />
-                    </div>
-                    <div class="pos top-right">
-                        <img src="./assets/img/bg-lines/modal-bg2.svg" />
-                    </div>
-                </div>
-                <header>
-                    <h3 class="section-title">FAQs</h3>
-                    <a href="#" data-modal-close class="submodal-close">
-                        <img src="./assets/img/icon-close.svg" alt="">
-                    </a>
-                </header>
-                <div class="content">
-                    <div class="modal-item">
-                        <div>
-                            <p><strong>(01)</strong> Who do you usually work with?</p>
-                            <p class="ans">
-                                I've worked with startups, small businesses, and larger companies in all kinds of
-                                industries: tech, retail, e-commerce, you name it.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="modal-item">
-                        <div>
-                            <p><strong>(02)</strong> How long does the project take?</p>
-                            <p class="ans">
-                                It depends on the project. A logo might take a week or two, while a full branding
-                                package or website could take a month. I'll provide a timeline once we figure out
-                                the details.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="modal-item">
-                        <div>
-                            <p><strong>(03)</strong> How much do you charge?</p>
-                            <p class="ans">
-                                Prices vary based on the project, but I'll give you a clear quote after we chat. No
-                                surprises, promise.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="modal-item">
-                        <div>
-                            <p><strong>(04)</strong> What if I want changes?</p>
-                            <p class="ans">
-                                Most projects include 2-3 rounds of revisions. If you need more tweaks, we can
-                                discuss about that.
-                            </p>
-                        </div>
-                    </div>
-                    <a href="#" data-modal-close class="close">Close</a>
-                </div>
-            </div>
-        </div>
-
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-        <script src="./assets/vendor/gsap/ScrollToPlugin.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-        <script src="./assets/vendor/smooth-scrollbar.js"></script>
-        <script src="./assets/vendor/swiper/js/swiper-bundle.min.js"></script>
-        <script src="./assets/vendor/isotope/imagesloaded.pkgd.min.js"></script>
-        <script src="./assets/vendor/isotope/isotope.pkgd.min.js"></script>
-        <script src="./assets/vendor/isotope/packery-mode.pkgd.min.js"></script>
-        <script src="./assets/vendor/lightgallery/js/lightgallery-all.min.js"></script>
-        <script src="./assets/vendor/jquery.mousewheel.min.js"></script>
-        <script src="./assets/js/ui-scale.js"></script>
-        <script src="./assets/js/theme.js"></script>
-        <script src="./assets/js/preload.js"></script>
-        <script src="./assets/js/menu.js"></script>
-        <script src="./assets/js/gallery.js"></script>
-        <script src="./assets/js/reel-logos.js"></script>
-        <script src="./assets/js/testimonials.js"></script>
-        <script src="./assets/js/form.js"></script>
-        <script src="./assets/js/modal.js"></script>
-        <script>
-            // Cerrar modal Works antes de navegar
-            document.addEventListener('click', (e) => {
-                const link = e.target.closest('#modal-works a[href]:not([data-modal-close])');
-                if (!link) return;
-                const href = link.getAttribute('href');
-                if (!href || href === '#') return;
-                e.preventDefault();
-                e.stopPropagation();
-                const modal = document.getElementById('modal-works');
-                if (modal && modal.classList.contains('is-open')) {
-                    modal.classList.remove('is-open');
-                    modal.classList.add('is-closing');
-                    setTimeout(() => {
-                        window.location.href = href;
-                    }, 600);
-                } else {
-                    window.location.href = href;
-                }
-            }, true);
-        </script>
-        <script src="./assets/js/cursor-follow.js" defer></script>
-        <script src="./assets/js/noise.js"></script>
-        <script src="./assets/js/scroll.js"></script>
-        <script src="./assets/js/transition.js" defer></script>
-
-        <script>
-            window.addEventListener('load', () => {
-                if (typeof gsap !== 'undefined') {
-                    gsap.fromTo('.ph-caption-title',
-                        { filter: 'blur(20px)', opacity: 0, y: 30 },
-                        {
-                            filter: 'blur(0px)', opacity: 1, y: 0,
-                            duration: 1.4,
-                            delay: 0,
-                            ease: 'power3.out',
-                            onComplete: () => {
-                                const letters = document.querySelectorAll('.name-letter');
-                                const minTitles = document.querySelectorAll('.ph-caption .min-titles');
-                                // breathe con stagger por letra
-                                letters.forEach((letter, i) => {
-                                    const delay = i * 0.03;
-                                    gsap.to(letter, { y: -20 + (i * -2), duration: 0.7, ease: 'power2.out', delay });
-                                });
-                                gsap.to(minTitles[0], { y: -40, duration: 0.7, ease: 'power2.out' });
-                                gsap.to(minTitles[1], { y: -6,  duration: 0.7, ease: 'power2.out' });
-                            }
-                        }
-                    );
-
-                    // Scroll reveal en toda la página
-                    const revealElements = [
-                        { selector: '.section-title', start: 'top 95%' },
-                        { selector: '.section-title + span', start: 'top 95%' },
-                        { selector: '.card', start: 'top 90%' },
-                        { selector: '.services-grid-item', start: 'top 90%' },
-                        { selector: '.services-btns', start: 'top 90%' },
-                        { selector: '.trusted-track', start: 'top 90%' },
-                        { selector: '.verbatim', start: 'top 90%' },
-                        { selector: '.services-big', start: 'top 95%' },
-                        { selector: '.info p', start: 'top 90%' },
-                        { selector: '.photo', start: 'top 90%' },
-                        { selector: 'footer .tt-section-inner', start: 'top 90%' },
-                        { selector: '.footer-contact-links', start: 'top 90%' },
-                    ];
-
-                    revealElements.forEach(({ selector, start }) => {
-                        gsap.utils.toArray(selector).forEach((el, i) => {
-                            gsap.fromTo(el,
-                                { opacity: 0 },
-                                {
-                                    opacity: 1,
-                                    duration: 0.9,
-                                    ease: 'power2.out',
-                                    scrollTrigger: {
-                                        trigger: el,
-                                        start: start,
-                                        toggleActions: 'play none none none',
-                                    },
-                                    delay: (i % 4) * 0.08
-                                }
-                            );
-                        });
-                    });
-
-                    // Cursor VIEW + en cards - elemento separado
-                    const viewCursor = document.createElement('div');
-                    viewCursor.id = 'view-cursor';
-                    viewCursor.style.cssText = 'position:fixed;pointer-events:none;z-index:999998;opacity:0;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 12px;height:28px;border-radius:5px;background:#FF6600;font-family:"PP Telegraf",sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;color:white;transition:opacity 0.3s ease;white-space:nowrap;will-change:left,top;';
-                    viewCursor.innerHTML = `<span style="line-height:1;letter-spacing:0.5em;padding-left:0.5em;margin-right:-0.5em;margin-top:2px;">VIEW</span><img src="./assets/img/plus.svg" style="width:16px;height:16px;display:block;flex-shrink:0;margin-left:6px;" />`;
-                    document.body.appendChild(viewCursor);
-
-                    // Seguir al cursor con el mismo delay que el puntito
-                    let vcX = -200, vcY = -200, vcTargetX = -200, vcTargetY = -200;
-                    document.addEventListener('mousemove', (e) => {
-                        vcTargetX = e.clientX;
-                        vcTargetY = e.clientY;
-                    });
-                    (function animateViewCursor() {
-                        vcX += (vcTargetX - vcX) * 0.15;
-                        vcY += (vcTargetY - vcY) * 0.15;
-                        viewCursor.style.left = vcX + 'px';
-                        viewCursor.style.top = vcY + 'px';
-                        viewCursor.style.transform = `translate(-50%, -50%)`;
-                        requestAnimationFrame(animateViewCursor);
-                    })();
-
-                    const fxCursor = document.querySelector('.fx-cursor');
-                    const cards = document.querySelectorAll('.card');
-                    cards.forEach(card => {
-                        card.addEventListener('mouseenter', () => {
-                            viewCursor.style.opacity = '1';
-                            if (fxCursor) {
-                                fxCursor.style.filter = 'blur(4px)';
-                                fxCursor.style.opacity = '0';
-                                fxCursor.style.transition = 'opacity 0.3s ease, filter 0.3s ease';
-                            }
-                        });
-                        card.addEventListener('mouseleave', () => {
-                            viewCursor.style.opacity = '0';
-                            if (fxCursor) {
-                                fxCursor.style.filter = 'blur(0px)';
-                                fxCursor.style.opacity = '1';
-                                fxCursor.style.transition = 'opacity 0.3s ease, filter 0.3s ease';
-                            }
-                        });
-                    });
-
-                    // Efecto magnético suave en CALL ME y WRITE ME
-                    document.querySelectorAll('.footer-contact-links a').forEach(btn => {
-                        btn.addEventListener('mousemove', (e) => {
-                            const rect = btn.getBoundingClientRect();
-                            const cx = rect.left + rect.width / 2;
-                            const cy = rect.top + rect.height / 2;
-                            const dx = (e.clientX - cx) * 0.15;
-                            const dy = (e.clientY - cy) * 0.15;
-                            btn.style.transform = `translate(${dx}px, ${dy}px)`;
-                            btn.style.transition = 'transform 0.3s ease';
-                        });
-                        btn.addEventListener('mouseleave', () => {
-                            btn.style.transform = 'translate(0, 0)';
-                            btn.style.transition = 'transform 0.6s cubic-bezier(0.34, 1.5, 0.9, 1)';
-                        });
-                    });
-
-                    // Parallax desfasado en cards
-                    gsap.registerPlugin(ScrollTrigger);
-                    gsap.utils.toArray('.card').forEach((card, i) => {
-                        const isLeft = i % 2 === 0;
-                        gsap.to(card, {
-                            y: isLeft ? -40 : -100,
-                            ease: 'none',
-                            scrollTrigger: {
-                                trigger: '.gallery',
-                                start: 'top bottom',
-                                end: 'bottom top',
-                                scrub: 2,
-                            }
-                        });
-                    });
-
-                    // Parallax scroll en services-big
-                    const servicesBig = document.querySelector('.services-big');
-                    if (servicesBig) {
-                        [
-                            ['.sb-line1', -120],
-                            ['.sb-line2', -80],
-                            ['.sb-line3', -50],
-                            ['.sb-tag1',  -30],
-                            ['.sb-tag2',  -15],
-                        ].forEach(([sel, y]) => {
-                            const el = servicesBig.querySelector(sel);
-                            if (!el) return;
-                            gsap.to(el, {
-                                y,
-                                ease: 'none',
-                                scrollTrigger: {
-                                    trigger: servicesBig,
-                                    start: 'top bottom',
-                                    end: 'bottom top',
-                                    scrub: 2,
-                                }
-                            });
-                        });
-                    }
-
-                }
-            });
-        </script>
-
-    </body>
-
-</html>
+                                    width:
