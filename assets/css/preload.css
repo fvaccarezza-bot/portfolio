@@ -1,3 +1,7 @@
+/* Ocultar página hasta que el preloader esté listo */
+body > *:not(#preloader):not(#preloader-under) { opacity: 0; transition: opacity 0.01ms; }
+body.is-ready > *:not(#preloader):not(#preloader-under) { opacity: 1; }
+
 html.no-scroll,
 body.no-scroll {
   overflow: hidden;
