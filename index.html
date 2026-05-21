@@ -1223,45 +1223,30 @@
                         });
                     });
 
-                    // Cursor VIEW + en cards
-                    const cursor = document.querySelector('.fx-cursor');
-                    const cards = document.querySelectorAll('.card');
+                    // Cursor VIEW + en cards - elemento separado
+                    const viewCursor = document.createElement('div');
+                    viewCursor.id = 'view-cursor';
+                    viewCursor.style.cssText = 'position:fixed;pointer-events:none;z-index:999998;opacity:0;display:flex;align-items:center;justify-content:center;gap:8px;width:114px;height:36px;border-radius:10px;background:#FF6600;font-family:"PP Telegraf",sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;color:white;transform:translate(-50%,-50%);transition:opacity 0.2s ease;';
+                    viewCursor.innerHTML = `<span>VIEW</span><img src="./assets/img/plus.svg" style="width:18px;height:18px;" />`;
+                    document.body.appendChild(viewCursor);
 
+                    let mouseX = 0, mouseY = 0;
+                    document.addEventListener('mousemove', (e) => {
+                        mouseX = e.clientX;
+                        mouseY = e.clientY;
+                        viewCursor.style.left = mouseX + 'px';
+                        viewCursor.style.top = mouseY + 'px';
+                    });
+
+                    const cards = document.querySelectorAll('.card');
                     cards.forEach(card => {
                         card.addEventListener('mouseenter', () => {
-                            cursor.style.width = '114px';
-                            cursor.style.height = '36px';
-                            cursor.style.borderRadius = '10px';
-                            cursor.style.background = '#FF6600';
-                            cursor.style.display = 'flex';
-                            cursor.style.alignItems = 'center';
-                            cursor.style.justifyContent = 'center';
-                            cursor.style.gap = '8px';
-                            cursor.style.fontFamily = "'PP Telegraf', sans-serif";
-                            cursor.style.fontSize = '14px';
-                            cursor.style.fontWeight = '400';
-                            cursor.style.letterSpacing = '0.5em';
-                            cursor.style.color = 'white';
-                            cursor.style.transition = 'width 0.3s ease, height 0.3s ease, border-radius 0.3s ease';
-                            cursor.innerHTML = `<span style="letter-spacing:0.5em;font-family:'PP Telegraf',sans-serif;font-size:14px;color:white;">VIEW</span><img src="./assets/img/plus.svg" style="width:18px;height:18px;" />`;
+                            viewCursor.style.opacity = '1';
+                            document.querySelector('.fx-cursor').style.opacity = '0';
                         });
-
                         card.addEventListener('mouseleave', () => {
-                            cursor.style.width = '10px';
-                            cursor.style.height = '10px';
-                            cursor.style.borderRadius = '50%';
-                            cursor.style.background = '#ff6600';
-                            cursor.style.display = '';
-                            cursor.style.alignItems = '';
-                            cursor.style.justifyContent = '';
-                            cursor.style.gap = '';
-                            cursor.style.fontFamily = '';
-                            cursor.style.fontSize = '';
-                            cursor.style.fontWeight = '';
-                            cursor.style.letterSpacing = '';
-                            cursor.style.color = '';
-                            cursor.style.transition = 'width 0.3s ease, height 0.3s ease, border-radius 0.3s ease';
-                            cursor.innerHTML = '';
+                            viewCursor.style.opacity = '0';
+                            document.querySelector('.fx-cursor').style.opacity = '1';
                         });
                     });
                     gsap.utils.toArray('.card').forEach((card, i) => {
