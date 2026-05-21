@@ -83,20 +83,21 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .ph-caption-hover:hover .min-titles,
 .ph-caption .min-titles:hover { -webkit-text-stroke:0 !important; text-stroke:0 !important; }
 .home-title span img { display:block; width:auto; max-width:100%; margin:0 auto; }
-/* Círculo blur que sigue el mouse en el hero */
+/* Círculo blur distorsionado */
 .hero-blur-circle {
     position: fixed;
-    width: 180px;
-    height: 180px;
+    width: 220px;
+    height: 220px;
     border-radius: 50%;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
     pointer-events: none;
     z-index: 10;
     opacity: 0;
     transform: translate(-50%, -50%);
     transition: opacity 0.4s ease;
     will-change: left, top;
+    backdrop-filter: blur(16px) url(#blob-filter);
+    -webkit-backdrop-filter: blur(16px);
+    filter: url(#blob-filter);
 }
 
 /* breathe hover — apunta a .name-line */
@@ -159,6 +160,16 @@ document.addEventListener('click', function(e) {
 </head>
 <body id="body" class="tt-transition tt-boxed tt-smooth-scroll">
 <main id="body-inner" class="ui-scale-root">
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute">
+    <defs>
+        <filter id="blob-filter" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="3" seed="2" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="45" xChannelSelector="R" yChannelSelector="G" result="displaced" />
+            <feGaussianBlur in="displaced" stdDeviation="14" result="blurred" />
+            <feComposite in="blurred" in2="SourceGraphic" operator="atop" />
+        </filter>
+    </defs>
+</svg>
 <div id="preloader-under" aria-hidden="true"></div>
 <div id="preloader" aria-live="polite" aria-label="Loading">
     <div class="pl-sweep" aria-hidden="true"></div>
@@ -823,17 +834,25 @@ window.addEventListener('load', () => {
             // Color transition: negro → naranja via filter
             // Usamos GSAP para animar brightness/saturate con un hack de filter
             // El truco: animar de filter:none a un sepia+hue-rotate que da naranja
+            // Setear estado inicial explícito para que GSAP pueda interpolar
             allLetters.forEach(letter => {
-                gsap.to(letter, {
-                    filter: 'brightness(0.2) sepia(1) saturate(10) hue-rotate(340deg) brightness(1.8)',
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: '#page-header',
-                        start: 'top top',
-                        end: '60% top',
-                        scrub: 0.6,
+                gsap.set(letter, { filter: 'brightness(1) sepia(0) saturate(1) hue-rotate(0deg)' });
+            });
+
+            allLetters.forEach(letter => {
+                gsap.fromTo(letter,
+                    { filter: 'brightness(1) sepia(0) saturate(1) hue-rotate(0deg)' },
+                    {
+                        filter: 'brightness(0.2) sepia(1) saturate(10) hue-rotate(340deg) brightness(1.8)',
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: '#page-header',
+                            start: 'top top',
+                            end: '60% top',
+                            scrub: 0.6,
+                        }
                     }
-                });
+                );
             });
 
             const triggerCfg = {
