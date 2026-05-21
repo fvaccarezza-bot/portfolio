@@ -946,7 +946,24 @@
                                     box-sizing: border-box;
                                 }
 
-                                /* letter-spacing en títulos de cards */
+                                /* slide up en cards al hover */
+                                .card a.media {
+                                    position: relative;
+                                    overflow: hidden;
+                                    display: block;
+                                }
+                                .card .img-hover {
+                                    position: absolute;
+                                    inset: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    object-fit: cover;
+                                    transform: translateY(100%);
+                                    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                                }
+                                .card:hover .img-hover {
+                                    transform: translateY(0);
+                                }
                                 .card .meta h3 {
                                     letter-spacing: 0.5em;
                                     text-transform: uppercase;
@@ -1226,29 +1243,46 @@
                     // Cursor VIEW + en cards - elemento separado
                     const viewCursor = document.createElement('div');
                     viewCursor.id = 'view-cursor';
-                    viewCursor.style.cssText = 'position:fixed;pointer-events:none;z-index:999998;opacity:0;display:flex;align-items:center;justify-content:center;gap:8px;width:114px;height:36px;border-radius:10px;background:#FF6600;font-family:"PP Telegraf",sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;color:white;transform:translate(-50%,-50%);transition:opacity 0.2s ease;';
-                    viewCursor.innerHTML = `<span>VIEW</span><img src="./assets/img/plus.svg" style="width:18px;height:18px;" />`;
+                    viewCursor.style.cssText = 'position:fixed;pointer-events:none;z-index:999998;opacity:0;display:flex;align-items:center;justify-content:center;gap:8px;padding:4px 12px;border-radius:10px;background:#FF6600;font-family:"PP Telegraf",sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;color:white;transform:translate(-50%,-50%);transition:opacity 0.3s ease;white-space:nowrap;';
+                    viewCursor.innerHTML = `<span>VIEW</span><img src="./assets/img/plus.svg" style="width:16px;height:16px;display:block;" />`;
                     document.body.appendChild(viewCursor);
 
-                    let mouseX = 0, mouseY = 0;
                     document.addEventListener('mousemove', (e) => {
-                        mouseX = e.clientX;
-                        mouseY = e.clientY;
-                        viewCursor.style.left = mouseX + 'px';
-                        viewCursor.style.top = mouseY + 'px';
+                        viewCursor.style.left = e.clientX + 'px';
+                        viewCursor.style.top = e.clientY + 'px';
                     });
 
+                    const fxCursor = document.querySelector('.fx-cursor');
                     const cards = document.querySelectorAll('.card');
                     cards.forEach(card => {
                         card.addEventListener('mouseenter', () => {
                             viewCursor.style.opacity = '1';
-                            document.querySelector('.fx-cursor').style.opacity = '0';
+                            if (fxCursor) fxCursor.style.opacity = '0';
                         });
                         card.addEventListener('mouseleave', () => {
                             viewCursor.style.opacity = '0';
-                            document.querySelector('.fx-cursor').style.opacity = '1';
+                            if (fxCursor) fxCursor.style.opacity = '1';
                         });
                     });
+                    gsap.utils.toArray('.card').forEach((card, i) => {
+
+                    // Efecto magnético en CALL ME y WRITE ME
+                    document.querySelectorAll('.footer-contact-links a').forEach(btn => {
+                        btn.addEventListener('mousemove', (e) => {
+                            const rect = btn.getBoundingClientRect();
+                            const cx = rect.left + rect.width / 2;
+                            const cy = rect.top + rect.height / 2;
+                            const dx = (e.clientX - cx) * 0.25;
+                            const dy = (e.clientY - cy) * 0.25;
+                            btn.style.transform = `translate(${dx}px, ${dy}px)`;
+                            btn.style.transition = 'transform 0.15s ease';
+                        });
+                        btn.addEventListener('mouseleave', () => {
+                            btn.style.transform = 'translate(0, 0)';
+                            btn.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.5, 0.9, 1)';
+                        });
+                    });
+
                     gsap.utils.toArray('.card').forEach((card, i) => {
                         const isLeft = i % 2 === 0;
                         gsap.to(card, {
