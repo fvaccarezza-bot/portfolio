@@ -578,7 +578,7 @@ window.addEventListener('load', () => {
         const revealElements = [
             { selector: '.section-title', start: 'top 95%' },
             { selector: '.section-title + span', start: 'top 95%' },
-            { selector: '.card', start: 'top 90%' },
+            // .card manejado por efecto cierre
             { selector: '.services-grid-item', start: 'top 90%' },
             { selector: '.services-btns', start: 'top 90%' },
             { selector: '.trusted-track', start: 'top 90%' },
@@ -768,7 +768,25 @@ window.addEventListener('load', () => {
             });
         });
         gsap.registerPlugin(ScrollTrigger);
-        // parallax cards removido
+        // Cards: entran desde los costados hacia el centro (efecto cierre)
+        gsap.utils.toArray('.card').forEach((card, i) => {
+            const fromLeft = i % 2 === 0;
+            gsap.fromTo(card,
+                { x: fromLeft ? -80 : 80, opacity: 0 },
+                {
+                    x: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: card,
+                        start: 'top 88%',
+                        toggleActions: 'play none none none',
+                    },
+                    delay: (i % 2) * 0.08
+                }
+            );
+        });
 
         // Parallax scroll hero: letras + Portfolio + 2026
         (function() {
