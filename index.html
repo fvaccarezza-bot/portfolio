@@ -672,12 +672,12 @@ window.addEventListener('load', () => {
                 { x: fromLeft ? -60 : 60 },
                 {
                     x: 0,
-                    ease: 'power1.inOut',
+                    ease: 'none',
                     scrollTrigger: {
                         trigger: card,
                         start: 'top 95%',
                         end: 'top 40%',
-                        scrub: 0.5,
+                        scrub: true,
                     }
                 }
             );
