@@ -186,26 +186,26 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
                         <h1 class="ph-caption-title font-bold text-center color-fv">
                             <a href="#about" data-offset="60" class="home-title">
                                 <span class="name-line" id="line-federico">
-                                    <img class="name-letter" src="./assets/img/F.svg" alt="F" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/D.svg" alt="D" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/R.svg" alt="R" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/I.svg" alt="I" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/O.svg" alt="O" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/F.svg" alt="F" style="height:143px;width:109px;" />
+                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:110px;" />
+                                    <img class="name-letter" src="./assets/img/D.svg" alt="D" style="height:143px;width:134px;" />
+                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:110px;" />
+                                    <img class="name-letter" src="./assets/img/R.svg" alt="R" style="height:143px;width:122px;" />
+                                    <img class="name-letter" src="./assets/img/I.svg" alt="I" style="height:143px;width:85px;" />
+                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:144px;" />
+                                    <img class="name-letter" src="./assets/img/O.svg" alt="O" style="height:143px;width:146px;" />
                                 </span>
                                 <span class="name-line" id="line-vaccarezza">
-                                    <img class="name-letter" src="./assets/img/V.svg" alt="V" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/R.svg" alt="R" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/Z.svg" alt="Z" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/Z.svg" alt="Z" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/V.svg" alt="V" style="height:143px;width:143px;" />
+                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:150px;" />
+                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:144px;" />
+                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:144px;" />
+                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:150px;" />
+                                    <img class="name-letter" src="./assets/img/R.svg" alt="R" style="height:143px;width:122px;" />
+                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:110px;" />
+                                    <img class="name-letter" src="./assets/img/Z.svg" alt="Z" style="height:143px;width:124px;" />
+                                    <img class="name-letter" src="./assets/img/Z.svg" alt="Z" style="height:143px;width:124px;" />
+                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:150px;" />
                                 </span>
                             </a>
                         </h1>
@@ -490,13 +490,12 @@ window.addEventListener('load', () => {
             { filter: 'blur(20px)', opacity: 0, y: 30 },
             { filter: 'blur(0px)', opacity: 1, y: 0, duration: 1.4, delay: 0, ease: 'power3.out',
               onComplete: () => {
-                const letters = document.querySelectorAll('.name-letter');
+                const lines = document.querySelectorAll('.name-line');
                 const minTitles = document.querySelectorAll('.ph-caption .min-titles');
-                letters.forEach((letter, i) => {
-                    gsap.to(letter, { y: -20 + (i * -2), duration: 0.7, ease: 'power2.out', delay: i * 0.03 });
-                });
-                gsap.to(minTitles[0], { y: -40, duration: 0.7, ease: 'power2.out' });
-                gsap.to(minTitles[1], { y: -6,  duration: 0.7, ease: 'power2.out' });
+                gsap.to(minTitles[0], { y: -40, duration: 0.9, ease: 'power2.out' });
+                gsap.to(lines[0],     { y: -28, duration: 0.9, ease: 'power2.out', delay: 0.05 });
+                gsap.to(lines[1],     { y: -16, duration: 0.9, ease: 'power2.out', delay: 0.1 });
+                gsap.to(minTitles[1], { y: -6,  duration: 0.9, ease: 'power2.out', delay: 0.15 });
               }
             }
         );
