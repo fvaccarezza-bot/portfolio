@@ -747,22 +747,20 @@ window.addEventListener('load', () => {
             });
         });
         gsap.registerPlugin(ScrollTrigger);
-        // Cards: entran desde los costados
+        // Cards: entran desde los costados — solo x, sin opacity
         gsap.utils.toArray('.card').forEach((card, i) => {
             const fromLeft = i % 2 === 0;
             gsap.fromTo(card,
-                { x: fromLeft ? -50 : 50, opacity: 0 },
+                { x: fromLeft ? -60 : 60 },
                 {
                     x: 0,
-                    opacity: 1,
-                    ease: 'power2.out',
-                    duration: 1,
+                    ease: 'power3.out',
+                    duration: 1.2,
                     scrollTrigger: {
                         trigger: card,
                         start: 'top 92%',
                         toggleActions: 'play none none none',
-                    },
-                    delay: i % 2 === 0 ? 0 : 0.1,
+                    }
                 }
             );
         });
@@ -781,9 +779,9 @@ window.addEventListener('load', () => {
 
             const triggerCfg = {
                 trigger: '#page-header',
-                start: '8% top',       // pequeño margen para no pisar el breathe
-                end: '65% top',
-                scrub: 0.6,
+                start: '8% top',
+                end: '80% top',        // más recorrido = más suave
+                scrub: 1.8,            // más inercia = sin snap tosco
             };
 
             function applyParallax(letters, centerIndex) {
@@ -795,7 +793,7 @@ window.addEventListener('load', () => {
                         ease: 'none',
                         scrollTrigger: {
                             ...triggerCfg,
-                            scrub: 1.0 + dist * 0.25,
+                            scrub: 1.8 + dist * 0.3,
                         }
                     });
                 });
