@@ -602,33 +602,50 @@ window.addEventListener('load', () => {
             const underlay  = document.getElementById('preloader-under');
             if (!preloader) return;
 
-            // Preparar preloader para entrada desde abajo (oculto inicialmente)
-            preloader.style.transform = 'translateY(100%)';
-            if (underlay) underlay.style.transform = 'translateY(100%)';
-
             document.querySelectorAll('.card a.media').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
+                    e.stopImmediatePropagation(); // evitar que transition.js haga el fade
                     const href = this.getAttribute('href');
                     if (!href || href === '#') return;
 
                     // Bloquear scroll
                     document.documentElement.classList.add('no-scroll');
 
-                    // Mostrar preloader subiendo desde abajo
-                    preloader.style.transition = 'transform 700ms cubic-bezier(0.7, 0, 0.2, 1)';
-                    preloader.style.transform  = 'translateY(0)';
-
+                    // El preloader está visible (ya cargó) — lo mandamos abajo y lo subimos
+                    preloader.style.transition = 'none';
+                    preloader.style.transform  = 'translateY(100%)';
                     if (underlay) {
-                        underlay.style.transition = 'transform 600ms cubic-bezier(0.7, 0, 0.2, 1)';
+                        underlay.style.transition = 'none';
+                        underlay.style.transform  = 'translateY(100%)';
+                    }
+
+                    // Forzar reflow para que el browser registre el estado inicial
+                    preloader.getBoundingClientRect();
+
+                    // Animar hacia arriba
+                    preloader.style.transition = 'transform 750ms cubic-bezier(0.7, 0, 0.2, 1)';
+                    preloader.style.transform  = 'translateY(0)';
+                    if (underlay) {
+                        underlay.style.transition = 'transform 650ms cubic-bezier(0.7, 0, 0.2, 1)';
                         underlay.style.transform  = 'translateY(0)';
                     }
 
+                    // Setear vt_mode para que preload.js en destino sepa que viene de slide
+                    sessionStorage.setItem('vt_mode', 'slide');
+
                     // Navegar cuando termina la animación
                     setTimeout(() => {
+                        // Limpiar styles inline para no interferir con la salida normal
+                        preloader.style.transition = '';
+                        preloader.style.transform  = '';
+                        if (underlay) {
+                            underlay.style.transition = '';
+                            underlay.style.transform  = '';
+                        }
                         window.location.href = href;
-                    }, 720);
-                });
+                    }, 760);
+                }, true); // capture: true — corre antes que transition.js
             });
         })();
 
