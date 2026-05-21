@@ -1,139 +1,884 @@
-html.no-scroll,
-body.no-scroll {
-  overflow: hidden;
+<!doctype html>
+<html lang="es">
+<head>
+<title>Federico Vaccarezza - Portfolio 2026</title>
+<meta charset="utf-8" />
+<meta name="Graphic Designer" content="I'm based in Tigre, Argentina, and I spent several years studying at the University of Buenos Aires (UBA), switching from industrial to graphic design." />
+<meta name="Federico Vaccarezza" content="fvaccarezza.com" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<script>
+(function() {
+if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) return;
+var scale = Math.min(1, screen.width / 1440);
+document.querySelector('meta[name="viewport"]').setAttribute('content','width=1440, initial-scale=' + scale + ', shrink-to-fit=no');
+})();
+</script>
+<link rel="icon" type="image/png" href="./assets/img/favicon.png" />
+<link rel="stylesheet" href="./assets/vendor/normalize/normalize.min.css" />
+<link rel="stylesheet" href="./assets/vendor/fontawesome/css/fontawesome-all.min.css" />
+<link rel="stylesheet" href="./assets/css/helper.css" />
+<link rel="stylesheet" href="./assets/css/theme.css" />
+<link rel="stylesheet" href="./assets/fonts/fonts.css" />
+<link rel="stylesheet" href="./assets/css/config.css">
+<link rel="stylesheet" href="./assets/css/fede.css" />
+<link rel="stylesheet" href="./assets/css/preload.css">
+<link rel="stylesheet" href="./assets/css/gallery.css" />
+<link rel="stylesheet" href="./assets/css/modal.css" />
+<link rel="stylesheet" href="./assets/css/testimonials.css" />
+<link rel="stylesheet" href="./assets/css/form.css" />
+<link rel="stylesheet" href="./assets/css/cursor.css">
+<link rel="stylesheet" href="./assets/css/responsive.css" />
+<link rel="stylesheet" href="./assets/css/transition.css" />
+<link rel="stylesheet" href="./assets/css/retina-80.css" />
+<link rel="stylesheet" href="./assets/css/ui-scale.css" />
+<style>
+.home-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
 }
-/* Underlay naranja (debajo del preloader) */
-#preloader-under {
-  position: fixed;
-  inset: 0;
-  z-index: 999998;
-  background: #ff6600;
-  transform: translateY(0);
-  will-change: transform;
-  pointer-events: none;
+/* FIX: name-line siempre flex row — antes era .home-title span { display:block } lo que apilaba las letras */
+.name-line {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4px;
+    transform: translateY(0px);
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-/* Sale con delay para "acompañar" el barrido */
-#preloader-under.is-done {
-  animation: underlay-out 800ms cubic-bezier(0.7, 0, 0.2, 1) forwards;
-  animation-delay: 220ms;
+.name-letter {
+    display: block;
+    height: 143px;
+    width: auto;
+    flex-shrink: 0;
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-@keyframes underlay-out {
-  from { transform: translateY(0); }
-  to   { transform: translateY(-100%); }
+.ph-caption-hover { display: block; }
+.ph-caption .min-titles {
+    display: block;
+    transform: translateY(0px);
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-/* Preloader */
-#preloader {
-  position: fixed;
-  inset: 0;
-  z-index: 999999;
-  display: grid;
-  place-items: center;
-  background: #f8f8f8;
-  color: #3a3a39;
-  overflow: hidden;
-  transform: translateY(0);
-  will-change: transform;
+.home-title,
+.home-title:hover,
+.home-title:focus,
+.home-title .name-line,
+.home-title:hover .name-line,
+.home-title:focus .name-line {
+    color: inherit !important;
+    -webkit-text-stroke: 0 !important;
+    text-decoration: none !important;
 }
-#preloader::before,
-#preloader::after {
-  content: "";
-  position: absolute;
-  pointer-events: none;
-  z-index: 0;
-  width: clamp(220px, 38vw, 560px);
-  height: clamp(220px, 38vw, 560px);
-  background-repeat: no-repeat;
-  background-size: contain;
-  opacity: 1;
-}
-#preloader::before {
-  top: 0;
-  right: 0;
-  background-image: url("../img/preloader-bg-1.svg");
-  background-position: top right;
-}
-#preloader::after {
-  left: 0;
-  bottom: 0;
-  background-image: url("../img/preloader-bg-2.svg");
-  background-position: bottom left;
-}
-/* Sweep */
-.pl-sweep {
-  position: absolute;
-  left: 0;
-  bottom: -25%;
-  width: 100%;
-  height: 25%;
-  opacity: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: linear-gradient(0deg, transparent, rgba(58, 58, 57, 0.1), transparent);
-  will-change: transform, opacity;
-}
-.pl-inner {
-  width: min(520px, 86vw);
-  text-align: center;
-  padding: 28px 22px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  z-index: 2;
-}
-:root {
-  --space-top: clamp(26px, 3.2vw, 38px);
-  --space-bottom: clamp(20px, 2.6vw, 32px);
-}
-.pl-top,
-.pl-bottom {
-  font-family: "PP Telegraf", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-  font-weight: 400;
-  font-style: normal;
-  font-size: 14px;
-  line-height: 100%;
-  text-align: center;
-  letter-spacing: 0.5em;
-  text-transform: uppercase;
-}
-.pl-top { margin-bottom: var(--space-top); }
-.pl-percent {
-  font-family: "PP Telegraf", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
-  font-weight: 800;
-  font-style: normal;
-  font-size: 70px;
-  line-height: 90%;
-  letter-spacing: 0;
-  text-align: center;
-  margin-bottom: var(--space-bottom);
-}
-/* Barrido (de abajo hacia arriba) */
-#preloader.is-done {
-  animation: preloader-out 900ms cubic-bezier(0.7, 0, 0.2, 1) forwards;
-}
-#preloader.is-done .pl-sweep {
-  opacity: 1;
-  animation: preloader-sweep 900ms cubic-bezier(0.7, 0, 0.2, 1) forwards;
-}
-@keyframes preloader-out {
-  from { transform: translateY(0); }
-  to   { transform: translateY(-100%); }
-}
-@keyframes preloader-sweep {
-  from { transform: translateY(0); }
-  to   { transform: translateY(-600%); }
-}
-@media (prefers-reduced-motion: reduce) {
-  #preloader.is-done {
-    animation: none;
-    transform: translateY(-100%);
-  }
-  #preloader.is-done .pl-sweep {
-    animation: none;
+#modal-works .modal__dialog { display:flex; flex-direction:column; align-items:center; justify-content:center; }
+#modal-works .content { justify-content:center !important; align-items:center !important; }
+.tt-wrap { max-width: min(1320px, 91.67vw) !important; }
+#services .trusted-container,
+#services .trusted-container .trusted-track { margin-top:0 !important; margin-bottom:0 !important; }
+#services h4.section-title { margin-top:0 !important; margin-bottom:48px !important; }
+.services-btns { margin-bottom:120px !important; }
+#services .words-container { margin-top:0 !important; }
+.ph-caption .min-titles,
+.ph-caption-hover:hover .min-titles,
+.ph-caption .min-titles:hover { -webkit-text-stroke:0 !important; text-stroke:0 !important; }
+.home-title span img { display:block; width:auto; max-width:100%; margin:0 auto; }
+/* Círculo blur que sigue el mouse en el hero */
+.hero-blur-circle {
+    position: fixed;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    pointer-events: none;
+    z-index: 10;
     opacity: 0;
-  }
-  #preloader-under.is-done {
-    animation: none;
-    transform: translateY(-100%);
-  }
+    transform: translate(-50%, -50%);
+    transition: opacity 0.4s ease;
+    will-change: left, top;
 }
+
+/* breathe hover — apunta a .name-line */
+.ph-caption-hover:hover .min-titles:first-child { transform: translateY(-40px); }
+.ph-caption-hover:hover .name-line:nth-child(1) { transform: translateY(-28px); }
+.ph-caption-hover:hover .name-line:nth-child(2) { transform: translateY(-16px); }
+.ph-caption-hover:hover .min-titles:last-child  { transform: translateY(-6px); }
+</style>
+<link rel="preload" href="./assets/fonts/PPTelegraf-Regular.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="./assets/fonts/PPTelegraf-Ultrabold.woff2" as="font" type="font/woff2" crossorigin />
+<script src="./assets/js/sessionStorage.js"></script>
+<script>
+// Interceptar clicks en cards ANTES que transition.js (que tiene defer)
+// Registrado en el head = antes de cualquier defer script
+document.addEventListener('click', function(e) {
+    const link = e.target.closest('.card a.media');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href || href === '#') return;
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    const preloader = document.getElementById('preloader');
+    const underlay  = document.getElementById('preloader-under');
+
+    document.documentElement.classList.add('no-scroll');
+    // Limpiar dataset para que View Transitions no haga fade
+    delete document.documentElement.dataset.vtMode;
+
+    if (preloader) {
+        preloader.style.transition = 'none';
+        preloader.style.transform  = 'translateY(100%)';
+    }
+    if (underlay) {
+        underlay.style.transition = 'none';
+        underlay.style.transform  = 'translateY(100%)';
+    }
+
+    // Forzar reflow
+    if (preloader) preloader.getBoundingClientRect();
+
+    // Slide in desde abajo
+    if (preloader) {
+        preloader.style.transition = 'transform 700ms cubic-bezier(0.7, 0, 0.2, 1)';
+        preloader.style.transform  = 'translateY(0)';
+    }
+    if (underlay) {
+        underlay.style.transition = 'transform 580ms cubic-bezier(0.7, 0, 0.2, 1)';
+        underlay.style.transform  = 'translateY(0)';
+    }
+
+    setTimeout(function() {
+        if (preloader) { preloader.style.transition = ''; preloader.style.transform = ''; }
+        if (underlay)  { underlay.style.transition  = ''; underlay.style.transform  = ''; }
+        window.location.href = href;
+    }, 720);
+}, true); // capture: true — antes que transition.js
+</script>
+</head>
+<body id="body" class="tt-transition tt-boxed tt-smooth-scroll">
+<main id="body-inner" class="ui-scale-root">
+<div id="preloader-under" aria-hidden="true"></div>
+<div id="preloader" aria-live="polite" aria-label="Loading">
+    <div class="pl-sweep" aria-hidden="true"></div>
+    <div class="pl-inner">
+        <div class="pl-top">LOADING</div>
+        <div class="pl-percent" data-percent>(0%)</div>
+        <div class="pl-bottom">PF FV 2026</div>
+    </div>
+</div>
+<div class="fx-cursor" aria-hidden="true"></div>
+<div id="scroll-container">
+    <div id="logo-header" class="tt-logo logo-home mob-ok outside-menu">
+        <a href="#page-header" id="main-logo" data-offset="0">
+            <img src="./assets/img/fv-logo-vector.svg" alt="" />
+            <img src="./assets/img/fv-logo.svg" alt="" />
+        </a>
+    </div>
+    <header id="tt-header" class="tt-header-fixed">
+        <div class="tt-header-inner">
+            <div class="tt-header-col">
+                <div class="tt-logo mob-no">
+                    <a href="#page-header" id="main-logo" data-offset="0">
+                        <img src="./assets/img/fv-logo-vector.svg" alt="" />
+                        <img src="./assets/img/fv-logo.svg" alt="" />
+                    </a>
+                </div>
+                <nav class="mob-no tt-main-menu tt-submenu-dark tt-m-menu-center">
+                    <div class="tt-main-menu-holder"><div class="tt-main-menu-inner"><div class="tt-main-menu-content">
+                    <ul class="tt-main-menu-list">
+                        <li><a href="#about" data-offset="60">About</a></li>
+                        <li><a href="#works" data-offset="40">Works</a></li>
+                        <li><a href="#services" data-offset="40">Services</a></li>
+                        <li><a href="#contact" data-offset="14">Contact</a></li>
+                    </ul>
+                    </div></div></div>
+                </nav>
+            </div>
+            <div class="nav-fixed">
+                <div id="tt-ol-menu-toggle-btn-wrap">
+                    <div class="tt-ol-menu-toggle-btn-text">
+                        <span class="text-menu" data-hover="Open"></span>
+                        <span class="text-close"></span>
+                    </div>
+                    <div class="tt-ol-menu-toggle-btn-holder">
+                        <a href="#" class="tt-ol-menu-toggle-btn magnetic-item"><span></span><span></span></a>
+                    </div>
+                </div>
+                <nav class="mob-ok tt-overlay-menu tt-ol-menu-center tt-ol-menu-count">
+                    <div class="tt-ol-menu-holder"><div class="tt-ol-menu-inner tt-wrap"><div class="tt-ol-menu-content">
+                    <div class="tt-logo logo-home inside-menu">
+                        <a href="#page-header" id="main-logo" data-offset="0">
+                            <img src="./assets/img/fv-logo-vector.svg" alt="" />
+                            <img src="./assets/img/fv-logo.svg" alt="" />
+                        </a>
+                    </div>
+                    <ul class="tt-ol-menu-list">
+                        <li class="common-li"><a href="#about" data-offset="60">About</a></li>
+                        <li class="tt-ol-submenu-wrap">
+                            <div class="tt-ol-submenu-trigger"><a id="works-submenu" href="#" class="tt-ol-submenu-link">Works</a></div>
+                            <div class="tt-ol-submenu"><ul class="tt-ol-submenu-list">
+                                <li><a class="media" data-vt-mode="shared" data-vt-dir="next" href="work/frogbazar/" alt="frog-bazar">/ FROG BAZAR.</a></li>
+                                <li><a class="media" href="work/estudio32/" alt="estudio32" data-vt-mode="slide">/ ESTUDIO 32.</a></li>
+                                <li><a class="media" href="work/opame/" alt="opame" data-vt-mode="slide">/ OPAME.</a></li>
+                                <li><a class="media" href="work/nmp/" alt="nmp" data-vt-mode="slide">/ NM, P.</a></li>
+                                <li><a class="media" href="work/cleo/" alt="cleo" data-vt-mode="slide">/ CLEO.</a></li>
+                                <li><a class="media" href="work/michi/" alt="michi" data-vt-mode="slide">/ MICHI BISTRO.</a></li>
+                                <li><a class="media" href="work/broke/" alt="broke" data-vt-mode="slide">/ BROKE.</a></li>
+                                <li><a class="media" href="work/big-mother-energy/" alt="big-mother-energy" data-vt-mode="slide">/ BIG MOTHER ENERGY.</a></li>
+                                <li><a class="media" href="work/ui-ux/" alt="ui-ux" data-vt-mode="slide">/ UI / UX.</a></li>
+                                <li><a class="media" href="work/web/" alt="web" data-vt-mode="slide">/ WEB.</a></li>
+                                <li><a class="media" href="work/logofolio/" alt="logofolio" data-vt-mode="slide">/ LOGOFOLIO.</a></li>
+                                <li><a class="media" href="work/photography/" alt="photography" data-vt-mode="slide">/ PHOTOGRAPHY.</a></li>
+                            </ul></div>
+                        </li>
+                        <li class="common-li"><a href="#services" data-offset="40">Services</a></li>
+                        <li class="common-li"><a href="#contact" data-offset="14">Contact</a></li>
+                    </ul>
+                    </div></div></div>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div id="content-wrap">
+        <div id="page-header" class="ph-full ph-cap-sm ph-image-cropped ph-image-cover-3">
+            <div class="page-header-inner tt-wrap">
+                <div class="bg-vectors" id="bg-vectors-1"><div class="pos top-left"><img src="./assets/img/bg-lines/bg-lines1.svg" /></div></div>
+                <div class="ph-caption text-uppercase ph-caption-hover">
+                    <div class="text-center color-fv min-titles spacing">Portfolio</div>
+                    <div class="hover-fv">
+                        <h1 class="ph-caption-title font-bold text-center color-fv">
+                            <a href="#about" data-offset="60" class="home-title" id="hero-name-link">
+                                <span class="name-line" id="line-federico">
+                                    <img class="name-letter" src="./assets/img/F.svg" alt="F" style="height:143px;width:auto;margin-right:5px;" />
+                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;margin-right:5px;" />
+                                    <img class="name-letter" src="./assets/img/D.svg" alt="D" style="height:143px;width:auto;margin-right:5px;" />
+                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;margin-right:5px;" />
+                                    <img class="name-letter" src="./assets/img/R.svg" alt="R" style="height:143px;width:auto;margin-right:5px;" />
+                                    <img class="name-letter" src="./assets/img/I.svg" alt="I" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/O.svg" alt="O" style="height:143px;width:auto;" />
+                                </span>
+                                <span class="name-line" id="line-vaccarezza">
+                                    <img class="name-letter" src="./assets/img/V.svg" alt="V" style="height:143px;width:auto;margin-right:-10px;" />
+                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;margin-left:-10px;margin-right:-6px;" />
+                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;margin-left:-6px;" />
+                                    <img class="name-letter" src="./assets/img/R.svg" alt="R" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/Z.svg" alt="Z" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/Z.svg" alt="Z" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;" />
+                                </span>
+                            </a>
+                        </h1>
+
+                    </div>
+                    <div class="text-center color-fv min-titles spacing">2026</div>
+                </div>
+            </div>
+        </div>
+        <div id="page-content">
+            <div id="about" class="tt-section padding-bottom-xlg-90 psi-image-is-light">
+                <div class="bg-vectors" id="bg-vectors-2"><div class="pos bottom-right"><img src="./assets/img/bg-lines/bg-lines2.svg" /></div></div>
+                <div class="tt-section-inner tt-wrap">
+                    <h2 class="section-title hola"><a href="#works" class="noise-fill-hover" data-offset="40">hola!</a></h2>
+                    <a href="#works" data-offset="40" id="hola-foto" class="tt-row">
+                        <div class="tt-col-md-6">
+                            <div class="photo">
+                                <div class="film out"><div class="vectors mob-no"><img src="./assets/img/photo-vector-1.svg" class="photo-vector vector1" alt="" /><img src="./assets/img/photo-vector-2.svg" class="photo-vector vector2" alt="" /></div></div>
+                                <div class="fede"><img src="./assets/img/fede.jpg" /></div>
+                                <div class="film bg"><div class="vectors mob-no"><img src="./assets/img/photo-vector-1.svg" class="photo-vector vector1" alt="" /><img src="./assets/img/photo-vector-2.svg" class="photo-vector vector2" alt="" /></div></div>
+                                <div class="film"><div class="vectors mob-no"><img src="./assets/img/photo-vector-1.svg" class="photo-vector vector1" alt="" /><img src="./assets/img/photo-vector-2.svg" class="photo-vector vector2" alt="" /></div></div>
+                            </div>
+                        </div>
+                        <div class="tt-col-md-6">
+                            <div class="info">
+                                <p>I'm a graphic designer from Tigre, Argentina. I studied at the University of Buenos Aires (UBA), where I started in industrial design but eventually switched to graphic design. I've always been into style, and that naturally pulled me into the creative world.</p>
+                                <p>Over the past few years, I've been working on branding, web design, and UI/UX. I like creating things that not only look good but are clear and easy to use. Clean visuals, smart layouts, and designs that make sense — that's what I try to bring to every project.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div id="works" class="tt-section">
+                <div class="bg-vectors" id="bg-vectors-3"><div class="pos top-left"><img src="./assets/img/bg-lines/bg-lines3.svg" /></div></div>
+                <div class="tt-section-inner tt-wrap">
+                    <h2 class="section-title noise-fill-hover">works</h2>
+                    <span><p>Some of what I've done over the years.</p></span>
+                    <div class="gallery">
+                        <div class="card" id="frog-bazar">
+                            <a href="https://www.behance.net/gallery/157959551/Frog-Bazar-2023" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a>
+                            <a class="media" href="work/frogbazar/" alt="frog-bazar" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/frogbazar.jpg" alt="Frog Bazar" /><img class="img-hover" src="./assets/home/frogbazar-b.jpg" alt="" aria-hidden="true" /></a>
+<div class="meta"><h3>Frog Bazar</h3><p>branding + website + photo</p><p>(001)</p></div>
+                        </div>
+                        <div class="card" id="estudio32">
+                            <a href="http://behance.net/gallery/164603319/estudio32" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a>
+                            <a class="media" href="work/estudio32/" alt="estudio32" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/estudio32.jpg" alt="ESTUDIO 32" /><img class="img-hover" src="./assets/home/estudio32-b.jpg" alt="" aria-hidden="true" /></a>
+<div class="meta"><h3>ESTUDIO 32</h3><p>branding + photo</p><p>(002)</p></div>
+                        </div>
+                        <div class="card" id="opame">
+                            <a class="media" href="work/opame/" alt="opame" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/opame.jpg" alt="OPAME" /><img class="img-hover" src="./assets/home/opame-b.jpg" alt="" aria-hidden="true" /></a>
+<div class="meta"><h3>OPAME COLLECTIVE</h3><p>website</p><p>(003)</p></div>
+                        </div>
+                        <div class="card" id="nmp">
+                            <a class="media" href="work/nmp/" alt="nmp" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/nmp.jpg" alt="N.M, P" /><img class="img-hover" src="./assets/home/nmp-b.jpg" alt="" aria-hidden="true" /></a>
+<div class="meta"><h3>N.M,P</h3><p>branding + website</p><p>(004)</p></div>
+                        </div>
+                        <div class="card" id="cleo">
+                            <a class="media" href="work/cleo/" alt="cleo" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/cleo.jpg" alt="CLEO PAY" /><img class="img-hover" src="./assets/home/cleo-b.jpg" alt="" aria-hidden="true" /></a>
+<div class="meta"><h3>CLEO PAY</h3><p>branding</p><p>(005)</p></div>
+                        </div>
+                        <div class="card" id="michi">
+                            <a href="https://www.behance.net/gallery/162858615/Michi-Dine-In-Take-Away" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a>
+                            <a class="media" href="work/michi/" alt="michi" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/michi.jpg" alt="MICHI BISTRO" /><img class="img-hover" src="./assets/home/michi-b.jpg" alt="" aria-hidden="true" /></a>
+<div class="meta"><h3>MICHI BISTRO</h3><p>concept branding</p><p>(006)</p></div>
+                        </div>
+                        <div class="card" id="broke">
+                            <a href="https://www.behance.net/gallery/161530441/Broke-Music" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a>
+                            <a class="media" href="work/broke/" alt="broke" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/broke.jpg" alt="Broke" /><img class="img-hover" src="./assets/home/broke-b.jpg" alt="" aria-hidden="true" /></a>
+<div class="meta"><h3>BROKE</h3><p>branding</p><p>(007)</p></div>
+                        </div>
+                        <div class="card" id="big-mother-energy">
+                            <a class="media" href="work/big-mother-energy/" alt="big-mother-energy" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/big-mother-energy.jpg" alt="Big Mother Energy" loading="lazy" /><img class="img-hover" src="./assets/home/big-mother-energy-b.jpg" alt="" aria-hidden="true" /></a>
+<div class="meta"><h3>Big Mother Energy</h3><p>branding</p><p>(008)</p></div>
+                        </div>
+                        <div class="card" id="ui-ux">
+                            <a class="media" href="work/ui-ux/" alt="ui-ux" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/ui-ux.jpg" alt="UI / UX" /><img class="img-hover" src="./assets/home/ui-ux-b.jpg" alt="" aria-hidden="true" /></a>
+<div class="meta"><h3>UI / UX</h3><p>(009)</p></div>
+                        </div>
+                        <div class="card" id="web">
+                            <a class="media" href="work/web/" alt="web" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/web.jpg" alt="Web" /><img class="img-hover" src="./assets/home/web-b.jpg" alt="" aria-hidden="true" /></a>
+<div class="meta"><h3>WEB</h3><p>(010)</p></div>
+                        </div>
+                        <div class="card" id="logofolio">
+                            <a class="media" href="work/logofolio/" alt="logofolio" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/logofolio.jpg" alt="Logofolio" /><img class="img-hover" src="./assets/home/logofolio-b.jpg" alt="" aria-hidden="true" /></a>
+<div class="meta"><h3>LOGOFOLIO</h3><p>(011)</p></div>
+                        </div>
+                        <div class="card" id="photography">
+                            <a class="media" href="work/photography/" alt="photography" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/photography.jpg" alt="photography" /><img class="img-hover" src="./assets/home/photography-b.jpg" alt="" aria-hidden="true" /></a>
+<div class="meta"><h3>PHOTOGRAPHY</h3><p>(012)</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="services" class="tt-section">
+                <div class="tt-section-inner tt-wrap">
+                <style>
+                    .services-big { position:relative; margin-bottom:180px; cursor:default; text-align:center; }
+                    .services-big > img { display:block; width:auto; max-width:100%; margin:0 auto; transition:transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94); transform:translateY(0) scale(1); }
+                    .services-big:hover .sb-line1 { transform: translateY(-55px) scale(1.02); }
+                    .services-big:hover .sb-line2 { transform: translateY(-38px) scale(1.02); }
+                    .services-big:hover .sb-line3 { transform: translateY(-22px) scale(1.02); }
+                    .services-big:hover .sb-tag1  { transform: translateY(-14px) scale(1.02); transition-delay: 0.05s; }
+                    .services-big:hover .sb-tag2  { transform: translateY(-8px) scale(1.02);  transition-delay: 0.1s; }
+                    .sb-tag { position:absolute; bottom:-120px; right:0; width:28%; display:flex; flex-direction:column; align-items:center; gap:0; }
+                    .sb-tag2 { margin-top:-32px; }
+                    .sb-tag img { display:block; width:auto; max-width:none; transition:transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94); transform:translateY(0); }
+                    .trusted-track img { filter:none; transition:filter 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.5, 0.9, 1); }
+                    .trusted-track img:hover { filter:brightness(0) saturate(100%) invert(45%) sepia(99%) saturate(1200%) hue-rotate(1deg) brightness(103%) contrast(104%); transform:translateY(-6px); }
+                    .services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:40px; margin-bottom:40px; }
+                    .services-grid-item h3 { display:flex; align-items:center; gap:10px; font-family:'PP Telegraf',sans-serif; font-size:16px; font-weight:400; color:#3A3A39; letter-spacing:0; margin-bottom:12px; padding-top:0; }
+                    .services-grid-item h3 img { width:20px; height:20px; }
+                    .services-grid-item p { font-family:'PP Telegraf',sans-serif !important; font-size:16px; font-weight:400; color:#979797; letter-spacing:0.03em; line-height:1.6; }
+                    .services-btns { display:flex; flex-direction:column; align-items:center; gap:32px; width:445px; margin:0 auto; padding-bottom:40px; }
+                    .services-btns-row { display:flex; gap:45px; width:100%; justify-content:center; }
+                    .services-btns-row a { width:200px; text-align:center; height:40px; display:flex; align-items:center; justify-content:center; border:none; border-radius:5px; text-decoration:none; color:#3A3A39; font-family:'PP Telegraf',sans-serif; font-size:16px; letter-spacing:0; box-sizing:border-box; background:transparent; background-image:url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='5' ry='5' stroke='%233A3A39' stroke-width='1.5' stroke-dasharray='8%2c8' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e"); transition:background-color 0.4s ease, color 0.4s ease, background-image 0.4s ease; }
+                    .services-btns-row a:hover { background-color:#3A3A39; background-image:none; color:#fff; }
+                    .services-btns-connect { display:flex; width:100%; height:40px; align-items:center; justify-content:center; background:#FF6600; color:#fff; text-decoration:none; font-family:'PP Telegraf',sans-serif; font-size:16px; letter-spacing:0; box-sizing:border-box; border-radius:5px; position:relative; overflow:hidden; transition:color 0.4s ease; }
+                    .services-btns-connect::before { content:''; position:absolute; bottom:-100%; left:0; width:100%; height:100%; background:#3A3A39; transition:bottom 0.5s cubic-bezier(0.76,0,0.24,1); z-index:0; }
+                    .services-btns-connect:hover::before { bottom:0; }
+                    .services-btns-connect span { position:relative; z-index:1; }
+                </style>
+                <div class="services-big">
+                    <img class="sb-line1" src="./assets/img/services-1.svg" alt="" />
+                    <img class="sb-line2" src="./assets/img/services-2.svg" alt="" />
+                    <img class="sb-line3" src="./assets/img/services-3.svg" alt="" />
+                    <div class="sb-tag">
+                        <img class="sb-tag1" src="./assets/img/services-tag-1.svg" alt="" />
+                        <img class="sb-tag2" src="./assets/img/services-tag-2.svg" alt="" />
+                    </div>
+                </div>
+                <div class="services-grid">
+                    <div class="services-grid-item"><h3><img src="./assets/img/services-item1.svg" alt="" /> Web Design</h3><p>I design clean, responsive websites that look great and work even better. Let's make your site stand out.</p></div>
+                    <div class="services-grid-item"><h3><img src="./assets/img/services-item2.svg" alt="" /> Branding</h3><p>I help you shape a brand that's clear, consistent, and built to last, with visuals and strategy that work together.</p></div>
+                    <div class="services-grid-item"><h3><img src="./assets/img/services-item4.svg" alt="" /> Graphic Design</h3><p>Bold, creative visuals that tell your story. From logos to social posts, I'll make it pop.</p></div>
+                    <div class="services-grid-item"><h3><img src="./assets/img/services-item3.svg" alt="" /> Product Design (UI/UX)</h3><p>Great design is more than looks — I create interfaces that guide, engage, and convert.</p></div>
+                </div>
+                <div class="services-btns">
+                    <div class="services-btns-row">
+                        <a href="#" data-modal-open="#modal-faqs"><span style="position:relative;z-index:1;">Faqs</span></a>
+                        <a href="#" data-modal-open="#modal-process"><span style="position:relative;z-index:1;">Process</span></a>
+                    </div>
+                    <a href="#contact" class="services-btns-connect"><span>Connect</span></a>
+                </div>
+                <div class="tt-row" style="margin-top:80px;">
+                    <div class="tt-col-md-6 d-flex-center flex-col max-width-full" style="max-width:100%;width:100%;padding:0 40px;">
+                        <h4 class="section-title" style="margin:0 auto 0 !important;padding-bottom:0 !important;">Trusted By:</h4>
+                        <div style="height:64px;"></div>
+                        <div class="trusted-container"><div class="trusted-track">
+                            <img src="./assets/img/trusted-logo1.svg" alt="" /><img src="./assets/img/trusted-logo2.svg" alt="" /><img src="./assets/img/trusted-logo3.svg" alt="" /><img src="./assets/img/trusted-logo4.svg" alt="" /><img src="./assets/img/trusted-logo5.svg" alt="" /><img src="./assets/img/trusted-logo6.svg" alt="" /><img src="./assets/img/trusted-logo7.svg" alt="" /><img src="./assets/img/trusted-logo8.svg" alt="" /><img src="./assets/img/trusted-logo9.svg" alt="" /><img src="./assets/img/trusted-logo10.svg" alt="" /><img src="./assets/img/trusted-logo11.svg" alt="" /><img src="./assets/img/trusted-logo12.svg" alt="" />
+                        </div></div>
+                    </div>
+                </div>
+                <div class="tt-row" style="margin-top:200px;">
+                    <div class="tt-col-md-6 d-flex-center flex-col max-width-full">
+                        <h4 class="section-title">Some Kind Words:</h4>
+                        <div class="words-container"><div class="carousel" role="region"><div class="stage" id="stage">
+                            <article class="verbatim prev" tabindex="0"><img src="./assets/img/word2.jpg" alt="" /><div><p><span>Dana Johonson</span> (Dotted 8)</p><p>"As a US-based agency, it can be tricky to find reliable international talent that aligns with our time constraints and quality expectations. Fede has been an incredible resource and a valued member of our team for many years!"</p></div></article>
+                            <article class="verbatim active" tabindex="0"><img src="./assets/img/word1.jpg" alt="" /><div><p><span>Ramiro Nieto Moreno</span> (N.M,P.)</p><p>"From the first call to the final delivery, everything just flowed. The site captures our vibe perfectly—and the whole process was smoother than expected!"</p></div></article>
+                            <article class="verbatim next" tabindex="0"><img src="./assets/img/word3.jpg" alt="" /><div><p><span>Nayoung S. Kim</span> (Highfive)</p><p>"Fede did an amazing job with HighFive! Our vet purchase app is sleek, intuitive, and exactly what we needed. Highly recommend!"</p></div></article>
+                            <article class="verbatim hidden" tabindex="0"><img src="./assets/img/word4.jpg" alt="" /><div><p><span>Tristan Kemitzis</span> (Kemitzis Consulting)</p><p>"Working with Fede has been a true pleasure. Quick turnarounds, immediate responsiveness... all in all extremely high quality, white-glove service."</p></div></article>
+                            <article class="verbatim hidden" tabindex="0"><img src="./assets/img/word5.jpg" alt="" /><div><p><span>Nick Godin</span> (Netwrk Ventures)</p><p>"Fede nailed it. He instantly got what we were about and came up with fresh, modern branding that tells our story perfectly. Super easy to work with and always on point"</p></div></article>
+                            <div class="hit left" aria-hidden="true"></div>
+                            <div class="hit right" aria-hidden="true"></div>
+                        </div></div></div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        <footer id="contact" class="tt-section">
+            <div class="bg-vectors" id="bg-vectors-4"><div class="pos bottom-center"><img class="mob-no" src="./assets/img/footer-4.svg" /><img class="mob-ok block" src="./assets/img/footer-4-mob.svg" alt="" /></div></div>
+            <div class="footer-masked footer1"><div class="footer-ink footer1"><img class="footer-probe mob-no" src="./assets/img/footer-1.svg" alt="" /><img class="footer-probe mob-ok block" src="./assets/img/footer-1-mob.svg" alt="" /><div class="footer-texture orange" aria-hidden="true"></div></div></div>
+            <div class="footer-masked footer1"><div class="footer-ink footer2"><img class="footer-probe mob-no" src="./assets/img/footer-2.svg" alt="" /><img class="footer-probe mob-ok block" src="./assets/img/footer-2-mob.svg" alt="" /><div class="footer-texture yellow" aria-hidden="true"></div></div></div>
+            <div class="footer-masked footer3"><div class="footer-ink footer3"><img class="footer-probe mob-no" src="./assets/img/footer-3.svg" alt="" /><img class="footer-probe mob-ok block" src="./assets/img/footer-3-mob.svg" alt="" /><div class="footer-texture yellow" aria-hidden="true"></div></div></div>
+            <div class="footer-bottom-full" aria-hidden="true"></div>
+            <div class="footer-bottom-mask" aria-hidden="true"><div class="footer-bottom-cut"></div></div>
+            <style>
+                #contact { margin-top:150px; overflow:hidden; }
+                .footer-texture { mix-blend-mode:plus-lighter; }
+                #contact, #contact h2, #contact .footer-probe { color:#3A3A39; }
+                .footer-probe { transition:transform 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+                #contact:hover .footer-ink.footer1 .footer-probe { transform:translateY(-40px); }
+                #contact:hover .footer-ink.footer2 .footer-probe { transform:translateY(-24px); }
+                #contact:hover .footer-ink.footer3 .footer-probe { transform:translateY(-12px); }
+                /* breathe en los links del footer */
+                .footer-contact-links a,
+                .footer-contact-socials a { transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+                #contact:hover .footer-col-left   a { transform: translateY(-12px); }
+                #contact:hover .footer-col-center a { transform: translateY(-8px); }
+                #contact:hover .footer-col-right  a { transform: translateY(-5px); }
+                .footer-contact-links { display:grid; grid-template-columns:1fr 1fr 1fr; width:100%; align-items:center; padding-bottom:24px; letter-spacing:0.5em; font-size:11px; position:relative; z-index:10; box-sizing:border-box; }
+                .card a.media, .card .pgi-image-holder { position:relative; overflow:hidden; display:block; border-radius:10px 10px 0 0 !important; -webkit-mask-image: -webkit-radial-gradient(white, black); }
+                .card .meta { padding-top: 14px; } .card .meta h3, .card .meta p { transform: none !important; }
+                .card .img-hover { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transform:scale(1); transition:opacity 1s ease, transform 1s ease; }
+                .card .img-base { transition:transform 1s ease; display:block; width:100%; }
+                .card:hover .img-hover { opacity:1; transform:scale(1.02); }
+                .card:hover .img-base { transform:scale(1.02); }
+                .card .meta h3 { letter-spacing:0.5em; text-transform:uppercase; }
+                .footer-roll { display:inline; }
+                .tt-section-inner.tt-wrap { padding-top:80px; }
+                .footer-col-center { text-align:center; display:flex; justify-content:center; }
+                .footer-col-right { text-align:right; justify-content:flex-end; }
+                .footer-contact-links a { color:#3A3A39; text-decoration:none; text-transform:uppercase; font-weight:500; }
+                .footer-contact-links a:hover { opacity:1; }
+                .footer-contact-socials { display:flex; gap:20px; align-items:center; justify-content:flex-end; }
+                .footer-contact-socials img { width:22px; height:22px; filter:invert(21%) sepia(5%) saturate(200%) hue-rotate(10deg) brightness(95%); }
+            </style>
+            <div class="tt-section-inner tt-wrap">
+                <div class="footer-contact-links">
+                    <div class="footer-col-left"><a href="https://calendly.com/fvaccarezza/intro-call" target="_blank" class="footer-roll">CALL ME</a></div>
+                    <div class="footer-col-center"><a href="mailto:fvaccarezza@gmail.com" class="footer-roll">WRITE ME</a></div>
+                    <div class="footer-col-right footer-contact-socials">
+                        <a href="https://www.behance.net/Vaccarezza" target="_blank"><img src="./assets/img/social-behance.svg" alt="Behance" /></a>
+                        <a href="https://dribbble.com/Vaccarezza" target="_blank"><img src="./assets/img/social-dribble.svg" alt="Dribbble" /></a>
+                        <a href="https://vsco.co/fedevaccarezza/" target="_blank"><img src="./assets/img/social-vsco.svg" alt="VSCO" /></a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        </div>
+    </div>
+</div>
+</main>
+<!-- MODAL Process -->
+<div class="modal-simple submmodal" id="modal-process" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal__backdrop" data-modal-close></div>
+    <div class="modal__dialog" role="document">
+        <div class="bg-vectors" id="bg-vectors-5"><div class="pos bottom-left"><img src="./assets/img/bg-lines/modal-bg1.svg" /></div><div class="pos top-right"><img src="./assets/img/bg-lines/modal-bg2.svg" /></div></div>
+        <header><h3 class="section-title">PROCESS</h3><a href="#" data-modal-close class="submodal-close"><img src="./assets/img/icon-close.svg" alt=""></a></header>
+        <div class="content">
+            <div class="modal-item"><div><p><strong>(01)</strong> Discovery & Research</p><p class="ans">It all starts with getting to know your needs. I dive into your goals and audience, making sure we're clear on the vision and direction.</p></div></div>
+            <div class="modal-item"><div><p><strong>(02)</strong> Concept & Ideation</p><p class="ans">Time to brainstorm! I sketch out ideas and share early concepts to get your input, so we're aligned from the start.</p></div></div>
+            <div class="modal-item"><div><p><strong>(03)</strong> Design & Development</p><p class="ans">I bring the design to life, from wireframes to the final look. Your feedback helps me fine-tune until everything's just right.</p></div></div>
+            <div class="modal-item"><div><p><strong>(04)</strong> Review & Delivery</p><p class="ans">I'll walk you through the final design, make any last tweaks, and hand over all the files. I'm here if you need further support, too!</p></div></div>
+            <a href="#" data-modal-close class="close">Close</a>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL FAQs -->
+<div class="modal-simple submmodal" id="modal-faqs" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal__backdrop" data-modal-close></div>
+    <div class="modal__dialog" role="document">
+        <div class="bg-vectors" id="bg-vectors-6"><div class="pos bottom-left"><img src="./assets/img/bg-lines/modal-bg1.svg" /></div><div class="pos top-right"><img src="./assets/img/bg-lines/modal-bg2.svg" /></div></div>
+        <header><h3 class="section-title">FAQs</h3><a href="#" data-modal-close class="submodal-close"><img src="./assets/img/icon-close.svg" alt=""></a></header>
+        <div class="content">
+            <div class="modal-item"><div><p><strong>(01)</strong> Who do you usually work with?</p><p class="ans">I've worked with startups, small businesses, and larger companies in all kinds of industries: tech, retail, e-commerce, you name it.</p></div></div>
+            <div class="modal-item"><div><p><strong>(02)</strong> How long does the project take?</p><p class="ans">It depends on the project. A logo might take a week or two, while a full branding package or website could take a month. I'll provide a timeline once we figure out the details.</p></div></div>
+            <div class="modal-item"><div><p><strong>(03)</strong> How much do you charge?</p><p class="ans">Prices vary based on the project, but I'll give you a clear quote after we chat. No surprises, promise.</p></div></div>
+            <div class="modal-item"><div><p><strong>(04)</strong> What if I want changes?</p><p class="ans">Most projects include 2-3 rounds of revisions. If you need more tweaks, we can discuss about that.</p></div></div>
+            <a href="#" data-modal-close class="close">Close</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="./assets/vendor/gsap/ScrollToPlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="./assets/vendor/smooth-scrollbar.js"></script>
+<script src="./assets/vendor/swiper/js/swiper-bundle.min.js"></script>
+<script src="./assets/vendor/isotope/imagesloaded.pkgd.min.js"></script>
+<script src="./assets/vendor/isotope/isotope.pkgd.min.js"></script>
+<script src="./assets/vendor/isotope/packery-mode.pkgd.min.js"></script>
+<script src="./assets/vendor/lightgallery/js/lightgallery-all.min.js"></script>
+<script src="./assets/vendor/jquery.mousewheel.min.js"></script>
+<script src="./assets/js/ui-scale.js"></script>
+<script src="./assets/js/theme.js"></script>
+<script src="./assets/js/preload.js"></script>
+<script src="./assets/js/menu.js"></script>
+<script src="./assets/js/gallery.js"></script>
+<script src="./assets/js/reel-logos.js"></script>
+<script src="./assets/js/testimonials.js"></script>
+<script src="./assets/js/form.js"></script>
+<script src="./assets/js/modal.js"></script>
+<script>
+document.addEventListener('click', (e) => {
+    const link = e.target.closest('#modal-works a[href]:not([data-modal-close])');
+    if (!link) return;
+    const href = link.getAttribute('href');
+    if (!href || href === '#') return;
+    e.preventDefault(); e.stopPropagation();
+    const modal = document.getElementById('modal-works');
+    if (modal && modal.classList.contains('is-open')) {
+        modal.classList.remove('is-open'); modal.classList.add('is-closing');
+        setTimeout(() => { window.location.href = href; }, 600);
+    } else { window.location.href = href; }
+}, true);
+</script>
+<script src="./assets/js/cursor-follow.js" defer></script>
+<script src="./assets/js/noise.js"></script>
+<script src="./assets/js/scroll.js"></script>
+<script src="./assets/js/transition.js" defer></script>
+<script>
+window.addEventListener('load', () => {
+    if (typeof gsap !== 'undefined') {
+        gsap.fromTo('.ph-caption-title',
+            { filter: 'blur(20px)', opacity: 0, y: 30 },
+            { filter: 'blur(0px)', opacity: 1, y: 0, duration: 1.4, delay: 0, ease: 'power3.out',
+              onComplete: () => {
+                const lines = document.querySelectorAll('.name-line');
+                const minTitles = document.querySelectorAll('.ph-caption .min-titles');
+                gsap.to(minTitles[0], { y: -40, duration: 0.9, ease: 'power2.out' });
+                gsap.to(lines[0],     { y: -28, duration: 0.9, ease: 'power2.out', delay: 0.05 });
+                gsap.to(lines[1],     { y: -16, duration: 0.9, ease: 'power2.out', delay: 0.1 });
+                gsap.to(minTitles[1], { y: -6,  duration: 0.9, ease: 'power2.out', delay: 0.15,
+                    onComplete: () => {
+                        // Registrar ScrollTrigger de Portfolio y 2026 ahora que el breathe terminó
+                        if (typeof window.__registerTitleParallax === 'function') {
+                            window.__registerTitleParallax();
+                        }
+                    }
+                });
+              }
+            }
+        );
+        const revealElements = [
+            { selector: '.section-title', start: 'top 95%' },
+            { selector: '.section-title + span', start: 'top 95%' },
+            { selector: '.card', start: 'top 90%' },
+            { selector: '.services-grid-item', start: 'top 90%' },
+            { selector: '.services-btns', start: 'top 90%' },
+            { selector: '.trusted-track', start: 'top 90%' },
+            { selector: '.verbatim', start: 'top 90%' },
+            { selector: '.services-big', start: 'top 95%' },
+            { selector: '.info p', start: 'top 90%' },
+            { selector: '.photo', start: 'top 90%' },
+            { selector: 'footer .tt-section-inner', start: 'top 90%' },
+            { selector: '.footer-contact-links', start: 'top 90%' },
+        ];
+        revealElements.forEach(({ selector, start }) => {
+            gsap.utils.toArray(selector).forEach((el, i) => {
+                gsap.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.9, ease: 'power2.out',
+                    scrollTrigger: { trigger: el, start: start, toggleActions: 'play none none none' },
+                    delay: (i % 4) * 0.08
+                });
+            });
+        });
+        const viewCursor = document.createElement('div');
+        viewCursor.id = 'view-cursor';
+        viewCursor.style.cssText = 'position:fixed;pointer-events:none;z-index:999998;opacity:0;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 12px;height:28px;border-radius:5px;background:#FF6600;font-family:"PP Telegraf",sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;color:white;transition:opacity 0.3s ease;white-space:nowrap;will-change:left,top;';
+        viewCursor.innerHTML = '<span style="line-height:1;letter-spacing:0.5em;padding-left:0.5em;margin-right:-0.5em;margin-top:2px;">VIEW</span><img src="./assets/img/plus.svg" style="width:16px;height:16px;display:block;flex-shrink:0;margin-left:6px;" />';
+        document.body.appendChild(viewCursor);
+        let vcX = -200, vcY = -200, vcTargetX = -200, vcTargetY = -200;
+        document.addEventListener('mousemove', (e) => { vcTargetX = e.clientX; vcTargetY = e.clientY; });
+        (function animateViewCursor() {
+            vcX += (vcTargetX - vcX) * 0.15; vcY += (vcTargetY - vcY) * 0.15;
+            viewCursor.style.left = vcX + 'px'; viewCursor.style.top = vcY + 'px';
+            viewCursor.style.transform = 'translate(-50%, -50%)';
+            requestAnimationFrame(animateViewCursor);
+        })();
+        const fxCursor = document.querySelector('.fx-cursor');
+        document.querySelectorAll('.card').forEach(card => {
+            const mediaLink = card.querySelector('a.media');
+
+            card.addEventListener('mouseenter', (e) => {
+                if (e.target.closest('.stamp')) return;
+                viewCursor.style.opacity = '1';
+                if (fxCursor) { fxCursor.style.filter='blur(4px)'; fxCursor.style.opacity='0'; fxCursor.style.transition='opacity 0.3s ease, filter 0.3s ease'; }
+            });
+            card.addEventListener('mouseover', (e) => {
+                if (e.target.closest('.stamp')) {
+                    viewCursor.style.opacity = '0';
+                    if (fxCursor) { fxCursor.style.filter='blur(0px)'; fxCursor.style.opacity='1'; }
+                } else if (e.target.closest('a.media')) {
+                    viewCursor.style.opacity = '1';
+                    if (fxCursor) { fxCursor.style.filter='blur(4px)'; fxCursor.style.opacity='0'; }
+                }
+            });
+            card.addEventListener('mouseleave', () => {
+                viewCursor.style.opacity = '0';
+                if (fxCursor) { fxCursor.style.filter='blur(0px)'; fxCursor.style.opacity='1'; fxCursor.style.transition='opacity 0.3s ease, filter 0.3s ease'; }
+                if (mediaLink) {
+                    mediaLink.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
+                    mediaLink.style.transition = 'transform 0.6s cubic-bezier(0.34,1.5,0.9,1)';
+                }
+            });
+            card.addEventListener('mousemove', (e) => {
+                if (!mediaLink) return;
+                const rect = mediaLink.getBoundingClientRect();
+                const cx = rect.left + rect.width  / 2;
+                const cy = rect.top  + rect.height / 2;
+                const dx = (e.clientX - cx) / (rect.width  / 2);
+                const dy = (e.clientY - cy) / (rect.height / 2);
+                mediaLink.style.transform = 'perspective(1200px) rotateX(' + (-dy * 1.5) + 'deg) rotateY(' + (dx * 1.5) + 'deg)';
+                mediaLink.style.transition = 'transform 0.15s ease';
+            });
+        });
+        // Cards: mostrar loader desde abajo antes de navegar
+        (function() {
+            const preloader = document.getElementById('preloader');
+            const underlay  = document.getElementById('preloader-under');
+            if (!preloader) return;
+
+            document.querySelectorAll('.card a.media').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopImmediatePropagation();
+                    const href = this.getAttribute('href');
+                    if (!href || href === '#') return;
+
+                    // Deshabilitar View Transition para esta navegación
+                    delete document.documentElement.dataset.vtMode;
+
+                    document.documentElement.classList.add('no-scroll');
+
+                    // Posicionar loader abajo instantáneamente
+                    preloader.style.transition = 'none';
+                    preloader.style.transform  = 'translateY(100%)';
+                    if (underlay) {
+                        underlay.style.transition = 'none';
+                        underlay.style.transform  = 'translateY(100%)';
+                    }
+
+                    // Forzar reflow
+                    preloader.getBoundingClientRect();
+
+                    // Animar hacia arriba (slide in)
+                    preloader.style.transition = 'transform 700ms cubic-bezier(0.7, 0, 0.2, 1)';
+                    preloader.style.transform  = 'translateY(0)';
+                    if (underlay) {
+                        underlay.style.transition = 'transform 580ms cubic-bezier(0.7, 0, 0.2, 1)';
+                        underlay.style.transform  = 'translateY(0)';
+                    }
+
+                    // Navegar después de que el loader tapó todo
+                    setTimeout(() => {
+                        preloader.style.transition = '';
+                        preloader.style.transform  = '';
+                        if (underlay) { underlay.style.transition = ''; underlay.style.transform = ''; }
+                        window.location.href = href;
+                    }, 720);
+                });
+            });
+        })();
+
+        // Círculo blur que sigue el mouse en el hero
+        (function() {
+            const circle = document.createElement('div');
+            circle.className = 'hero-blur-circle';
+            document.body.appendChild(circle);
+
+            let bx = -300, by = -300, btx = -300, bty = -300;
+            let isOverHero = false;
+
+            // Mismo lerp que la pelotita (0.15)
+            (function animateBlur() {
+                bx += (btx - bx) * 0.15;
+                by += (bty - by) * 0.15;
+                circle.style.left = bx + 'px';
+                circle.style.top  = by + 'px';
+                requestAnimationFrame(animateBlur);
+            })();
+
+            document.addEventListener('mousemove', (e) => {
+                btx = e.clientX;
+                bty = e.clientY;
+            });
+
+            const hero = document.getElementById('page-header');
+            if (hero) {
+                hero.addEventListener('mouseenter', () => {
+                    isOverHero = true;
+                    circle.style.opacity = '1';
+                });
+                hero.addEventListener('mouseleave', () => {
+                    isOverHero = false;
+                    circle.style.opacity = '0';
+                });
+            }
+        })();
+
+        // Click en el nombre: animar letras hacia arriba y scrollear a #about
+        (function() {
+            const heroLink = document.getElementById('hero-name-link');
+            if (!heroLink) return;
+
+            heroLink.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const fedLetters = document.querySelectorAll('#line-federico .name-letter');
+                const vacLetters = document.querySelectorAll('#line-vaccarezza .name-letter');
+                const minTitles  = document.querySelectorAll('.ph-caption .min-titles');
+
+                // Animar igual que el parallax pero instantáneo (duración corta)
+                function animateOut(letters, centerIndex) {
+                    letters.forEach((letter, i) => {
+                        const dist  = Math.abs(i - centerIndex);
+                        const yMove = -180 + dist * 18;
+                        const delay = dist * 0.04;
+                        gsap.to(letter, { y: yMove, duration: 0.6, ease: 'power3.inOut', delay });
+                    });
+                }
+
+                animateOut(fedLetters, 3.5);
+                animateOut(vacLetters, 4.5);
+
+                gsap.to(minTitles[0], { y: -220, duration: 0.5, ease: 'power3.inOut' });
+                gsap.to(minTitles[1], { y: -160, duration: 0.5, ease: 'power3.inOut', delay: 0.05 });
+
+                // Después de la animación, scrollear a #about
+                setTimeout(() => {
+                    const target = document.getElementById('about');
+                    if (!target) return;
+                    const offset = 60;
+                    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }, 400);
+            });
+        })();
+
+        // Faqs y Process: tilt magnético sutil
+        document.querySelectorAll('.services-btns-row a').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const dx = (e.clientX - (rect.left + rect.width/2))  / (rect.width/2);
+                const dy = (e.clientY - (rect.top  + rect.height/2)) / (rect.height/2);
+                btn.style.transform = 'perspective(400px) rotateX(' + (-dy*4) + 'deg) rotateY(' + (dx*4) + 'deg)';
+                btn.style.transition = 'transform 0.15s ease';
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'perspective(400px) rotateX(0deg) rotateY(0deg)';
+                btn.style.transition = 'transform 0.5s cubic-bezier(0.34,1.5,0.9,1)';
+            });
+        });
+
+        // CALL ME / WRITE ME: magnético suave
+        document.querySelectorAll('.footer-contact-links a').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const dx = (e.clientX - (rect.left + rect.width/2))  * 0.12;
+                const dy = (e.clientY - (rect.top  + rect.height/2)) * 0.12;
+                btn.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
+                btn.style.transition = 'transform 0.3s ease';
+            });
+            btn.addEventListener('mouseleave', () => {
+                btn.style.transform = 'translate(0,0)';
+                btn.style.transition = 'transform 0.6s cubic-bezier(0.34,1.5,0.9,1)';
+            });
+        });
+        gsap.registerPlugin(ScrollTrigger);
+        // parallax cards removido
+
+        // Parallax scroll hero: letras + Portfolio + 2026
+        (function() {
+            const fedLetters = document.querySelectorAll('#line-federico .name-letter');
+            const vacLetters = document.querySelectorAll('#line-vaccarezza .name-letter');
+            const minTitles  = document.querySelectorAll('.ph-caption .min-titles');
+            const allLetters = document.querySelectorAll('.name-letter');
+
+            // Color transition: negro → naranja via filter
+            // Usamos GSAP para animar brightness/saturate con un hack de filter
+            // El truco: animar de filter:none a un sepia+hue-rotate que da naranja
+            allLetters.forEach(letter => {
+                gsap.to(letter, {
+                    filter: 'brightness(0.2) sepia(1) saturate(10) hue-rotate(340deg) brightness(1.8)',
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: '#page-header',
+                        start: 'top top',
+                        end: '60% top',
+                        scrub: 0.6,
+                    }
+                });
+            });
+
+            const triggerCfg = {
+                trigger: '#page-header',
+                start: 'top top',
+                end: '60% top',        // termina antes — efecto más inmediato
+                scrub: 0.6,            // menos delay
+            };
+
+            function applyParallax(letters, centerIndex) {
+                letters.forEach((letter, i) => {
+                    const dist  = Math.abs(i - centerIndex);
+                    const yMove = -180 + dist * 18;   // más pronunciado: centro -180px, extremos -108px
+                    gsap.to(letter, {
+                        y: yMove,
+                        ease: 'none',
+                        scrollTrigger: {
+                            ...triggerCfg,
+                            scrub: 1.0 + dist * 0.25,
+                        }
+                    });
+                });
+            }
+
+            applyParallax(fedLetters, 3.5);
+            applyParallax(vacLetters, 4.5);
+
+            // Portfolio (min-titles[0]) y 2026 (min-titles[1]) también con parallax
+            // Portfolio y 2026: el ScrollTrigger se registra DESPUÉS del breathe
+            // para que no pise la animación inicial
+            window.__registerTitleParallax = function() {
+                if (minTitles[0]) gsap.to(minTitles[0], { y: -220, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 0.9 } });
+                if (minTitles[1]) gsap.to(minTitles[1], { y: -160, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 1.1 } });
+            };
+        })();
+        const servicesBig = document.querySelector('.services-big');
+        if (servicesBig) {
+            [['.sb-line1',-120],['.sb-line2',-80],['.sb-line3',-50],['.sb-tag1',-30],['.sb-tag2',-15]].forEach(([sel,y]) => {
+                const el = servicesBig.querySelector(sel);
+                if (!el) return;
+                gsap.to(el, { y, ease:'none', scrollTrigger: { trigger:servicesBig, start:'top bottom', end:'bottom top', scrub:2 } });
+            });
+        }
+    }
+});
+</script>
+</body>
+</html>
