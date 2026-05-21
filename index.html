@@ -430,14 +430,14 @@ document.addEventListener('click', function(e) {
                 </div>
             </div>
         <footer id="contact" class="tt-section">
-            <div class="bg-vectors" id="bg-vectors-4"><div class="pos bottom-center"><img class="mob-no" id="footer-bg-shape" src="./assets/img/footer-4.svg" /><img class="mob-ok block" src="./assets/img/footer-4-mob.svg" alt="" /></div></div>
+            <div class="bg-vectors" id="bg-vectors-4" style="overflow:visible;"><div class="pos bottom-center" style="overflow:visible;"><img class="mob-no" id="footer-bg-shape" src="./assets/img/footer-4.svg" /><img class="mob-ok block" src="./assets/img/footer-4-mob.svg" alt="" /></div></div>
             <div class="footer-masked footer1"><div class="footer-ink footer1"><img class="footer-probe mob-no" src="./assets/img/footer-1.svg" alt="" /><img class="footer-probe mob-ok block" src="./assets/img/footer-1-mob.svg" alt="" /><div class="footer-texture orange" aria-hidden="true"></div></div></div>
             <div class="footer-masked footer1"><div class="footer-ink footer2"><img class="footer-probe mob-no" src="./assets/img/footer-2.svg" alt="" /><img class="footer-probe mob-ok block" src="./assets/img/footer-2-mob.svg" alt="" /><div class="footer-texture yellow" aria-hidden="true"></div></div></div>
             <div class="footer-masked footer3"><div class="footer-ink footer3"><img class="footer-probe mob-no" src="./assets/img/footer-3.svg" alt="" /><img class="footer-probe mob-ok block" src="./assets/img/footer-3-mob.svg" alt="" /><div class="footer-texture yellow" aria-hidden="true"></div></div></div>
             <div class="footer-bottom-full" aria-hidden="true"></div>
             <div class="footer-bottom-mask" aria-hidden="true"><div class="footer-bottom-cut"></div></div>
             <style>
-                #contact { margin-top:150px; overflow:hidden; }
+                #contact { margin-top:150px; overflow:visible; }
                 .footer-texture { mix-blend-mode:plus-lighter; }
                 #contact, #contact h2, #contact .footer-probe { color:#3A3A39; }
                 .footer-probe { transition:transform 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
@@ -668,16 +668,19 @@ window.addEventListener('load', () => {
         // ── Cards: parallax ida y vuelta (igual que las letras) ────────
         gsap.utils.toArray('.card').forEach((card, i) => {
             const fromLeft = i % 2 === 0;
-            gsap.to(card, {
-                x: fromLeft ? -40 : 40,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: '#works',
-                    start: 'top bottom',
-                    end: 'bottom top',
-                    scrub: 1.2,
+            gsap.fromTo(card,
+                { x: fromLeft ? -40 : 40 },
+                {
+                    x: 0,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: '#works',
+                        start: 'top bottom',
+                        end: 'bottom top',
+                        scrub: 1.2,
+                    }
                 }
-            });
+            );
         });
 
         // ── Parallax hero ───────────────────────────────────────────────────
