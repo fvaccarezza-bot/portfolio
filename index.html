@@ -430,7 +430,7 @@ document.addEventListener('click', function(e) {
                 </div>
             </div>
         <footer id="contact" class="tt-section">
-            <div class="bg-vectors" id="bg-vectors-4"><div class="pos bottom-center"><img class="mob-no" src="./assets/img/footer-4.svg" /><img class="mob-ok block" src="./assets/img/footer-4-mob.svg" alt="" /></div></div>
+            <div class="bg-vectors" id="bg-vectors-4"><div class="pos bottom-center"><img class="mob-no" id="footer-bg-shape" src="./assets/img/footer-4.svg" /><img class="mob-ok block" src="./assets/img/footer-4-mob.svg" alt="" /></div></div>
             <div class="footer-masked footer1"><div class="footer-ink footer1"><img class="footer-probe mob-no" src="./assets/img/footer-1.svg" alt="" /><img class="footer-probe mob-ok block" src="./assets/img/footer-1-mob.svg" alt="" /><div class="footer-texture orange" aria-hidden="true"></div></div></div>
             <div class="footer-masked footer1"><div class="footer-ink footer2"><img class="footer-probe mob-no" src="./assets/img/footer-2.svg" alt="" /><img class="footer-probe mob-ok block" src="./assets/img/footer-2-mob.svg" alt="" /><div class="footer-texture yellow" aria-hidden="true"></div></div></div>
             <div class="footer-masked footer3"><div class="footer-ink footer3"><img class="footer-probe mob-no" src="./assets/img/footer-3.svg" alt="" /><img class="footer-probe mob-ok block" src="./assets/img/footer-3-mob.svg" alt="" /><div class="footer-texture yellow" aria-hidden="true"></div></div></div>
@@ -665,24 +665,20 @@ window.addEventListener('load', () => {
 
         gsap.registerPlugin(ScrollTrigger);
 
-        // ── Cards: parallax desde los costados ──────────────────────────
-        const gallery = document.querySelector('.gallery');
-        if (gallery) {
-            gsap.utils.toArray('.card').forEach((card, i) => {
-                const fromLeft = i % 2 === 0;
-                gsap.set(card, { x: fromLeft ? -40 : 40 });
-                gsap.to(card, {
-                    x: 0,
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: gallery,
-                        start: 'top bottom',
-                        end: 'center center',
-                        scrub: true,
-                    }
-                });
+        // ── Cards: parallax ida y vuelta (igual que las letras) ────────
+        gsap.utils.toArray('.card').forEach((card, i) => {
+            const fromLeft = i % 2 === 0;
+            gsap.to(card, {
+                x: fromLeft ? -40 : 40,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '#works',
+                    start: 'top bottom',
+                    end: 'bottom top',
+                    scrub: 1.2,
+                }
             });
-        }
+        });
 
         // ── Parallax hero ───────────────────────────────────────────────────
         (function() {
@@ -720,6 +716,25 @@ window.addEventListener('load', () => {
                 if (minTitles[1]) gsap.to(minTitles[1], { y: -160, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 1.1 } });
             };
         })();
+
+        // ── Footer shape: crece y gira al scrollear ───────────────────────
+        const footerShape = document.getElementById('footer-bg-shape');
+        if (footerShape) {
+            gsap.fromTo(footerShape,
+                { scale: 1, rotate: 0 },
+                {
+                    scale: 3.5,
+                    rotate: 15,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: '#contact',
+                        start: 'top bottom',
+                        end: 'bottom bottom',
+                        scrub: 1.5,
+                    }
+                }
+            );
+        }
 
         // ── Parallax services-big ───────────────────────────────────────────
         const servicesBig = document.querySelector('.services-big');
