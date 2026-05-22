@@ -555,7 +555,7 @@ body.tt-boxed #services .tt-wrap { padding: 0; }
 /* CONTACT / FOOTER — limpio, sin SVGs viejos */
 footer {
   position: relative;
-  padding: 105px 0 25vw !important;
+  padding: 0 !important;
 }
 footer * { color: var(--color-fede-fv); }
 footer .bg-vectors img {
