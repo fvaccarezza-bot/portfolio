@@ -364,8 +364,7 @@ document.addEventListener('click', function(e) {
                     .sb-tag { position:absolute; bottom:-120px; right:0; width:28%; display:flex; flex-direction:column; align-items:center; gap:0; }
                     .sb-tag2 { margin-top:-32px; }
                     .sb-tag img { display:block; width:auto; max-width:none; transition:transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94); transform:translateY(0); }
-                    .trusted-track img { filter:none; transition:filter 0.4s ease, transform 0.4s cubic-bezier(0.34, 1.5, 0.9, 1); }
-                    .trusted-track img:hover { filter:brightness(0) saturate(100%) invert(45%) sepia(99%) saturate(1200%) hue-rotate(1deg) brightness(103%) contrast(104%); transform:translateY(-6px); }
+                    .trusted-track img { filter:none; }
                     .services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:40px; margin-bottom:40px; }
                     .services-grid-item h3 { display:flex; align-items:center; gap:10px; font-family:'PP Telegraf',sans-serif; font-size:16px; font-weight:400; color:#3A3A39; letter-spacing:0; margin-bottom:12px; padding-top:0; }
                     .services-grid-item h3 img { width:20px; height:20px; }
@@ -445,12 +444,7 @@ document.addEventListener('click', function(e) {
                 #contact:hover .footer-ink.footer1 .footer-probe { transform:translateY(-40px); }
                 #contact:hover .footer-ink.footer2 .footer-probe { transform:translateY(-24px); }
                 #contact:hover .footer-ink.footer3 .footer-probe { transform:translateY(-12px); }
-                /* breathe en los links del footer */
-                .footer-contact-links a,
-                .footer-contact-socials a { transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
-                #contact:hover .footer-col-left   a { transform: translateY(-12px); }
-                #contact:hover .footer-col-center a { transform: translateY(-8px); }
-                #contact:hover .footer-col-right  a { transform: translateY(-5px); }
+
                 .footer-contact-links { display:grid; grid-template-columns:1fr 1fr 1fr; width:100%; align-items:center; padding-bottom:24px; letter-spacing:0.5em; font-size:11px; position:relative; z-index:10; box-sizing:border-box; }
                 .card a.media, .card .pgi-image-holder { position:relative; overflow:hidden; display:block; border-radius:10px 10px 0 0 !important; isolation:isolate; will-change:transform; }
                 .card { border-radius:10px 10px 0 0; overflow:visible; }
@@ -653,20 +647,7 @@ window.addEventListener('load', () => {
             });
         });
 
-        // ── Magnético footer ────────────────────────────────────────────────
-        document.querySelectorAll('.footer-contact-links a').forEach(btn => {
-            btn.addEventListener('mousemove', (e) => {
-                const rect = btn.getBoundingClientRect();
-                const dx = (e.clientX - (rect.left + rect.width/2))  * 0.12;
-                const dy = (e.clientY - (rect.top  + rect.height/2)) * 0.12;
-                btn.style.transform = 'translate(' + dx + 'px,' + dy + 'px)';
-                btn.style.transition = 'transform 0.3s ease';
-            });
-            btn.addEventListener('mouseleave', () => {
-                btn.style.transform = 'translate(0,0)';
-                btn.style.transition = 'transform 0.6s cubic-bezier(0.34,1.5,0.9,1)';
-            });
-        });
+
 
         // ── Faqs y Process: tilt ────────────────────────────────────────────
         document.querySelectorAll('.services-btns-row a').forEach(btn => {
@@ -685,23 +666,7 @@ window.addEventListener('load', () => {
 
         gsap.registerPlugin(ScrollTrigger);
 
-        // ── Cards: parallax ida y vuelta (igual que las letras) ────────
-        gsap.utils.toArray('.card').forEach((card, i) => {
-            const fromLeft = i % 2 === 0;
-            gsap.fromTo(card,
-                { x: fromLeft ? -40 : 40 },
-                {
-                    x: 0,
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: '#works',
-                        start: 'top bottom',
-                        end: 'bottom top',
-                        scrub: 1.2,
-                    }
-                }
-            );
-        });
+
 
         // ── Parallax hero ───────────────────────────────────────────────────
         (function() {
