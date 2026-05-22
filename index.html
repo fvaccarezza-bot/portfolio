@@ -642,15 +642,15 @@ window.addEventListener('load', () => {
                     scrub: 1.0,
                 }
             });
-            // line2: arranca mucho después — escalonado marcado
+            // line2: escalonado, pero termina antes del fin del scroll
             gsap.to(line2, {
                 y: 0,
                 ease: 'none',
                 scrollTrigger: {
                     trigger: '#contact',
-                    start: 'top 150%',
-                    end: 'top 5%',
-                    scrub: 2.0,
+                    start: 'top 160%',
+                    end: 'top 40%',
+                    scrub: 1.6,
                 }
             });
         })();
