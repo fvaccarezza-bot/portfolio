@@ -389,9 +389,14 @@ document.addEventListener('click', function(e) {
                 .footer-contact-links a { color:#3A3A39; text-decoration:none; text-transform:uppercase; font-weight:500; }
                 .footer-contact-links a:hover { opacity:1; }
                 .footer-contact-socials { display:flex; gap:20px; align-items:center; justify-content:flex-end; }
-                .footer-contact-socials img { width:25px; height:25px; filter:invert(21%) sepia(5%) saturate(200%) hue-rotate(10deg) brightness(95%); }
+                .footer-contact-socials .social-link { display:flex; flex-direction:column; align-items:center; gap:4px; text-decoration:none; overflow:hidden; height:32px; transition:height 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
+                .footer-contact-socials .social-link:hover { height:52px; }
+                .footer-contact-socials img { width:25px; height:25px; filter:invert(21%) sepia(5%) saturate(200%) hue-rotate(10deg) brightness(95%); transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); flex-shrink:0; }
+                .footer-contact-socials .social-link:hover img { transform:translateY(-4px); }
+                .footer-contact-socials .social-name { font-family:'PP Telegraf',sans-serif; font-size:9px; letter-spacing:0.5em; text-transform:uppercase; color:#3A3A39; transform:translateY(100%); transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); white-space:nowrap; flex-shrink:0; }
+                .footer-contact-socials .social-link:hover .social-name { transform:translateY(0); }
                 /* LET'S BUILD SOMETHING reveal */
-                .footer-letsbuild { position:relative; z-index:5; text-align:center; margin-bottom:0; line-height:0; margin-top:20px; }
+                .footer-letsbuild { position:relative; z-index:5; text-align:center; margin-bottom:0; line-height:0; margin-top:70px; }
                 .footer-lb-clip { overflow:hidden; line-height:0; }
                 .footer-lb-clip img { display:block; width:100%; max-width:100%; transform:translateY(100%); filter:brightness(0) saturate(100%) invert(20%) sepia(5%) saturate(300%) hue-rotate(10deg) brightness(95%); }
             </style>
@@ -400,9 +405,18 @@ document.addEventListener('click', function(e) {
                     <div class="footer-col-left"><a href="https://calendly.com/fvaccarezza/intro-call" target="_blank" class="footer-roll">CALL ME</a></div>
                     <div class="footer-col-center"><a href="mailto:fvaccarezza@gmail.com" class="footer-roll">WRITE ME</a></div>
                     <div class="footer-col-right footer-contact-socials">
-                        <a href="https://www.behance.net/Vaccarezza" target="_blank"><img src="./assets/img/social-behance.svg" alt="Behance" style="width:31px;height:31px;" /></a>
-                        <a href="https://dribbble.com/Vaccarezza" target="_blank"><img src="./assets/img/social-dribble.svg" alt="Dribbble" /></a>
-                        <a href="https://vsco.co/fedevaccarezza/" target="_blank"><img src="./assets/img/social-vsco.svg" alt="VSCO" /></a>
+                        <a href="https://www.behance.net/Vaccarezza" target="_blank" class="social-link">
+                            <img src="./assets/img/social-behance.svg" alt="Behance" style="width:31px;height:31px;" />
+                            <span class="social-name">BEHANCE</span>
+                        </a>
+                        <a href="https://dribbble.com/Vaccarezza" target="_blank" class="social-link">
+                            <img src="./assets/img/social-dribble.svg" alt="Dribbble" />
+                            <span class="social-name">DRIBBBLE</span>
+                        </a>
+                        <a href="https://vsco.co/fedevaccarezza/" target="_blank" class="social-link">
+                            <img src="./assets/img/social-vsco.svg" alt="VSCO" />
+                            <span class="social-name">VSCO</span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -649,7 +663,7 @@ window.addEventListener('load', () => {
                 scrollTrigger: {
                     trigger: '#contact',
                     start: 'top 160%',
-                    end: 'top 70%',
+                    end: 'top 50%',
                     scrub: 1.6,
                 }
             });
