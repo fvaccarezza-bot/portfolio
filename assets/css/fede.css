@@ -565,41 +565,10 @@ footer .bg-vectors img {
   width: 100%;
   height: auto;
 }
-/* footer-bottom-full y footer-bottom-cut: sin máscara */
-footer .footer-bottom-full {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100vw;
-  height: 24vw;
-  pointer-events: none;
-  z-index: 9;
-  background-color: #3a3a39;
-  -webkit-mask-image: none;
-  mask-image: none;
-}
-footer .footer-bottom-mask {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100vw;
-  height: 100%;
-  pointer-events: none;
-  z-index: 10;
-  -webkit-mask-image: none;
-  mask-image: none;
-}
-footer .footer-bottom-cut {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100vw;
-  height: 24vw;
-  pointer-events: none;
-  background-color: #fea039;
-  -webkit-mask-image: none;
-  mask-image: none;
-}
+/* footer-bottom: ocultos ya que usamos SVGs nuevos */
+footer .footer-bottom-full,
+footer .footer-bottom-mask,
+footer .footer-bottom-cut { display: none; }
 footer .footer-probe {
   display: block;
   width: 100%;
