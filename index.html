@@ -584,7 +584,7 @@ window.addEventListener('load', () => {
         const viewCursor = document.createElement('div');
         viewCursor.id = 'view-cursor';
         viewCursor.style.cssText = 'position:fixed;pointer-events:none;z-index:999998;opacity:1;display:flex;align-items:center;justify-content:center;width:10px;height:10px;border-radius:50%;background:#FF6600;font-family:"PP Telegraf",sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;color:white;overflow:hidden;will-change:left,top;transition:width 0.5s cubic-bezier(0.34,1.2,0.64,1), height 0.5s cubic-bezier(0.34,1.2,0.64,1), opacity 0.3s ease;';
-        viewCursor.innerHTML = '<span style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.4;letter-spacing:0.5em;text-align:center;text-transform:uppercase;padding-left:0.5em;"><span>VIEW</span><span>MORE</span></span>';
+        viewCursor.innerHTML = '<span style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1;letter-spacing:0.2em;text-align:center;text-transform:uppercase;"><span style="margin-left:0.2em;">VIEW</span><span style="margin-left:0.2em;">MORE</span></span>';
         document.body.appendChild(viewCursor);
 
         let vcX = -200, vcY = -200, vcTargetX = -200, vcTargetY = -200;
