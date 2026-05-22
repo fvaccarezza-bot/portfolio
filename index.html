@@ -369,7 +369,7 @@ document.addEventListener('click', function(e) {
                 </div>
             </div>
         <footer id="contact" class="tt-section">
-            <div class="bg-vectors" id="bg-vectors-4"><div class="pos bottom-center"><img class="mob-no" src="./assets/img/footer-4.svg" /></div></div>
+            <div class="bg-vectors" id="bg-vectors-4" style="overflow:visible;position:relative;z-index:2;"><div class="pos bottom-center" style="overflow:visible;"><img class="mob-no" src="./assets/img/footer-4.svg" style="position:absolute;top:0;left:0;width:100%;height:auto;" /><img class="mob-ok block" src="./assets/img/footer-4-mob.svg" alt="" /></div></div>
             <style>
                 #contact { margin-top:150px; overflow:visible; }
 
@@ -633,26 +633,26 @@ window.addEventListener('load', () => {
             const line1 = document.querySelector('#lb-line1 img');
             const line2 = document.querySelector('#lb-line2 img');
             if (!line1 || !line2) return;
-            // line1: arranca antes, llega antes
+            // line1: arranca cuando el footer está lejos, termina al entrar
             gsap.to(line1, {
                 y: 0,
                 ease: 'none',
                 scrollTrigger: {
                     trigger: '#contact',
-                    start: 'top bottom',
-                    end: 'center 60%',
+                    start: 'top 200%',
+                    end: 'top 20%',
                     scrub: 1.0,
                 }
             });
-            // line2: arranca más tarde, más lento — efecto escalonado
+            // line2: igual pero con más retraso — escalonado
             gsap.to(line2, {
                 y: 0,
                 ease: 'none',
                 scrollTrigger: {
                     trigger: '#contact',
-                    start: 'top 85%',
-                    end: 'center 50%',
-                    scrub: 1.8,
+                    start: 'top 180%',
+                    end: 'top 10%',
+                    scrub: 1.4,
                 }
             });
         })();
