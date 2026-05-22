@@ -583,8 +583,8 @@ window.addEventListener('load', () => {
         // ── Cursor VIEW ─────────────────────────────────────────────────────
         const viewCursor = document.createElement('div');
         viewCursor.id = 'view-cursor';
-        viewCursor.style.cssText = 'position:fixed;pointer-events:none;z-index:999998;opacity:1;display:flex;align-items:center;justify-content:center;width:10px;height:10px;border-radius:50%;background:#FF6600;font-family:"PP Telegraf",sans-serif;font-size:11px;font-weight:400;letter-spacing:0.15em;color:white;overflow:hidden;will-change:left,top;transition:width 0.5s cubic-bezier(0.34,1.2,0.64,1), height 0.5s cubic-bezier(0.34,1.2,0.64,1), opacity 0.3s ease;';
-        viewCursor.innerHTML = '<span style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.4;letter-spacing:0.5em;text-align:center;font-size:14px;text-transform:uppercase;padding-left:0.5em;font-family:'PP Telegraf',sans-serif;"><span>VIEW</span><span>MORE</span></span>';
+        viewCursor.style.cssText = 'position:fixed;pointer-events:none;z-index:999998;opacity:1;display:flex;align-items:center;justify-content:center;width:10px;height:10px;border-radius:50%;background:#FF6600;font-family:"PP Telegraf",sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;color:white;overflow:hidden;will-change:left,top;transition:width 0.5s cubic-bezier(0.34,1.2,0.64,1), height 0.5s cubic-bezier(0.34,1.2,0.64,1), opacity 0.3s ease;';
+        viewCursor.innerHTML = '<span style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.4;letter-spacing:0.5em;text-align:center;text-transform:uppercase;padding-left:0.5em;"><span>VIEW</span><span>MORE</span></span>';
         document.body.appendChild(viewCursor);
 
         let vcX = -200, vcY = -200, vcTargetX = -200, vcTargetY = -200;
@@ -593,7 +593,7 @@ window.addEventListener('load', () => {
         vcX = -300; vcY = -300; vcTargetX = -300; vcTargetY = -300;
 
         (function animateViewCursor() {
-            vcX += (vcTargetX - vcX) * 0.15; vcY += (vcTargetY - vcY) * 0.15;
+            vcX += (vcTargetX - vcX) * 0.08; vcY += (vcTargetY - vcY) * 0.08;
             viewCursor.style.left = vcX + 'px'; viewCursor.style.top = vcY + 'px';
             viewCursor.style.transform = 'translate(-50%, -50%)';
             requestAnimationFrame(animateViewCursor);
@@ -609,7 +609,7 @@ window.addEventListener('load', () => {
                 // Agrandar el círculo suavemente
                 viewCursor.style.width = '100px';
                 viewCursor.style.height = '100px';
-                viewCursor.style.fontSize = '11px';
+                viewCursor.style.fontSize = '14px';
                 if (fxCursor) { fxCursor.style.filter='blur(4px)'; fxCursor.style.opacity='0'; fxCursor.style.transition='opacity 0.3s ease, filter 0.3s ease'; }
             });
             card.addEventListener('mouseover', (e) => {
@@ -755,23 +755,26 @@ window.addEventListener('load', () => {
                 );
             }
 
-            // Texto LET'S BUILD SOMETHING: parallax desde abajo hacia arriba
+            // Texto LET'S BUILD SOMETHING: breathe al hacer hover en el footer
             const probes = document.querySelectorAll('.footer-probe.mob-no');
-            probes.forEach((probe, i) => {
-                gsap.fromTo(probe,
-                    { y: 60 },
-                    {
-                        y: -60,
-                        ease: 'none',
-                        scrollTrigger: {
-                            trigger: '#contact',
-                            start: 'top bottom',
-                            end: 'bottom top',
-                            scrub: 0.8 + i * 0.15,
-                        }
-                    }
-                );
-            });
+            const contact = document.getElementById('contact');
+            if (contact) {
+                contact.addEventListener('mouseenter', () => {
+                    probes.forEach((probe, i) => {
+                        gsap.to(probe, {
+                            y: -20 + i * 6,
+                            duration: 0.9,
+                            ease: 'power2.out',
+                            delay: i * 0.08,
+                        });
+                    });
+                });
+                contact.addEventListener('mouseleave', () => {
+                    probes.forEach((probe) => {
+                        gsap.to(probe, { y: 0, duration: 0.7, ease: 'power2.inOut' });
+                    });
+                });
+            }
 
             // fondo naranja removido
         })();
