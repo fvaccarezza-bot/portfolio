@@ -91,6 +91,19 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .ph-caption-hover:hover .name-line:nth-child(1) { transform: translateY(-28px); }
 .ph-caption-hover:hover .name-line:nth-child(2) { transform: translateY(-16px); }
 .ph-caption-hover:hover .min-titles:last-child  { transform: translateY(-6px); }
+
+/* ── Mobile ── */
+@media (max-width: 768px) {
+    .name-letter {
+        height: 57px !important; /* 143 * 0.4 = 57px */
+    }
+    .home-title {
+        gap: 16px;
+    }
+    .name-line {
+        gap: 2px !important;
+    }
+}
 </style>
 <link rel="preload" href="./assets/fonts/PPTelegraf-Regular.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="./assets/fonts/PPTelegraf-Ultrabold.woff2" as="font" type="font/woff2" crossorigin />
