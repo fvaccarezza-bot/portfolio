@@ -753,21 +753,25 @@ window.addEventListener('load', () => {
                 );
             }
 
-            // Texto LET'S BUILD SOMETHING (footer-probe SVGs): crecen
-            document.querySelectorAll('.footer-probe.mob-no').forEach((probe, i) => {
+            // Texto LET'S BUILD SOMETHING: parallax desde abajo hacia arriba
+            const probes = document.querySelectorAll('.footer-probe.mob-no');
+            probes.forEach((probe, i) => {
                 gsap.fromTo(probe,
-                    { scale: 1 },
-                    { scale: 1.2, ease: 'none', scrollTrigger: { ...ftCfg, scrub: 1.5 + i * 0.15 } }
+                    { y: 60 },
+                    {
+                        y: -60,
+                        ease: 'none',
+                        scrollTrigger: {
+                            trigger: '#contact',
+                            start: 'top bottom',
+                            end: 'bottom top',
+                            scrub: 0.8 + i * 0.15,
+                        }
+                    }
                 );
             });
 
-            // Fondo: de transparente a naranja
-            if (contact) {
-                gsap.fromTo(contact,
-                    { backgroundColor: 'rgba(255,102,0,0)' },
-                    { backgroundColor: 'rgba(255,102,0,1)', ease: 'none', scrollTrigger: { ...ftCfg, scrub: 1.5 } }
-                );
-            }
+            // fondo naranja removido
         })();
 
         // ── Parallax services-big ───────────────────────────────────────────
