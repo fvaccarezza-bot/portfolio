@@ -719,24 +719,43 @@ window.addEventListener('load', () => {
             };
         })();
 
-        // ── Footer shape: crece y gira al scrollear ───────────────────────
-        const footerShape = document.getElementById('footer-bg-shape');
-        if (footerShape) {
-            gsap.fromTo(footerShape,
-                { scale: 1, rotate: 0 },
-                {
-                    scale: 3.5,
-                    rotate: 15,
-                    ease: 'none',
-                    scrollTrigger: {
-                        trigger: '#contact',
-                        start: 'top bottom',
-                        end: 'bottom bottom',
-                        scrub: 1.5,
-                    }
-                }
-            );
-        }
+        // ── Footer: shape crece, texto escala, fondo se pone naranja ──────
+        (function() {
+            const footerShape = document.getElementById('footer-bg-shape');
+            const footerProbes = document.querySelectorAll('.footer-probe.mob-no');
+            const contact = document.getElementById('contact');
+
+            const ftCfg = {
+                trigger: '#contact',
+                start: 'top bottom',
+                end: 'bottom bottom',
+                scrub: 1.5,
+            };
+
+            // Mancha naranja: crece y gira
+            if (footerShape) {
+                gsap.fromTo(footerShape,
+                    { scale: 1, rotate: 0 },
+                    { scale: 4, rotate: 12, ease: 'none', scrollTrigger: ftCfg }
+                );
+            }
+
+            // Texto footer (SVGs): crecen desde su tamaño hasta 1.15x
+            footerProbes.forEach((probe, i) => {
+                gsap.fromTo(probe,
+                    { scale: 1 },
+                    { scale: 1.15, ease: 'none', scrollTrigger: { ...ftCfg, scrub: 1.5 + i * 0.2 } }
+                );
+            });
+
+            // Fondo del footer: de transparente a naranja
+            if (contact) {
+                gsap.fromTo(contact,
+                    { backgroundColor: 'rgba(255,102,0,0)' },
+                    { backgroundColor: 'rgba(255,102,0,1)', ease: 'none', scrollTrigger: { ...ftCfg, scrub: 1.5 } }
+                );
+            }
+        })();
 
         // ── Parallax services-big ───────────────────────────────────────────
         const servicesBig = document.querySelector('.services-big');
