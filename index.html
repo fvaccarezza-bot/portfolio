@@ -725,10 +725,10 @@ window.addEventListener('load', () => {
                 });
             }
 
-            applyParallax(fedLetters, 3.5);
-            applyParallax(vacLetters, 4.5);
-
             window.__registerTitleParallax = function() {
+                // Registrar todo después del breathe
+                applyParallax(fedLetters, 3.5);
+                applyParallax(vacLetters, 4.5);
                 if (minTitles[0]) gsap.to(minTitles[0], { y: -220, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 0.9 } });
                 if (minTitles[1]) gsap.to(minTitles[1], { y: -160, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 1.1 } });
             };
