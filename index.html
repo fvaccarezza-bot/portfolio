@@ -32,129 +32,57 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 <link rel="stylesheet" href="./assets/css/retina-80.css" />
 <link rel="stylesheet" href="./assets/css/ui-scale.css" />
 <style>
-.home-title {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 36px;
-}
-/* FIX: name-line siempre flex row — antes era .home-title span { display:block } lo que apilaba las letras */
-.name-line {
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: flex-end;
-    justify-content: center;
-    gap: 4px;
-    transform: translateY(0px);
-    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.name-letter {
-    display: block;
-    height: 143px;
-    width: auto;
-    flex-shrink: 0;
-    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.ph-caption-hover { display: block; }
-.ph-caption .min-titles {
-    display: block;
-    transform: translateY(0px);
-    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-.home-title,
-.home-title:hover,
-.home-title:focus,
-.home-title .name-line,
-.home-title:hover .name-line,
-.home-title:focus .name-line {
-    color: inherit !important;
-    -webkit-text-stroke: 0 !important;
-    text-decoration: none !important;
-}
-
+.home-title { display:flex; flex-direction:column; align-items:center; gap:36px; }
+.name-line { display:flex !important; flex-direction:row !important; align-items:flex-end; justify-content:center; gap:4px; transform:translateY(0px); transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
+.name-letter { display:block; height:143px; width:auto; flex-shrink:0; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
+.ph-caption-hover { display:block; }
+.ph-caption .min-titles { display:block; transform:translateY(0px); transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
+.home-title,.home-title:hover,.home-title:focus,.home-title .name-line,.home-title:hover .name-line,.home-title:focus .name-line { color:inherit !important; -webkit-text-stroke:0 !important; text-decoration:none !important; }
 #modal-works .modal__dialog { display:flex; flex-direction:column; align-items:center; justify-content:center; }
 #modal-works .content { justify-content:center !important; align-items:center !important; }
-.tt-wrap { max-width: min(1320px, 91.67vw) !important; }
-#services .trusted-container,
-#services .trusted-container .trusted-track { margin-top:0 !important; margin-bottom:0 !important; }
+.tt-wrap { max-width:min(1320px,91.67vw) !important; }
+#services .trusted-container, #services .trusted-container .trusted-track { margin-top:0 !important; margin-bottom:0 !important; }
 #services h4.section-title { margin-top:0 !important; margin-bottom:48px !important; }
 .services-btns { margin-bottom:120px !important; }
 #services .words-container { margin-top:0 !important; }
-.ph-caption .min-titles,
-.ph-caption-hover:hover .min-titles,
-.ph-caption .min-titles:hover { -webkit-text-stroke:0 !important; text-stroke:0 !important; }
+.ph-caption .min-titles,.ph-caption-hover:hover .min-titles,.ph-caption .min-titles:hover { -webkit-text-stroke:0 !important; text-stroke:0 !important; }
 .home-title span img { display:block; width:auto; max-width:100%; margin:0 auto; }
-
-
-/* breathe hover — apunta a .name-line */
-.ph-caption-hover:hover .min-titles:first-child { transform: translateY(-40px); }
-.ph-caption-hover:hover .name-line:nth-child(1) { transform: translateY(-28px); }
-.ph-caption-hover:hover .name-line:nth-child(2) { transform: translateY(-16px); }
-.ph-caption-hover:hover .min-titles:last-child  { transform: translateY(-6px); }
-
-/* ── Mobile ── */
-@media (max-width: 768px) {
-    .name-letter {
-        height: 29px !important; /* 143 * 0.2 = 29px */
-    }
-    .home-title {
-        gap: 16px;
-    }
-    .name-line {
-        gap: 2px !important;
-    }
+.ph-caption-hover:hover .min-titles:first-child { transform:translateY(-40px); }
+.ph-caption-hover:hover .name-line:nth-child(1) { transform:translateY(-28px); }
+.ph-caption-hover:hover .name-line:nth-child(2) { transform:translateY(-16px); }
+.ph-caption-hover:hover .min-titles:last-child { transform:translateY(-6px); }
+@media (max-width:768px) {
+    .name-letter { height:29px !important; }
+    .home-title { gap:16px; }
+    .name-line { gap:2px !important; }
 }
 </style>
 <link rel="preload" href="./assets/fonts/PPTelegraf-Regular.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="./assets/fonts/PPTelegraf-Ultrabold.woff2" as="font" type="font/woff2" crossorigin />
 <script src="./assets/js/sessionStorage.js"></script>
 <script>
-// Interceptar clicks en cards ANTES que transition.js (que tiene defer)
-// Registrado en el head = antes de cualquier defer script
 document.addEventListener('click', function(e) {
     const link = e.target.closest('.card a.media');
     if (!link) return;
     const href = link.getAttribute('href');
     if (!href || href === '#') return;
-
     e.preventDefault();
     e.stopImmediatePropagation();
-
     const preloader = document.getElementById('preloader');
     const underlay  = document.getElementById('preloader-under');
-
     document.documentElement.classList.add('no-scroll');
-    // Limpiar dataset para que View Transitions no haga fade
     delete document.documentElement.dataset.vtMode;
-
-    if (preloader) {
-        preloader.style.transition = 'none';
-        preloader.style.transform  = 'translateY(100%)';
-    }
-    if (underlay) {
-        underlay.style.transition = 'none';
-        underlay.style.transform  = 'translateY(100%)';
-    }
-
-    // Forzar reflow
+    if (preloader) { preloader.style.transition='none'; preloader.style.transform='translateY(100%)'; }
+    if (underlay)  { underlay.style.transition='none';  underlay.style.transform='translateY(100%)'; }
     if (preloader) preloader.getBoundingClientRect();
-
-    // Slide in desde abajo
-    if (preloader) {
-        preloader.style.transition = 'transform 700ms cubic-bezier(0.7, 0, 0.2, 1)';
-        preloader.style.transform  = 'translateY(0)';
-    }
-    if (underlay) {
-        underlay.style.transition = 'transform 580ms cubic-bezier(0.7, 0, 0.2, 1)';
-        underlay.style.transform  = 'translateY(0)';
-    }
-
+    if (preloader) { preloader.style.transition='transform 700ms cubic-bezier(0.7,0,0.2,1)'; preloader.style.transform='translateY(0)'; }
+    if (underlay)  { underlay.style.transition='transform 580ms cubic-bezier(0.7,0,0.2,1)';  underlay.style.transform='translateY(0)'; }
     setTimeout(function() {
-        if (preloader) { preloader.style.transition = ''; preloader.style.transform = ''; }
-        if (underlay)  { underlay.style.transition  = ''; underlay.style.transform  = ''; }
+        if (preloader) { preloader.style.transition=''; preloader.style.transform=''; }
+        if (underlay)  { underlay.style.transition='';  underlay.style.transform=''; }
         window.location.href = href;
     }, 720);
-}, true); // capture: true — antes que transition.js
+}, true);
 </script>
 </head>
 <body id="body" class="tt-transition tt-boxed tt-smooth-scroll">
@@ -274,7 +202,6 @@ document.addEventListener('click', function(e) {
                                 </span>
                             </a>
                         </h1>
-
                     </div>
                     <div class="text-center color-fv min-titles spacing">2026</div>
                 </div>
@@ -311,55 +238,55 @@ document.addEventListener('click', function(e) {
                     <div class="gallery">
                         <div class="card" id="frog-bazar">
                             <a href="https://www.behance.net/gallery/157959551/Frog-Bazar-2023" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a>
-                            <a class="media" href="work/frogbazar/" alt="frog-bazar" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/frogbazar.jpg" alt="Frog Bazar" /><img class="img-hover" src="./assets/home/frogbazar-b.jpg" alt="" aria-hidden="true" /></a>
-<div class="meta"><h3>Frog Bazar</h3><p>branding + website + photo</p><p>(001)</p></div>
+                            <a class="media" href="work/frogbazar/" alt="frog-bazar" data-vt-mode="slide"><img class="img-base" src="./assets/home/frogbazar.jpg" alt="Frog Bazar" /><img class="img-hover" src="./assets/home/frogbazar-b.jpg" alt="" aria-hidden="true" /></a>
+                            <div class="meta"><h3>Frog Bazar</h3><p>branding + website + photo</p><p>(001)</p></div>
                         </div>
                         <div class="card" id="estudio32">
                             <a href="http://behance.net/gallery/164603319/estudio32" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a>
-                            <a class="media" href="work/estudio32/" alt="estudio32" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/estudio32.jpg" alt="ESTUDIO 32" /><img class="img-hover" src="./assets/home/estudio32-b.jpg" alt="" aria-hidden="true" /></a>
-<div class="meta"><h3>ESTUDIO 32</h3><p>branding + photo</p><p>(002)</p></div>
+                            <a class="media" href="work/estudio32/" alt="estudio32" data-vt-mode="slide"><img class="img-base" src="./assets/home/estudio32.jpg" alt="ESTUDIO 32" /><img class="img-hover" src="./assets/home/estudio32-b.jpg" alt="" aria-hidden="true" /></a>
+                            <div class="meta"><h3>ESTUDIO 32</h3><p>branding + photo</p><p>(002)</p></div>
                         </div>
                         <div class="card" id="opame">
-                            <a class="media" href="work/opame/" alt="opame" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/opame.jpg" alt="OPAME" /><img class="img-hover" src="./assets/home/opame-b.jpg" alt="" aria-hidden="true" /></a>
-<div class="meta"><h3>OPAME COLLECTIVE</h3><p>website</p><p>(003)</p></div>
+                            <a class="media" href="work/opame/" alt="opame" data-vt-mode="slide"><img class="img-base" src="./assets/home/opame.jpg" alt="OPAME" /><img class="img-hover" src="./assets/home/opame-b.jpg" alt="" aria-hidden="true" /></a>
+                            <div class="meta"><h3>OPAME COLLECTIVE</h3><p>website</p><p>(003)</p></div>
                         </div>
                         <div class="card" id="nmp">
-                            <a class="media" href="work/nmp/" alt="nmp" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/nmp.jpg" alt="N.M, P" /><img class="img-hover" src="./assets/home/nmp-b.jpg" alt="" aria-hidden="true" /></a>
-<div class="meta"><h3>N.M,P</h3><p>branding + website</p><p>(004)</p></div>
+                            <a class="media" href="work/nmp/" alt="nmp" data-vt-mode="slide"><img class="img-base" src="./assets/home/nmp.jpg" alt="N.M, P" /><img class="img-hover" src="./assets/home/nmp-b.jpg" alt="" aria-hidden="true" /></a>
+                            <div class="meta"><h3>N.M,P</h3><p>branding + website</p><p>(004)</p></div>
                         </div>
                         <div class="card" id="cleo">
-                            <a class="media" href="work/cleo/" alt="cleo" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/cleo.jpg" alt="CLEO PAY" /><img class="img-hover" src="./assets/home/cleo-b.jpg" alt="" aria-hidden="true" /></a>
-<div class="meta"><h3>CLEO PAY</h3><p>branding</p><p>(005)</p></div>
+                            <a class="media" href="work/cleo/" alt="cleo" data-vt-mode="slide"><img class="img-base" src="./assets/home/cleo.jpg" alt="CLEO PAY" /><img class="img-hover" src="./assets/home/cleo-b.jpg" alt="" aria-hidden="true" /></a>
+                            <div class="meta"><h3>CLEO PAY</h3><p>branding</p><p>(005)</p></div>
                         </div>
                         <div class="card" id="michi">
                             <a href="https://www.behance.net/gallery/162858615/Michi-Dine-In-Take-Away" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a>
-                            <a class="media" href="work/michi/" alt="michi" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/michi.jpg" alt="MICHI BISTRO" /><img class="img-hover" src="./assets/home/michi-b.jpg" alt="" aria-hidden="true" /></a>
-<div class="meta"><h3>MICHI BISTRO</h3><p>concept branding</p><p>(006)</p></div>
+                            <a class="media" href="work/michi/" alt="michi" data-vt-mode="slide"><img class="img-base" src="./assets/home/michi.jpg" alt="MICHI BISTRO" /><img class="img-hover" src="./assets/home/michi-b.jpg" alt="" aria-hidden="true" /></a>
+                            <div class="meta"><h3>MICHI BISTRO</h3><p>concept branding</p><p>(006)</p></div>
                         </div>
                         <div class="card" id="broke">
                             <a href="https://www.behance.net/gallery/161530441/Broke-Music" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a>
-                            <a class="media" href="work/broke/" alt="broke" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/broke.jpg" alt="Broke" /><img class="img-hover" src="./assets/home/broke-b.jpg" alt="" aria-hidden="true" /></a>
-<div class="meta"><h3>BROKE</h3><p>branding</p><p>(007)</p></div>
+                            <a class="media" href="work/broke/" alt="broke" data-vt-mode="slide"><img class="img-base" src="./assets/home/broke.jpg" alt="Broke" /><img class="img-hover" src="./assets/home/broke-b.jpg" alt="" aria-hidden="true" /></a>
+                            <div class="meta"><h3>BROKE</h3><p>branding</p><p>(007)</p></div>
                         </div>
                         <div class="card" id="big-mother-energy">
-                            <a class="media" href="work/big-mother-energy/" alt="big-mother-energy" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/big-mother-energy.jpg" alt="Big Mother Energy" loading="lazy" /><img class="img-hover" src="./assets/home/big-mother-energy-b.jpg" alt="" aria-hidden="true" /></a>
-<div class="meta"><h3>Big Mother Energy</h3><p>branding</p><p>(008)</p></div>
+                            <a class="media" href="work/big-mother-energy/" alt="big-mother-energy" data-vt-mode="slide"><img class="img-base" src="./assets/home/big-mother-energy.jpg" alt="Big Mother Energy" loading="lazy" /><img class="img-hover" src="./assets/home/big-mother-energy-b.jpg" alt="" aria-hidden="true" /></a>
+                            <div class="meta"><h3>Big Mother Energy</h3><p>branding</p><p>(008)</p></div>
                         </div>
                         <div class="card" id="ui-ux">
-                            <a class="media" href="work/ui-ux/" alt="ui-ux" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/ui-ux.jpg" alt="UI / UX" /><img class="img-hover" src="./assets/home/ui-ux-b.jpg" alt="" aria-hidden="true" /></a>
-<div class="meta"><h3>UI / UX</h3><p>(009)</p></div>
+                            <a class="media" href="work/ui-ux/" alt="ui-ux" data-vt-mode="slide"><img class="img-base" src="./assets/home/ui-ux.jpg" alt="UI / UX" /><img class="img-hover" src="./assets/home/ui-ux-b.jpg" alt="" aria-hidden="true" /></a>
+                            <div class="meta"><h3>UI / UX</h3><p>(009)</p></div>
                         </div>
                         <div class="card" id="web">
-                            <a class="media" href="work/web/" alt="web" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/web.jpg" alt="Web" /><img class="img-hover" src="./assets/home/web-b.jpg" alt="" aria-hidden="true" /></a>
-<div class="meta"><h3>WEB</h3><p>(010)</p></div>
+                            <a class="media" href="work/web/" alt="web" data-vt-mode="slide"><img class="img-base" src="./assets/home/web.jpg" alt="Web" /><img class="img-hover" src="./assets/home/web-b.jpg" alt="" aria-hidden="true" /></a>
+                            <div class="meta"><h3>WEB</h3><p>(010)</p></div>
                         </div>
                         <div class="card" id="logofolio">
-                            <a class="media" href="work/logofolio/" alt="logofolio" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/logofolio.jpg" alt="Logofolio" /><img class="img-hover" src="./assets/home/logofolio-b.jpg" alt="" aria-hidden="true" /></a>
-<div class="meta"><h3>LOGOFOLIO</h3><p>(011)</p></div>
+                            <a class="media" href="work/logofolio/" alt="logofolio" data-vt-mode="slide"><img class="img-base" src="./assets/home/logofolio.jpg" alt="Logofolio" /><img class="img-hover" src="./assets/home/logofolio-b.jpg" alt="" aria-hidden="true" /></a>
+                            <div class="meta"><h3>LOGOFOLIO</h3><p>(011)</p></div>
                         </div>
                         <div class="card" id="photography">
-                            <a class="media" href="work/photography/" alt="photography" data-vt-mode="slide" data-vt-mode="slide"><img class="img-base" src="./assets/home/photography.jpg" alt="photography" /><img class="img-hover" src="./assets/home/photography-b.jpg" alt="" aria-hidden="true" /></a>
-<div class="meta"><h3>PHOTOGRAPHY</h3><p>(012)</p></div>
+                            <a class="media" href="work/photography/" alt="photography" data-vt-mode="slide"><img class="img-base" src="./assets/home/photography.jpg" alt="photography" /><img class="img-hover" src="./assets/home/photography-b.jpg" alt="" aria-hidden="true" /></a>
+                            <div class="meta"><h3>PHOTOGRAPHY</h3><p>(012)</p></div>
                         </div>
                     </div>
                 </div>
@@ -368,15 +295,15 @@ document.addEventListener('click', function(e) {
                 <div class="tt-section-inner tt-wrap">
                 <style>
                     .services-big { position:relative; margin-bottom:180px; cursor:default; text-align:center; }
-                    .services-big > img { display:block; width:auto; max-width:100%; margin:0 auto; transition:transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94); transform:translateY(0) scale(1); }
-                    .services-big:hover .sb-line1 { transform: translateY(-55px) scale(1.02); }
-                    .services-big:hover .sb-line2 { transform: translateY(-38px) scale(1.02); }
-                    .services-big:hover .sb-line3 { transform: translateY(-22px) scale(1.02); }
-                    .services-big:hover .sb-tag1  { transform: translateY(-14px) scale(1.02); transition-delay: 0.05s; }
-                    .services-big:hover .sb-tag2  { transform: translateY(-8px) scale(1.02);  transition-delay: 0.1s; }
+                    .services-big > img { display:block; width:auto; max-width:100%; margin:0 auto; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); transform:translateY(0) scale(1); }
+                    .services-big:hover .sb-line1 { transform:translateY(-55px) scale(1.02); }
+                    .services-big:hover .sb-line2 { transform:translateY(-38px) scale(1.02); }
+                    .services-big:hover .sb-line3 { transform:translateY(-22px) scale(1.02); }
+                    .services-big:hover .sb-tag1  { transform:translateY(-14px) scale(1.02); transition-delay:0.05s; }
+                    .services-big:hover .sb-tag2  { transform:translateY(-8px) scale(1.02); transition-delay:0.1s; }
                     .sb-tag { position:absolute; bottom:-120px; right:0; width:28%; display:flex; flex-direction:column; align-items:center; gap:0; }
                     .sb-tag2 { margin-top:-32px; }
-                    .sb-tag img { display:block; width:auto; max-width:none; transition:transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94); transform:translateY(0); }
+                    .sb-tag img { display:block; width:auto; max-width:none; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); transform:translateY(0); }
                     .trusted-track img { filter:none; }
                     .services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:40px; margin-bottom:40px; }
                     .services-grid-item h3 { display:flex; align-items:center; gap:10px; font-family:'PP Telegraf',sans-serif; font-size:16px; font-weight:400; color:#3A3A39; letter-spacing:0; margin-bottom:12px; padding-top:0; }
@@ -444,52 +371,17 @@ document.addEventListener('click', function(e) {
         <footer id="contact" class="tt-section">
             <div class="bg-vectors" id="bg-vectors-4" style="overflow:visible;"><div class="pos bottom-center" style="overflow:visible;"><img class="mob-no" id="footer-bg-shape" src="./assets/img/footer-4.svg" /><img class="mob-ok block" src="./assets/img/footer-4-mob.svg" alt="" /></div></div>
             <div class="footer-masked footer1"><div class="footer-ink footer1"><img class="footer-probe mob-no" id="footer-shape-main" src="./assets/img/footer-1.svg" alt="" /><img class="footer-probe mob-ok block" src="./assets/img/footer-1-mob.svg" alt="" /><div class="footer-texture orange" aria-hidden="true"></div></div></div>
-            <div class="footer-masked footer1"><div class="footer-ink footer2"><img class="footer-probe mob-no" src="./assets/img/footer-2.svg" alt="" /><img class="footer-probe mob-ok block" src="./assets/img/footer-2-mob.svg" alt="" /><div class="footer-texture yellow" aria-hidden="true"></div></div></div>
-            <div class="footer-masked footer3"><div class="footer-ink footer3"><img class="footer-probe mob-no" src="./assets/img/footer-3.svg" alt="" /><img class="footer-probe mob-ok block" src="./assets/img/footer-3-mob.svg" alt="" /><div class="footer-texture yellow" aria-hidden="true"></div></div></div>
-            <!-- LET'S BUILD SOMETHING — reveal con clip-path -->
-            <div class="footer-letsbuild">
-                <div class="footer-lb-line" id="lb-line1">
-                    <img src="./assets/img/LETSBUILD.svg" alt="LET'S BUILD" />
-                </div>
-                <div class="footer-lb-line" id="lb-line2">
-                    <img src="./assets/img/SOMETHING.svg" alt="SOMETHING" />
-                </div>
-            </div>
-
-            <div class="footer-bottom-full" aria-hidden="true"></div>
-            <div class="footer-bottom-mask" aria-hidden="true"><div class="footer-bottom-cut"></div></div>
             <style>
                 #contact { margin-top:150px; overflow:visible; }
-                /* LET'S BUILD SOMETHING reveal */
-                .footer-letsbuild {
-                    position: relative;
-                    z-index: 5;
-                    text-align: center;
-                    padding: 0 40px;
-                }
-                .footer-lb-line {
-                    overflow: hidden;
-                    line-height: 0.9;
-                }
-                .footer-lb-line img {
-                    display: block;
-                    width: 100%;
-                    max-width: 100%;
-                    transform: translateY(100%);
-                    transition: transform 0s;
-                }
                 .footer-masked, .footer-ink { overflow:visible !important; }
                 .footer-texture { mix-blend-mode:plus-lighter; }
                 #contact, #contact h2, #contact .footer-probe { color:#3A3A39; }
-                .footer-probe { transition:transform 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+                .footer-probe { transition:transform 1.6s cubic-bezier(0.25,0.46,0.45,0.94); }
                 #contact:hover .footer-ink.footer1 .footer-probe { transform:translateY(-40px); }
-                #contact:hover .footer-ink.footer2 .footer-probe { transform:translateY(-24px); }
-                #contact:hover .footer-ink.footer3 .footer-probe { transform:translateY(-12px); }
-
                 .footer-contact-links { display:grid; grid-template-columns:1fr 1fr 1fr; width:100%; align-items:center; padding-bottom:24px; letter-spacing:0.5em; font-size:11px; position:relative; z-index:10; box-sizing:border-box; }
                 .card a.media, .card .pgi-image-holder { position:relative; overflow:hidden; display:block; border-radius:10px 10px 0 0 !important; isolation:isolate; will-change:transform; }
                 .card { border-radius:10px 10px 0 0; overflow:visible; }
-                .card .meta { padding-top: 14px; } .card .meta h3, .card .meta p { transform: none !important; }
+                .card .meta { padding-top:14px; } .card .meta h3, .card .meta p { transform:none !important; }
                 .card .img-hover { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transform:scale(1); transition:opacity 1s ease, transform 1s ease; }
                 .card .img-base { transition:transform 1s ease; display:block; width:100%; }
                 .card:hover .img-hover { opacity:1; transform:scale(1.02); }
@@ -503,6 +395,10 @@ document.addEventListener('click', function(e) {
                 .footer-contact-links a:hover { opacity:1; }
                 .footer-contact-socials { display:flex; gap:20px; align-items:center; justify-content:flex-end; }
                 .footer-contact-socials img { width:22px; height:22px; filter:invert(21%) sepia(5%) saturate(200%) hue-rotate(10deg) brightness(95%); }
+                /* LET'S BUILD SOMETHING reveal */
+                .footer-letsbuild { position:relative; z-index:5; text-align:center; overflow:hidden; }
+                .footer-lb-line { overflow:hidden; line-height:0.85; }
+                .footer-lb-line img { display:block; width:100%; max-width:100%; transform:translateY(110%); filter:brightness(0) saturate(100%) invert(20%) sepia(5%) saturate(300%) hue-rotate(10deg) brightness(95%); }
             </style>
             <div class="tt-section-inner tt-wrap">
                 <div class="footer-contact-links">
@@ -515,6 +411,17 @@ document.addEventListener('click', function(e) {
                     </div>
                 </div>
             </div>
+            <!-- LET'S BUILD SOMETHING — reveal escalonado -->
+            <div class="footer-letsbuild">
+                <div class="footer-lb-line" id="lb-line1">
+                    <img src="./assets/img/LETSBUILD.svg" alt="LET'S BUILD" />
+                </div>
+                <div class="footer-lb-line" id="lb-line2">
+                    <img src="./assets/img/SOMETHING.svg" alt="SOMETHING" />
+                </div>
+            </div>
+            <div class="footer-bottom-full" aria-hidden="true"></div>
+            <div class="footer-bottom-mask" aria-hidden="true"><div class="footer-bottom-cut"></div></div>
         </footer>
         </div>
     </div>
@@ -535,7 +442,6 @@ document.addEventListener('click', function(e) {
         </div>
     </div>
 </div>
-
 <!-- MODAL FAQs -->
 <div class="modal-simple submmodal" id="modal-faqs" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="modal__backdrop" data-modal-close></div>
@@ -551,7 +457,6 @@ document.addEventListener('click', function(e) {
         </div>
     </div>
 </div>
-
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="./assets/vendor/gsap/ScrollToPlugin.min.js"></script>
@@ -622,11 +527,8 @@ window.addEventListener('load', () => {
         viewCursor.innerHTML = '<span style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1;letter-spacing:0.2em;text-align:center;text-transform:uppercase;"><span style="margin-left:0.2em;">VIEW</span><span style="margin-left:0.2em;">MORE</span></span>';
         document.body.appendChild(viewCursor);
 
-        let vcX = -200, vcY = -200, vcTargetX = -200, vcTargetY = -200;
+        let vcX = -300, vcY = -300, vcTargetX = -300, vcTargetY = -300;
         document.addEventListener('mousemove', (e) => { vcTargetX = e.clientX; vcTargetY = e.clientY; });
-        // Iniciar en posición fuera de pantalla
-        vcX = -300; vcY = -300; vcTargetX = -300; vcTargetY = -300;
-
         (function animateViewCursor() {
             vcX += (vcTargetX - vcX) * 0.08; vcY += (vcTargetY - vcY) * 0.08;
             viewCursor.style.left = vcX + 'px'; viewCursor.style.top = vcY + 'px';
@@ -635,18 +537,16 @@ window.addEventListener('load', () => {
         })();
 
         const fxCursor = document.querySelector('.fx-cursor');
-        // Ocultar el cursor original ya que el viewCursor naranja lo reemplaza
         if (fxCursor) fxCursor.style.display = 'none';
+
         document.querySelectorAll('.card').forEach(card => {
             const mediaLink = card.querySelector('a.media');
             card.addEventListener('mouseenter', (e) => {
                 if (e.target.closest('.stamp')) return;
-                // Agrandar el círculo suavemente
                 viewCursor.style.width = '80px';
                 viewCursor.style.height = '80px';
                 viewCursor.style.fontSize = '14px';
-                viewCursor.style.fontSize = '14px';
-                if (fxCursor) { fxCursor.style.filter='blur(4px)'; fxCursor.style.opacity='0'; fxCursor.style.transition='opacity 0.3s ease, filter 0.3s ease'; }
+                if (fxCursor) { fxCursor.style.filter='blur(4px)'; fxCursor.style.opacity='0'; }
             });
             card.addEventListener('mouseover', (e) => {
                 if (e.target.closest('.stamp')) {
@@ -664,13 +564,11 @@ window.addEventListener('load', () => {
                 }
             });
             card.addEventListener('mouseleave', () => {
-                viewCursor.style.opacity = '0';
-                if (fxCursor) { fxCursor.style.filter='blur(0px)'; fxCursor.style.opacity='1'; fxCursor.style.transition='opacity 0.3s ease, filter 0.3s ease'; }
-                // Volver al puntito
                 viewCursor.style.width = '10px';
                 viewCursor.style.height = '10px';
                 viewCursor.style.fontSize = '0px';
                 viewCursor.style.opacity = '1';
+                if (fxCursor) { fxCursor.style.filter='blur(0px)'; fxCursor.style.opacity='1'; }
                 if (mediaLink) {
                     mediaLink.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
                     mediaLink.style.transition = 'transform 0.6s cubic-bezier(0.34,1.5,0.9,1)';
@@ -687,8 +585,6 @@ window.addEventListener('load', () => {
                 mediaLink.style.transition = 'transform 0.15s ease';
             });
         });
-
-
 
         // ── Faqs y Process: tilt ────────────────────────────────────────────
         document.querySelectorAll('.services-btns-row a').forEach(btn => {
@@ -707,21 +603,17 @@ window.addEventListener('load', () => {
 
         gsap.registerPlugin(ScrollTrigger);
 
-
-
         // ── Parallax hero ───────────────────────────────────────────────────
         (function() {
             const fedLetters = document.querySelectorAll('#line-federico .name-letter');
             const vacLetters = document.querySelectorAll('#line-vaccarezza .name-letter');
             const minTitles  = document.querySelectorAll('.ph-caption .min-titles');
-
             const triggerCfg = {
                 trigger: '#page-header',
                 start: '8% top',
                 end: '65% top',
                 scrub: 0.6,
             };
-
             function applyParallax(letters, centerIndex) {
                 letters.forEach((letter, i) => {
                     const dist  = Math.abs(i - centerIndex);
@@ -729,50 +621,43 @@ window.addEventListener('load', () => {
                     gsap.to(letter, {
                         y: yMove,
                         ease: 'none',
-                        scrollTrigger: {
-                            ...triggerCfg,
-                            scrub: 1.0 + dist * 0.25,
-                        }
+                        scrollTrigger: { ...triggerCfg, scrub: 1.0 + dist * 0.25 }
                     });
                 });
             }
-
             applyParallax(fedLetters, 3.5);
             applyParallax(vacLetters, 4.5);
-
             window.__registerTitleParallax = function() {
                 if (minTitles[0]) gsap.to(minTitles[0], { y: -220, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 0.9 } });
                 if (minTitles[1]) gsap.to(minTitles[1], { y: -160, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 1.1 } });
             };
         })();
 
-        // breathe footer via CSS hover
-
-        // ── Reveal LET'S BUILD SOMETHING con clip-path ─────────────────────
+        // ── Reveal LET'S BUILD SOMETHING — escalonado ───────────────────────
         (function() {
             const line1 = document.querySelector('#lb-line1 img');
             const line2 = document.querySelector('#lb-line2 img');
             if (!line1 || !line2) return;
-
-            // Parallax: line1 sube primero, line2 un poco después
+            // line1: arranca antes, llega antes
             gsap.to(line1, {
                 y: 0,
                 ease: 'none',
                 scrollTrigger: {
                     trigger: '#contact',
                     start: 'top bottom',
-                    end: 'center center',
-                    scrub: 1,
+                    end: 'center 60%',
+                    scrub: 1.0,
                 }
             });
+            // line2: arranca más tarde, más lento — efecto escalonado
             gsap.to(line2, {
                 y: 0,
                 ease: 'none',
                 scrollTrigger: {
                     trigger: '#contact',
-                    start: 'top 90%',
-                    end: 'center center',
-                    scrub: 1.4,
+                    start: 'top 85%',
+                    end: 'center 50%',
+                    scrub: 1.8,
                 }
             });
         })();
@@ -787,7 +672,7 @@ window.addEventListener('load', () => {
             });
         }
 
-        // ── Click nombre: animar letras y scrollear ─────────────────────────
+        // ── Click nombre ────────────────────────────────────────────────────
         (function() {
             const heroLink = document.getElementById('hero-name-link');
             if (!heroLink) return;
@@ -798,7 +683,7 @@ window.addEventListener('load', () => {
                 const minTitles  = document.querySelectorAll('.ph-caption .min-titles');
                 function animateOut(letters, centerIndex) {
                     letters.forEach((letter, i) => {
-                        const dist  = Math.abs(i - centerIndex);
+                        const dist = Math.abs(i - centerIndex);
                         gsap.to(letter, { y: -180 + dist * 18, duration: 0.6, ease: 'power3.inOut', delay: dist * 0.04 });
                     });
                 }
