@@ -390,10 +390,9 @@ document.addEventListener('click', function(e) {
                 .footer-contact-socials { display:flex; gap:20px; align-items:center; justify-content:flex-end; }
                 .footer-contact-socials img { width:25px; height:25px; filter:invert(21%) sepia(5%) saturate(200%) hue-rotate(10deg) brightness(95%); }
                 /* LET'S BUILD SOMETHING — letras individuales */
-                .footer-letsbuild { position:relative; z-index:5; text-align:center; margin-bottom:0; margin-top:20px; overflow:hidden; }
-                .footer-lb-line { display:flex; flex-direction:row; align-items:flex-end; justify-content:center; overflow:hidden; width:100%; }
-                .ft-letter { display:block; height:auto; width:9vw; flex-shrink:0; transform:translateY(110%); filter:brightness(0) saturate(100%) invert(20%) sepia(5%) saturate(300%) hue-rotate(10deg) brightness(95%); }
-                #lb-line2 .ft-letter { width:10.5vw; }
+                .footer-letsbuild { position:relative; z-index:5; text-align:center; margin-bottom:0; margin-top:20px; overflow:hidden; width:100vw; }
+                .footer-lb-line { display:flex; flex-direction:row; align-items:flex-end; justify-content:flex-start; overflow:hidden; width:100vw; }
+                .ft-letter { display:block; height:18vw; width:auto; flex:1 1 0; min-width:0; transform:translateY(110%); filter:brightness(0) saturate(100%) invert(20%) sepia(5%) saturate(300%) hue-rotate(10deg) brightness(95%); object-fit:contain; }
             </style>
             <div class="tt-section-inner tt-wrap">
                 <div class="footer-contact-links">
