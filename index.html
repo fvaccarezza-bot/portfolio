@@ -57,18 +57,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .name-line { gap:2px !important; }
 }
 </style>
-<style>
-/* Hover logo — menu slide in desde izquierda */
-.tt-main-menu-list > li > a {
-    transform: translateX(-18px);
-    opacity: 0;
-    transition: transform 0.4s cubic-bezier(0.34,1.5,0.9,1), opacity 0.3s ease;
-}
-.tt-header-col:hover .tt-main-menu-list > li:nth-child(1) > a { transform:translateX(0); opacity:1; transition-delay:0.00s; }
-.tt-header-col:hover .tt-main-menu-list > li:nth-child(2) > a { transform:translateX(0); opacity:1; transition-delay:0.06s; }
-.tt-header-col:hover .tt-main-menu-list > li:nth-child(3) > a { transform:translateX(0); opacity:1; transition-delay:0.12s; }
-.tt-header-col:hover .tt-main-menu-list > li:nth-child(4) > a { transform:translateX(0); opacity:1; transition-delay:0.18s; }
-</style>
+
 <link rel="preload" href="./assets/fonts/PPTelegraf-Regular.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="./assets/fonts/PPTelegraf-Ultrabold.woff2" as="font" type="font/woff2" crossorigin />
 <script src="./assets/js/sessionStorage.js"></script>
@@ -405,7 +394,7 @@ document.addEventListener('click', function(e) {
                 .footer-letsbuild { position:relative; z-index:5; text-align:center; margin-bottom:0; line-height:0; margin-top:20px; }
                 .footer-lb-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; }
                 #lb-line2 { display:block; width:100%; height:auto; transform:translateY(100%); filter:none; }
-                #lb-line1 { display:block; height:auto; width:auto; max-height:25vw; transform:translateY(100%); filter:none; margin:0 auto; }
+                #lb-line1 { display:block; width:auto; height:auto; transform:translateY(100%); filter:none; margin:0 auto; }
             </style>
             <div class="tt-section-inner tt-wrap">
                 <div class="footer-contact-links">
@@ -502,6 +491,14 @@ document.addEventListener('click', (e) => {
 <script src="./assets/js/transition.js" defer></script>
 <script>
 window.addEventListener('load', () => {
+    // Igualar altura de LET'S BUILD a SOMETHING
+    const lb1 = document.getElementById('lb-line1');
+    const lb2 = document.getElementById('lb-line2');
+    if (lb1 && lb2) {
+        const h = lb2.getBoundingClientRect().height;
+        lb1.style.height = h + 'px';
+        lb1.style.width = 'auto';
+    }
     if (typeof gsap !== 'undefined') {
 
         // ── Breathe de entrada ──────────────────────────────────────────────
