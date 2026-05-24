@@ -660,6 +660,26 @@ window.addEventListener('load', () => {
                 if (!el) return;
                 gsap.to(el, { y, ease:'none', scrollTrigger: { trigger:servicesBig, start:'top bottom', end:'bottom top', scrub:0.8 } });
             });
+
+            // Reveal escalonado al entrar al viewport
+            ['.sb-line1','.sb-line2','.sb-line3'].forEach((sel, i) => {
+                const el = servicesBig.querySelector(sel);
+                if (!el) return;
+                gsap.fromTo(el,
+                    { opacity: 0, y: 60 },
+                    {
+                        opacity: 1, y: 0,
+                        duration: 0.9,
+                        ease: 'power3.out',
+                        delay: i * 0.12,
+                        scrollTrigger: {
+                            trigger: servicesBig,
+                            start: 'top 85%',
+                            toggleActions: 'play none none none',
+                        }
+                    }
+                );
+            });
         }
 
         // ── Click nombre ────────────────────────────────────────────────────
