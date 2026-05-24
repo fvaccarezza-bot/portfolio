@@ -382,7 +382,7 @@ document.addEventListener('click', function(e) {
                 .card:hover .img-base { transform:scale(1.02); }
                 .card .meta h3 { letter-spacing:0.5em; text-transform:uppercase; }
                 .footer-roll { display:inline; }
-                .tt-section-inner.tt-wrap { padding-top:300px; }
+                .tt-section-inner.tt-wrap { padding-top:200px; }
                 .footer-col-center { text-align:center; display:flex; justify-content:center; }
                 .footer-col-right { text-align:right; justify-content:flex-end; }
                 .footer-contact-links a { color:#3A3A39; text-decoration:none; text-transform:uppercase; font-weight:500; }
@@ -392,7 +392,7 @@ document.addEventListener('click', function(e) {
                 /* LET'S BUILD SOMETHING — letras individuales */
                 .footer-letsbuild { position:relative; z-index:5; text-align:center; margin-bottom:0; line-height:0; margin-top:20px; }
                 .footer-lb-clip { overflow:hidden; line-height:0; }
-                .footer-lb-clip img { display:block; width:100%; max-width:100%; transform:translateY(100%); filter:brightness(0) saturate(100%) invert(20%) sepia(5%) saturate(300%) hue-rotate(10deg) brightness(95%); }
+                .footer-lb-clip img { display:block; width:100%; max-width:100%; transform:translateY(100%); filter:none; }
             </style>
             <div class="tt-section-inner tt-wrap">
                 <div class="footer-contact-links">
@@ -661,25 +661,6 @@ window.addEventListener('load', () => {
                 gsap.to(el, { y, ease:'none', scrollTrigger: { trigger:servicesBig, start:'top bottom', end:'bottom top', scrub:0.8 } });
             });
 
-            // Reveal escalonado al entrar al viewport
-            ['.sb-line1','.sb-line2','.sb-line3'].forEach((sel, i) => {
-                const el = servicesBig.querySelector(sel);
-                if (!el) return;
-                gsap.fromTo(el,
-                    { opacity: 0, y: 60 },
-                    {
-                        opacity: 1, y: 0,
-                        duration: 0.9,
-                        ease: 'power3.out',
-                        delay: i * 0.12,
-                        scrollTrigger: {
-                            trigger: servicesBig,
-                            start: 'top 85%',
-                            toggleActions: 'play none none none',
-                        }
-                    }
-                );
-            });
         }
 
         // ── Click nombre ────────────────────────────────────────────────────
