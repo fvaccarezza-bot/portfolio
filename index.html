@@ -506,6 +506,13 @@ window.addEventListener('load', () => {
                         if (typeof window.__registerTitleParallax === 'function') {
                             window.__registerTitleParallax();
                         }
+                        // Auto-scroll a about al terminar el breathe
+                        setTimeout(() => {
+                            const target = document.getElementById('about');
+                            if (!target) return;
+                            const top = target.getBoundingClientRect().top + window.scrollY + 160;
+                            window.scrollTo({ top, behavior: 'smooth' });
+                        }, 400);
                     }
                 });
               }
