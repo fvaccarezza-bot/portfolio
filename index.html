@@ -116,9 +116,9 @@ document.addEventListener('click', function(e) {
                 <nav class="mob-no tt-main-menu tt-submenu-dark tt-m-menu-center">
                     <div class="tt-main-menu-holder"><div class="tt-main-menu-inner"><div class="tt-main-menu-content">
                     <ul class="tt-main-menu-list">
-                        <li><a href="#about" data-offset="0">About</a></li>
-                        <li><a href="#works" data-offset="40">Works</a></li>
-                        <li><a href="#services" data-offset="100">Services</a></li>
+                        <li><a href="#about" data-offset="300">About</a></li>
+                        <li><a href="#works" data-offset="340">Works</a></li>
+                        <li><a href="#services" data-offset="40">Services</a></li>
                         <li><a href="#contact" data-offset="14">Contact</a></li>
                     </ul>
                     </div></div></div>
@@ -143,7 +143,7 @@ document.addEventListener('click', function(e) {
                         </a>
                     </div>
                     <ul class="tt-ol-menu-list">
-                        <li class="common-li"><a href="#about" data-offset="0">About</a></li>
+                        <li class="common-li"><a href="#about" data-offset="300">About</a></li>
                         <li class="tt-ol-submenu-wrap">
                             <div class="tt-ol-submenu-trigger"><a id="works-submenu" href="#" class="tt-ol-submenu-link">Works</a></div>
                             <div class="tt-ol-submenu"><ul class="tt-ol-submenu-list">
@@ -177,7 +177,7 @@ document.addEventListener('click', function(e) {
                     <div class="text-center color-fv min-titles spacing">Portfolio</div>
                     <div class="hover-fv">
                         <h1 class="ph-caption-title font-bold text-center color-fv">
-                            <a href="#about" data-offset="0" class="home-title" id="hero-name-link">
+                            <a href="#about" data-offset="60" class="home-title" id="hero-name-link">
                                 <span class="name-line" id="line-federico">
                                     <img class="name-letter" src="./assets/img/F.svg" alt="F" style="height:143px;width:auto;margin-right:5px;" />
                                     <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;margin-right:5px;" />
@@ -372,7 +372,6 @@ document.addEventListener('click', function(e) {
             <div id="footer-bg-orange" style="position:absolute;top:0px;left:0;width:100%;z-index:2;pointer-events:none;"><img src="./assets/img/FOOTERBGORANGE.svg" style="width:100%;height:auto;display:block;" /></div>
             <style>
                 #contact { margin-top:150px; overflow:visible; padding-bottom:0 !important; }
-
                 .footer-contact-links { display:grid; grid-template-columns:1fr 1fr 1fr; width:100%; align-items:center; padding-bottom:24px; letter-spacing:0.5em; font-size:14px; position:relative; z-index:10; box-sizing:border-box; }
                 .card a.media, .card .pgi-image-holder { position:relative; overflow:hidden; display:block; border-radius:10px 10px 0 0 !important; isolation:isolate; will-change:transform; }
                 .card { border-radius:10px 10px 0 0; overflow:visible; }
@@ -390,7 +389,7 @@ document.addEventListener('click', function(e) {
                 .footer-contact-links a:hover { opacity:1; }
                 .footer-contact-socials { display:flex; gap:20px; align-items:center; justify-content:flex-end; }
                 .footer-contact-socials img { width:30px; height:30px; filter:invert(21%) sepia(5%) saturate(200%) hue-rotate(10deg) brightness(100%); }
-                /* LET'S BUILD SOMETHING reveal */
+                /* LET'S BUILD SOMETHING — letras individuales */
                 .footer-letsbuild { position:relative; z-index:5; text-align:center; margin-bottom:0; line-height:0; margin-top:20px; }
                 .footer-lb-clip { overflow:hidden; line-height:0; }
                 .footer-lb-clip img { display:block; width:100%; max-width:100%; transform:translateY(100%); filter:brightness(0) saturate(100%) invert(20%) sepia(5%) saturate(300%) hue-rotate(10deg) brightness(95%); }
@@ -406,7 +405,7 @@ document.addEventListener('click', function(e) {
                     </div>
                 </div>
             </div>
-            <!-- LET'S BUILD SOMETHING — reveal escalonado -->
+                                    <!-- LET'S BUILD SOMETHING — reveal escalonado -->
             <div class="footer-letsbuild">
                 <div class="footer-lb-clip">
                     <img id="lb-line1" src="./assets/img/LETSBUILD.svg" alt="LET'S BUILD" />
@@ -626,32 +625,42 @@ window.addEventListener('load', () => {
             };
         })();
 
-        // ── Reveal LET'S BUILD SOMETHING — escalonado ───────────────────────
+        // ── Footer: parallax letras desde centro hacia afuera + reveal ────
         (function() {
-            const line1 = document.getElementById('lb-line1');
-            const line2 = document.getElementById('lb-line2');
-            if (!line1 || !line2) return;
-            // line1: arranca primero
-            gsap.to(line1, {
-                y: 0,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: '#contact',
-                    start: 'top 200%',
-                    end: 'top 30%',
-                    scrub: 1.0,
-                }
+            const ftCfg = {
+                trigger: '#contact',
+                start: 'top bottom',
+                end: 'center center',
+                scrub: 1.0,
+            };
+
+            // LET'S BUILD — letras desde el centro hacia afuera
+            const line1Letters = document.querySelectorAll('#lb-line1 .ft-letter');
+            const line1Center = (line1Letters.length - 1) / 2;
+            line1Letters.forEach((letter, i) => {
+                const dist = Math.abs(i - line1Center);
+                const xMove = (i < line1Center ? -1 : 1) * (20 + dist * 15);
+                gsap.fromTo(letter,
+                    { y: '110%', x: xMove },
+                    { y: 0, x: 0, ease: 'none',
+                      scrollTrigger: { ...ftCfg, scrub: 1.0 + dist * 0.15 }
+                    }
+                );
             });
-            // line2: escalonado, pero termina antes del fin del scroll
-            gsap.to(line2, {
-                y: 0,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: '#contact',
-                    start: 'top 160%',
-                    end: 'top 40%',
-                    scrub: 1.6,
-                }
+
+            // SOMETHING — mismo efecto, arranca un poco después
+            const line2Letters = document.querySelectorAll('#lb-line2 .ft-letter');
+            const line2Center = (line2Letters.length - 1) / 2;
+            const ftCfg2 = { ...ftCfg, start: 'top 80%', end: 'bottom center' };
+            line2Letters.forEach((letter, i) => {
+                const dist = Math.abs(i - line2Center);
+                const xMove = (i < line2Center ? -1 : 1) * (20 + dist * 15);
+                gsap.fromTo(letter,
+                    { y: '110%', x: xMove },
+                    { y: 0, x: 0, ease: 'none',
+                      scrollTrigger: { ...ftCfg2, scrub: 1.2 + dist * 0.15 }
+                    }
+                );
             });
         })();
 
