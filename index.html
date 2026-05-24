@@ -646,8 +646,8 @@ window.addEventListener('load', () => {
         (function() {
             const ftCfg = {
                 trigger: '#contact',
-                start: 'top 200%',
-                end: 'top 30%',
+                start: 'top bottom',
+                end: 'center center',
                 scrub: 1.0,
             };
 
@@ -668,7 +668,7 @@ window.addEventListener('load', () => {
             // SOMETHING — mismo efecto, arranca un poco después
             const line2Letters = document.querySelectorAll('#lb-line2 .ft-letter');
             const line2Center = (line2Letters.length - 1) / 2;
-            const ftCfg2 = { ...ftCfg, start: 'top 160%', end: 'top 40%' };
+            const ftCfg2 = { ...ftCfg, start: 'top 80%', end: 'bottom center' };
             line2Letters.forEach((letter, i) => {
                 const dist = Math.abs(i - line2Center);
                 const xMove = (i < line2Center ? -1 : 1) * (20 + dist * 15);
