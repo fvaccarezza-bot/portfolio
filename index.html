@@ -383,8 +383,8 @@ document.addEventListener('click', function(e) {
                 .card .meta h3 { letter-spacing:0.5em; text-transform:uppercase; }
                 .footer-roll { display:inline; }
                 .tt-section-inner.tt-wrap { padding-top:300px; }
-                .verbatim.active { transition:transform 0.4s cubic-bezier(0.34,1.5,0.9,1); }
-                .verbatim.active:hover { transform:scale(1.05); }
+                .verbatim.active { transition:transform 0.4s cubic-bezier(0.34,1.5,0.9,1); isolation:isolate; position:relative; z-index:10; }
+                .verbatim.active:hover { transform:scale(1.05); z-index:11; }
                 .footer-col-center { text-align:center; display:flex; justify-content:center; }
                 .footer-col-right { text-align:right; justify-content:flex-end; }
                 .footer-contact-links a { color:#3A3A39; text-decoration:none; text-transform:uppercase; font-weight:500; }
