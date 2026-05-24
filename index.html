@@ -625,42 +625,30 @@ window.addEventListener('load', () => {
             };
         })();
 
-        // ── Footer: parallax letras desde centro hacia afuera + reveal ────
+        // ── Reveal LET'S BUILD SOMETHING — escalonado ───────────────────────
         (function() {
-            const ftCfg = {
-                trigger: '#contact',
-                start: 'top bottom',
-                end: 'center center',
-                scrub: 1.0,
-            };
-
-            // LET'S BUILD — letras desde el centro hacia afuera
-            const line1Letters = document.querySelectorAll('#lb-line1 .ft-letter');
-            const line1Center = (line1Letters.length - 1) / 2;
-            line1Letters.forEach((letter, i) => {
-                const dist = Math.abs(i - line1Center);
-                const xMove = (i < line1Center ? -1 : 1) * (20 + dist * 15);
-                gsap.fromTo(letter,
-                    { y: '110%', x: xMove },
-                    { y: 0, x: 0, ease: 'none',
-                      scrollTrigger: { ...ftCfg, scrub: 1.0 + dist * 0.15 }
-                    }
-                );
+            const line1 = document.getElementById('lb-line1');
+            const line2 = document.getElementById('lb-line2');
+            if (!line1 || !line2) return;
+            gsap.to(line1, {
+                y: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '#contact',
+                    start: 'top 200%',
+                    end: 'top 30%',
+                    scrub: 1.0,
+                }
             });
-
-            // SOMETHING — mismo efecto, arranca un poco después
-            const line2Letters = document.querySelectorAll('#lb-line2 .ft-letter');
-            const line2Center = (line2Letters.length - 1) / 2;
-            const ftCfg2 = { ...ftCfg, start: 'top 80%', end: 'bottom center' };
-            line2Letters.forEach((letter, i) => {
-                const dist = Math.abs(i - line2Center);
-                const xMove = (i < line2Center ? -1 : 1) * (20 + dist * 15);
-                gsap.fromTo(letter,
-                    { y: '110%', x: xMove },
-                    { y: 0, x: 0, ease: 'none',
-                      scrollTrigger: { ...ftCfg2, scrub: 1.2 + dist * 0.15 }
-                    }
-                );
+            gsap.to(line2, {
+                y: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '#contact',
+                    start: 'top 160%',
+                    end: 'top 40%',
+                    scrub: 1.6,
+                }
             });
         })();
 
