@@ -492,13 +492,17 @@ document.addEventListener('click', (e) => {
 <script>
 window.addEventListener('load', () => {
     // Igualar altura de LET'S BUILD a SOMETHING
-    const lb1 = document.getElementById('lb-line1');
-    const lb2 = document.getElementById('lb-line2');
-    if (lb1 && lb2) {
-        const h = lb2.getBoundingClientRect().height;
-        lb1.style.height = h + 'px';
-        lb1.style.width = 'auto';
+    function matchLbHeight() {
+        const lb1 = document.getElementById('lb-line1');
+        const lb2 = document.getElementById('lb-line2');
+        if (lb1 && lb2) {
+            const h = lb2.getBoundingClientRect().height;
+            lb1.style.height = h + 'px';
+            lb1.style.width = 'auto';
+        }
     }
+    matchLbHeight();
+    window.addEventListener('resize', matchLbHeight);
     if (typeof gsap !== 'undefined') {
 
         // ── Breathe de entrada ──────────────────────────────────────────────
