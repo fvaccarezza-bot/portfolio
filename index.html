@@ -369,7 +369,7 @@ document.addEventListener('click', function(e) {
                 </div>
             </div>
         <footer id="contact" class="tt-section">
-            <div id="footer-bg-orange" style="position:absolute;top:0px;left:0;width:100%;z-index:2;pointer-events:none;"><img src="./assets/img/FOOTERBGORANGE.svg" style="width:100%;height:auto;display:block;" /></div>
+            <div id="footer-bg-orange" style="position:absolute;top:100px;left:0;width:100%;z-index:2;pointer-events:none;"><img src="./assets/img/FOOTERBGORANGE.svg" style="width:100%;height:auto;display:block;" /></div>
             <style>
                 #contact { margin-top:150px; overflow:visible; padding-bottom:0 !important; }
                 .footer-contact-links { display:grid; grid-template-columns:1fr 1fr 1fr; width:100%; align-items:center; padding-bottom:24px; letter-spacing:0.5em; font-size:14px; position:relative; z-index:10; box-sizing:border-box; }
@@ -535,8 +535,8 @@ window.addEventListener('load', () => {
             const mediaLink = card.querySelector('a.media');
             card.addEventListener('mouseenter', (e) => {
                 if (e.target.closest('.stamp')) return;
-                viewCursor.style.width = '90px';
-                viewCursor.style.height = '90px';
+                viewCursor.style.width = '70px';
+                viewCursor.style.height = '70px';
                 viewCursor.style.fontSize = '12px';
                 if (fxCursor) { fxCursor.style.filter='blur(4px)'; fxCursor.style.opacity='0'; }
             });
@@ -548,8 +548,8 @@ window.addEventListener('load', () => {
                     viewCursor.style.opacity = '0';
                     if (fxCursor) { fxCursor.style.filter='blur(0px)'; fxCursor.style.opacity='1'; }
                 } else if (e.target.closest('a.media')) {
-                    viewCursor.style.width = '90px';
-                    viewCursor.style.height = '90px';
+                    viewCursor.style.width = '70px';
+                    viewCursor.style.height = '70px';
                     viewCursor.style.fontSize = '12px';
                     viewCursor.style.opacity = '1';
                     if (fxCursor) { fxCursor.style.filter='blur(4px)'; fxCursor.style.opacity='0'; }
