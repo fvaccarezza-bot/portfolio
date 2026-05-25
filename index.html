@@ -220,7 +220,7 @@ document.addEventListener('click', function(e) {
             <div id="about" class="tt-section padding-bottom-xlg-90 psi-image-is-light">
                 <div class="bg-vectors" id="bg-vectors-2"><div class="pos bottom-right"><img src="./assets/img/bg-lines/bg-lines2.svg" /></div></div>
                 <div class="tt-section-inner tt-wrap">
-                    <h2 class="section-title hola"><a href="#works" class="noise-fill-hover" data-offset="-260">hola!</a></h2>
+                    <h2 class="section-title hola"><span class="title-clip"><span class="title-clip-inner" id="title-hola"><a href="#works" class="noise-fill-hover" data-offset="-260">hola!</a></span></span></h2>
                     <a href="#works" data-offset="-260" id="hola-foto" class="tt-row">
                         <div class="tt-col-md-6">
                             <div class="photo">
@@ -242,7 +242,7 @@ document.addEventListener('click', function(e) {
             <div id="works" class="tt-section">
                 <div class="bg-vectors" id="bg-vectors-3"><div class="pos top-left"><img src="./assets/img/bg-lines/bg-lines3.svg" /></div></div>
                 <div class="tt-section-inner tt-wrap">
-                    <h2 class="section-title noise-fill-hover">works</h2>
+                    <h2 class="section-title noise-fill-hover"><span class="title-clip"><span class="title-clip-inner" id="title-works">works</span></span></h2>
                     <span><p>Some of what I've done over the years.</p></span>
                     <div class="gallery">
                         <div class="card" id="frog-bazar">
@@ -393,6 +393,8 @@ document.addEventListener('click', function(e) {
                 .card:hover .img-base { transform:scale(1.02); }
                 .card .meta h3 { letter-spacing:0.5em; text-transform:uppercase; }
                 .footer-roll { display:inline; }
+                .title-clip { overflow:hidden; display:block; }
+                .title-clip-inner { display:block; transform:translateY(110%); }
                 .tt-section-inner.tt-wrap { padding-top:300px; }
                 .footer-col-center { text-align:center; display:flex; justify-content:center; }
                 .footer-col-right { text-align:right; justify-content:flex-end; }
@@ -634,6 +636,24 @@ window.addEventListener('load', () => {
         });
 
         gsap.registerPlugin(ScrollTrigger);
+
+        // ── Reveal títulos hola y works ────────────────────────────────────
+        (function() {
+            [['#title-hola','#about'],['#title-works','#works']].forEach(([id, trigger], i) => {
+                const el = document.querySelector(id);
+                if (!el) return;
+                gsap.to(el, {
+                    y: 0,
+                    ease: 'power3.out',
+                    duration: 1.0,
+                    scrollTrigger: {
+                        trigger: trigger,
+                        start: 'top 80%',
+                        toggleActions: 'play none none none',
+                    }
+                });
+            });
+        })();
 
         // ── Parallax hero ───────────────────────────────────────────────────
         (function() {
