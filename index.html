@@ -493,8 +493,8 @@ document.addEventListener('click', function(e) {
 // ── Repulsión entre cards ──────────────────────────────────────────
 (function() {
     const REPEL_RADIUS = 220;
-    const REPEL_STRENGTH = 18;
-    const PUSH_NEIGHBOR = 0.25;
+    const REPEL_STRENGTH = 8;
+    const PUSH_NEIGHBOR = 0.1;
 
     document.addEventListener('mousemove', (e) => {
         const cards = Array.from(document.querySelectorAll('.gallery .card'));
