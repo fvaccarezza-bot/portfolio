@@ -493,6 +493,18 @@ document.addEventListener('click', function(e) {
 <script src="./assets/js/form.js"></script>
 <script src="./assets/js/modal.js"></script>
 <script>
+// ── Ultrawide: forzar tamaño de cards
+if (window.innerWidth >= 2560) {
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const grid = document.querySelector('#work .tt-grid');
+            if (grid && window.$) {
+                $(grid).isotope('layout');
+            }
+        }, 500);
+    });
+}
+
 // ── Repulsión entre cards ──────────────────────────────────────────
 (function() {
     const REPEL_RADIUS = 220;
