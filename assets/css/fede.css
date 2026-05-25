@@ -420,7 +420,7 @@ body.tt-boxed .tt-wrap .tt-row {
 #about .tt-wrap #hola-foto:hover .info { transform: translateX(30px); }
 
 /* WORK */
-#work { padding-top: 190px; padding-bottom: 40px !important; }
+#work { padding-top: 190px; padding-bottom: 200px !important; }
 #work h2 + span { margin-bottom: 0; }
 body.tt-boxed #work .tt-wrap { padding: 0; }
 #work .tt-grid.ttgr-gap-2 .ttgr-item-inner { margin: 0 1vw 4vw 1vw; }
