@@ -388,7 +388,7 @@ document.addEventListener('click', function(e) {
                 .card { border-radius:10px 10px 0 0; overflow:visible; }
                 .card .meta { padding-top:14px; } .card .meta h3, .card .meta p { transform:none !important; }
                 .card .img-hover { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:1; transform:scale(1); transition:opacity 1s ease, transform 1s ease; }
-                .card .img-base { transition:transform 1s ease; display:block; width:100%; }
+                .card .img-base { transition:transform 1s ease, opacity 1s ease; display:block; width:100%; opacity:0; }
                 .card:hover .img-hover { opacity:0; transform:scale(1); }
                 .card:hover .img-base { transform:scale(1.02); opacity:1; }
                 .card .meta h3 { letter-spacing:0.5em; text-transform:uppercase; }
