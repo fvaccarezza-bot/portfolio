@@ -473,7 +473,7 @@ document.addEventListener('click', function(e) {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="./assets/vendor/gsap/ScrollToPlugin.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="./assets/vendor/smooth-scrollbar.js"></script>
 <script src="./assets/vendor/swiper/js/swiper-bundle.min.js"></script>
 <script src="./assets/vendor/isotope/imagesloaded.pkgd.min.js"></script>
 <script src="./assets/vendor/isotope/isotope.pkgd.min.js"></script>
@@ -545,25 +545,6 @@ document.addEventListener('click', (e) => {
 <script src="./assets/js/transition.js" defer></script>
 <script>
 window.addEventListener('load', () => {
-    // ── Lenis smooth scroll sincronizado con GSAP ──────────────────
-    if (typeof Lenis !== 'undefined') {
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            orientation: 'vertical',
-            smoothWheel: true,
-            wheelMultiplier: 1.0,
-            touchMultiplier: 2,
-        });
-        function onRaf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(onRaf);
-        }
-        requestAnimationFrame(onRaf);
-        lenis.on('scroll', () => {
-            if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update();
-        });
-    }
     // Igualar altura de LET'S BUILD a SOMETHING
     function matchLbHeight() {
         const lb1 = document.getElementById('lb-line1');
