@@ -383,6 +383,8 @@ document.addEventListener('click', function(e) {
                 #contact { margin-top:50px; overflow:visible; padding-bottom:0 !important; }
                 .footer-contact-links { display:grid; grid-template-columns:1fr 1fr 1fr; width:100%; align-items:center; padding-bottom:24px; letter-spacing:0.5em; font-size:14px; position:relative; z-index:10; box-sizing:border-box; }
                 .card a.media, .card .pgi-image-holder { position:relative; overflow:hidden; display:block; border-radius:10px 10px 0 0 !important; isolation:isolate; will-change:transform; }
+                .gallery:has(.card:hover) .card:not(:hover) { filter:blur(2px); opacity:0.6; transition:filter 0.4s ease, opacity 0.4s ease; }
+                .gallery .card { transition:filter 0.4s ease, opacity 0.4s ease; }
                 .card { border-radius:10px 10px 0 0; overflow:visible; }
                 .card .meta { padding-top:14px; } .card .meta h3, .card .meta p { transform:none !important; }
                 .card .img-hover { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transform:scale(1); transition:opacity 1s ease, transform 1s ease; }
@@ -594,6 +596,9 @@ window.addEventListener('load', () => {
                     mediaLink.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
                     mediaLink.style.transition = 'transform 0.6s cubic-bezier(0.34,1.5,0.9,1)';
                 }
+                // Reset magnet
+                card.style.transform = 'translate(0px, 0px)';
+                card.style.transition = 'transform 0.6s cubic-bezier(0.34,1.5,0.9,1), filter 0.4s ease, opacity 0.4s ease';
             });
             card.addEventListener('mousemove', (e) => {
                 if (!mediaLink) return;
@@ -604,6 +609,12 @@ window.addEventListener('load', () => {
                 const dy = (e.clientY - cy) / (rect.height / 2);
                 mediaLink.style.transform = 'perspective(1200px) rotateX(' + (-dy * 1.5) + 'deg) rotateY(' + (dx * 1.5) + 'deg)';
                 mediaLink.style.transition = 'transform 0.15s ease';
+                // Magnet
+                const cardRect = card.getBoundingClientRect();
+                const mx = (e.clientX - (cardRect.left + cardRect.width/2)) * 0.08;
+                const my = (e.clientY - (cardRect.top + cardRect.height/2)) * 0.08;
+                card.style.transform = 'translate(' + mx + 'px, ' + my + 'px)';
+                card.style.transition = 'transform 0.2s ease, filter 0.4s ease, opacity 0.4s ease';
             });
         });
 
