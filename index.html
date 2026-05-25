@@ -35,9 +35,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .home-title { display:flex; flex-direction:column; align-items:center; gap:36px; }
 .name-line { display:flex !important; flex-direction:row !important; align-items:flex-end; justify-content:center; gap:4px; transform:translateY(0px); transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
 .name-letter { display:block; height:143px; width:auto; flex-shrink:0; will-change:transform; }
-.letter-roll { display:inline-flex; flex-direction:column; overflow:hidden; cursor:pointer; vertical-align:bottom; }
-.letter-roll-inner { display:flex; flex-direction:column; transition:transform 0.5s cubic-bezier(0.76,0,0.24,1); }
-.letter-roll:hover .letter-roll-inner { transform:translateY(-50%); }
 .ph-caption-hover { display:block; }
 .ph-caption .min-titles { display:block; transform:translateY(0px); transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
 .home-title,.home-title:hover,.home-title:focus,.home-title .name-line,.home-title:hover .name-line,.home-title:focus .name-line { color:inherit !important; -webkit-text-stroke:0 !important; text-decoration:none !important; }
@@ -66,7 +63,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .ph-caption .min-titles { font-size:24px !important; }
     .services-big { transform:scale(1.5); transform-origin:center center; margin-bottom:400px; margin-top:400px; }
     .services-big .sb-tag { bottom:-80px; right:-4%; width:28%; }
-    #work { transform:scale(1.5); transform-origin:top center; margin-bottom:50vh; }
+
 }
 </style>
 
@@ -492,6 +489,29 @@ document.addEventListener('click', function(e) {
 <script src="./assets/js/form.js"></script>
 <script src="./assets/js/modal.js"></script>
 <script>
+// ── Ultrawide: escalar cards con JS después de isotope
+if (window.innerWidth >= 2560) {
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const items = document.querySelectorAll('#work .ttgr-item');
+            items.forEach(item => {
+                const w = parseFloat(item.style.width) || item.offsetWidth;
+                const l = parseFloat(item.style.left) || 0;
+                const t = parseFloat(item.style.top) || 0;
+                item.style.width = (w * 1.5) + 'px';
+                item.style.left = (l * 1.5) + 'px';
+                item.style.top = (t * 1.5) + 'px';
+            });
+            // Ajustar altura del contenedor
+            const grid = document.querySelector('#work .tt-grid');
+            if (grid) {
+                const h = parseFloat(grid.style.height) || grid.offsetHeight;
+                grid.style.height = (h * 1.5) + 'px';
+            }
+        }, 800);
+    });
+}
+
 // ── Ultrawide: forzar tamaño de cards
 if (window.innerWidth >= 2560) {
     window.addEventListener('load', () => {
@@ -503,6 +523,30 @@ if (window.innerWidth >= 2560) {
         }, 500);
     });
 }
+
+// ── Roll effect en letras del nombre ──────────────────────────────
+(function() {
+    document.querySelectorAll('.name-line .name-letter').forEach(img => {
+        const wrap = document.createElement('span');
+        wrap.style.cssText = 'display:inline-block;overflow:hidden;vertical-align:bottom;cursor:pointer;';
+        const inner = document.createElement('span');
+        inner.style.cssText = 'display:flex;flex-direction:column;transition:transform 0.45s cubic-bezier(0.76,0,0.24,1);';
+        const clone = img.cloneNode(true);
+        img.parentNode.insertBefore(wrap, img);
+        inner.appendChild(img);
+        inner.appendChild(clone);
+        wrap.appendChild(inner);
+        // Altura del wrap = altura de una letra
+        const h = img.style.height || '143px';
+        wrap.style.height = h;
+        wrap.addEventListener('mouseenter', () => {
+            inner.style.transform = 'translateY(-50%)';
+        });
+        wrap.addEventListener('mouseleave', () => {
+            inner.style.transform = 'translateY(0%)';
+        });
+    });
+})();
 
 // ── Repulsión entre cards ──────────────────────────────────────────
 (function() {
