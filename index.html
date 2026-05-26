@@ -37,11 +37,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .name-line { display:flex !important; flex-direction:row !important; align-items:flex-end; justify-content:center; gap:4px; will-change:transform; }
 .name-letter { display:block; height:143px; width:auto; flex-shrink:0; will-change:transform; }
 
-/* Roll wrapper: overflow hidden por letra */
-.letter-roll-wrap { display:inline-block; overflow:hidden; vertical-align:bottom; cursor:pointer; height:143px; }
-.letter-roll-inner { display:flex; flex-direction:column; transition:transform 0.45s cubic-bezier(0.76,0,0.24,1); }
-.letter-roll-inner img { display:block; height:143px; width:auto; flex-shrink:0; }
-
 .ph-caption-hover { display:block; }
 .ph-caption .min-titles { display:block; transform:translateY(0px); transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
 
@@ -72,15 +67,11 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 
 @media (max-width:768px) {
   .name-letter { height:29px !important; }
-  .letter-roll-wrap { height:29px !important; }
-  .letter-roll-inner img { height:29px !important; }
   .home-title { gap:16px; }
   .name-line { gap:2px !important; }
 }
 @media (min-width:2560px) {
   .name-letter { height:215px !important; }
-  .letter-roll-wrap { height:215px !important; }
-  .letter-roll-inner img { height:215px !important; }
   .home-title { gap:54px; }
   .name-line { gap:6px !important; }
   .ph-caption .min-titles { font-size:24px !important; }
@@ -539,47 +530,7 @@ if (window.innerWidth >= 2560) {
     });
 }
 
-// ── Roll effect en letras del nombre ─────────────────────────────
-// FIX: altura tomada del img ya renderizado, no del style inline
-window.addEventListener('load', function() {
-    document.querySelectorAll('.name-line .name-letter').forEach(img => {
-        // Esperar a que la imagen cargue para tener el tamaño real
-        function buildRoll() {
-            const h = img.getBoundingClientRect().height || 143;
-            const wrap = document.createElement('span');
-            wrap.className = 'letter-roll-wrap';
-            wrap.style.cssText = 'display:inline-block;overflow:hidden;vertical-align:bottom;cursor:pointer;height:' + h + 'px;';
 
-            const inner = document.createElement('span');
-            inner.className = 'letter-roll-inner';
-            inner.style.cssText = 'display:flex;flex-direction:column;transition:transform 0.45s cubic-bezier(0.76,0,0.24,1);';
-
-            const clone = img.cloneNode(true);
-            // limpiar margenes negativos del clone para que no rompa el stack vertical
-            clone.style.marginLeft = '0';
-            clone.style.marginRight = '0';
-
-            img.parentNode.insertBefore(wrap, img);
-            inner.appendChild(img);
-            inner.appendChild(clone);
-            wrap.appendChild(inner);
-            wrap.style.height = h + 'px';
-
-            wrap.addEventListener('mouseenter', () => {
-                inner.style.transform = 'translateY(-50%)';
-            });
-            wrap.addEventListener('mouseleave', () => {
-                inner.style.transform = 'translateY(0%)';
-            });
-        }
-
-        if (img.complete && img.naturalHeight !== 0) {
-            buildRoll();
-        } else {
-            img.addEventListener('load', buildRoll);
-        }
-    });
-});
 
 // ── Breathe hover con JS (completa la animación al salir) ────────
 (function() {
