@@ -34,7 +34,10 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 <style>
 .home-title { display:flex; flex-direction:column; align-items:center; gap:36px; }
 .name-line { display:flex !important; flex-direction:row !important; align-items:flex-end; justify-content:center; gap:4px; transform:translateY(0px); transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
-.name-letter { display:block; height:143px; width:auto; flex-shrink:0; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
+.name-letter { display:block; height:143px; width:auto; flex-shrink:0; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); will-change:transform; }
+.letter-wrap { display:inline-flex; flex-direction:column; overflow:hidden; height:143px; cursor:pointer; }
+.letter-wrap .name-letter { flex-shrink:0; transition:transform 0.5s cubic-bezier(0.76,0,0.24,1); will-change:transform; }
+.letter-wrap:hover .name-letter { transform:translateY(-100%) !important; }
 .ph-caption-hover { display:block; }
 .ph-caption .min-titles { display:block; transform:translateY(0px); transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
 .home-title,.home-title:hover,.home-title:focus,.home-title .name-line,.home-title:hover .name-line,.home-title:focus .name-line { color:inherit !important; -webkit-text-stroke:0 !important; text-decoration:none !important; }
@@ -56,7 +59,16 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .home-title { gap:16px; }
     .name-line { gap:2px !important; }
 }
+@media (min-width:2560px) {
+    .name-letter { height:215px !important; }
+    .home-title { gap:54px; }
+    .name-line { gap:6px !important; }
+    .ph-caption .min-titles { font-size:24px !important; }
+    .services-big { transform:scale(1.5); transform-origin:center center; margin-bottom:400px; margin-top:400px; }
+    .services-big .sb-tag { bottom:-80px; right:-4%; width:28%; }
+}
 </style>
+
 <link rel="preload" href="./assets/fonts/PPTelegraf-Regular.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="./assets/fonts/PPTelegraf-Ultrabold.woff2" as="font" type="font/woff2" crossorigin />
 <script src="./assets/js/sessionStorage.js"></script>
@@ -88,6 +100,9 @@ document.addEventListener('click', function(e) {
 <body id="body" class="tt-transition tt-boxed tt-smooth-scroll">
 <main id="body-inner" class="ui-scale-root">
 <div id="preloader-under" aria-hidden="true"></div>
+<div class="ptr-preloader" style="display:none"></div>
+<div class="ptr-overlay" style="display:none"></div>
+<div id="page-transition" style="display:none"></div>
 <div id="preloader" aria-live="polite" aria-label="Loading">
     <div class="pl-sweep" aria-hidden="true"></div>
     <div class="pl-inner">
@@ -211,7 +226,7 @@ document.addEventListener('click', function(e) {
             <div id="about" class="tt-section padding-bottom-xlg-90 psi-image-is-light">
                 <div class="bg-vectors" id="bg-vectors-2"><div class="pos bottom-right"><img src="./assets/img/bg-lines/bg-lines2.svg" /></div></div>
                 <div class="tt-section-inner tt-wrap">
-                    <h2 class="section-title hola"><a href="#works" class="noise-fill-hover" data-offset="-260">hola!</a></h2>
+                    <h2 class="section-title hola"><span class="title-clip"><span class="title-clip-inner" id="title-hola"><a href="#works" class="noise-fill-hover" data-offset="-260">hola!</a></span></span></h2>
                     <a href="#works" data-offset="-260" id="hola-foto" class="tt-row">
                         <div class="tt-col-md-6">
                             <div class="photo">
@@ -233,59 +248,59 @@ document.addEventListener('click', function(e) {
             <div id="works" class="tt-section">
                 <div class="bg-vectors" id="bg-vectors-3"><div class="pos top-left"><img src="./assets/img/bg-lines/bg-lines3.svg" /></div></div>
                 <div class="tt-section-inner tt-wrap">
-                    <h2 class="section-title noise-fill-hover">works</h2>
+                    <h2 class="section-title noise-fill-hover"><span class="title-clip"><span class="title-clip-inner" id="title-works">works</span></span></h2>
                     <span><p>Some of what I've done over the years.</p></span>
                     <div class="gallery">
                         <div class="card" id="frog-bazar">
                             <a href="https://www.behance.net/gallery/157959551/Frog-Bazar-2023" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a>
-                            <a class="media" href="work/frogbazar/" alt="frog-bazar" data-vt-mode="slide"><img class="img-base" src="./assets/home/frogbazar.jpg" alt="Frog Bazar" /><img class="img-hover" src="./assets/home/frogbazar-b.jpg" alt="" aria-hidden="true" /></a>
+                            <a class="media" href="work/frogbazar/" alt="frog-bazar" data-vt-mode="slide"><img class="img-base" src="./assets/home/frogbazar-b.jpg" alt="Frog Bazar" /><img class="img-hover" src="./assets/home/frogbazar.jpg" alt="" aria-hidden="true" /></a>
                             <div class="meta"><h3>Frog Bazar</h3><p>branding + website + photo</p><p>(001)</p></div>
                         </div>
                         <div class="card" id="estudio32">
                             <a href="http://behance.net/gallery/164603319/estudio32" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a>
-                            <a class="media" href="work/estudio32/" alt="estudio32" data-vt-mode="slide"><img class="img-base" src="./assets/home/estudio32.jpg" alt="ESTUDIO 32" /><img class="img-hover" src="./assets/home/estudio32-b.jpg" alt="" aria-hidden="true" /></a>
+                            <a class="media" href="work/estudio32/" alt="estudio32" data-vt-mode="slide"><img class="img-base" src="./assets/home/estudio32-b.jpg" alt="ESTUDIO 32" /><img class="img-hover" src="./assets/home/estudio32.jpg" alt="" aria-hidden="true" /></a>
                             <div class="meta"><h3>ESTUDIO 32</h3><p>branding + photo</p><p>(002)</p></div>
                         </div>
                         <div class="card" id="opame">
-                            <a class="media" href="work/opame/" alt="opame" data-vt-mode="slide"><img class="img-base" src="./assets/home/opame.jpg" alt="OPAME" /><img class="img-hover" src="./assets/home/opame-b.jpg" alt="" aria-hidden="true" /></a>
+                            <a class="media" href="work/opame/" alt="opame" data-vt-mode="slide"><img class="img-base" src="./assets/home/opame-b.jpg" alt="OPAME" /><img class="img-hover" src="./assets/home/opame.jpg" alt="" aria-hidden="true" /></a>
                             <div class="meta"><h3>OPAME COLLECTIVE</h3><p>website</p><p>(003)</p></div>
                         </div>
                         <div class="card" id="nmp">
-                            <a class="media" href="work/nmp/" alt="nmp" data-vt-mode="slide"><img class="img-base" src="./assets/home/nmp.jpg" alt="N.M, P" /><img class="img-hover" src="./assets/home/nmp-b.jpg" alt="" aria-hidden="true" /></a>
+                            <a class="media" href="work/nmp/" alt="nmp" data-vt-mode="slide"><img class="img-base" src="./assets/home/nmp-b.jpg" alt="N.M, P" /><img class="img-hover" src="./assets/home/nmp.jpg" alt="" aria-hidden="true" /></a>
                             <div class="meta"><h3>N.M,P</h3><p>branding + website</p><p>(004)</p></div>
                         </div>
                         <div class="card" id="cleo">
-                            <a class="media" href="work/cleo/" alt="cleo" data-vt-mode="slide"><img class="img-base" src="./assets/home/cleo.jpg" alt="CLEO PAY" /><img class="img-hover" src="./assets/home/cleo-b.jpg" alt="" aria-hidden="true" /></a>
+                            <a class="media" href="work/cleo/" alt="cleo" data-vt-mode="slide"><img class="img-base" src="./assets/home/cleo-b.jpg" alt="CLEO PAY" /><img class="img-hover" src="./assets/home/cleo.jpg" alt="" aria-hidden="true" /></a>
                             <div class="meta"><h3>CLEO PAY</h3><p>branding</p><p>(005)</p></div>
                         </div>
                         <div class="card" id="michi">
                             <a href="https://www.behance.net/gallery/162858615/Michi-Dine-In-Take-Away" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a>
-                            <a class="media" href="work/michi/" alt="michi" data-vt-mode="slide"><img class="img-base" src="./assets/home/michi.jpg" alt="MICHI BISTRO" /><img class="img-hover" src="./assets/home/michi-b.jpg" alt="" aria-hidden="true" /></a>
+                            <a class="media" href="work/michi/" alt="michi" data-vt-mode="slide"><img class="img-base" src="./assets/home/michi-b.jpg" alt="MICHI BISTRO" /><img class="img-hover" src="./assets/home/michi.jpg" alt="" aria-hidden="true" /></a>
                             <div class="meta"><h3>MICHI BISTRO</h3><p>concept branding</p><p>(006)</p></div>
                         </div>
                         <div class="card" id="broke">
                             <a href="https://www.behance.net/gallery/161530441/Broke-Music" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a>
-                            <a class="media" href="work/broke/" alt="broke" data-vt-mode="slide"><img class="img-base" src="./assets/home/broke.jpg" alt="Broke" /><img class="img-hover" src="./assets/home/broke-b.jpg" alt="" aria-hidden="true" /></a>
+                            <a class="media" href="work/broke/" alt="broke" data-vt-mode="slide"><img class="img-base" src="./assets/home/broke-b.jpg" alt="Broke" /><img class="img-hover" src="./assets/home/broke.jpg" alt="" aria-hidden="true" /></a>
                             <div class="meta"><h3>BROKE</h3><p>branding</p><p>(007)</p></div>
                         </div>
                         <div class="card" id="big-mother-energy">
-                            <a class="media" href="work/big-mother-energy/" alt="big-mother-energy" data-vt-mode="slide"><img class="img-base" src="./assets/home/big-mother-energy.jpg" alt="Big Mother Energy" loading="lazy" /><img class="img-hover" src="./assets/home/big-mother-energy-b.jpg" alt="" aria-hidden="true" /></a>
+                            <a class="media" href="work/big-mother-energy/" alt="big-mother-energy" data-vt-mode="slide"><img class="img-base" src="./assets/home/big-mother-energy-b.jpg" alt="Big Mother Energy" loading="lazy" /><img class="img-hover" src="./assets/home/big-mother-energy.jpg" alt="" aria-hidden="true" /></a>
                             <div class="meta"><h3>Big Mother Energy</h3><p>branding</p><p>(008)</p></div>
                         </div>
                         <div class="card" id="ui-ux">
-                            <a class="media" href="work/ui-ux/" alt="ui-ux" data-vt-mode="slide"><img class="img-base" src="./assets/home/ui-ux.jpg" alt="UI / UX" /><img class="img-hover" src="./assets/home/ui-ux-b.jpg" alt="" aria-hidden="true" /></a>
+                            <a class="media" href="work/ui-ux/" alt="ui-ux" data-vt-mode="slide"><img class="img-base" src="./assets/home/ui-ux-b.jpg" alt="UI / UX" /><img class="img-hover" src="./assets/home/ui-ux.jpg" alt="" aria-hidden="true" /></a>
                             <div class="meta"><h3>UI / UX</h3><p>(009)</p></div>
                         </div>
                         <div class="card" id="web">
-                            <a class="media" href="work/web/" alt="web" data-vt-mode="slide"><img class="img-base" src="./assets/home/web.jpg" alt="Web" /><img class="img-hover" src="./assets/home/web-b.jpg" alt="" aria-hidden="true" /></a>
+                            <a class="media" href="work/web/" alt="web" data-vt-mode="slide"><img class="img-base" src="./assets/home/web-b.jpg" alt="Web" /><img class="img-hover" src="./assets/home/web.jpg" alt="" aria-hidden="true" /></a>
                             <div class="meta"><h3>WEB</h3><p>(010)</p></div>
                         </div>
                         <div class="card" id="logofolio">
-                            <a class="media" href="work/logofolio/" alt="logofolio" data-vt-mode="slide"><img class="img-base" src="./assets/home/logofolio.jpg" alt="Logofolio" /><img class="img-hover" src="./assets/home/logofolio-b.jpg" alt="" aria-hidden="true" /></a>
+                            <a class="media" href="work/logofolio/" alt="logofolio" data-vt-mode="slide"><img class="img-base" src="./assets/home/logofolio-b.jpg" alt="Logofolio" /><img class="img-hover" src="./assets/home/logofolio.jpg" alt="" aria-hidden="true" /></a>
                             <div class="meta"><h3>LOGOFOLIO</h3><p>(011)</p></div>
                         </div>
                         <div class="card" id="photography">
-                            <a class="media" href="work/photography/" alt="photography" data-vt-mode="slide"><img class="img-base" src="./assets/home/photography.jpg" alt="photography" /><img class="img-hover" src="./assets/home/photography-b.jpg" alt="" aria-hidden="true" /></a>
+                            <a class="media" href="work/photography/" alt="photography" data-vt-mode="slide"><img class="img-base" src="./assets/home/photography-b.jpg" alt="photography" /><img class="img-hover" src="./assets/home/photography.jpg" alt="" aria-hidden="true" /></a>
                             <div class="meta"><h3>PHOTOGRAPHY</h3><p>(012)</p></div>
                         </div>
                     </div>
@@ -341,7 +356,7 @@ document.addEventListener('click', function(e) {
                         <a href="#" data-modal-open="#modal-faqs"><span style="position:relative;z-index:1;">Faqs</span></a>
                         <a href="#" data-modal-open="#modal-process"><span style="position:relative;z-index:1;">Process</span></a>
                     </div>
-                    <a href="#contact" class="services-btns-connect"><span>Connect</span></a>
+                    <a href="#contact" data-offset="14" class="services-btns-connect"><span>Connect</span></a>
                 </div>
                 <div class="tt-row" style="margin-top:80px;">
                     <div class="tt-col-md-6 d-flex-center flex-col max-width-full" style="max-width:1400px !important;width:100%;margin-left:auto;margin-right:auto;">
@@ -371,9 +386,11 @@ document.addEventListener('click', function(e) {
         <footer id="contact" class="tt-section">
             <div id="footer-bg-orange" style="position:absolute;top:100px;left:0;width:100%;z-index:2;pointer-events:none;"><img src="./assets/img/FOOTERBGORANGE.svg" style="width:100%;height:auto;display:block;" /></div>
             <style>
-                #contact { margin-top:50px; overflow:visible; padding-bottom:0 !important; }
+                #contact { margin-top:-50px; overflow:visible; padding-bottom:0 !important; }
                 .footer-contact-links { display:grid; grid-template-columns:1fr 1fr 1fr; width:100%; align-items:center; padding-bottom:24px; letter-spacing:0.5em; font-size:14px; position:relative; z-index:10; box-sizing:border-box; }
                 .card a.media, .card .pgi-image-holder { position:relative; overflow:hidden; display:block; border-radius:10px 10px 0 0 !important; isolation:isolate; will-change:transform; }
+                .gallery:has(.card:hover) .card:not(:hover) { filter:blur(6px); opacity:0.5; transition:filter 0.4s ease, opacity 0.4s ease; }
+                .gallery .card { transition:filter 0.4s ease, opacity 0.4s ease; will-change:transform; }
                 .card { border-radius:10px 10px 0 0; overflow:visible; }
                 .card .meta { padding-top:14px; } .card .meta h3, .card .meta p { transform:none !important; }
                 .card .img-hover { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transform:scale(1); transition:opacity 1s ease, transform 1s ease; }
@@ -382,17 +399,20 @@ document.addEventListener('click', function(e) {
                 .card:hover .img-base { transform:scale(1.02); }
                 .card .meta h3 { letter-spacing:0.5em; text-transform:uppercase; }
                 .footer-roll { display:inline; }
+                .title-clip { overflow:hidden; display:block; }
+                .title-clip-inner { display:block; transform:translateY(110%); }
                 .tt-section-inner.tt-wrap { padding-top:300px; }
                 .footer-col-center { text-align:center; display:flex; justify-content:center; }
                 .footer-col-right { text-align:right; justify-content:flex-end; }
                 .footer-contact-links a { color:#3A3A39; text-decoration:none; text-transform:uppercase; font-weight:500; }
                 .footer-contact-links a:hover { opacity:1; }
                 .footer-contact-socials { display:flex; gap:20px; align-items:center; justify-content:flex-end; }
-                .footer-contact-socials img { width:30px; height:30px; filter:invert(21%) sepia(5%) saturate(200%) hue-rotate(10deg) brightness(100%); }
+                .footer-contact-socials img { width:30px; height:30px; filter:none; }
                 /* LET'S BUILD SOMETHING — letras individuales */
                 .footer-letsbuild { position:relative; z-index:5; text-align:center; margin-bottom:0; line-height:0; margin-top:20px; }
-                .footer-lb-clip { overflow:hidden; line-height:0; }
-                .footer-lb-clip img { display:block; width:100%; max-width:100%; transform:translateY(100%); filter:none; }
+                .footer-lb-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; }
+                #lb-line2 { display:block; width:100%; height:auto; transform:translateY(100%); filter:none; }
+                #lb-line1 { display:block; width:auto; height:auto; transform:translateY(100%); filter:none; margin:0 auto; }
             </style>
             <div class="tt-section-inner tt-wrap">
                 <div class="footer-contact-links">
@@ -470,6 +490,42 @@ document.addEventListener('click', function(e) {
 <script src="./assets/js/form.js"></script>
 <script src="./assets/js/modal.js"></script>
 <script>
+// ── Repulsión entre cards ──────────────────────────────────────────
+(function() {
+    const REPEL_RADIUS = 220;
+    const REPEL_STRENGTH = 18;
+    const PUSH_NEIGHBOR = 0.25;
+
+    document.addEventListener('mousemove', (e) => {
+        const cards = Array.from(document.querySelectorAll('.gallery .card'));
+        const moves = cards.map(card => {
+            const rect = card.getBoundingClientRect();
+            const cx = rect.left + rect.width / 2;
+            const cy = rect.top + rect.height / 2;
+            const dx = e.clientX - cx;
+            const dy = e.clientY - cy;
+            const dist = Math.sqrt(dx*dx + dy*dy);
+            if (dist < REPEL_RADIUS) {
+                const force = (1 - dist / REPEL_RADIUS) * REPEL_STRENGTH;
+                return { x: -(dx / dist) * force, y: -(dy / dist) * force };
+            }
+            return { x: 0, y: 0 };
+        });
+
+        cards.forEach((card, i) => {
+            let tx = moves[i].x;
+            let ty = moves[i].y;
+            // Push neighbors
+            if (i > 0) { tx += moves[i-1].x * PUSH_NEIGHBOR; ty += moves[i-1].y * PUSH_NEIGHBOR; }
+            if (i < cards.length-1) { tx += moves[i+1].x * PUSH_NEIGHBOR; ty += moves[i+1].y * PUSH_NEIGHBOR; }
+            card.style.transform = 'translate(' + tx + 'px, ' + ty + 'px)';
+            card.style.transition = tx === 0 && ty === 0
+                ? 'transform 0.6s cubic-bezier(0.34,1.5,0.9,1), filter 0.4s ease, opacity 0.4s ease'
+                : 'transform 0.15s ease, filter 0.4s ease, opacity 0.4s ease';
+        });
+    });
+})();
+
 document.addEventListener('click', (e) => {
     const link = e.target.closest('#modal-works a[href]:not([data-modal-close])');
     if (!link) return;
@@ -489,6 +545,18 @@ document.addEventListener('click', (e) => {
 <script src="./assets/js/transition.js" defer></script>
 <script>
 window.addEventListener('load', () => {
+    // Igualar altura de LET'S BUILD a SOMETHING
+    function matchLbHeight() {
+        const lb1 = document.getElementById('lb-line1');
+        const lb2 = document.getElementById('lb-line2');
+        if (lb1 && lb2) {
+            const h = lb2.getBoundingClientRect().height;
+            lb1.style.height = h + 'px';
+            lb1.style.width = 'auto';
+        }
+    }
+    matchLbHeight();
+    window.addEventListener('resize', matchLbHeight);
     if (typeof gsap !== 'undefined') {
 
         // ── Breathe de entrada ──────────────────────────────────────────────
@@ -506,6 +574,13 @@ window.addEventListener('load', () => {
                         if (typeof window.__registerTitleParallax === 'function') {
                             window.__registerTitleParallax();
                         }
+                        // Auto-scroll a about al terminar el breathe
+                        setTimeout(() => {
+                            const target = document.getElementById('about');
+                            if (!target) return;
+                            const top = target.getBoundingClientRect().top + window.scrollY + 160;
+                            window.scrollTo({ top, behavior: 'smooth' });
+                        }, 400);
                     }
                 });
               }
@@ -565,6 +640,7 @@ window.addEventListener('load', () => {
                     mediaLink.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
                     mediaLink.style.transition = 'transform 0.6s cubic-bezier(0.34,1.5,0.9,1)';
                 }
+
             });
             card.addEventListener('mousemove', (e) => {
                 if (!mediaLink) return;
@@ -575,25 +651,46 @@ window.addEventListener('load', () => {
                 const dy = (e.clientY - cy) / (rect.height / 2);
                 mediaLink.style.transform = 'perspective(1200px) rotateX(' + (-dy * 1.5) + 'deg) rotateY(' + (dx * 1.5) + 'deg)';
                 mediaLink.style.transition = 'transform 0.15s ease';
+
             });
         });
 
         // ── Faqs y Process: tilt ────────────────────────────────────────────
-        document.querySelectorAll('.services-btns-row a').forEach(btn => {
+        document.querySelectorAll('.services-btns-row a, .services-btns-connect').forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
                 const rect = btn.getBoundingClientRect();
                 const dx = (e.clientX - (rect.left + rect.width/2))  / (rect.width/2);
                 const dy = (e.clientY - (rect.top  + rect.height/2)) / (rect.height/2);
-                btn.style.transform = 'perspective(400px) rotateX(' + (-dy*4) + 'deg) rotateY(' + (dx*4) + 'deg)';
+                const mx = dx * 8;
+                const my = dy * 8;
+                btn.style.transform = 'perspective(400px) rotateX(' + (-dy*4) + 'deg) rotateY(' + (dx*4) + 'deg) translate(' + mx + 'px,' + my + 'px)';
                 btn.style.transition = 'transform 0.15s ease';
             });
             btn.addEventListener('mouseleave', () => {
-                btn.style.transform = 'perspective(400px) rotateX(0deg) rotateY(0deg)';
+                btn.style.transform = 'perspective(400px) rotateX(0deg) rotateY(0deg) translate(0px,0px)';
                 btn.style.transition = 'transform 0.5s cubic-bezier(0.34,1.5,0.9,1)';
             });
         });
 
         gsap.registerPlugin(ScrollTrigger);
+
+        // ── Reveal títulos hola y works ────────────────────────────────────
+        (function() {
+            [['#title-hola','#about'],['#title-works','#works']].forEach(([id, trigger], i) => {
+                const el = document.querySelector(id);
+                if (!el) return;
+                gsap.to(el, {
+                    y: 0,
+                    ease: 'power3.out',
+                    duration: 1.0,
+                    scrollTrigger: {
+                        trigger: trigger,
+                        start: 'top 80%',
+                        toggleActions: 'play none none none',
+                    }
+                });
+            });
+        })();
 
         // ── Parallax hero ───────────────────────────────────────────────────
         (function() {
