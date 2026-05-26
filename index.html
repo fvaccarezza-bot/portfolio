@@ -32,9 +32,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 <link rel="stylesheet" href="./assets/css/retina-80.css" />
 <link rel="stylesheet" href="./assets/css/ui-scale.css" />
 <style>
-.lm { display:inline-block; overflow:hidden; vertical-align:bottom; height:143px; line-height:0; }
-.lm img { display:block; transform: translateY(143px); }
-@media (max-width:768px) { .lm { height:29px !important; } .lm img { transform: translateY(29px); } }
+.lm { display:inline-block; vertical-align:bottom; line-height:0; clip-path: inset(0 0 0 0); }
+.lm img { display:block; transform: translateY(150px); }
+@media (max-width:768px) { .lm img { transform: translateY(32px); } }
 .name-line { display:flex !important; flex-direction:row !important; align-items:flex-end; justify-content:center; gap:4px; transform:translateY(0px); transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
 .name-letter { display:block; height:143px; width:auto; flex-shrink:0; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); will-change:transform; }
 .letter-wrap { display:inline-flex; flex-direction:column; overflow:hidden; height:143px; cursor:pointer; }
@@ -567,7 +567,7 @@ window.addEventListener('load', () => {
                 const fedLetters = Array.from(document.querySelectorAll("#line-federico .lm img"));
                 const vacLetters = Array.from(document.querySelectorAll("#line-vaccarezza .lm img"));
                 const minTitles  = document.querySelectorAll(".ph-caption .min-titles");
-                gsap.set([...fedLetters, ...vacLetters], { y: 143 });
+                gsap.set([...fedLetters, ...vacLetters], { y: 150 });
                 const animateCascade = (letters, centerIndex) => {
                     letters.forEach((letter, i) => {
                         const dist = Math.abs(i - centerIndex);
@@ -577,9 +577,13 @@ window.addEventListener('load', () => {
                 animateCascade(fedLetters, (fedLetters.length - 1) / 2);
                 animateCascade(vacLetters, (vacLetters.length - 1) / 2);
                 gsap.to(minTitles[0], { y: -40, duration: 0.9, ease: "power2.out", delay: 0.1 });
-                gsap.to(minTitles[1], { y: -6,  duration: 0.9, ease: "power2.out", delay: 0.2,
-                    onComplete: () => { if (typeof window.__registerTitleParallax === "function") { window.__registerTitleParallax(); } }
-                });
+                gsap.to(minTitles[1], { y: -6,  duration: 0.9, ease: "power2.out", delay: 0.2 });
+                // Registrar parallax al terminar la última letra lateral (máximo delay ~0.35s + 0.8s)
+                setTimeout(() => {
+                    if (typeof window.__registerTitleParallax === 'function') {
+                        window.__registerTitleParallax();
+                    }
+                }, 1200);
               }
             }
         );
