@@ -32,15 +32,35 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 <link rel="stylesheet" href="./assets/css/retina-80.css" />
 <link rel="stylesheet" href="./assets/css/ui-scale.css" />
 <style>
+/* ── Home title layout ── */
 .home-title { display:flex; flex-direction:column; align-items:center; gap:36px; }
-.name-line { display:flex !important; flex-direction:row !important; align-items:flex-end; justify-content:center; gap:4px; transform:translateY(0px); transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
+.name-line { display:flex !important; flex-direction:row !important; align-items:flex-end; justify-content:center; gap:4px; will-change:transform; }
 .name-letter { display:block; height:143px; width:auto; flex-shrink:0; will-change:transform; }
-.letter-roll { display:inline-flex; flex-direction:column; overflow:hidden; cursor:pointer; vertical-align:bottom; }
-.letter-roll-inner { display:flex; flex-direction:column; transition:transform 0.5s cubic-bezier(0.76,0,0.24,1); }
-.letter-roll:hover .letter-roll-inner { transform:translateY(-50%); }
+
+/* Roll wrapper: overflow hidden por letra */
+.letter-roll-wrap { display:inline-block; overflow:hidden; vertical-align:bottom; cursor:pointer; height:143px; }
+.letter-roll-inner { display:flex; flex-direction:column; transition:transform 0.45s cubic-bezier(0.76,0,0.24,1); }
+.letter-roll-inner img { display:block; height:143px; width:auto; flex-shrink:0; }
+
 .ph-caption-hover { display:block; }
 .ph-caption .min-titles { display:block; transform:translateY(0px); transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
-.home-title,.home-title:hover,.home-title:focus,.home-title .name-line,.home-title:hover .name-line,.home-title:focus .name-line { color:inherit !important; -webkit-text-stroke:0 !important; text-decoration:none !important; }
+
+/* sin stroke ni color en nada del home title */
+.home-title,.home-title:hover,.home-title:focus,
+.home-title .name-line,.home-title:hover .name-line {
+  color:inherit !important; -webkit-text-stroke:0 !important; text-decoration:none !important;
+}
+.ph-caption .min-titles,
+.ph-caption-hover:hover .min-titles,
+.ph-caption .min-titles:hover { -webkit-text-stroke:0 !important; text-stroke:0 !important; }
+
+/* ── Breathe positions (JS las setea, CSS es el fallback) ── */
+.ph-caption-hover:hover .min-titles:first-child { transform:translateY(-40px); }
+.ph-caption-hover:hover .name-line:nth-child(1) { transform:translateY(-28px); }
+.ph-caption-hover:hover .name-line:nth-child(2) { transform:translateY(-16px); }
+.ph-caption-hover:hover .min-titles:last-child  { transform:translateY(-6px); }
+
+/* ── Misc ── */
 #modal-works .modal__dialog { display:flex; flex-direction:column; align-items:center; justify-content:center; }
 #modal-works .content { justify-content:center !important; align-items:center !important; }
 .tt-wrap { max-width:min(1320px,91.67vw) !important; }
@@ -48,25 +68,24 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 #services h4.section-title { margin-top:0 !important; margin-bottom:48px !important; }
 .services-btns { margin-bottom:120px !important; }
 #services .words-container { margin-top:0 !important; }
-.ph-caption .min-titles,.ph-caption-hover:hover .min-titles,.ph-caption .min-titles:hover { -webkit-text-stroke:0 !important; text-stroke:0 !important; }
 .home-title span img { display:block; width:auto; max-width:100%; margin:0 auto; }
-.ph-caption-hover:hover .min-titles:first-child { transform:translateY(-40px); }
-.ph-caption-hover:hover .name-line:nth-child(1) { transform:translateY(-28px); }
-.ph-caption-hover:hover .name-line:nth-child(2) { transform:translateY(-16px); }
-.ph-caption-hover:hover .min-titles:last-child { transform:translateY(-6px); }
+
 @media (max-width:768px) {
-    .name-letter { height:29px !important; }
-    .home-title { gap:16px; }
-    .name-line { gap:2px !important; }
+  .name-letter { height:29px !important; }
+  .letter-roll-wrap { height:29px !important; }
+  .letter-roll-inner img { height:29px !important; }
+  .home-title { gap:16px; }
+  .name-line { gap:2px !important; }
 }
 @media (min-width:2560px) {
-    .name-letter { height:215px !important; }
-    .home-title { gap:54px; }
-    .name-line { gap:6px !important; }
-    .ph-caption .min-titles { font-size:24px !important; }
-    .services-big { transform:scale(1.5); transform-origin:center center; margin-bottom:400px; margin-top:400px; }
-    .services-big .sb-tag { bottom:-80px; right:-4%; width:28%; }
-    #work { transform:scale(1.5); transform-origin:top center; margin-bottom:50vh; }
+  .name-letter { height:215px !important; }
+  .letter-roll-wrap { height:215px !important; }
+  .letter-roll-inner img { height:215px !important; }
+  .home-title { gap:54px; }
+  .name-line { gap:6px !important; }
+  .ph-caption .min-titles { font-size:24px !important; }
+  .services-big { transform:scale(1.5); transform-origin:center center; margin-bottom:400px; margin-top:400px; }
+  .services-big .sb-tag { bottom:-80px; right:-4%; width:28%; }
 }
 </style>
 
@@ -410,7 +429,6 @@ document.addEventListener('click', function(e) {
                 .footer-contact-links a:hover { opacity:1; }
                 .footer-contact-socials { display:flex; gap:20px; align-items:center; justify-content:flex-end; }
                 .footer-contact-socials img { width:30px; height:30px; filter:none; }
-                /* LET'S BUILD SOMETHING — letras individuales */
                 .footer-letsbuild { position:relative; z-index:5; text-align:center; margin-bottom:0; line-height:0; margin-top:20px; }
                 .footer-lb-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; }
                 #lb-line2 { display:block; width:100%; height:auto; transform:translateY(100%); filter:none; }
@@ -427,7 +445,6 @@ document.addEventListener('click', function(e) {
                     </div>
                 </div>
             </div>
-                                    <!-- LET'S BUILD SOMETHING — reveal escalonado -->
             <div class="footer-letsbuild">
                 <div class="footer-lb-clip">
                     <img id="lb-line1" src="./assets/img/LETSBUILD.svg" alt="LET'S BUILD" />
@@ -492,30 +509,155 @@ document.addEventListener('click', function(e) {
 <script src="./assets/js/form.js"></script>
 <script src="./assets/js/modal.js"></script>
 <script>
-// ── Ultrawide: forzar tamaño de cards
+// ── Ultrawide: escalar cards con JS después de isotope
+if (window.innerWidth >= 2560) {
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const items = document.querySelectorAll('#work .ttgr-item');
+            items.forEach(item => {
+                const w = parseFloat(item.style.width) || item.offsetWidth;
+                const l = parseFloat(item.style.left) || 0;
+                const t = parseFloat(item.style.top) || 0;
+                item.style.width = (w * 1.5) + 'px';
+                item.style.left = (l * 1.5) + 'px';
+                item.style.top = (t * 1.5) + 'px';
+            });
+            const grid = document.querySelector('#work .tt-grid');
+            if (grid) {
+                const h = parseFloat(grid.style.height) || grid.offsetHeight;
+                grid.style.height = (h * 1.5) + 'px';
+            }
+        }, 800);
+    });
+}
 if (window.innerWidth >= 2560) {
     window.addEventListener('load', () => {
         setTimeout(() => {
             const grid = document.querySelector('#work .tt-grid');
-            if (grid && window.$) {
-                $(grid).isotope('layout');
-            }
+            if (grid && window.$) { $(grid).isotope('layout'); }
         }, 500);
     });
 }
 
-// ── Repulsión entre cards ──────────────────────────────────────────
+// ── Roll effect en letras del nombre ─────────────────────────────
+// FIX: altura tomada del img ya renderizado, no del style inline
+window.addEventListener('load', function() {
+    document.querySelectorAll('.name-line .name-letter').forEach(img => {
+        // Esperar a que la imagen cargue para tener el tamaño real
+        function buildRoll() {
+            const h = img.getBoundingClientRect().height || 143;
+            const wrap = document.createElement('span');
+            wrap.className = 'letter-roll-wrap';
+            wrap.style.cssText = 'display:inline-block;overflow:hidden;vertical-align:bottom;cursor:pointer;height:' + h + 'px;';
+
+            const inner = document.createElement('span');
+            inner.className = 'letter-roll-inner';
+            inner.style.cssText = 'display:flex;flex-direction:column;transition:transform 0.45s cubic-bezier(0.76,0,0.24,1);';
+
+            const clone = img.cloneNode(true);
+            // limpiar margenes negativos del clone para que no rompa el stack vertical
+            clone.style.marginLeft = '0';
+            clone.style.marginRight = '0';
+
+            img.parentNode.insertBefore(wrap, img);
+            inner.appendChild(img);
+            inner.appendChild(clone);
+            wrap.appendChild(inner);
+            wrap.style.height = h + 'px';
+
+            wrap.addEventListener('mouseenter', () => {
+                inner.style.transform = 'translateY(-50%)';
+            });
+            wrap.addEventListener('mouseleave', () => {
+                inner.style.transform = 'translateY(0%)';
+            });
+        }
+
+        if (img.complete && img.naturalHeight !== 0) {
+            buildRoll();
+        } else {
+            img.addEventListener('load', buildRoll);
+        }
+    });
+});
+
+// ── Breathe hover con JS (completa la animación al salir) ────────
 (function() {
-    const REPEL_RADIUS = 220;
+    const caption = document.querySelector('.ph-caption-hover');
+    if (!caption) return;
+
+    const EASE = 'cubic-bezier(0.25,0.46,0.45,0.94)';
+    const DUR  = '0.7s';
+
+    // targets y sus posiciones finales en hover
+    const targets = [
+        { sel: '.ph-caption .min-titles:first-child', hoverY: -40, baseY: 0 },
+        { sel: '#line-federico',                       hoverY: -28, baseY: 0 },
+        { sel: '#line-vaccarezza',                     hoverY: -16, baseY: 0 },
+        { sel: '.ph-caption .min-titles:last-child',   hoverY: -6,  baseY: 0 },
+    ];
+
+    // Guardamos la Y actual de cada elemento (puede haber sido seteada por GSAP del breathe)
+    function getEls() {
+        return targets.map(t => ({
+            el: caption.querySelector(t.sel),
+            hoverY: t.hoverY,
+        }));
+    }
+
+    let isHovered = false;
+    let animating = false;
+    let animId    = null;
+
+    function animateTo(els, toHover) {
+        animating = true;
+        els.forEach(({ el, hoverY }) => {
+            if (!el) return;
+            // leer la Y actual del transform
+            const mat = new DOMMatrix(getComputedStyle(el).transform);
+            const fromY = mat.m42;
+            const targetY = toHover ? hoverY : 0;
+            el.style.transition = 'transform ' + DUR + ' ' + EASE;
+            el.style.transform  = 'translateY(' + targetY + 'px)';
+        });
+        // tiempo de transición
+        setTimeout(() => { animating = false; }, 750);
+    }
+
+    caption.addEventListener('mouseenter', () => {
+        isHovered = true;
+        animateTo(getEls(), true);
+    });
+
+    caption.addEventListener('mouseleave', () => {
+        isHovered = false;
+        // esperar a que termine la animación de entrada antes de revertir
+        // pero si ya terminó, revertir directo
+        function tryRevert() {
+            if (!isHovered) {
+                animateTo(getEls(), false);
+            }
+        }
+        if (animating) {
+            setTimeout(tryRevert, 750);
+        } else {
+            tryRevert();
+        }
+    });
+})();
+
+// ── Repulsión entre cards ─────────────────────────────────────────
+(function() {
+    const REPEL_RADIUS   = 220;
     const REPEL_STRENGTH = 8;
-    const PUSH_NEIGHBOR = 0.1;
+    const PUSH_NEIGHBOR  = 0.1;
 
     document.addEventListener('mousemove', (e) => {
         const cards = Array.from(document.querySelectorAll('.gallery .card'));
         const moves = cards.map(card => {
             const rect = card.getBoundingClientRect();
-            const cx = rect.left + rect.width / 2;
-            const cy = rect.top + rect.height / 2;
+            const cx = rect.left + rect.width  / 2;
+            const cy = rect.top  + rect.height / 2;
             const dx = e.clientX - cx;
             const dy = e.clientY - cy;
             const dist = Math.sqrt(dx*dx + dy*dy);
@@ -525,12 +667,10 @@ if (window.innerWidth >= 2560) {
             }
             return { x: 0, y: 0 };
         });
-
         cards.forEach((card, i) => {
             let tx = moves[i].x;
             let ty = moves[i].y;
-            // Push neighbors
-            if (i > 0) { tx += moves[i-1].x * PUSH_NEIGHBOR; ty += moves[i-1].y * PUSH_NEIGHBOR; }
+            if (i > 0)              { tx += moves[i-1].x * PUSH_NEIGHBOR; ty += moves[i-1].y * PUSH_NEIGHBOR; }
             if (i < cards.length-1) { tx += moves[i+1].x * PUSH_NEIGHBOR; ty += moves[i+1].y * PUSH_NEIGHBOR; }
             card.style.transform = 'translate(' + tx + 'px, ' + ty + 'px)';
             card.style.transition = tx === 0 && ty === 0
@@ -559,7 +699,6 @@ document.addEventListener('click', (e) => {
 <script src="./assets/js/transition.js" defer></script>
 <script>
 window.addEventListener('load', () => {
-    // Igualar altura de LET'S BUILD a SOMETHING
     function matchLbHeight() {
         const lb1 = document.getElementById('lb-line1');
         const lb2 = document.getElementById('lb-line2');
@@ -571,15 +710,16 @@ window.addEventListener('load', () => {
     }
     matchLbHeight();
     window.addEventListener('resize', matchLbHeight);
+
     if (typeof gsap !== 'undefined') {
 
-        // ── Breathe de entrada ──────────────────────────────────────────────
+        // ── Breathe de entrada ──────────────────────────────────────────
         gsap.fromTo('.ph-caption-title',
             { filter: 'blur(20px)', opacity: 0, y: 30 },
             { filter: 'blur(0px)', opacity: 1, y: 0, duration: 1.4, ease: 'power3.out',
               onComplete: () => {
-                const lines = document.querySelectorAll('.name-line');
-                const minTitles = document.querySelectorAll('.ph-caption .min-titles');
+                const lines      = document.querySelectorAll('.name-line');
+                const minTitles  = document.querySelectorAll('.ph-caption .min-titles');
                 gsap.to(minTitles[0], { y: -40, duration: 0.9, ease: 'power2.out' });
                 gsap.to(lines[0],     { y: -28, duration: 0.9, ease: 'power2.out', delay: 0.05 });
                 gsap.to(lines[1],     { y: -16, duration: 0.9, ease: 'power2.out', delay: 0.1 });
@@ -588,7 +728,6 @@ window.addEventListener('load', () => {
                         if (typeof window.__registerTitleParallax === 'function') {
                             window.__registerTitleParallax();
                         }
-                        // Auto-scroll a about al terminar el breathe
                         setTimeout(() => {
                             const target = document.getElementById('about');
                             if (!target) return;
@@ -601,7 +740,7 @@ window.addEventListener('load', () => {
             }
         );
 
-        // ── Cursor VIEW ─────────────────────────────────────────────────────
+        // ── Cursor VIEW ──────────────────────────────────────────────────
         const viewCursor = document.createElement('div');
         viewCursor.id = 'view-cursor';
         viewCursor.style.cssText = 'position:fixed;pointer-events:none;z-index:999998;opacity:1;display:flex;align-items:center;justify-content:center;width:10px;height:10px;border-radius:50%;background:#FF6600;font-family:"PP Telegraf",sans-serif;font-size:0px;font-weight:400;letter-spacing:0.2em;color:white;overflow:hidden;will-change:left,top;transition:width 0.5s cubic-bezier(0.34,1.2,0.64,1), height 0.5s cubic-bezier(0.34,1.2,0.64,1), font-size 0.3s ease, opacity 0.3s ease;';
@@ -654,7 +793,6 @@ window.addEventListener('load', () => {
                     mediaLink.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
                     mediaLink.style.transition = 'transform 0.6s cubic-bezier(0.34,1.5,0.9,1)';
                 }
-
             });
             card.addEventListener('mousemove', (e) => {
                 if (!mediaLink) return;
@@ -665,11 +803,10 @@ window.addEventListener('load', () => {
                 const dy = (e.clientY - cy) / (rect.height / 2);
                 mediaLink.style.transform = 'perspective(1200px) rotateX(' + (-dy * 1.5) + 'deg) rotateY(' + (dx * 1.5) + 'deg)';
                 mediaLink.style.transition = 'transform 0.15s ease';
-
             });
         });
 
-        // ── Faqs y Process: tilt ────────────────────────────────────────────
+        // ── Faqs y Process: tilt ──────────────────────────────────────────
         document.querySelectorAll('.services-btns-row a, .services-btns-connect').forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
                 const rect = btn.getBoundingClientRect();
@@ -688,44 +825,29 @@ window.addEventListener('load', () => {
 
         gsap.registerPlugin(ScrollTrigger);
 
-        // ── Reveal títulos hola y works ────────────────────────────────────
+        // ── Reveal títulos hola y works ───────────────────────────────────
         (function() {
-            [['#title-hola','#about'],['#title-works','#works']].forEach(([id, trigger], i) => {
+            [['#title-hola','#about'],['#title-works','#works']].forEach(([id, trigger]) => {
                 const el = document.querySelector(id);
                 if (!el) return;
                 gsap.to(el, {
-                    y: 0,
-                    ease: 'power3.out',
-                    duration: 1.0,
-                    scrollTrigger: {
-                        trigger: trigger,
-                        start: 'top 80%',
-                        toggleActions: 'play none none none',
-                    }
+                    y: 0, ease: 'power3.out', duration: 1.0,
+                    scrollTrigger: { trigger, start: 'top 80%', toggleActions: 'play none none none' }
                 });
             });
         })();
 
-        // ── Parallax hero ───────────────────────────────────────────────────
+        // ── Parallax hero ─────────────────────────────────────────────────
         (function() {
             const fedLetters = document.querySelectorAll('#line-federico .name-letter');
             const vacLetters = document.querySelectorAll('#line-vaccarezza .name-letter');
             const minTitles  = document.querySelectorAll('.ph-caption .min-titles');
-            const triggerCfg = {
-                trigger: '#page-header',
-                start: '8% top',
-                end: '65% top',
-                scrub: 0.6,
-            };
+            const triggerCfg = { trigger: '#page-header', start: '8% top', end: '65% top', scrub: 0.6 };
             function applyParallax(letters, centerIndex) {
                 letters.forEach((letter, i) => {
                     const dist  = Math.abs(i - centerIndex);
                     const yMove = -180 + dist * 18;
-                    gsap.to(letter, {
-                        y: yMove,
-                        ease: 'none',
-                        scrollTrigger: { ...triggerCfg, scrub: 1.0 + dist * 0.25 }
-                    });
+                    gsap.to(letter, { y: yMove, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 1.0 + dist * 0.25 } });
                 });
             }
             applyParallax(fedLetters, 3.5);
@@ -736,34 +858,16 @@ window.addEventListener('load', () => {
             };
         })();
 
-        // ── Reveal LET'S BUILD SOMETHING — escalonado ───────────────────────
+        // ── Reveal LET'S BUILD SOMETHING ──────────────────────────────────
         (function() {
             const line1 = document.getElementById('lb-line1');
             const line2 = document.getElementById('lb-line2');
             if (!line1 || !line2) return;
-            gsap.to(line1, {
-                y: 0,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: '#contact',
-                    start: 'top 200%',
-                    end: 'top 30%',
-                    scrub: 1.0,
-                }
-            });
-            gsap.to(line2, {
-                y: 0,
-                ease: 'none',
-                scrollTrigger: {
-                    trigger: '#contact',
-                    start: 'top 160%',
-                    end: 'top 40%',
-                    scrub: 1.6,
-                }
-            });
+            gsap.to(line1, { y: 0, ease: 'none', scrollTrigger: { trigger: '#contact', start: 'top 200%', end: 'top 30%', scrub: 1.0 } });
+            gsap.to(line2, { y: 0, ease: 'none', scrollTrigger: { trigger: '#contact', start: 'top 160%', end: 'top 40%', scrub: 1.6 } });
         })();
 
-        // ── Parallax services-big ───────────────────────────────────────────
+        // ── Parallax services-big ─────────────────────────────────────────
         const servicesBig = document.querySelector('.services-big');
         if (servicesBig) {
             [['.sb-line1',-180],['.sb-line2',-120],['.sb-line3',-70],['.sb-tag1',-40],['.sb-tag2',-20]].forEach(([sel,y]) => {
@@ -771,10 +875,9 @@ window.addEventListener('load', () => {
                 if (!el) return;
                 gsap.to(el, { y, ease:'none', scrollTrigger: { trigger:servicesBig, start:'top bottom', end:'bottom top', scrub:0.8 } });
             });
-
         }
 
-        // ── Click nombre ────────────────────────────────────────────────────
+        // ── Click nombre ──────────────────────────────────────────────────
         (function() {
             const heroLink = document.getElementById('hero-name-link');
             if (!heroLink) return;
