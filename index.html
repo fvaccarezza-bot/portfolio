@@ -324,11 +324,11 @@ document.addEventListener('click', function(e) {
                     .sb-tag img { display:block; width:auto; max-width:none; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); transform:translateY(0); }
                     .trusted-track img { filter:none; }
                     .services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:40px; margin-bottom:40px; }
-                    .services-grid-item h3 { display:flex; align-items:center; gap:10px; font-family:'PP Telegraf',sans-serif; font-size:16px; font-weight:400; color:#3A3A39; letter-spacing:0; margin-bottom:12px; padding-top:0; cursor:default; transition:color 0.3s ease; }
-                    .services-grid-item h3 img { width:20px; height:20px; }
-                    .services-grid-item p { font-family:'PP Telegraf',sans-serif !important; font-size:16px; font-weight:400; color:#979797; letter-spacing:0.03em; line-height:1.6; overflow:hidden; max-height:0; opacity:0; transition:max-height 0.5s cubic-bezier(0.76,0,0.24,1), opacity 0.4s ease; }
-                    .services-grid-item:hover h3 { color:#FF6600; }
-                    .services-grid-item:hover p { max-height:200px; opacity:1; }
+                    .services-grid-item h3 { display:flex; align-items:center; gap:10px; font-family:'PP Telegraf',sans-serif; font-size:16px; font-weight:400; color:#3A3A39; letter-spacing:0; margin-bottom:12px; padding-top:0; cursor:default; transition:color 0.3s ease, transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
+                    .services-grid-item h3 img { width:20px; height:20px; transition:filter 0.3s ease; }
+                    .services-grid-item p { font-family:'PP Telegraf',sans-serif !important; font-size:16px; font-weight:400; color:#979797; letter-spacing:0.03em; line-height:1.6; }
+                    /* Imagen que sigue el cursor */
+                    #services-follow-img { position:fixed; pointer-events:none; z-index:9999; width:280px; height:200px; object-fit:cover; border-radius:10px; opacity:0; transition:opacity 0.3s ease; will-change:left,top; }
                     .services-btns { display:flex; flex-direction:column; align-items:center; gap:32px; width:445px; margin:0 auto; padding-bottom:40px; }
                     .services-btns-row { display:flex; gap:45px; width:100%; justify-content:center; }
                     .services-btns-row a { width:200px; text-align:center; height:40px; display:flex; align-items:center; justify-content:center; border:none; border-radius:5px; text-decoration:none; color:#3A3A39; font-family:'PP Telegraf',sans-serif; font-size:16px; letter-spacing:0; box-sizing:border-box; position:relative; overflow:hidden; background:transparent; background-image:url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='5' ry='5' stroke='%233A3A39' stroke-width='1.5' stroke-dasharray='8%2c8' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e"); transition:color 0.5s ease; }
