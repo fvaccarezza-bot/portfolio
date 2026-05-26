@@ -196,7 +196,7 @@ document.addEventListener('click', function(e) {
         <div id="page-header" class="ph-full ph-cap-sm ph-image-cropped ph-image-cover-3">
             <div class="page-header-inner tt-wrap">
                 <div class="bg-vectors" id="bg-vectors-1"><div class="pos top-left"><img src="./assets/img/bg-lines/bg-lines1.svg" /></div></div>
-                <div class="ph-caption text-uppercase ph-caption-hover">
+                <div class="ph-caption text-uppercase">
                     <div class="text-center color-fv min-titles spacing">Portfolio</div>
                     <div class="hover-fv">
                         <h1 class="ph-caption-title font-bold text-center color-fv">
@@ -528,33 +528,7 @@ if (window.innerWidth >= 2560) {
 
 
 
-// ── Breathe hover — GSAP quickTo para no pisar el parallax ───────
-// Se registra después del breathe de entrada, cuando GSAP ya owns los elementos
-window.__registerBreatheHover = function() {
-    const caption = document.querySelector('.ph-caption-hover');
-    if (!caption || typeof gsap === 'undefined') return;
 
-    const cfg = { duration: 0.7, ease: 'power2.out', overwrite: 'auto' };
-
-    const elPortfolio = caption.querySelector('.ph-caption .min-titles:first-child');
-    const elFed       = document.querySelector('#line-federico');
-    const elVac       = document.querySelector('#line-vaccarezza');
-    const el2026      = caption.querySelector('.ph-caption .min-titles:last-child');
-
-    caption.addEventListener('mouseenter', () => {
-        if (elPortfolio) gsap.to(elPortfolio, { ...cfg, y: -40 });
-        if (elFed)       gsap.to(elFed,       { ...cfg, y: -28, delay: 0.03 });
-        if (elVac)       gsap.to(elVac,       { ...cfg, y: -16, delay: 0.06 });
-        if (el2026)      gsap.to(el2026,      { ...cfg, y: -6,  delay: 0.09 });
-    });
-
-    caption.addEventListener('mouseleave', () => {
-        if (elPortfolio) gsap.to(elPortfolio, { ...cfg, y: 0 });
-        if (elFed)       gsap.to(elFed,       { ...cfg, y: 0, delay: 0.03 });
-        if (elVac)       gsap.to(elVac,       { ...cfg, y: 0, delay: 0.06 });
-        if (el2026)      gsap.to(el2026,      { ...cfg, y: 0, delay: 0.09 });
-    });
-};
 
 // ── Repulsión entre cards ─────────────────────────────────────────
 (function() {
@@ -637,9 +611,6 @@ window.addEventListener('load', () => {
                     onComplete: () => {
                         if (typeof window.__registerTitleParallax === 'function') {
                             window.__registerTitleParallax();
-                        }
-                        if (typeof window.__registerBreatheHover === 'function') {
-                            window.__registerBreatheHover();
                         }
                         setTimeout(() => {
                             const target = document.getElementById('about');
