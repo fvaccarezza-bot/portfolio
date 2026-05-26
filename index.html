@@ -32,7 +32,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 <link rel="stylesheet" href="./assets/css/retina-80.css" />
 <link rel="stylesheet" href="./assets/css/ui-scale.css" />
 <style>
-
+.home-title { display:flex; flex-direction:column; align-items:center; gap:36px; }
 .name-line { display:flex !important; flex-direction:row !important; align-items:flex-end; justify-content:center; gap:4px; transform:translateY(0px); transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
 .name-letter { display:block; height:143px; width:auto; flex-shrink:0; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); will-change:transform; }
 .letter-wrap { display:inline-flex; flex-direction:column; overflow:hidden; height:143px; cursor:pointer; }
@@ -324,11 +324,9 @@ document.addEventListener('click', function(e) {
                     .sb-tag img { display:block; width:auto; max-width:none; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); transform:translateY(0); }
                     .trusted-track img { filter:none; }
                     .services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:40px; margin-bottom:40px; }
-                    .services-grid-item h3 { display:flex; align-items:center; gap:10px; font-family:'PP Telegraf',sans-serif; font-size:16px; font-weight:400; color:#3A3A39; letter-spacing:0; margin-bottom:12px; padding-top:0; cursor:default; transition:color 0.3s ease; }
+                    .services-grid-item h3 { display:flex; align-items:center; gap:10px; font-family:'PP Telegraf',sans-serif; font-size:16px; font-weight:400; color:#3A3A39; letter-spacing:0; margin-bottom:12px; padding-top:0; }
                     .services-grid-item h3 img { width:20px; height:20px; }
-                    .services-grid-item p { font-family:'PP Telegraf',sans-serif !important; font-size:16px; font-weight:400; color:#979797; letter-spacing:0.03em; line-height:1.6; overflow:hidden; max-height:0; opacity:0; transition:max-height 0.5s cubic-bezier(0.76,0,0.24,1), opacity 0.4s ease; }
-                    .services-grid-item:hover h3 { color:#FF6600; }
-                    .services-grid-item:hover p { max-height:200px; opacity:1; }
+                    .services-grid-item p { font-family:'PP Telegraf',sans-serif !important; font-size:16px; font-weight:400; color:#979797; letter-spacing:0.03em; line-height:1.6; }
                     .services-btns { display:flex; flex-direction:column; align-items:center; gap:32px; width:445px; margin:0 auto; padding-bottom:40px; }
                     .services-btns-row { display:flex; gap:45px; width:100%; justify-content:center; }
                     .services-btns-row a { width:200px; text-align:center; height:40px; display:flex; align-items:center; justify-content:center; border:none; border-radius:5px; text-decoration:none; color:#3A3A39; font-family:'PP Telegraf',sans-serif; font-size:16px; letter-spacing:0; box-sizing:border-box; position:relative; overflow:hidden; background:transparent; background-image:url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='5' ry='5' stroke='%233A3A39' stroke-width='1.5' stroke-dasharray='8%2c8' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e"); transition:color 0.5s ease; }
@@ -645,22 +643,7 @@ window.addEventListener('load', () => {
             });
         });
 
-        // ── Magnet en services-grid-item ──────────────────────────────────
-        document.querySelectorAll('.services-grid-item').forEach(item => {
-            const h3 = item.querySelector('h3');
-            if (!h3) return;
-            h3.addEventListener('mousemove', (e) => {
-                const rect = h3.getBoundingClientRect();
-                const dx = (e.clientX - (rect.left + rect.width/2))  / (rect.width/2);
-                const dy = (e.clientY - (rect.top  + rect.height/2)) / (rect.height/2);
-                h3.style.transform = 'translate(' + (dx * 8) + 'px, ' + (dy * 8) + 'px)';
-                h3.style.transition = 'transform 0.15s ease';
-            });
-            h3.addEventListener('mouseleave', () => {
-                h3.style.transform = 'translate(0,0)';
-                h3.style.transition = 'transform 0.5s cubic-bezier(0.34,1.5,0.9,1)';
-            });
-        });
+        document.querySelectorAll('.services-btns-row a, .services-btns-connect').forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
                 const rect = btn.getBoundingClientRect();
                 const dx = (e.clientX - (rect.left + rect.width/2))  / (rect.width/2);
@@ -690,16 +673,22 @@ window.addEventListener('load', () => {
         })();
 
         (function() {
+            const fedLetters = document.querySelectorAll('#line-federico .name-letter');
+            const vacLetters = document.querySelectorAll('#line-vaccarezza .name-letter');
             const minTitles  = document.querySelectorAll('.ph-caption .min-titles');
             const triggerCfg = { trigger: '#page-header', start: '8% top', end: '65% top', scrub: 0.6 };
+            function applyParallax(letters, centerIndex) {
+                letters.forEach((letter, i) => {
+                    const dist  = Math.abs(i - centerIndex);
+                    const yMove = -180 + dist * 18;
+                    gsap.to(letter, { y: yMove, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 1.0 + dist * 0.25 } });
+                });
+            }
+            applyParallax(fedLetters, 3.5);
+            applyParallax(vacLetters, 4.5);
             window.__registerTitleParallax = function() {
-                // parallax sobre las name-line (wrappers de fila), no las letras individuales
-                const fedLine = document.querySelector('#line-federico');
-                const vacLine = document.querySelector('#line-vaccarezza');
-                if (minTitles[0]) gsap.to(minTitles[0], { y: -220, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 0.5 } });
-                if (fedLine)      gsap.to(fedLine,      { y: -28,  ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 0.5 } });
-                if (vacLine)      gsap.to(vacLine,      { y: -16,  ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 0.5 } });
-                if (minTitles[1]) gsap.to(minTitles[1], { y: -160, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 0.5 } });
+                if (minTitles[0]) gsap.to(minTitles[0], { y: -220, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 0.9 } });
+                if (minTitles[1]) gsap.to(minTitles[1], { y: -160, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 1.1 } });
             };
         })();
 
