@@ -66,6 +66,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .ph-caption .min-titles { font-size:24px !important; }
     .services-big { transform:scale(1.5); transform-origin:center center; margin-bottom:400px; margin-top:400px; }
     .services-big .sb-tag { bottom:-80px; right:-4%; width:28%; }
+
+    /* Cards 50% más grandes: zoom nativo preserva el layout de Isotope */
+    #works .gallery { zoom: 1.5; }
 }
 </style>
 
@@ -408,7 +411,6 @@ document.addEventListener('click', function(e) {
                 .footer-contact-links a:hover { opacity:1; }
                 .footer-contact-socials { display:flex; gap:20px; align-items:center; justify-content:flex-end; }
                 .footer-contact-socials img { width:30px; height:30px; filter:none; }
-                /* LET'S BUILD SOMETHING — letras individuales */
                 .footer-letsbuild { position:relative; z-index:5; text-align:center; margin-bottom:0; line-height:0; margin-top:20px; }
                 .footer-lb-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; }
                 #lb-line2 { display:block; width:100%; height:auto; transform:translateY(100%); filter:none; }
@@ -425,7 +427,6 @@ document.addEventListener('click', function(e) {
                     </div>
                 </div>
             </div>
-                                    <!-- LET'S BUILD SOMETHING — reveal escalonado -->
             <div class="footer-letsbuild">
                 <div class="footer-lb-clip">
                     <img id="lb-line1" src="./assets/img/LETSBUILD.svg" alt="LET'S BUILD" />
@@ -515,7 +516,6 @@ document.addEventListener('click', function(e) {
         cards.forEach((card, i) => {
             let tx = moves[i].x;
             let ty = moves[i].y;
-            // Push neighbors
             if (i > 0) { tx += moves[i-1].x * PUSH_NEIGHBOR; ty += moves[i-1].y * PUSH_NEIGHBOR; }
             if (i < cards.length-1) { tx += moves[i+1].x * PUSH_NEIGHBOR; ty += moves[i+1].y * PUSH_NEIGHBOR; }
             card.style.transform = 'translate(' + tx + 'px, ' + ty + 'px)';
