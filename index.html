@@ -49,11 +49,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .ph-caption-hover:hover .min-titles,
 .ph-caption .min-titles:hover { -webkit-text-stroke:0 !important; text-stroke:0 !important; }
 
-/* ── Breathe positions (JS las setea, CSS es el fallback) ── */
-.ph-caption-hover:hover .min-titles:first-child { transform:translateY(-40px); }
-.ph-caption-hover:hover .name-line:nth-child(1) { transform:translateY(-28px); }
-.ph-caption-hover:hover .name-line:nth-child(2) { transform:translateY(-16px); }
-.ph-caption-hover:hover .min-titles:last-child  { transform:translateY(-6px); }
+
 
 /* ── Misc ── */
 #modal-works .modal__dialog { display:flex; flex-direction:column; align-items:center; justify-content:center; }
@@ -532,70 +528,33 @@ if (window.innerWidth >= 2560) {
 
 
 
-// ── Breathe hover con JS (completa la animación al salir) ────────
-(function() {
+// ── Breathe hover — GSAP quickTo para no pisar el parallax ───────
+// Se registra después del breathe de entrada, cuando GSAP ya owns los elementos
+window.__registerBreatheHover = function() {
     const caption = document.querySelector('.ph-caption-hover');
-    if (!caption) return;
+    if (!caption || typeof gsap === 'undefined') return;
 
-    const EASE = 'cubic-bezier(0.25,0.46,0.45,0.94)';
-    const DUR  = '0.7s';
+    const cfg = { duration: 0.7, ease: 'power2.out', overwrite: 'auto' };
 
-    // targets y sus posiciones finales en hover
-    const targets = [
-        { sel: '.ph-caption .min-titles:first-child', hoverY: -40, baseY: 0 },
-        { sel: '#line-federico',                       hoverY: -28, baseY: 0 },
-        { sel: '#line-vaccarezza',                     hoverY: -16, baseY: 0 },
-        { sel: '.ph-caption .min-titles:last-child',   hoverY: -6,  baseY: 0 },
-    ];
-
-    // Guardamos la Y actual de cada elemento (puede haber sido seteada por GSAP del breathe)
-    function getEls() {
-        return targets.map(t => ({
-            el: caption.querySelector(t.sel),
-            hoverY: t.hoverY,
-        }));
-    }
-
-    let isHovered = false;
-    let animating = false;
-    let animId    = null;
-
-    function animateTo(els, toHover) {
-        animating = true;
-        els.forEach(({ el, hoverY }) => {
-            if (!el) return;
-            // leer la Y actual del transform
-            const mat = new DOMMatrix(getComputedStyle(el).transform);
-            const fromY = mat.m42;
-            const targetY = toHover ? hoverY : 0;
-            el.style.transition = 'transform ' + DUR + ' ' + EASE;
-            el.style.transform  = 'translateY(' + targetY + 'px)';
-        });
-        // tiempo de transición
-        setTimeout(() => { animating = false; }, 750);
-    }
+    const elPortfolio = caption.querySelector('.ph-caption .min-titles:first-child');
+    const elFed       = document.querySelector('#line-federico');
+    const elVac       = document.querySelector('#line-vaccarezza');
+    const el2026      = caption.querySelector('.ph-caption .min-titles:last-child');
 
     caption.addEventListener('mouseenter', () => {
-        isHovered = true;
-        animateTo(getEls(), true);
+        if (elPortfolio) gsap.to(elPortfolio, { ...cfg, y: -40 });
+        if (elFed)       gsap.to(elFed,       { ...cfg, y: -28, delay: 0.03 });
+        if (elVac)       gsap.to(elVac,       { ...cfg, y: -16, delay: 0.06 });
+        if (el2026)      gsap.to(el2026,      { ...cfg, y: -6,  delay: 0.09 });
     });
 
     caption.addEventListener('mouseleave', () => {
-        isHovered = false;
-        // esperar a que termine la animación de entrada antes de revertir
-        // pero si ya terminó, revertir directo
-        function tryRevert() {
-            if (!isHovered) {
-                animateTo(getEls(), false);
-            }
-        }
-        if (animating) {
-            setTimeout(tryRevert, 750);
-        } else {
-            tryRevert();
-        }
+        if (elPortfolio) gsap.to(elPortfolio, { ...cfg, y: 0 });
+        if (elFed)       gsap.to(elFed,       { ...cfg, y: 0, delay: 0.03 });
+        if (elVac)       gsap.to(elVac,       { ...cfg, y: 0, delay: 0.06 });
+        if (el2026)      gsap.to(el2026,      { ...cfg, y: 0, delay: 0.09 });
     });
-})();
+};
 
 // ── Repulsión entre cards ─────────────────────────────────────────
 (function() {
@@ -678,6 +637,9 @@ window.addEventListener('load', () => {
                     onComplete: () => {
                         if (typeof window.__registerTitleParallax === 'function') {
                             window.__registerTitleParallax();
+                        }
+                        if (typeof window.__registerBreatheHover === 'function') {
+                            window.__registerBreatheHover();
                         }
                         setTimeout(() => {
                             const target = document.getElementById('about');
