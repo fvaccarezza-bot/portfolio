@@ -54,13 +54,15 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .ph-caption-hover:hover .name-line:nth-child(1) { transform:translateY(-28px); }
 .ph-caption-hover:hover .name-line:nth-child(2) { transform:translateY(-16px); }
 .ph-caption-hover:hover .min-titles:last-child { transform:translateY(-6px); }
-@media (max-width:768px) {
+@media (-webkit-min-device-pixel-ratio: 2) and (max-width: 2559px) {
+    .name-letter { height: 114px !important; }
+}
     .name-letter { height:29px !important; }
     .home-title { gap:16px; }
     .name-line { gap:2px !important; }
 }
 @media (min-width:2560px) {
-    .name-letter { height:215px !important; }
+    .name-letter { height:172px !important; }
     .home-title { gap:54px; }
     .name-line { gap:6px !important; }
     .ph-caption .min-titles { font-size:24px !important; }
