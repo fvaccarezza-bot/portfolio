@@ -2,7 +2,6 @@
 <html lang="es">
 <head>
 <title>Federico Vaccarezza - Portfolio 2026</title>
-<base href="/test/">
 <meta charset="utf-8" />
 <meta name="Graphic Designer" content="I'm based in Tigre, Argentina, and I spent several years studying at the University of Buenos Aires (UBA), switching from industrial to graphic design." />
 <meta name="Federico Vaccarezza" content="fvaccarezza.com" />
@@ -65,7 +64,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .home-title { gap:54px; }
     .name-line { gap:6px !important; }
     .ph-caption .min-titles { font-size:24px !important; }
-    .services-big { transform:scale(1.5); transform-origin:center center; margin-bottom:600px !important; margin-top:600px !important; }
+    .services-big { transform:scale(1.5); transform-origin:center center; margin-bottom:400px; margin-top:400px; }
     .services-big .sb-tag { bottom:-80px; right:-4%; width:28%; }
 }
 </style>
@@ -409,6 +408,7 @@ document.addEventListener('click', function(e) {
                 .footer-contact-links a:hover { opacity:1; }
                 .footer-contact-socials { display:flex; gap:20px; align-items:center; justify-content:flex-end; }
                 .footer-contact-socials img { width:30px; height:30px; filter:none; }
+                /* LET'S BUILD SOMETHING — letras individuales */
                 .footer-letsbuild { position:relative; z-index:5; text-align:center; margin-bottom:0; line-height:0; margin-top:20px; }
                 .footer-lb-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; }
                 #lb-line2 { display:block; width:100%; height:auto; transform:translateY(100%); filter:none; }
@@ -425,6 +425,7 @@ document.addEventListener('click', function(e) {
                     </div>
                 </div>
             </div>
+                                    <!-- LET'S BUILD SOMETHING — reveal escalonado -->
             <div class="footer-letsbuild">
                 <div class="footer-lb-clip">
                     <img id="lb-line1" src="./assets/img/LETSBUILD.svg" alt="LET'S BUILD" />
@@ -514,6 +515,7 @@ document.addEventListener('click', function(e) {
         cards.forEach((card, i) => {
             let tx = moves[i].x;
             let ty = moves[i].y;
+            // Push neighbors
             if (i > 0) { tx += moves[i-1].x * PUSH_NEIGHBOR; ty += moves[i-1].y * PUSH_NEIGHBOR; }
             if (i < cards.length-1) { tx += moves[i+1].x * PUSH_NEIGHBOR; ty += moves[i+1].y * PUSH_NEIGHBOR; }
             card.style.transform = 'translate(' + tx + 'px, ' + ty + 'px)';
@@ -524,24 +526,7 @@ document.addEventListener('click', function(e) {
     });
 })();
 
-// ── Ultrawide: escalar cards
-if (window.innerWidth >= 2560) {
-    window.addEventListener('load', () => {
-        const gallery = document.querySelector('#works .gallery');
-        if (!gallery) return;
-        gallery.style.transform = 'scale(1.5)';
-        gallery.style.transformOrigin = 'top center';
-        // Compensar el espacio colapsado por transform
-        setTimeout(() => {
-            const h = gallery.getBoundingClientRect().height;
-            gallery.style.marginBottom = (h * 0.5) + 'px';
-            // Re-trigger isotope si existe
-            if (window.$ && $(gallery).data('isotope')) {
-                $(gallery).isotope('layout');
-            }
-        }, 600);
-    });
-}
+document.addEventListener('click', (e) => {
     const link = e.target.closest('#modal-works a[href]:not([data-modal-close])');
     if (!link) return;
     const href = link.getAttribute('href');
@@ -808,4 +793,3 @@ window.addEventListener('load', () => {
 </script>
 </body>
 </html>
-<!-- force deploy -->
