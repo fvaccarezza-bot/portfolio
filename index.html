@@ -612,12 +612,6 @@ window.addEventListener('load', () => {
                         if (typeof window.__registerTitleParallax === 'function') {
                             window.__registerTitleParallax();
                         }
-                        setTimeout(() => {
-                            const target = document.getElementById('about');
-                            if (!target) return;
-                            const top = target.getBoundingClientRect().top + window.scrollY + 160;
-                            window.scrollTo({ top, behavior: 'smooth' });
-                        }, 400);
                     }
                 });
               }
@@ -725,7 +719,15 @@ window.addEventListener('load', () => {
         (function() {
             const fedLetters = document.querySelectorAll('#line-federico .name-letter');
             const vacLetters = document.querySelectorAll('#line-vaccarezza .name-letter');
-            const triggerCfg = { trigger: '#page-header', start: '8% top', end: '65% top', scrub: 0.6 };
+
+            // trigger único para todo — mismo start/end para que todo se mueva junto
+            const triggerCfg = {
+                trigger: '#page-header',
+                start: '8% top',
+                end: '65% top',
+                scrub: 1.0,
+            };
+
             function applyParallax(letters, centerIndex) {
                 letters.forEach((letter, i) => {
                     const dist  = Math.abs(i - centerIndex);
@@ -733,18 +735,21 @@ window.addEventListener('load', () => {
                     gsap.to(letter, {
                         y: yMove,
                         ease: 'none',
-                        scrollTrigger: { ...triggerCfg, scrub: 1.0 + dist * 0.25 }
+                        scrollTrigger: { ...triggerCfg, scrub: 1.0 + dist * 0.15 }
                     });
                 });
             }
+
             applyParallax(fedLetters, 3.5);
             applyParallax(vacLetters, 4.5);
 
             window.__registerTitleParallax = function() {
                 const minTitles = document.querySelectorAll('.ph-caption .min-titles');
-                // fromTo: parten desde el y que dejó el breathe de entrada
-                if (minTitles[0]) gsap.fromTo(minTitles[0], { y: -40 }, { y: -220, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 0.9 } });
-                if (minTitles[1]) gsap.fromTo(minTitles[1], { y: -6  }, { y: -160, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 1.1 } });
+                // mismo scrub base que las letras del centro para que vayan sincronizados
+                if (minTitles[0]) gsap.fromTo(minTitles[0],
+                    { y: -40 }, { y: -220, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 1.0 } });
+                if (minTitles[1]) gsap.fromTo(minTitles[1],
+                    { y: -6  }, { y: -160, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 1.0 } });
             };
         })();
 
@@ -767,36 +772,20 @@ window.addEventListener('load', () => {
             });
         }
 
-        // ── Click nombre ──────────────────────────────────────────────────
+        // ── Click nombre — solo scroll, sin animar letras ─────────────────
         (function() {
             const heroLink = document.getElementById('hero-name-link');
             if (!heroLink) return;
             heroLink.addEventListener('click', function(e) {
                 e.preventDefault();
-                const fedLetters = document.querySelectorAll('#line-federico .name-letter');
-                const vacLetters = document.querySelectorAll('#line-vaccarezza .name-letter');
-                const minTitles  = document.querySelectorAll('.ph-caption .min-titles');
-                function animateOut(letters, centerIndex) {
-                    letters.forEach((letter, i) => {
-                        const dist = Math.abs(i - centerIndex);
-                        gsap.to(letter, { y: -180 + dist * 18, duration: 0.6, ease: 'power3.inOut', delay: dist * 0.04 });
-                    });
-                }
-                animateOut(fedLetters, 3.5);
-                animateOut(vacLetters, 4.5);
-                gsap.to(minTitles[0], { y: -220, duration: 0.5, ease: 'power3.inOut' });
-                gsap.to(minTitles[1], { y: -160, duration: 0.5, ease: 'power3.inOut', delay: 0.05 });
-                setTimeout(() => {
-                    const target = document.getElementById('about');
-                    if (!target) return;
-                    const top = target.getBoundingClientRect().top + window.scrollY + 160;
-                    window.scrollTo({ top, behavior: 'smooth' });
-                }, 400);
+                const target = document.getElementById('about');
+                if (!target) return;
+                const top = target.getBoundingClientRect().top + window.scrollY - 160;
+                window.scrollTo({ top, behavior: 'smooth' });
             });
         })();
 
     }
-});
-</script>
+});</script>
 </body>
 </html>
