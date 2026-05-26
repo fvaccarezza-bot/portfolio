@@ -326,9 +326,13 @@ document.addEventListener('click', function(e) {
                     .services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:40px; margin-bottom:40px; }
                     .services-grid-item h3 { display:flex; align-items:center; gap:10px; font-family:'PP Telegraf',sans-serif; font-size:16px; font-weight:400; color:#3A3A39; letter-spacing:0; margin-bottom:12px; padding-top:0; cursor:default; transition:color 0.3s ease, transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
                     .services-grid-item h3 img { width:20px; height:20px; transition:filter 0.3s ease; }
-                    .services-grid-item p { font-family:'PP Telegraf',sans-serif !important; font-size:16px; font-weight:400; color:#979797; letter-spacing:0.03em; line-height:1.6; }
+                    .services-grid-item p { font-family:'PP Telegraf',sans-serif !important; font-size:16px; font-weight:400; color:#979797; letter-spacing:0.03em; line-height:1.6; transition:opacity 0.4s ease; }
+                    .services-grid-item { transition:opacity 0.4s ease; }
+                    .services-grid:has(.services-grid-item:hover) .services-grid-item:not(:hover) { opacity:0.3; }
+                    .services-grid-item:hover h3 { color:#FF6600; transform:translateY(-4px); }
+                    .services-grid-item:hover h3 img { filter:brightness(0) saturate(100%) invert(45%) sepia(99%) saturate(700%) hue-rotate(1deg) brightness(103%); }
                     /* Imagen que sigue el cursor */
-                    #services-follow-img { position:fixed; pointer-events:none; z-index:9999; width:280px; height:200px; object-fit:cover; border-radius:10px; opacity:0; transition:opacity 0.3s ease; will-change:left,top; }
+                    #services-follow-img { position:fixed; pointer-events:none; z-index:9999; width:280px; height:200px; object-fit:cover; border-radius:10px; opacity:0; transition:opacity 0.3s ease; will-change:transform; }
                     .services-btns { display:flex; flex-direction:column; align-items:center; gap:32px; width:445px; margin:0 auto; padding-bottom:40px; }
                     .services-btns-row { display:flex; gap:45px; width:100%; justify-content:center; }
                     .services-btns-row a { width:200px; text-align:center; height:40px; display:flex; align-items:center; justify-content:center; border:none; border-radius:5px; text-decoration:none; color:#3A3A39; font-family:'PP Telegraf',sans-serif; font-size:16px; letter-spacing:0; box-sizing:border-box; position:relative; overflow:hidden; background:transparent; background-image:url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='5' ry='5' stroke='%233A3A39' stroke-width='1.5' stroke-dasharray='8%2c8' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e"); transition:color 0.5s ease; }
@@ -404,6 +408,12 @@ document.addEventListener('click', function(e) {
                 .card:hover .img-base { transform:scale(1.02); }
                 .card .meta h3 { letter-spacing:0.5em; text-transform:uppercase; }
                 .footer-roll { display:inline; }
+                .footer-roll-wrap { display:inline-flex; align-items:center; gap:6px; text-decoration:none; color:#3A3A39; text-transform:uppercase; font-weight:500; letter-spacing:0.5em; font-size:14px; }
+                .footer-roll-wrap .brace { display:inline-block; opacity:0; transition:opacity 0.3s ease, transform 0.4s cubic-bezier(0.34,1.5,0.9,1); font-size:18px; font-weight:300; color:#3A3A39; }
+                .footer-roll-wrap .brace-l { transform:translateX(8px); }
+                .footer-roll-wrap .brace-r { transform:translateX(-8px); }
+                .footer-roll-wrap:hover .brace { opacity:1; transform:translateX(0); }
+                .footer-roll-wrap:hover { color:#3A3A39; }
                 .title-clip { overflow:hidden; display:block; }
                 .title-clip-inner { display:block; transform:translateY(110%); }
                 .tt-section-inner.tt-wrap { padding-top:300px; }
@@ -420,8 +430,8 @@ document.addEventListener('click', function(e) {
             </style>
             <div class="tt-section-inner tt-wrap">
                 <div class="footer-contact-links">
-                    <div class="footer-col-left"><a href="https://calendly.com/fvaccarezza/intro-call" target="_blank" class="footer-roll">CALL ME</a></div>
-                    <div class="footer-col-center"><a href="mailto:fvaccarezza@gmail.com" class="footer-roll">WRITE ME</a></div>
+                    <div class="footer-col-left"><a href="https://calendly.com/fvaccarezza/intro-call" target="_blank" class="footer-roll-wrap"><span class="brace brace-l">{</span><span class="footer-roll">CALL ME</span><span class="brace brace-r">}</span></a></div>
+                    <div class="footer-col-center"><a href="mailto:fvaccarezza@gmail.com" class="footer-roll-wrap"><span class="brace brace-l">{</span><span class="footer-roll">WRITE ME</span><span class="brace brace-r">}</span></a></div>
                     <div class="footer-col-right footer-contact-socials">
                         <a href="https://www.behance.net/Vaccarezza" target="_blank"><img src="./assets/img/social-behance.svg" alt="Behance" /></a>
                         <a href="https://dribbble.com/Vaccarezza" target="_blank"><img src="./assets/img/social-dribble.svg" alt="Dribbble" /></a>
@@ -645,7 +655,32 @@ window.addEventListener('load', () => {
             });
         });
 
-        // ── Magnet en services-grid-item ──────────────────────────────────
+        // ── Imagen que sigue el cursor en services-grid ───────────────────
+        (function() {
+            const img = document.createElement('img');
+            img.id = 'services-follow-img';
+            img.src = './assets/home/frogbazar.jpg';
+            document.body.appendChild(img);
+
+            let fx = 0, fy = 0, tx = 0, ty = 0, running = false;
+
+            (function animate() {
+                fx += (tx - fx) * 0.1;
+                fy += (ty - fy) * 0.1;
+                img.style.transform = 'translate(calc(' + fx + 'px - 50%), calc(' + fy + 'px - 60%))';
+                requestAnimationFrame(animate);
+            })();
+
+            document.addEventListener('mousemove', (e) => {
+                tx = e.clientX;
+                ty = e.clientY;
+            });
+
+            const grid = document.querySelector('.services-grid');
+            if (!grid) return;
+            grid.addEventListener('mouseenter', () => { img.style.opacity = '1'; });
+            grid.addEventListener('mouseleave', () => { img.style.opacity = '0'; });
+        })();
         document.querySelectorAll('.services-grid-item').forEach(item => {
             const h3 = item.querySelector('h3');
             if (!h3) return;
