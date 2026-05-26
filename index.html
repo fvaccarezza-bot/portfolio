@@ -199,26 +199,26 @@ document.addEventListener('click', function(e) {
                         <h1 class="ph-caption-title font-bold text-center color-fv">
                             <a href="#about" data-offset="-160" class="home-title" id="hero-name-link">
                                 <span class="name-line" id="line-federico">
-                                    <span class="lm"><img class="name-letter" src="./assets/img/F.svg" alt="F" style="height:143px;width:auto;margin-right:5px;" /></span>
-                                    <span class="lm"><img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;margin-right:5px;" /></span>
-                                    <span class="lm"><img class="name-letter" src="./assets/img/D.svg" alt="D" style="height:143px;width:auto;margin-right:5px;" /></span>
-                                    <span class="lm"><img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;margin-right:5px;" /></span>
-                                    <span class="lm"><img class="name-letter" src="./assets/img/R.svg" alt="R" style="height:143px;width:auto;margin-right:5px;" /></span>
-                                    <span class="lm"><img class="name-letter" src="./assets/img/I.svg" alt="I" style="height:143px;width:auto;" /></span>
-                                    <span class="lm"><img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" /></span>
-                                    <span class="lm"><img class="name-letter" src="./assets/img/O.svg" alt="O" style="height:143px;width:auto;" /></span>
+                                    <img class="name-letter" src="./assets/img/F.svg" alt="F" style="height:143px;width:auto;margin-right:5px;" />
+                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;margin-right:5px;" />
+                                    <img class="name-letter" src="./assets/img/D.svg" alt="D" style="height:143px;width:auto;margin-right:5px;" />
+                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;margin-right:5px;" />
+                                    <img class="name-letter" src="./assets/img/R.svg" alt="R" style="height:143px;width:auto;margin-right:5px;" />
+                                    <img class="name-letter" src="./assets/img/I.svg" alt="I" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/O.svg" alt="O" style="height:143px;width:auto;" />
                                 </span>
                                 <span class="name-line" id="line-vaccarezza">
-                                    <span class="lm"><img class="name-letter" src="./assets/img/V.svg" alt="V" style="height:143px;width:auto;margin-right:-10px;" /></span>
-                                    <span class="lm"><img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;margin-left:-10px;margin-right:-6px;" /></span>
-                                    <span class="lm"><img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" /></span>
-                                    <span class="lm"><img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" /></span>
-                                    <span class="lm"><img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;margin-left:-6px;" /></span>
-                                    <span class="lm"><img class="name-letter" src="./assets/img/R.svg" alt="R" style="height:143px;width:auto;" /></span>
-                                    <span class="lm"><img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;" /></span>
-                                    <span class="lm"><img class="name-letter" src="./assets/img/Z.svg" alt="Z" style="height:143px;width:auto;" /></span>
-                                    <span class="lm"><img class="name-letter" src="./assets/img/Z.svg" alt="Z" style="height:143px;width:auto;" /></span>
-                                    <span class="lm"><img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;" /></span>
+                                    <img class="name-letter" src="./assets/img/V.svg" alt="V" style="height:143px;width:auto;margin-right:-10px;" />
+                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;margin-left:-10px;margin-right:-6px;" />
+                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;margin-left:-6px;" />
+                                    <img class="name-letter" src="./assets/img/R.svg" alt="R" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/Z.svg" alt="Z" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/Z.svg" alt="Z" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;" />
                                 </span>
                             </a>
                         </h1>
@@ -564,14 +564,15 @@ window.addEventListener('load', () => {
             { filter: "blur(20px)", opacity: 0, y: 30 },
             { filter: "blur(0px)", opacity: 1, y: 0, duration: 1.4, ease: "power3.out",
               onComplete: () => {
-                const fedLetters = Array.from(document.querySelectorAll("#line-federico .lm img"));
-                const vacLetters = Array.from(document.querySelectorAll("#line-vaccarezza .lm img"));
+                const fedLetters = Array.from(document.querySelectorAll("#line-federico .name-letter"));
+                const vacLetters = Array.from(document.querySelectorAll("#line-vaccarezza .name-letter"));
                 const minTitles  = document.querySelectorAll(".ph-caption .min-titles");
-                gsap.set([...fedLetters, ...vacLetters], { y: 150 });
+                // Arrancar ocultas con clipPath desde abajo
+                gsap.set([...fedLetters, ...vacLetters], { clipPath: "inset(100% 0% 0% 0%)" });
                 const animateCascade = (letters, centerIndex) => {
                     letters.forEach((letter, i) => {
                         const dist = Math.abs(i - centerIndex);
-                        gsap.to(letter, { y: 0, duration: 0.8, ease: "power3.out", delay: dist * 0.07 });
+                        gsap.to(letter, { clipPath: "inset(0% 0% 0% 0%)", duration: 0.8, ease: "power3.out", delay: dist * 0.07 });
                     });
                 };
                 animateCascade(fedLetters, (fedLetters.length - 1) / 2);
