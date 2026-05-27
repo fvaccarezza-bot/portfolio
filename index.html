@@ -43,7 +43,20 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .home-title,.home-title:hover,.home-title:focus,.home-title .name-line,.home-title:hover .name-line,.home-title:focus .name-line { color:inherit !important; -webkit-text-stroke:0 !important; text-decoration:none !important; }
 #modal-works .modal__dialog { display:flex; flex-direction:column; align-items:center; justify-content:center; }
 #modal-works .content { justify-content:center !important; align-items:center !important; }
-.tt-wrap { max-width:min(1320px,91.67vw) !important; }
+.tt-ol-menu-list > li > a,
+.tt-ol-submenu-list > li > a {
+    background-color: transparent !important;
+    color: inherit !important;
+}
+.ol-roll-wrap { display:inline-flex; align-items:center; gap:5px; }
+.ol-roll-wrap .ol-brace { display:inline-block; transition:transform 0.4s cubic-bezier(0.34,1.5,0.9,1); opacity:1; }
+.ol-roll-wrap:hover .ol-brace-l { transform:translateX(-5px); }
+.ol-roll-wrap:hover .ol-brace-r { transform:translateX(5px); }
+.ol-roll-text { display:inline-block; overflow:hidden; position:relative; vertical-align:bottom; }
+.ol-roll-text span { display:block; transition:transform 0.4s cubic-bezier(0.76,0,0.24,1); }
+.ol-roll-text span:last-child { position:absolute; top:0; left:0; transform:translateY(100%); }
+.ol-roll-wrap:hover .ol-roll-text span:first-child { transform:translateY(-100%); }
+.ol-roll-wrap:hover .ol-roll-text span:last-child { transform:translateY(0%); }
 #services .trusted-container, #services .trusted-container .trusted-track { margin-top:0 !important; margin-bottom:0 !important; }
 #services h4.section-title { margin-top:0 !important; margin-bottom:48px !important; }
 .services-btns { margin-bottom:120px !important; }
@@ -703,6 +716,12 @@ window.addEventListener('load', () => {
                 btn.style.transform = 'perspective(400px) rotateX(0deg) rotateY(0deg) translate(0px,0px)';
                 btn.style.transition = 'transform 0.5s cubic-bezier(0.34,1.5,0.9,1)';
             });
+        });
+
+        // ── Corchetes y roll en overlay menu ─────────────────────────────
+        document.querySelectorAll('.tt-ol-menu-list > li.common-li > a, .tt-ol-submenu-list > li > a').forEach(a => {
+            const text = a.textContent.trim();
+            a.innerHTML = '<span class="ol-roll-wrap"><span class="ol-brace ol-brace-l">[</span><span class="ol-roll-text"><span>' + text + '</span><span>' + text + '</span></span><span class="ol-brace ol-brace-r">]</span></span>';
         });
 
         // ── Magnet suave en sociales del footer ───────────────────────────
