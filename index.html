@@ -298,14 +298,6 @@ document.addEventListener('click', function(e) {
                             <a class="media" href="work/web/" alt="web" data-vt-mode="slide"><img class="img-base" src="./assets/home/web-b.jpg" alt="Web" /><img class="img-hover" src="./assets/home/web.jpg" alt="" aria-hidden="true" /></a>
                             <div class="meta"><h3>WEB</h3><p>(010)</p></div>
                         </div>
-                        <div class="card" id="logofolio">
-                            <a class="media" href="work/logofolio/" alt="logofolio" data-vt-mode="slide"><img class="img-base" src="./assets/home/logofolio-b.jpg" alt="Logofolio" /><img class="img-hover" src="./assets/home/logofolio.jpg" alt="" aria-hidden="true" /></a>
-                            <div class="meta"><h3>LOGOFOLIO</h3><p>(011)</p></div>
-                        </div>
-                        <div class="card" id="photography">
-                            <a class="media" href="work/photography/" alt="photography" data-vt-mode="slide"><img class="img-base" src="./assets/home/photography-b.jpg" alt="photography" /><img class="img-hover" src="./assets/home/photography.jpg" alt="" aria-hidden="true" /></a>
-                            <div class="meta"><h3>PHOTOGRAPHY</h3><p>(012)</p></div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -331,7 +323,7 @@ document.addEventListener('click', function(e) {
                     .services-grid:has(.services-grid-item:hover) .services-grid-item:not(:hover) { filter:blur(3px); opacity:0.4; }
                     .services-grid-item:hover h3 { color:#FF6600; }
                     .services-grid-item:hover h3 img { filter:brightness(0) saturate(100%) invert(45%) sepia(99%) saturate(700%) hue-rotate(1deg) brightness(103%); }
-                    #services-follow-img { position:fixed; top:0; left:0; pointer-events:none; z-index:9999; width:280px; height:200px; object-fit:cover; border-radius:10px; opacity:0; transition:opacity 0.3s ease; will-change:transform; }
+                    #services-follow-img { position:fixed; top:0; left:0; pointer-events:none; z-index:1; width:280px; height:200px; object-fit:cover; border-radius:10px; opacity:0; transition:opacity 0.3s ease; will-change:transform; }
                     .services-btns { display:flex; flex-direction:column; align-items:center; gap:32px; width:445px; margin:0 auto; padding-bottom:40px; }
                     .services-btns-row { display:flex; gap:45px; width:100%; justify-content:center; }
                     .services-btns-row a { width:200px; text-align:center; height:40px; display:flex; align-items:center; justify-content:center; border:none; border-radius:5px; text-decoration:none; color:#3A3A39; font-family:'PP Telegraf',sans-serif; font-size:16px; letter-spacing:0; box-sizing:border-box; position:relative; overflow:hidden; background:transparent; background-image:url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='5' ry='5' stroke='%233A3A39' stroke-width='1.5' stroke-dasharray='8%2c8' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e"); transition:color 0.5s ease; }
@@ -422,6 +414,7 @@ document.addEventListener('click', function(e) {
                 .footer-contact-socials img { width:30px; height:30px; filter:none; }
                 .footer-letsbuild { position:relative; z-index:5; text-align:center; margin-bottom:0; line-height:0; margin-top:20px; }
                 .footer-lb-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; }
+                .footer-lb-clip:last-child { margin-top:0px; }
                 #lb-line2 { display:block; width:100%; height:auto; transform:translateY(100%); filter:none; }
                 #lb-line1 { display:block; width:auto; height:auto; transform:translateY(100%); filter:none; margin:0 auto; }
             </style>
@@ -440,7 +433,7 @@ document.addEventListener('click', function(e) {
                 <div class="footer-lb-clip">
                     <img id="lb-line1" src="./assets/img/LETSBUILD.svg" alt="LET'S BUILD" />
                 </div>
-                <div class="footer-lb-clip" style="margin-top:40px;">
+                <div class="footer-lb-clip" style="margin-top:10px;">
                     <img id="lb-line2" src="./assets/img/SOMETHING.svg" alt="SOMETHING" />
                 </div>
             </div>
@@ -662,8 +655,7 @@ window.addEventListener('load', () => {
             (function animate() {
                 fx += (tx - fx) * 0.1;
                 fy += (ty - fy) * 0.1;
-                img.style.transform = 'translate(calc(' + fx + 'px - 50%), calc(' + fy + 'px - 60%))';
-                requestAnimationFrame(animate);
+                img.style.transform = 'translate(calc(' + fx + 'px + 20px), calc(' + fy + 'px - 80%)'+')';                requestAnimationFrame(animate);
             })();
             document.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; });
             const grid = document.querySelector('.services-grid');
