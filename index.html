@@ -32,7 +32,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 <link rel="stylesheet" href="./assets/css/retina-80.css" />
 <link rel="stylesheet" href="./assets/css/ui-scale.css" />
 <style>
-.home-title { display:flex; flex-direction:column; align-items:center; gap:36px; }
+
 .name-line { display:flex !important; flex-direction:row !important; align-items:flex-end; justify-content:center; gap:4px; transform:translateY(0px); transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
 .name-letter { display:block; height:143px; width:auto; flex-shrink:0; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); will-change:transform; }
 .letter-wrap { display:inline-flex; flex-direction:column; overflow:hidden; height:143px; cursor:pointer; }
@@ -314,19 +314,23 @@ document.addEventListener('click', function(e) {
                 <style>
                     .services-big { position:relative; margin-top:100px; margin-bottom:180px; cursor:default; text-align:center; }
                     .services-big > img { display:block; width:auto; max-width:100%; margin:0 auto; }
+                    .services-big:hover .sb-line1 { transform:translateY(-55px) scale(1.02); }
+                    .services-big:hover .sb-line2 { transform:translateY(-38px) scale(1.02); }
+                    .services-big:hover .sb-line3 { transform:translateY(-22px) scale(1.02); }
+                    .services-big:hover .sb-tag1  { transform:translateY(-14px) scale(1.02); transition-delay:0.05s; }
+                    .services-big:hover .sb-tag2  { transform:translateY(-8px) scale(1.02); transition-delay:0.1s; }
                     .sb-tag { position:absolute; bottom:-120px; right:0; width:28%; display:flex; flex-direction:column; align-items:center; gap:0; }
                     .sb-tag2 { margin-top:-32px; }
-                    .sb-tag img { display:block; width:auto; max-width:none; }
+                    .sb-tag img { display:block; width:auto; max-width:none; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); transform:translateY(0); }
                     .trusted-track img { filter:none; }
                     .services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:40px; margin-bottom:40px; }
                     .services-grid-item h3 { display:flex; align-items:center; gap:10px; font-family:'PP Telegraf',sans-serif; font-size:16px; font-weight:400; color:#3A3A39; letter-spacing:0; margin-bottom:12px; padding-top:0; cursor:default; transition:color 0.3s ease, transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
                     .services-grid-item h3 img { width:20px; height:20px; transition:filter 0.3s ease; }
-                    .services-grid-item p { font-family:'PP Telegraf',sans-serif !important; font-size:16px; font-weight:400; color:#979797; letter-spacing:0.03em; line-height:1.6; transition:opacity 0.4s ease; }
+                    .services-grid-item p { font-family:'PP Telegraf',sans-serif !important; font-size:16px; font-weight:400; color:#979797; letter-spacing:0.03em; line-height:1.6; }
                     .services-grid-item { transition:filter 0.4s ease, opacity 0.4s ease; }
                     .services-grid:has(.services-grid-item:hover) .services-grid-item:not(:hover) { filter:blur(3px); opacity:0.4; }
                     .services-grid-item:hover h3 { color:#FF6600; }
                     .services-grid-item:hover h3 img { filter:brightness(0) saturate(100%) invert(45%) sepia(99%) saturate(700%) hue-rotate(1deg) brightness(103%); }
-                    /* Imagen que sigue el cursor */
                     #services-follow-img { position:fixed; top:0; left:0; pointer-events:none; z-index:9999; width:280px; height:200px; object-fit:cover; border-radius:10px; opacity:0; transition:opacity 0.3s ease; will-change:transform; }
                     .services-btns { display:flex; flex-direction:column; align-items:center; gap:32px; width:445px; margin:0 auto; padding-bottom:40px; }
                     .services-btns-row { display:flex; gap:45px; width:100%; justify-content:center; }
@@ -404,9 +408,7 @@ document.addEventListener('click', function(e) {
                 .card .meta h3 { letter-spacing:0.5em; text-transform:uppercase; }
                 .footer-roll { display:inline; }
                 .footer-roll-wrap { display:inline-flex; align-items:center; gap:6px; text-decoration:none; color:#3A3A39; text-transform:uppercase; font-weight:500; letter-spacing:0.5em; font-size:14px; }
-                .footer-roll-wrap .brace { display:inline-block; opacity:1; transition:transform 0.4s cubic-bezier(0.34,1.5,0.9,1); font-size:18px; font-weight:300; color:#3A3A39; }
-                .footer-roll-wrap .brace-l { transform:translateX(0); }
-                .footer-roll-wrap .brace-r { transform:translateX(0); }
+                .footer-roll-wrap .brace { display:inline-block; transition:transform 0.4s cubic-bezier(0.34,1.5,0.9,1); font-size:18px; font-weight:300; color:#3A3A39; }
                 .footer-roll-wrap:hover .brace-l { transform:translateX(-6px); }
                 .footer-roll-wrap:hover .brace-r { transform:translateX(6px); }
                 .title-clip { overflow:hidden; display:block; }
@@ -425,8 +427,8 @@ document.addEventListener('click', function(e) {
             </style>
             <div class="tt-section-inner tt-wrap">
                 <div class="footer-contact-links">
-                    <div class="footer-col-left"><a href="https://calendly.com/fvaccarezza/intro-call" target="_blank" class="footer-roll-wrap"><span class="brace brace-l">{</span><span class="footer-roll">CALL ME</span><span class="brace brace-r">}</span></a></div>
-                    <div class="footer-col-center"><a href="mailto:fvaccarezza@gmail.com" class="footer-roll-wrap"><span class="brace brace-l">{</span><span class="footer-roll">WRITE ME</span><span class="brace brace-r">}</span></a></div>
+                    <div class="footer-col-left"><a href="https://calendly.com/fvaccarezza/intro-call" target="_blank" class="footer-roll-wrap"><span class="brace brace-l">{</span>CALL ME<span class="brace brace-r">}</span></a></div>
+                    <div class="footer-col-center"><a href="mailto:fvaccarezza@gmail.com" class="footer-roll-wrap"><span class="brace brace-l">{</span>WRITE ME<span class="brace brace-r">}</span></a></div>
                     <div class="footer-col-right footer-contact-socials">
                         <a href="https://www.behance.net/Vaccarezza" target="_blank"><img src="./assets/img/social-behance.svg" alt="Behance" /></a>
                         <a href="https://dribbble.com/Vaccarezza" target="_blank"><img src="./assets/img/social-dribble.svg" alt="Dribbble" /></a>
@@ -656,22 +658,19 @@ window.addEventListener('load', () => {
             img.id = 'services-follow-img';
             img.src = './assets/home/frogbazar.jpg';
             document.body.appendChild(img);
-
             let fx = 0, fy = 0, tx = 0, ty = 0;
-
             (function animate() {
                 fx += (tx - fx) * 0.1;
                 fy += (ty - fy) * 0.1;
                 img.style.transform = 'translate(calc(' + fx + 'px - 50%), calc(' + fy + 'px - 60%))';
                 requestAnimationFrame(animate);
             })();
-
             document.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; });
-
             const grid = document.querySelector('.services-grid');
-            if (!grid) return;
-            grid.addEventListener('mouseenter', () => { img.style.opacity = '1'; });
-            grid.addEventListener('mouseleave', () => { img.style.opacity = '0'; });
+            if (grid) {
+                grid.addEventListener('mouseenter', () => { img.style.opacity = '1'; });
+                grid.addEventListener('mouseleave', () => { img.style.opacity = '0'; });
+            }
         })();
 
         // ── Magnet en todo el services-grid-item ─────────────────────────
@@ -688,8 +687,8 @@ window.addEventListener('load', () => {
                 item.style.transition = 'transform 0.5s cubic-bezier(0.34,1.5,0.9,1), filter 0.4s ease, opacity 0.4s ease';
             });
         });
-        });
 
+        // ── Tilt en botones services ──────────────────────────────────────
         document.querySelectorAll('.services-btns-row a, .services-btns-connect').forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
                 const rect = btn.getBoundingClientRect();
@@ -720,22 +719,16 @@ window.addEventListener('load', () => {
         })();
 
         (function() {
-            const fedLetters = document.querySelectorAll('#line-federico .name-letter');
-            const vacLetters = document.querySelectorAll('#line-vaccarezza .name-letter');
             const minTitles  = document.querySelectorAll('.ph-caption .min-titles');
             const triggerCfg = { trigger: '#page-header', start: '8% top', end: '65% top', scrub: 0.6 };
-            function applyParallax(letters, centerIndex) {
-                letters.forEach((letter, i) => {
-                    const dist  = Math.abs(i - centerIndex);
-                    const yMove = -180 + dist * 18;
-                    gsap.to(letter, { y: yMove, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 1.0 + dist * 0.25 } });
-                });
-            }
-            applyParallax(fedLetters, 3.5);
-            applyParallax(vacLetters, 4.5);
             window.__registerTitleParallax = function() {
-                if (minTitles[0]) gsap.to(minTitles[0], { y: -220, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 0.9 } });
-                if (minTitles[1]) gsap.to(minTitles[1], { y: -160, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 1.1 } });
+                // parallax sobre las name-line (wrappers de fila), no las letras individuales
+                const fedLine = document.querySelector('#line-federico');
+                const vacLine = document.querySelector('#line-vaccarezza');
+                if (minTitles[0]) gsap.to(minTitles[0], { y: -220, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 0.5 } });
+                if (fedLine)      gsap.to(fedLine,      { y: -28,  ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 0.5 } });
+                if (vacLine)      gsap.to(vacLine,      { y: -16,  ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 0.5 } });
+                if (minTitles[1]) gsap.to(minTitles[1], { y: -160, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 0.5 } });
             };
         })();
 
@@ -753,24 +746,6 @@ window.addEventListener('load', () => {
                 const el = servicesBig.querySelector(sel);
                 if (!el) return;
                 gsap.to(el, { y, ease:'none', scrollTrigger: { trigger:servicesBig, start:'top bottom', end:'bottom top', scrub:0.8 } });
-            });
-
-            // Breathe hover via JS — no pisa GSAP porque usa gsap.to con overwrite
-            const hoverOffsets = {
-                '.sb-line1': -55, '.sb-line2': -38, '.sb-line3': -22,
-                '.sb-tag1': -14, '.sb-tag2': -8
-            };
-            servicesBig.addEventListener('mouseenter', () => {
-                Object.entries(hoverOffsets).forEach(([sel, extra]) => {
-                    const el = servicesBig.querySelector(sel);
-                    if (el) gsap.to(el, { yPercent: -2, scale: 1.02, duration: 0.5, ease: 'power2.out', overwrite: 'auto' });
-                });
-            });
-            servicesBig.addEventListener('mouseleave', () => {
-                Object.entries(hoverOffsets).forEach(([sel]) => {
-                    const el = servicesBig.querySelector(sel);
-                    if (el) gsap.to(el, { yPercent: 0, scale: 1, duration: 0.5, ease: 'power2.out', overwrite: 'auto' });
-                });
             });
         }
 
