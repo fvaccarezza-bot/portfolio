@@ -211,54 +211,123 @@
                      </div>
                   </div>
 
-                  <footer class="tt-section">
-                     <div class="bg-vectors" id="bg-vectors-2">
-                        <div class="pos bottom-center">
-                           <img class="mob-no" src="../../assets/img/footer-works-4.svg" />
-                           <img class="mob-ok block" src="../../assets/img/footer-works-4-mob.svg" alt="" />
-                        </div>
-                     </div>
-                     <div class="footer-masked footer1"><div class="footer-ink footer1">
-                        <img class="footer-probe mob-no" src="../../assets/img/footer-works-1.svg" alt="" />
-                        <img class="footer-probe mob-ok block" src="../../assets/img/footer-works-1-mob.svg" alt="" />
-                        <div class="footer-texture orange" aria-hidden="true"></div>
-                     </div></div>
-                     <div class="footer-masked footer1"><div class="footer-ink footer2">
-                        <img class="footer-probe mob-no" src="../../assets/img/footer-works-2.svg" alt="" />
-                        <img class="footer-probe mob-ok block" src="../../assets/img/footer-works-2-mob.svg" alt="" />
-                        <div class="footer-texture yellow" aria-hidden="true"></div>
-                     </div></div>
-                     <div class="footer-masked footer3"><div class="footer-ink footer3">
-                        <img class="footer-probe mob-no" src="../../assets/img/footer-works-3.svg" alt="" />
-                        <img class="footer-probe mob-ok block" src="../../assets/img/footer-works-3-mob.svg" alt="" />
-                        <div class="footer-texture yellow" aria-hidden="true"></div>
-                     </div></div>
-                     <div class="footer-bottom-full" aria-hidden="true"></div>
-                     <div class="footer-bottom-mask" aria-hidden="true"><div class="footer-bottom-cut"></div></div>
-                     <div class="tt-section-inner tt-wrap talk">
-                        <div class="talk-section">
-                           <h3>Get in touch.</h3>
-                           <div class="talk-buttons">
-                              <a href="../../#contact" class="btn" data-vt-mode="fade">write me</a>
-                              <a href="https://calendly.com/fvaccarezza/intro-call" target="_blank" class="btn" data-vt-mode="fade">book a call</a>
-                           </div>
-                        </div>
-                        <div class="talk-section">
-                           <h3>Social.</h3>
-                           <div class="socials">
-                              <a href="https://www.behance.net/Vaccarezza" target="_blank" data-vt-mode="fade">
-                                 <img src="../../assets/img/social-behance.svg" alt="" /><p>Behance</p><div class="circle"></div>
-                              </a>
-                              <a href="https://dribbble.com/Vaccarezza" target="_blank" data-vt-mode="fade">
-                                 <img src="../../assets/img/social-dribble.svg" alt="" /><p>Dribble</p><div class="circle"></div>
-                              </a>
-                              <a href="https://vsco.co/fedevaccarezza/" target="_blank" data-vt-mode="fade">
-                                 <img src="../../assets/img/social-vsco.svg" alt="" /><p>Vsco</p><div class="circle"></div>
-                              </a>
-                           </div>
-                        </div>
-                     </div>
-                  </footer>
+                  <footer id="work-footer" class="tt-section">
+  <style>
+    #work-footer {
+      position: relative;
+      overflow: hidden;
+      padding: 0 !important;
+      margin-top: 120px;
+      background: transparent;
+    }
+    #work-footer-bg {
+      position: relative;
+      width: 100%;
+      z-index: 1;
+    }
+    #work-footer-bg img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    #work-footer-inner {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 60px;
+    }
+    .wf-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      width: min(1320px, 91.67vw);
+      align-items: center;
+      padding-bottom: 24px;
+      letter-spacing: 0.5em;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    .wf-col-left { text-align: left; }
+    .wf-col-center { text-align: center; display: flex; justify-content: center; }
+    .wf-col-right { display: flex; gap: 20px; align-items: center; justify-content: flex-end; }
+    .wf-col-right img { width: 30px; height: 30px; }
+    .wf-roll-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: #3A3A39;
+      text-transform: uppercase;
+      font-weight: 500;
+      font-family: 'PP Telegraf', sans-serif;
+      letter-spacing: 0.5em;
+      font-size: 14px;
+    }
+    .wf-roll-wrap .brace {
+      display: inline-block;
+      transition: transform 0.4s cubic-bezier(0.34,1.5,0.9,1);
+      font-size: 14px;
+      font-weight: 400;
+    }
+    .wf-roll-wrap:hover .brace-l { transform: translateX(-6px); }
+    .wf-roll-wrap:hover .brace-r { transform: translateX(6px); }
+    .wf-roll-text {
+      display: inline-block;
+      overflow: hidden;
+      position: relative;
+      vertical-align: bottom;
+    }
+    .wf-roll-text span { display: block; transition: transform 0.4s cubic-bezier(0.76,0,0.24,1); }
+    .wf-roll-text span:last-child { position: absolute; top: 0; left: 0; transform: translateY(100%); }
+    .wf-roll-wrap:hover .wf-roll-text span:first-child { transform: translateY(-100%); }
+    .wf-roll-wrap:hover .wf-roll-text span:last-child { transform: translateY(0%); }
+    .wf-letsbuild {
+      width: 100%;
+      text-align: center;
+      margin-top: 10px;
+      line-height: 1;
+    }
+    .wf-letsbuild img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+
+  <div id="work-footer-bg">
+    <img src="../../assets/img/FOOTERBGORANGE.svg" alt="" />
+    <div id="work-footer-inner">
+      <div class="wf-links">
+        <div class="wf-col-left">
+          <a href="https://calendly.com/fvaccarezza/intro-call" target="_blank" class="wf-roll-wrap">
+            <span class="brace brace-l">[</span>
+            <span class="wf-roll-text"><span>CALL ME</span><span>CALL ME</span></span>
+            <span class="brace brace-r">]</span>
+          </a>
+        </div>
+        <div class="wf-col-center">
+          <a href="mailto:fvaccarezza@gmail.com" class="wf-roll-wrap">
+            <span class="brace brace-l">[</span>
+            <span class="wf-roll-text"><span>WRITE ME</span><span>WRITE ME</span></span>
+            <span class="brace brace-r">]</span>
+          </a>
+        </div>
+        <div class="wf-col-right">
+          <a href="https://www.behance.net/Vaccarezza" target="_blank"><img src="../../assets/img/social-behance.svg" alt="Behance" /></a>
+          <a href="https://dribbble.com/Vaccarezza" target="_blank"><img src="../../assets/img/social-dribble.svg" alt="Dribbble" /></a>
+          <a href="https://www.linkedin.com/in/federico-vaccarezza-38b987255/" target="_blank"><img src="../../assets/img/social-linkedin.svg" alt="LinkedIn" /></a>
+          <a href="https://vsco.co/fedevaccarezza/" target="_blank"><img src="../../assets/img/social-vsco.svg" alt="VSCO" /></a>
+        </div>
+      </div>
+      <div class="wf-letsbuild">
+        <img src="../../assets/img/FOOTERLETSBUILDSOMETHING.svg" alt="LET'S BUILD SOMETHING" />
+      </div>
+    </div>
+  </div>
+</footer>
+
                </div>
             </div>
          </div>
