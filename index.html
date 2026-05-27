@@ -420,8 +420,8 @@ document.addEventListener('click', function(e) {
                 .footer-contact-socials img { width:30px; height:30px; filter:none; }
                 .footer-letsbuild { position:relative; z-index:5; text-align:center; margin-bottom:0; line-height:0; margin-top:20px; }
                 .footer-lb-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; }
-                #lb-line2 { display:block; width:100%; height:auto; filter:none; }
-                #lb-line1 { display:block; width:auto; height:auto; filter:none; margin:0 auto; }
+                #lb-line2 { display:block; width:100%; height:auto; transform:translateY(100%); filter:none; }
+                #lb-line1 { display:block; width:auto; height:auto; transform:translateY(100%); filter:none; margin:0 auto; }
             </style>
             <div class="tt-section-inner tt-wrap">
                 <div class="footer-contact-links">
@@ -743,9 +743,6 @@ window.addEventListener('load', () => {
             const line1 = document.getElementById('lb-line1');
             const line2 = document.getElementById('lb-line2');
             if (!line1 || !line2) return;
-            const lbH = line2.getBoundingClientRect().height || 200;
-            gsap.set(line1, { y: lbH });
-            gsap.set(line2, { y: lbH });
             gsap.to(line1, { y: 0, ease: 'none', scrollTrigger: { trigger: '#contact', start: 'top 90%', end: 'top 20%', scrub: 1.0 } });
             gsap.to(line2, { y: 0, ease: 'none', scrollTrigger: { trigger: '#contact', start: 'top 80%', end: 'top 10%', scrub: 1.6 } });
         })();
@@ -756,6 +753,24 @@ window.addEventListener('load', () => {
                 const el = servicesBig.querySelector(sel);
                 if (!el) return;
                 gsap.to(el, { y, ease:'none', scrollTrigger: { trigger:servicesBig, start:'top bottom', end:'bottom top', scrub:0.8 } });
+            });
+
+            // Breathe hover via JS — no pisa GSAP porque usa gsap.to con overwrite
+            const hoverOffsets = {
+                '.sb-line1': -55, '.sb-line2': -38, '.sb-line3': -22,
+                '.sb-tag1': -14, '.sb-tag2': -8
+            };
+            servicesBig.addEventListener('mouseenter', () => {
+                Object.entries(hoverOffsets).forEach(([sel, extra]) => {
+                    const el = servicesBig.querySelector(sel);
+                    if (el) gsap.to(el, { yPercent: -2, scale: 1.02, duration: 0.5, ease: 'power2.out', overwrite: 'auto' });
+                });
+            });
+            servicesBig.addEventListener('mouseleave', () => {
+                Object.entries(hoverOffsets).forEach(([sel]) => {
+                    const el = servicesBig.querySelector(sel);
+                    if (el) gsap.to(el, { yPercent: 0, scale: 1, duration: 0.5, ease: 'power2.out', overwrite: 'auto' });
+                });
             });
         }
 
