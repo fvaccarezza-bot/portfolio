@@ -400,9 +400,9 @@ document.addEventListener('click', function(e) {
                 .card .meta h3 { letter-spacing:0.5em; text-transform:uppercase; }
                 .footer-roll { display:inline; }
                 .footer-roll-wrap { display:inline-flex; align-items:center; gap:6px; text-decoration:none; color:#3A3A39; text-transform:uppercase; font-weight:500; letter-spacing:0.5em; font-size:14px; }
-                .footer-roll-text { display:inline-block; overflow:hidden; height:1em; vertical-align:middle; line-height:1; }
-                .footer-roll-text span { display:block; line-height:1; transition:transform 0.4s cubic-bezier(0.76,0,0.24,1); }
-                .footer-roll-text span:last-child { transform:translateY(100%); }
+                .footer-roll-text { display:inline-block; overflow:hidden; vertical-align:bottom; position:relative; }
+                .footer-roll-text span { display:block; transition:transform 0.4s cubic-bezier(0.76,0,0.24,1); }
+                .footer-roll-text span:last-child { position:absolute; top:0; left:0; transform:translateY(100%); }
                 .footer-roll-wrap:hover .footer-roll-text span:first-child { transform:translateY(-100%); }
                 .footer-roll-wrap:hover .footer-roll-text span:last-child { transform:translateY(0%); }
                 .footer-roll-wrap .brace { display:inline-block; transition:transform 0.4s cubic-bezier(0.34,1.5,0.9,1); font-size:14px; font-weight:400; color:#3A3A39; }
