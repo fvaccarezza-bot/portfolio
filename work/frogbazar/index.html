@@ -237,9 +237,11 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      padding-top: 55px;
-      padding-bottom: 0;
+      justify-content: flex-end;
+    }
+    .wf-links-wrap {
+      width: min(1320px, 91.67vw);
+      padding-bottom: 18px;
     }
     .wf-links {
       display: grid;
@@ -301,7 +303,7 @@
   <div id="work-footer-bg">
     <img src="../../assets/img/footer-works-1.svg" alt="" />
     <div id="work-footer-inner">
-      <div class="wf-links">
+      <div class="wf-links-wrap"><div class="wf-links">
         <div class="wf-col-left">
           <a href="https://calendly.com/fvaccarezza/intro-call" target="_blank" class="wf-roll-wrap">
             <span class="brace brace-l">[</span>
@@ -322,7 +324,7 @@
           <a href="https://www.linkedin.com/in/federico-vaccarezza-38b987255/" target="_blank"><img src="../../assets/img/social-linkedin.svg" alt="LinkedIn" /></a>
           <a href="https://vsco.co/fedevaccarezza/" target="_blank"><img src="../../assets/img/social-vsco.svg" alt="VSCO" /></a>
         </div>
-      </div>
+      </div></div>
       <div class="wf-letsbuild">
         <img id="wf-lb" src="../../assets/img/FOOTERLETSBUILDSOMETHING.svg" alt="LET'S BUILD SOMETHING" style="transform:translateY(100%);" />
       </div>
@@ -409,6 +411,22 @@ window.addEventListener('load', function() {
             });
         }
     }
+});
+</script>
+
+<script>
+document.querySelectorAll('#work-footer .footer-contact-socials a').forEach(a => {
+    a.addEventListener('mousemove', (e) => {
+        const rect = a.getBoundingClientRect();
+        const dx = (e.clientX - (rect.left + rect.width/2)) / (rect.width/2);
+        const dy = (e.clientY - (rect.top  + rect.height/2)) / (rect.height/2);
+        a.style.transform = 'translateY(-4px) scale(1.15) translate(' + (dx*4) + 'px,' + (dy*4) + 'px)';
+        a.style.transition = 'transform 0.15s ease';
+    });
+    a.addEventListener('mouseleave', () => {
+        a.style.transform = '';
+        a.style.transition = 'transform 0.4s cubic-bezier(0.34,1.5,0.9,1)';
+    });
 });
 </script>
 </body>
