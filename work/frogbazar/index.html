@@ -297,7 +297,7 @@
   </style>
 
   <div id="work-footer-bg">
-    <img src="../../assets/img/FOOTERBGORANGE.svg" alt="" />
+    <img src="../../assets/img/footer-works-1.svg" alt="" />
     <div id="work-footer-inner">
       <div class="wf-links">
         <div class="wf-col-left">
@@ -314,7 +314,7 @@
             <span class="brace brace-r">]</span>
           </a>
         </div>
-        <div class="wf-col-right">
+        <div class="wf-col-right footer-contact-socials">
           <a href="https://www.behance.net/Vaccarezza" target="_blank"><img src="../../assets/img/social-behance.svg" alt="Behance" /></a>
           <a href="https://dribbble.com/Vaccarezza" target="_blank"><img src="../../assets/img/social-dribble.svg" alt="Dribbble" /></a>
           <a href="https://www.linkedin.com/in/federico-vaccarezza-38b987255/" target="_blank"><img src="../../assets/img/social-linkedin.svg" alt="LinkedIn" /></a>
@@ -322,7 +322,7 @@
         </div>
       </div>
       <div class="wf-letsbuild">
-        <img src="../../assets/img/FOOTERLETSBUILDSOMETHING.svg" alt="LET'S BUILD SOMETHING" />
+        <img id="wf-lb" src="../../assets/img/FOOTERLETSBUILDSOMETHING.svg" alt="LET'S BUILD SOMETHING" style="transform:translateY(100%);" />
       </div>
     </div>
   </div>
@@ -388,6 +388,27 @@
       <script src="../../assets/js/transition.js" defer></script>
       <script src="../../assets/js/preloadThumbs.js"></script>
       <script src="../../assets/js/preloadPhotos.js"></script>
-   </body>
+   
+<script>
+window.addEventListener('load', function() {
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+        gsap.registerPlugin(ScrollTrigger);
+        const lb = document.getElementById('wf-lb');
+        if (lb) {
+            gsap.to(lb, {
+                y: 0,
+                ease: 'none',
+                scrollTrigger: {
+                    trigger: '#work-footer',
+                    start: 'top 90%',
+                    end: 'top 20%',
+                    scrub: 1.0
+                }
+            });
+        }
+    }
+});
+</script>
+</body>
 
 </html>
