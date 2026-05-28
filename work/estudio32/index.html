@@ -53,6 +53,7 @@
           display: block;
           border-radius: 6px;
         }
+        body.estudio32 { transition: background-color 0.6s ease; }
       </style>
    </head>
    <body id="body" class="tt-boxed tt-smooth-scroll work estudio32" data-prev="../frogbazar/" data-next="../opame/">
@@ -302,6 +303,9 @@
       <script src="../../assets/js/scroll.js"></script>
       <script src="../../assets/js/transition.js" defer></script>
       <script>
+      window.addEventListener('scroll', function() {
+          document.body.style.backgroundColor = window.scrollY > 10 ? '#222222' : '';
+      }, { passive: true });
       window.addEventListener('load', function() {
           if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
               gsap.registerPlugin(ScrollTrigger);
