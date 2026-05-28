@@ -49,7 +49,8 @@
         .work-gallery img {
           width: 1320px;
           max-width: 100%;
-          height: auto;
+          height: auto !important;
+          max-height: none !important;
           display: block;
           border-radius: 6px;
         }
@@ -303,10 +304,13 @@
       <script src="../../assets/js/scroll.js"></script>
       <script src="../../assets/js/transition.js" defer></script>
       <script>
-      window.addEventListener('scroll', function() {
-          document.body.style.backgroundColor = window.scrollY > 10 ? '#222222' : '';
-      }, { passive: true });
       window.addEventListener('load', function() {
+          // Cambio de fondo con scroll — compatible con smooth scrollbar
+          var scrollEl = document.getElementById('scroll-container') || window;
+          scrollEl.addEventListener('scroll', function() {
+              var top = scrollEl === window ? window.scrollY : scrollEl.scrollTop;
+              document.body.style.backgroundColor = top > 10 ? '#222222' : '';
+          }, { passive: true });
           if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
               gsap.registerPlugin(ScrollTrigger);
               var lb = document.getElementById('wf-lb');
