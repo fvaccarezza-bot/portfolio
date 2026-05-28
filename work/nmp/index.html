@@ -46,6 +46,7 @@
           display: block;
           border-radius: 6px;
         }
+        body.nmp { transition: background-color 0.8s ease; }
       </style>
    </head>
    <body id="body" class="tt-boxed tt-smooth-scroll work nmp" data-prev="../opame/" data-next="../cleo/">
@@ -292,6 +293,18 @@
       window.addEventListener('load', function() {
           if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
               gsap.registerPlugin(ScrollTrigger);
+
+              // Cambio de color de fondo con scroll
+              var gallery = document.getElementById('details');
+              if (gallery) {
+                  ScrollTrigger.create({
+                      trigger: gallery,
+                      start: 'top 80%',
+                      end: 'top 20%',
+                      onEnter: function() { document.body.style.backgroundColor = '#121317'; },
+                      onLeaveBack: function() { document.body.style.backgroundColor = ''; }
+                  });
+              }
               var lb = document.getElementById('wf-lb');
               if (lb) {
                   gsap.to(lb, { y: 0, ease: 'none', scrollTrigger: { trigger: '#work-footer', start: 'top 90%', end: 'top 20%', scrub: 1.0 } });
