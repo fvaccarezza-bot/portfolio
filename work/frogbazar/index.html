@@ -98,6 +98,25 @@
           margin: 0 auto !important;
         }
 
+        .parallax-frame {
+          width: 1320px;
+          max-width: 100%;
+          overflow: hidden;
+          border-radius: 6px;
+          position: relative;
+          /* height matches the original cropped image ratio — adjust if needed */
+          aspect-ratio: 16 / 9;
+        }
+        .parallax-frame .parallax-img {
+          width: 100%;
+          height: 115%;
+          object-fit: cover;
+          object-position: center;
+          display: block;
+          border-radius: 0;
+          will-change: transform;
+          transform: translateY(0px);
+        }
         .frog-gallery {
           display: flex;
           flex-direction: column;
@@ -232,7 +251,9 @@
                   <div class="tt-section padding-bottom-xlg-150 padding-left-sm-3-p padding-right-sm-3-p no-padding-bottom work-content">
                      <div class="tt-section-inner tt-wrap center">
                         <div class="frog-gallery" id="details">
-                           <img src="content/frog-1.jpg" alt="Frog Bazar" />
+                           <div class="parallax-frame">
+                             <img src="content/frog-1-full.jpg" alt="Frog Bazar" class="parallax-img" />
+                           </div>
                            <img src="content/frog-2.jpg" alt="Frog Bazar" />
                            <img src="content/frog-3.jpg" alt="Frog Bazar" />
                            <img src="content/frog-4.png" alt="Frog Bazar" />
@@ -360,6 +381,24 @@
               if (lb) {
                   gsap.to(lb, { y: 0, ease: 'none', scrollTrigger: { trigger: '#work-footer', start: 'top 90%', end: 'top 20%', scrub: 1.0 } });
               }
+              // Parallax on first image
+              var pImg = document.querySelector('.parallax-img');
+              if (pImg) {
+                  gsap.fromTo(pImg,
+                      { y: '-7%' },
+                      {
+                          y: '7%',
+                          ease: 'none',
+                          scrollTrigger: {
+                              trigger: '.parallax-frame',
+                              start: 'top bottom',
+                              end: 'bottom top',
+                              scrub: true
+                          }
+                      }
+                  );
+              }
+
               document.querySelectorAll('.footer-contact-socials a').forEach(function(a) {
                   a.addEventListener('mousemove', function(e) {
                       var rect = a.getBoundingClientRect();
