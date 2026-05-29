@@ -42,20 +42,6 @@
       <script src="../../assets/js/sessionStorage.js"></script>
 
       <style>
-        body.frogbazar .work-title h3 {
-          font-size: clamp(48px, 8vw, 100px) !important;
-          line-height: 1 !important;
-          white-space: nowrap;
-          overflow: hidden;
-        }
-        .reveal-item {
-          overflow: hidden;
-        }
-        .reveal-inner {
-          display: block;
-          transform: translateY(100%);
-          opacity: 0;
-        }
         .frog-gallery {
           display: flex;
           flex-direction: column;
@@ -181,9 +167,9 @@
                <div id="page-content">
                   <div class="tt-section title-work padding-left-sm-3-p padding-right-sm-3-p no-padding-bottom work-header">
                      <div class="tt-section-inner tt-wrap max-width-1000">
-                        <div class="text-center work-title" id="frog-title">
-                           <div class="reveal-item"><h3 class="reveal-inner">Frog Bazar.</h3></div>
-                           <div class="reveal-item"><p class="order reveal-inner">(001)</p></div>
+                        <div class="text-center work-title">
+                           <h3>Frog Bazar.</h3>
+                           <p class="order">(001)</p>
                            <p class="desc">Retail store located in Tigre, Buenos Aires. Branding, product photography & website design.</p>
                         </div>
                      </div>
@@ -191,69 +177,42 @@
 
                   <div class="tt-section padding-bottom-xlg-150 padding-left-sm-3-p padding-right-sm-3-p no-padding-bottom work-content">
                      <div class="tt-section-inner tt-wrap center">
-                  
-                  
-                  <!-- Carrusel more works -->
-                  <div class="tt-section" style="margin-top:120px; padding-bottom:80px; overflow:hidden;">
-                    <style>
-                      .more-works-title { text-align:center; font-size:28px; font-weight:400; text-transform:lowercase; letter-spacing:-0.01em; margin-bottom:48px; color:#3A3A39; font-family:'PP Telegraf',sans-serif; }
-                      .mw-swiper { overflow:visible !important; }
-                      .mw-swiper .swiper-slide { width:auto; }
-                    </style>
-                    <h2 class="more-works-title">more works</h2>
-                    <div class="swiper mw-swiper" style="padding:0 calc((100vw - min(1320px,91.67vw))/2);">
-                      <div class="swiper-wrapper gallery" style="display:flex; flex-wrap:nowrap; align-items:flex-start;">
 
-                        <div class="swiper-slide card" id="mw-estudio32">
-                          <a class="media" href="../estudio32/"><img class="img-base" src="../../assets/home/estudio32-b.jpg" alt="ESTUDIO 32" /><img class="img-hover" src="../../assets/home/estudio32.jpg" alt="" aria-hidden="true" /></a>
-                          <div class="meta"><h3>ESTUDIO 32</h3><p>branding + photo</p><p>(002)</p></div>
+                        <div class="tt-row mob-no">
+                           <div class="tt-col-md-12">
+                              <img src="content/frogbazar-1.jpg" alt="Frog Bazar" class="full-min" />
+                              <a href="https://www.behance.net/gallery/157959551/Frog-Bazar-2023" target="_blank" class="stamp" data-vt-mode="fade">
+                                 <img src="../../assets/img/stamp/project-be.svg" alt="" />
+                                 <img src="../../assets/img/stamp/project-be-a.svg" class="join" alt="" />
+                                 <img src="../../assets/img/stamp/project-be-b.svg" class="inside" alt="" />
+                              </a>
+                              <a href="#details" id="scroll-inside" class="scroll">
+                                 <div class="arrow">
+                                    <img src="../../assets/img/work-scroll.svg" alt="" class="scroll-circle" />
+                                    <img src="../../assets/img/work-scroll-arrow.svg" alt="" class="scroll-arrow" />
+                                 </div>
+                                 <p>scroll</p>
+                              </a>
+                           </div>
                         </div>
 
-                        <div class="swiper-slide card" id="mw-opame">
-                          <a class="media" href="../opame/"><img class="img-base" src="../../assets/home/opame-b.jpg" alt="OPAME" /><img class="img-hover" src="../../assets/home/opame.jpg" alt="" aria-hidden="true" /></a>
-                          <div class="meta"><h3>OPAME COLLECTIVE</h3><p>website</p><p>(003)</p></div>
+                        <div class="frog-gallery" id="details">
+                           <img src="content/frog-1.jpg" alt="Frog Bazar" />
+                           <img src="content/frog-2.jpg" alt="Frog Bazar" />
+                           <img src="content/frog-3.jpg" alt="Frog Bazar" />
+                           <img src="content/frog-4.png" alt="Frog Bazar" />
+                           <img src="content/frog-5.jpg" alt="Frog Bazar" />
+                           <img src="content/frog-6.jpg" alt="Frog Bazar" />
+                           <img src="content/frog-7.jpg" alt="Frog Bazar" />
+                           <img src="content/frog-8.png" alt="Frog Bazar" />
+                           <img src="content/frog-9.png" alt="Frog Bazar" />
+                           <img src="content/frog-10.jpg" alt="Frog Bazar" />
                         </div>
 
-                        <div class="swiper-slide card" id="mw-nmp">
-                          <a class="media" href="../nmp/"><img class="img-base" src="../../assets/home/nmp-b.jpg" alt="N.M, P" /><img class="img-hover" src="../../assets/home/nmp.jpg" alt="" aria-hidden="true" /></a>
-                          <div class="meta"><h3>N.M,P</h3><p>branding + website</p><p>(004)</p></div>
-                        </div>
-
-                        <div class="swiper-slide card" id="mw-cleo">
-                          <a class="media" href="../cleo/"><img class="img-base" src="../../assets/home/cleo-b.jpg" alt="CLEO PAY" /><img class="img-hover" src="../../assets/home/cleo.jpg" alt="" aria-hidden="true" /></a>
-                          <div class="meta"><h3>CLEO PAY</h3><p>branding</p><p>(005)</p></div>
-                        </div>
-
-                        <div class="swiper-slide card" id="mw-michi">
-                          <a class="media" href="../michi/"><img class="img-base" src="../../assets/home/michi-b.jpg" alt="MICHI BISTRO" /><img class="img-hover" src="../../assets/home/michi.jpg" alt="" aria-hidden="true" /></a>
-                          <div class="meta"><h3>MICHI BISTRO</h3><p>concept branding</p><p>(006)</p></div>
-                        </div>
-
-                        <div class="swiper-slide card" id="mw-broke">
-                          <a class="media" href="../broke/"><img class="img-base" src="../../assets/home/broke-b.jpg" alt="Broke" /><img class="img-hover" src="../../assets/home/broke.jpg" alt="" aria-hidden="true" /></a>
-                          <div class="meta"><h3>BROKE</h3><p>branding</p><p>(007)</p></div>
-                        </div>
-
-                        <div class="swiper-slide card" id="mw-bme">
-                          <a class="media" href="../big-mother-energy/"><img class="img-base" src="../../assets/home/big-mother-energy-b.jpg" alt="Big Mother Energy" /><img class="img-hover" src="../../assets/home/big-mother-energy.jpg" alt="" aria-hidden="true" /></a>
-                          <div class="meta"><h3>Big Mother Energy</h3><p>branding</p><p>(008)</p></div>
-                        </div>
-
-                        <div class="swiper-slide card" id="mw-uiux">
-                          <a class="media" href="../ui-ux/"><img class="img-base" src="../../assets/home/ui-ux-b.jpg" alt="UI / UX" /><img class="img-hover" src="../../assets/home/ui-ux.jpg" alt="" aria-hidden="true" /></a>
-                          <div class="meta"><h3>UI / UX</h3><p>(009)</p></div>
-                        </div>
-
-                        <div class="swiper-slide card" id="mw-web">
-                          <a class="media" href="../web/"><img class="img-base" src="../../assets/home/web-b.jpg" alt="Web" /><img class="img-hover" src="../../assets/home/web.jpg" alt="" aria-hidden="true" /></a>
-                          <div class="meta"><h3>WEB</h3><p>(010)</p></div>
-                        </div>
-
-                      </div>
-                    </div>
+                     </div>
                   </div>
 
-                  <footer<footer id="work-footer" class="tt-section">
+                  <footer id="work-footer" class="tt-section">
   <style>
     #work-footer { position:relative; overflow:hidden; padding:0 !important; margin-top:120px; background:transparent; }
     #work-footer-bg { position:relative; width:100%; z-index:1; }
@@ -387,35 +346,6 @@
           }
       });
       </script>
-   
-<script>
-window.addEventListener('load', function() {
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-        gsap.registerPlugin(ScrollTrigger);
-        var items = document.querySelectorAll('#frog-title .reveal-inner');
-        items.forEach(function(el, i) {
-            gsap.to(el, {
-                y: 0,
-                opacity: 1,
-                duration: 0.9,
-                ease: 'power3.out',
-                delay: 0.2 + i * 0.15
-            });
-        });
-    }
-});
-</script>
-
-<script>
-window.addEventListener('load', function() {
-    new Swiper('.more-works-swiper', {
-        slidesPerView: 'auto',
-        spaceBetween: 24,
-        grabCursor: true,
-        freeMode: true,
-    });
-});
-</script>
-</body>
+   </body>
 
 </html>
