@@ -117,7 +117,7 @@
           width: 100%;
           height: 115%;
           object-fit: cover;
-          object-position: center;
+          object-position: center 60%;
           display: block;
           border-radius: 0;
           will-change: transform;
@@ -300,7 +300,10 @@
                 .footer-letsbuild { position:relative; z-index:5; text-align:center; margin-bottom:0; line-height:0; margin-top:20px; }
                 .footer-lb-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; }
                 #lb-line2 { display:block; width:100%; height:auto; transform:translateY(100%); filter:none; }
-                #lb-line1 { display:block; width:auto; height:auto; transform:translateY(100%); filter:none; margin:0 auto; }
+                #lb-line1 { display:block; width:auto; height:auto; transform:translateY(100%); filter:none; margin:0 auto; max-height:100%; }
+                .footer-lb-clip { position:relative; }
+                .footer-lb-clip:first-child { display:flex; justify-content:center; align-items:center; }
+                .footer-lb-clip:first-child #lb-line1 { width:auto; max-width:91.67vw; height:auto; }
             </style>
             <div class="tt-section-inner tt-wrap">
                 <div class="footer-contact-links">
@@ -399,6 +402,19 @@
                       }
                   );
               }
+
+              // Match lb-line1 height proportionally to lb-line2
+              function matchLbHeight() {
+                  var lb1 = document.getElementById('lb-line1');
+                  var lb2 = document.getElementById('lb-line2');
+                  if (lb1 && lb2) {
+                      var h = lb2.getBoundingClientRect().height;
+                      lb1.style.height = h + 'px';
+                      lb1.style.width = 'auto';
+                  }
+              }
+              matchLbHeight();
+              window.addEventListener('resize', matchLbHeight);
 
               // LET'S BUILD footer animation
               var line1 = document.getElementById('lb-line1');
