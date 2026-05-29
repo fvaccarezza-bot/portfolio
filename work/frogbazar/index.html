@@ -54,6 +54,24 @@
           width: 100%;
           text-align: center;
         }
+
+        /* ── FIX: centrado del bloque título ── */
+        body.frogbazar .title-work > div {
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          justify-content: center !important;
+          width: 100% !important;
+          text-align: center !important;
+        }
+        body.frogbazar .text-center.work-title {
+          width: 100% !important;
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: center !important;
+          text-align: center !important;
+        }
+
         .frog-gallery {
           display: flex;
           flex-direction: column;
@@ -172,8 +190,8 @@
                </div>
                <div id="page-content">
                   <div class="tt-section title-work padding-left-sm-3-p padding-right-sm-3-p no-padding-bottom work-header">
-                     <div style="width:100%; text-align:center; padding: 60px 0 40px;">
-                        <div class="text-center work-title">
+                     <div style="width:100%; text-align:center; padding: 60px 0 40px; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                        <div class="text-center work-title" style="width:100%; display:flex; flex-direction:column; align-items:center; text-align:center;">
                            <h3 style="font-size:clamp(60px,8vw,100px);line-height:1;text-align:center;display:block;width:100%;">Frog Bazar.</h3>
                            <p class="order">(001)</p>
                            <p class="desc">Retail store located in Tigre, Buenos Aires. Branding, product photography & website design.</p>
