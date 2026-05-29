@@ -43,8 +43,9 @@
 
       <style>
         body.frogbazar .work-title h3 {
-          font-size: 100px !important;
+          font-size: clamp(48px, 8vw, 100px) !important;
           line-height: 1 !important;
+          white-space: nowrap;
           overflow: hidden;
         }
         .reveal-item {
@@ -190,155 +191,69 @@
 
                   <div class="tt-section padding-bottom-xlg-150 padding-left-sm-3-p padding-right-sm-3-p no-padding-bottom work-content">
                      <div class="tt-section-inner tt-wrap center">
-
-                        <div class="tt-row mob-no">
-                           <div class="tt-col-md-12">
-                              <img src="content/frogbazar-1.jpg" alt="Frog Bazar" class="full-min" />
-                              <a href="https://www.behance.net/gallery/157959551/Frog-Bazar-2023" target="_blank" class="stamp" data-vt-mode="fade">
-                                 <img src="../../assets/img/stamp/project-be.svg" alt="" />
-                                 <img src="../../assets/img/stamp/project-be-a.svg" class="join" alt="" />
-                                 <img src="../../assets/img/stamp/project-be-b.svg" class="inside" alt="" />
-                              </a>
-                              <a href="#details" id="scroll-inside" class="scroll">
-                                 <div class="arrow">
-                                    <img src="../../assets/img/work-scroll.svg" alt="" class="scroll-circle" />
-                                    <img src="../../assets/img/work-scroll-arrow.svg" alt="" class="scroll-arrow" />
-                                 </div>
-                                 <p>scroll</p>
-                              </a>
-                           </div>
-                        </div>
-
-                        <div class="frog-gallery" id="details">
-                           <img src="content/frog-1.jpg" alt="Frog Bazar" />
-                           <img src="content/frog-2.jpg" alt="Frog Bazar" />
-                           <img src="content/frog-3.jpg" alt="Frog Bazar" />
-                           <img src="content/frog-4.png" alt="Frog Bazar" />
-                           <img src="content/frog-5.jpg" alt="Frog Bazar" />
-                           <img src="content/frog-6.jpg" alt="Frog Bazar" />
-                           <img src="content/frog-7.jpg" alt="Frog Bazar" />
-                           <img src="content/frog-8.png" alt="Frog Bazar" />
-                           <img src="content/frog-9.png" alt="Frog Bazar" />
-                           <img src="content/frog-10.jpg" alt="Frog Bazar" />
-                        </div>
-
-                     </div>
-                  </div>
-
+                  
                   
                   <!-- Carrusel more works -->
-                  <div class="tt-section" style="margin-top:120px; padding-bottom:80px;">
+                  <div class="tt-section" style="margin-top:120px; padding-bottom:80px; overflow:hidden;">
                     <style>
-                      .more-works-title { text-align:center; font-size:32px; font-weight:800; text-transform:lowercase; letter-spacing:-0.01em; margin-bottom:48px; color:#3A3A39; }
-                      .more-works-swiper { width:100%; overflow:hidden; }
-                      .more-works-swiper .swiper-wrapper { display:flex; }
-                      .more-works-swiper .swiper-slide { width:340px; flex-shrink:0; }
-                      .mw-card { position:relative; cursor:pointer; }
-                      .mw-card a { text-decoration:none; color:inherit; display:block; }
-                      .mw-img-wrap { position:relative; overflow:hidden; border-radius:10px; aspect-ratio:4/3; background:#eee; }
-                      .mw-img-wrap img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:opacity 0.5s ease, transform 0.5s ease; }
-                      .mw-img-base { opacity:1; }
-                      .mw-img-hover { opacity:0; }
-                      .mw-card:hover .mw-img-base { opacity:0; transform:scale(1.03); }
-                      .mw-card:hover .mw-img-hover { opacity:1; transform:scale(1.03); }
-                      .mw-overlay { position:absolute; inset:0; background:rgba(255,102,0,0.55); opacity:0; transition:opacity 0.4s ease; border-radius:10px; }
-                      .mw-card:hover .mw-overlay { opacity:1; }
-                      .mw-meta { display:flex; justify-content:space-between; align-items:baseline; padding-top:12px; }
-                      .mw-meta-left { display:flex; flex-direction:column; gap:2px; }
-                      .mw-name { font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.15em; color:#3A3A39; }
-                      .mw-type { font-size:12px; color:#888; letter-spacing:0.05em; }
-                      .mw-num { font-size:13px; font-weight:700; color:#3A3A39; letter-spacing:0.05em; }
+                      .more-works-title { text-align:center; font-size:28px; font-weight:400; text-transform:lowercase; letter-spacing:-0.01em; margin-bottom:48px; color:#3A3A39; font-family:'PP Telegraf',sans-serif; }
+                      .mw-swiper { overflow:visible !important; }
+                      .mw-swiper .swiper-slide { width:auto; }
                     </style>
                     <h2 class="more-works-title">more works</h2>
-                    <div class="swiper more-works-swiper">
-                      <div class="swiper-wrapper">
+                    <div class="swiper mw-swiper" style="padding:0 calc((100vw - min(1320px,91.67vw))/2);">
+                      <div class="swiper-wrapper gallery" style="display:flex; flex-wrap:nowrap; align-items:flex-start;">
 
-                        <div class="swiper-slide"><div class="mw-card"><a href="../estudio32/">
-                          <div class="mw-img-wrap">
-                            <img class="mw-img-base" src="../estudio32/content/estudio32-1.jpg" alt="Estudio 32" />
-                            <img class="mw-img-hover" src="../estudio32/content/estudio32-1.jpg" alt="Estudio 32" />
-                            <div class="mw-overlay"></div>
-                          </div>
-                          <div class="mw-meta"><div class="mw-meta-left"><span class="mw-name">Estudio 32</span><span class="mw-type">brand identity</span></div><span class="mw-num">(002)</span></div>
-                        </a></div></div>
+                        <div class="swiper-slide card" id="mw-estudio32">
+                          <a class="media" href="../estudio32/"><img class="img-base" src="../../assets/home/estudio32-b.jpg" alt="ESTUDIO 32" /><img class="img-hover" src="../../assets/home/estudio32.jpg" alt="" aria-hidden="true" /></a>
+                          <div class="meta"><h3>ESTUDIO 32</h3><p>branding + photo</p><p>(002)</p></div>
+                        </div>
 
-                        <div class="swiper-slide"><div class="mw-card"><a href="../opame/">
-                          <div class="mw-img-wrap">
-                            <img class="mw-img-base" src="../opame/content/opame-1.jpg" alt="Opame" />
-                            <img class="mw-img-hover" src="../opame/content/opame-1.jpg" alt="Opame" />
-                            <div class="mw-overlay"></div>
-                          </div>
-                          <div class="mw-meta"><div class="mw-meta-left"><span class="mw-name">Opame</span><span class="mw-type">branding</span></div><span class="mw-num">(003)</span></div>
-                        </a></div></div>
+                        <div class="swiper-slide card" id="mw-opame">
+                          <a class="media" href="../opame/"><img class="img-base" src="../../assets/home/opame-b.jpg" alt="OPAME" /><img class="img-hover" src="../../assets/home/opame.jpg" alt="" aria-hidden="true" /></a>
+                          <div class="meta"><h3>OPAME COLLECTIVE</h3><p>website</p><p>(003)</p></div>
+                        </div>
 
-                        <div class="swiper-slide"><div class="mw-card"><a href="../nmp/">
-                          <div class="mw-img-wrap">
-                            <img class="mw-img-base" src="../nmp/content/nmp-1.jpg" alt="N.M, P" />
-                            <img class="mw-img-hover" src="../nmp/content/nmp-1.jpg" alt="N.M, P" />
-                            <div class="mw-overlay"></div>
-                          </div>
-                          <div class="mw-meta"><div class="mw-meta-left"><span class="mw-name">Nieto Moreno, Pedraza</span><span class="mw-type">branding & web</span></div><span class="mw-num">(004)</span></div>
-                        </a></div></div>
+                        <div class="swiper-slide card" id="mw-nmp">
+                          <a class="media" href="../nmp/"><img class="img-base" src="../../assets/home/nmp-b.jpg" alt="N.M, P" /><img class="img-hover" src="../../assets/home/nmp.jpg" alt="" aria-hidden="true" /></a>
+                          <div class="meta"><h3>N.M,P</h3><p>branding + website</p><p>(004)</p></div>
+                        </div>
 
-                        <div class="swiper-slide"><div class="mw-card"><a href="../cleo/">
-                          <div class="mw-img-wrap">
-                            <img class="mw-img-base" src="../cleo/content/cleo-1.jpg" alt="Cleo Pay" />
-                            <img class="mw-img-hover" src="../cleo/content/cleo-1.jpg" alt="Cleo Pay" />
-                            <div class="mw-overlay"></div>
-                          </div>
-                          <div class="mw-meta"><div class="mw-meta-left"><span class="mw-name">Cleo Pay</span><span class="mw-type">branding</span></div><span class="mw-num">(005)</span></div>
-                        </a></div></div>
+                        <div class="swiper-slide card" id="mw-cleo">
+                          <a class="media" href="../cleo/"><img class="img-base" src="../../assets/home/cleo-b.jpg" alt="CLEO PAY" /><img class="img-hover" src="../../assets/home/cleo.jpg" alt="" aria-hidden="true" /></a>
+                          <div class="meta"><h3>CLEO PAY</h3><p>branding</p><p>(005)</p></div>
+                        </div>
 
-                        <div class="swiper-slide"><div class="mw-card"><a href="../michi/">
-                          <div class="mw-img-wrap">
-                            <img class="mw-img-base" src="../michi/content/michi-1.jpg" alt="Michi Bistro" />
-                            <img class="mw-img-hover" src="../michi/content/michi-1.jpg" alt="Michi Bistro" />
-                            <div class="mw-overlay"></div>
-                          </div>
-                          <div class="mw-meta"><div class="mw-meta-left"><span class="mw-name">Michi Bistro</span><span class="mw-type">concept branding</span></div><span class="mw-num">(006)</span></div>
-                        </a></div></div>
+                        <div class="swiper-slide card" id="mw-michi">
+                          <a class="media" href="../michi/"><img class="img-base" src="../../assets/home/michi-b.jpg" alt="MICHI BISTRO" /><img class="img-hover" src="../../assets/home/michi.jpg" alt="" aria-hidden="true" /></a>
+                          <div class="meta"><h3>MICHI BISTRO</h3><p>concept branding</p><p>(006)</p></div>
+                        </div>
 
-                        <div class="swiper-slide"><div class="mw-card"><a href="../broke/">
-                          <div class="mw-img-wrap">
-                            <img class="mw-img-base" src="../broke/content/broke-1.jpg" alt="Broke" />
-                            <img class="mw-img-hover" src="../broke/content/broke-1.jpg" alt="Broke" />
-                            <div class="mw-overlay"></div>
-                          </div>
-                          <div class="mw-meta"><div class="mw-meta-left"><span class="mw-name">Broke</span><span class="mw-type">website redesign</span></div><span class="mw-num">(007)</span></div>
-                        </a></div></div>
+                        <div class="swiper-slide card" id="mw-broke">
+                          <a class="media" href="../broke/"><img class="img-base" src="../../assets/home/broke-b.jpg" alt="Broke" /><img class="img-hover" src="../../assets/home/broke.jpg" alt="" aria-hidden="true" /></a>
+                          <div class="meta"><h3>BROKE</h3><p>branding</p><p>(007)</p></div>
+                        </div>
 
-                        <div class="swiper-slide"><div class="mw-card"><a href="../big-mother-energy/">
-                          <div class="mw-img-wrap">
-                            <img class="mw-img-base" src="../big-mother-energy/content/bme-1.jpg" alt="Big Mother Energy" />
-                            <img class="mw-img-hover" src="../big-mother-energy/content/bme-1.jpg" alt="Big Mother Energy" />
-                            <div class="mw-overlay"></div>
-                          </div>
-                          <div class="mw-meta"><div class="mw-meta-left"><span class="mw-name">Big Mother Energy</span><span class="mw-type">branding</span></div><span class="mw-num">(008)</span></div>
-                        </a></div></div>
+                        <div class="swiper-slide card" id="mw-bme">
+                          <a class="media" href="../big-mother-energy/"><img class="img-base" src="../../assets/home/big-mother-energy-b.jpg" alt="Big Mother Energy" /><img class="img-hover" src="../../assets/home/big-mother-energy.jpg" alt="" aria-hidden="true" /></a>
+                          <div class="meta"><h3>Big Mother Energy</h3><p>branding</p><p>(008)</p></div>
+                        </div>
 
-                        <div class="swiper-slide"><div class="mw-card"><a href="../ui-ux/">
-                          <div class="mw-img-wrap">
-                            <img class="mw-img-base" src="../ui-ux/content/uiux-1.jpg" alt="UI / UX" />
-                            <img class="mw-img-hover" src="../ui-ux/content/uiux-1.jpg" alt="UI / UX" />
-                            <div class="mw-overlay"></div>
-                          </div>
-                          <div class="mw-meta"><div class="mw-meta-left"><span class="mw-name">UI / UX</span><span class="mw-type">product design</span></div><span class="mw-num">(009)</span></div>
-                        </a></div></div>
+                        <div class="swiper-slide card" id="mw-uiux">
+                          <a class="media" href="../ui-ux/"><img class="img-base" src="../../assets/home/ui-ux-b.jpg" alt="UI / UX" /><img class="img-hover" src="../../assets/home/ui-ux.jpg" alt="" aria-hidden="true" /></a>
+                          <div class="meta"><h3>UI / UX</h3><p>(009)</p></div>
+                        </div>
 
-                        <div class="swiper-slide"><div class="mw-card"><a href="../web/">
-                          <div class="mw-img-wrap">
-                            <img class="mw-img-base" src="../web/content/web-1.jpg" alt="Web" />
-                            <img class="mw-img-hover" src="../web/content/web-1.jpg" alt="Web" />
-                            <div class="mw-overlay"></div>
-                          </div>
-                          <div class="mw-meta"><div class="mw-meta-left"><span class="mw-name">Web</span><span class="mw-type">web design</span></div><span class="mw-num">(010)</span></div>
-                        </a></div></div>
+                        <div class="swiper-slide card" id="mw-web">
+                          <a class="media" href="../web/"><img class="img-base" src="../../assets/home/web-b.jpg" alt="Web" /><img class="img-hover" src="../../assets/home/web.jpg" alt="" aria-hidden="true" /></a>
+                          <div class="meta"><h3>WEB</h3><p>(010)</p></div>
+                        </div>
 
                       </div>
                     </div>
                   </div>
 
-                  <footer id="work-footer" class="tt-section">
+                  <footer<footer id="work-footer" class="tt-section">
   <style>
     #work-footer { position:relative; overflow:hidden; padding:0 !important; margin-top:120px; background:transparent; }
     #work-footer-bg { position:relative; width:100%; z-index:1; }
