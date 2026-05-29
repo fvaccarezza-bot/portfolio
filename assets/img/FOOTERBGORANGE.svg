@@ -1,11 +1,11 @@
-<svg width="1915" height="867" viewBox="0 0 1915 867" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g clip-path="url(#clip0_7470_3146)">
-<g filter="url(#filter0_n_7470_3146)">
-<path d="M2429.41 1282.94C2618.34 987.438 2251.17 597.212 2130.24 468.785C2037.08 369.566 1804.46 130.06 1373.56 35.4112C802.779 -90.3104 593.95 194.915 -37.199 95.1514C-537.498 16.0408 -653.662 -202.042 -999.995 -112.938C-1230.49 -53.7023 -1473.33 118.343 -1504.96 291.666C-1560.39 596.465 -943.751 800.957 -847.729 832.51C-407.936 978.24 -531.108 797.128 -313.745 1099.1C-203.746 1265.46 -85.0027 1524.75 -337.884 1682.55C-619.945 1858.52 -836.014 1714.97 -1195.03 1882.89C-1492.74 2022.19 -1769.64 2320.09 -1717.99 2513.2C-1646.15 2781.83 -926.94 2889.42 -350.545 2704.54C246.075 2513.13 215.697 2160.94 909.691 1809.52C1677.92 1420.6 2233.36 1589.44 2429.41 1282.94Z" fill="#FF6600"/>
+<svg width="1915" height="755" viewBox="0 0 1915 755" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_7714_3292)">
+<g filter="url(#filter0_n_7714_3292)">
+<path d="M2429.91 1282.44C2618.84 986.939 2251.67 596.713 2130.74 468.286C2037.58 369.067 1804.96 129.561 1374.06 34.9121C803.279 -90.8094 594.45 194.416 -36.699 94.6524C-536.998 15.5418 -653.162 -202.541 -999.495 -113.437C-1229.99 -54.2014 -1472.83 117.844 -1504.46 291.167C-1559.89 595.966 -943.251 800.458 -847.229 832.011C-407.436 977.741 -530.608 796.629 -313.245 1098.6C-203.246 1264.96 -84.5027 1524.25 -337.384 1682.05C-619.445 1858.02 -835.514 1714.47 -1194.53 1882.39C-1492.24 2021.69 -1769.14 2319.59 -1717.49 2512.7C-1645.65 2781.33 -926.44 2888.92 -350.045 2704.04C246.575 2512.63 216.197 2160.44 910.191 1809.02C1678.42 1420.11 2233.86 1588.94 2429.91 1282.44Z" fill="#FF6600" style="mix-blend-mode:multiply"/>
 </g>
 </g>
 <defs>
-<filter id="filter0_n_7470_3146" x="-1724.24" y="-133.959" width="4206.69" height="2930.82" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<filter id="filter0_n_7714_3292" x="-1723.74" y="-134.458" width="4206.69" height="2930.82" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
 <feFlood flood-opacity="0" result="BackgroundImageFix"/>
 <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
 <feTurbulence type="fractalNoise" baseFrequency="1 1" stitchTiles="stitch" numOctaves="3" result="noise" seed="1954" />
@@ -16,13 +16,13 @@
 <feComposite operator="in" in2="shape" in="coloredNoise1" result="noise1Clipped" />
 <feFlood flood-color="rgba(255, 255, 255, 0.25)" result="color1Flood" />
 <feComposite operator="in" in2="noise1Clipped" in="color1Flood" result="color1" />
-<feMerge result="effect1_noise_7470_3146">
+<feMerge result="effect1_noise_7714_3292">
 <feMergeNode in="shape" />
 <feMergeNode in="color1" />
 </feMerge>
 </filter>
-<clipPath id="clip0_7470_3146">
-<rect width="1915" height="867" fill="white"/>
+<clipPath id="clip0_7714_3292">
+<rect width="1915" height="755" fill="white"/>
 </clipPath>
 </defs>
 </svg>
