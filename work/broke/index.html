@@ -36,7 +36,7 @@
           align-items: center;
           gap: 50px;
           width: 100%;
-          padding: 85px 0 0;
+          padding: 0;
         }
         .work-gallery img {
           width: 1320px;
@@ -45,6 +45,43 @@
           max-height: none !important;
           display: block;
           border-radius: 6px;
+        }
+        body.broke .tt-section.padding-bottom-xlg-150 {
+          padding-top: 0 !important;
+          padding-bottom: 300px !important;
+        }
+
+        /* ── MERCH GRID ── */
+        .merch-grid {
+          width: 1320px;
+          max-width: 100%;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0;
+          background: #111;
+          border-radius: 6px;
+          overflow: hidden;
+        }
+        .merch-card {
+          position: relative;
+          width: 100%;
+          aspect-ratio: 1 / 1;
+          background: #111;
+          overflow: hidden;
+          cursor: none;
+        }
+        .merch-card img {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 75%;
+          height: 75%;
+          object-fit: contain;
+          transform: translate(-50%, -50%);
+          transition: transform 0.15s ease;
+          will-change: transform;
+          pointer-events: none;
+          border-radius: 0 !important;
         }
       </style>
    </head>
@@ -159,84 +196,77 @@
                   </div>
                   <div class="tt-section padding-bottom-xlg-150 padding-left-sm-3-p padding-right-sm-3-p no-padding-bottom work-content">
                      <div class="tt-section-inner tt-wrap center">
-                        <div class="tt-row mob-no">
-                           <div class="tt-col-md-12">
-                              <img src="content/broke-1.jpg" alt="Broke" class="full-min" />
-                              <a href="https://www.behance.net/gallery/161530441/Broke-Music" target="_blank" class="stamp" data-vt-mode="fade">
-                                 <img src="../../assets/img/stamp/project-be.svg" alt="" />
-                                 <img src="../../assets/img/stamp/project-be-a.svg" class="join" alt="" />
-                                 <img src="../../assets/img/stamp/project-be-b.svg" class="inside" alt="" />
-                              </a>
-                              <a href="#details" id="scroll-inside" class="scroll">
-                                 <div class="arrow">
-                                    <img src="../../assets/img/work-scroll.svg" alt="" class="scroll-circle" />
-                                    <img src="../../assets/img/work-scroll-arrow.svg" alt="" class="scroll-arrow" />
-                                 </div>
-                                 <p>scroll</p>
-                              </a>
-                           </div>
-                        </div>
                         <div class="work-gallery" id="details">
                            <img src="content/brokelarge.png" alt="Broke" />
                            <img src="content/broke-2.png" alt="Broke" />
                            <img src="content/broke-3.png" alt="Broke" />
                            <img src="content/broke-4.jpg" alt="Broke" />
                            <img src="content/broke-5.jpg" alt="Broke" />
+                           <div class="merch-grid">
+                             <div class="merch-card" data-merch>
+                               <img src="content/H1.png" alt="Broke Merch" />
+                             </div>
+                             <div class="merch-card" data-merch>
+                               <img src="content/H2.png" alt="Broke Merch" />
+                             </div>
+                             <div class="merch-card" data-merch>
+                               <img src="content/H3.png" alt="Broke Merch" />
+                             </div>
+                           </div>
                         </div>
                      </div>
                   </div>
-                  <footer id="work-footer" class="tt-section">
-  <style>
-    #work-footer { position:relative; overflow:hidden; padding:0 !important; margin-top:120px; background:transparent; }
-    #work-footer-bg { position:relative; width:100%; z-index:1; }
-    #work-footer-bg img { width:100%; height:auto; display:block; }
-    #work-footer-inner { position:absolute; top:0; left:0; right:0; bottom:0; z-index:2; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; }
-    .wf-links { display:grid; grid-template-columns:1fr 1fr 1fr; width:min(1320px,91.67vw); align-items:center; padding-bottom:18px; letter-spacing:0.5em; font-size:14px; box-sizing:border-box; }
-    .wf-col-left { text-align:left; }
-    .wf-col-center { text-align:center; display:flex; justify-content:center; }
-    .wf-col-right { display:flex; gap:20px; align-items:center; justify-content:flex-end; }
-    .wf-col-right img { width:30px; height:30px; }
-    .footer-contact-socials a { display:inline-flex; transition:transform 0.3s cubic-bezier(0.34,1.5,0.9,1); }
-    .footer-contact-socials a:hover { transform:translateY(-4px) scale(1.15); }
-    .wf-roll-wrap { display:inline-flex; align-items:center; gap:6px; text-decoration:none; color:#3A3A39; text-transform:uppercase; font-weight:500; font-family:'PP Telegraf',sans-serif; letter-spacing:0.5em; font-size:14px; }
-    .wf-roll-wrap .brace { display:inline-block; transition:transform 0.4s cubic-bezier(0.34,1.5,0.9,1); font-size:14px; font-weight:400; }
-    .wf-roll-wrap:hover .brace-l { transform:translateX(-6px); }
-    .wf-roll-wrap:hover .brace-r { transform:translateX(6px); }
-    .wf-roll-text { display:inline-block; overflow:hidden; position:relative; vertical-align:bottom; }
-    .wf-roll-text span { display:block; transition:transform 0.4s cubic-bezier(0.76,0,0.24,1); }
-    .wf-roll-text span:last-child { position:absolute; top:0; left:0; transform:translateY(100%); }
-    .wf-roll-wrap:hover .wf-roll-text span:first-child { transform:translateY(-100%); }
-    .wf-roll-wrap:hover .wf-roll-text span:last-child { transform:translateY(0%); }
-    .wf-letsbuild { width:100%; line-height:0; }
-    .wf-letsbuild img { width:100%; height:auto; display:block; }
-  </style>
-  <div id="work-footer-bg">
-    <img src="../../assets/img/footer-works-1.svg" alt="" />
-    <div id="work-footer-inner">
-      <div class="wf-links">
-        <div class="wf-col-left">
-          <a href="https://calendly.com/fvaccarezza/intro-call" target="_blank" class="wf-roll-wrap">
-            <span class="brace brace-l">[</span><span class="wf-roll-text"><span>CALL ME</span><span>CALL ME</span></span><span class="brace brace-r">]</span>
-          </a>
-        </div>
-        <div class="wf-col-center">
-          <a href="mailto:fvaccarezza@gmail.com" class="wf-roll-wrap">
-            <span class="brace brace-l">[</span><span class="wf-roll-text"><span>WRITE ME</span><span>WRITE ME</span></span><span class="brace brace-r">]</span>
-          </a>
-        </div>
-        <div class="wf-col-right footer-contact-socials">
-          <a href="https://www.behance.net/Vaccarezza" target="_blank"><img src="../../assets/img/social-behance.svg" alt="Behance" /></a>
-          <a href="https://dribbble.com/Vaccarezza" target="_blank"><img src="../../assets/img/social-dribble.svg" alt="Dribbble" /></a>
-          <a href="https://www.linkedin.com/in/federico-vaccarezza-38b987255/" target="_blank"><img src="../../assets/img/social-linkedin.svg" alt="LinkedIn" /></a>
-          <a href="https://vsco.co/fedevaccarezza/" target="_blank"><img src="../../assets/img/social-vsco.svg" alt="VSCO" /></a>
-        </div>
-      </div>
-      <div class="wf-letsbuild">
-        <img id="wf-lb" src="../../assets/img/FOOTERLETSBUILDSOMETHING.svg" alt="LET'S BUILD SOMETHING" style="transform:translateY(100%);" />
-      </div>
-    </div>
-  </div>
-</footer>
+                  <footer id="contact" class="tt-section">
+            <div id="footer-bg-orange" style="position:absolute;bottom:0;left:0;width:100%;z-index:2;pointer-events:none;"><img src="../../assets/img/FOOTERBGORANGE.svg" style="width:100%;height:auto;display:block;" /></div>
+            <style>
+                #contact { margin-top:-300px; overflow:visible; padding-bottom:0 !important; position:relative; }
+                #contact .tt-section-inner.tt-wrap { padding-top:300px; }
+                .footer-contact-links { display:grid; grid-template-columns:1fr 1fr 1fr; width:100%; align-items:center; padding-bottom:24px; letter-spacing:0.5em; font-size:14px; position:relative; z-index:10; box-sizing:border-box; }
+                .footer-roll-wrap { display:inline-flex; align-items:center; gap:6px; text-decoration:none; color:#3A3A39; text-transform:uppercase; font-weight:500; letter-spacing:0.5em; font-size:14px; }
+                .footer-roll-text { display:inline-block; overflow:hidden; vertical-align:bottom; position:relative; }
+                .footer-roll-text span { display:block; transition:transform 0.4s cubic-bezier(0.76,0,0.24,1); }
+                .footer-roll-text span:last-child { position:absolute; top:0; left:0; transform:translateY(100%); }
+                .footer-roll-wrap:hover .footer-roll-text span:first-child { transform:translateY(-100%); }
+                .footer-roll-wrap:hover .footer-roll-text span:last-child { transform:translateY(0%); }
+                .footer-roll-wrap .brace { display:inline-block; transition:transform 0.4s cubic-bezier(0.34,1.5,0.9,1); font-size:14px; font-weight:400; color:#3A3A39; }
+                .footer-roll-wrap:hover .brace-l { transform:translateX(-6px); }
+                .footer-roll-wrap:hover .brace-r { transform:translateX(6px); }
+                .footer-col-center { text-align:center; display:flex; justify-content:center; }
+                .footer-col-right { text-align:right; justify-content:flex-end; }
+                .footer-contact-links a { color:#3A3A39; text-decoration:none; text-transform:uppercase; font-weight:500; }
+                .footer-contact-socials { display:flex; gap:20px; align-items:center; justify-content:flex-end; }
+                .footer-contact-socials img { width:30px; height:30px; filter:none; }
+                .footer-contact-socials a { display:inline-flex; transition:transform 0.3s cubic-bezier(0.34,1.5,0.9,1); }
+                .footer-contact-socials a:hover { transform:translateY(-4px) scale(1.15); }
+                .footer-letsbuild { position:relative; z-index:5; text-align:center; margin-bottom:0; line-height:0; margin-top:20px; }
+                .footer-lb-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; }
+                #lb-line2 { display:block; width:100%; height:auto; transform:translateY(100%); filter:none; }
+                #lb-line1 { display:block; width:auto; height:auto; transform:translateY(100%); filter:none; margin:0 auto; }
+            </style>
+            <div class="tt-section-inner tt-wrap">
+                <div class="footer-contact-links">
+                    <div class="footer-col-left"><a href="https://calendly.com/fvaccarezza/intro-call" target="_blank" class="footer-roll-wrap"><span class="brace brace-l">[</span><span class="footer-roll-text"><span>CALL ME</span><span>CALL ME</span></span><span class="brace brace-r">]</span></a></div>
+                    <div class="footer-col-center"><a href="mailto:fvaccarezza@gmail.com" class="footer-roll-wrap"><span class="brace brace-l">[</span><span class="footer-roll-text"><span>WRITE ME</span><span>WRITE ME</span></span><span class="brace brace-r">]</span></a></div>
+                    <div class="footer-col-right footer-contact-socials">
+                        <a href="https://www.behance.net/Vaccarezza" target="_blank"><img src="../../assets/img/social-behance.svg" alt="Behance" /></a>
+                        <a href="https://dribbble.com/Vaccarezza" target="_blank"><img src="../../assets/img/social-dribble.svg" alt="Dribbble" /></a>
+                        <a href="https://www.linkedin.com/in/federico-vaccarezza-38b987255/" target="_blank"><img src="../../assets/img/social-linkedin.svg" alt="LinkedIn" /></a>
+                        <a href="https://vsco.co/fedevaccarezza/" target="_blank"><img src="../../assets/img/social-vsco.svg" alt="VSCO" /></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-letsbuild">
+                <div class="footer-lb-clip">
+                    <img id="lb-line1" src="../../assets/img/LETSBUILD.svg" alt="LET'S BUILD" />
+                </div>
+                <div class="footer-lb-clip" style="margin-top:0px;">
+                    <img id="lb-line2" src="../../assets/img/SOMETHING.svg" alt="SOMETHING" />
+                </div>
+            </div>
+            <div class="footer-copyright" style="width:100%; text-align:center; padding: 24px 0; position:relative; z-index:10; font-family:'PP Telegraf',sans-serif; font-size:16px; letter-spacing:0.5em; text-transform:uppercase; color:#3A3A39; background:transparent;">
+                ©2026 ALL RIGHTS RESERVED — FEDERICO VACCAREZZA
+            </div>
+        </footer>
                </div>
             </div>
          </div>
@@ -296,10 +326,40 @@
       window.addEventListener('load', function() {
           if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
               gsap.registerPlugin(ScrollTrigger);
-              var lb = document.getElementById('wf-lb');
-              if (lb) {
-                  gsap.to(lb, { y: 0, ease: 'none', scrollTrigger: { trigger: '#work-footer', start: 'top 90%', end: 'top 20%', scrub: 1.0 } });
+
+              // Merch magnet
+              document.querySelectorAll('.merch-card').forEach(function(card) {
+                  var img = card.querySelector('img');
+                  card.addEventListener('mousemove', function(e) {
+                      var rect = card.getBoundingClientRect();
+                      var dx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
+                      var dy = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
+                      img.style.transform = 'translate(calc(-50% + ' + (dx * 18) + 'px), calc(-50% + ' + (dy * 18) + 'px))';
+                      img.style.transition = 'transform 0.15s ease';
+                  });
+                  card.addEventListener('mouseleave', function() {
+                      img.style.transform = 'translate(-50%, -50%)';
+                      img.style.transition = 'transform 0.5s cubic-bezier(0.34,1.5,0.9,1)';
+                  });
+              });
+
+              // Footer
+              function matchLbHeight() {
+                  var lb1 = document.getElementById('lb-line1');
+                  var lb2 = document.getElementById('lb-line2');
+                  if (lb1 && lb2) {
+                      var h = lb2.getBoundingClientRect().height;
+                      lb1.style.height = h + 'px';
+                      lb1.style.width = 'auto';
+                  }
               }
+              matchLbHeight();
+              window.addEventListener('resize', matchLbHeight);
+              var line1 = document.getElementById('lb-line1');
+              var line2 = document.getElementById('lb-line2');
+              if (line1) gsap.to(line1, { y: 0, ease: 'none', scrollTrigger: { trigger: '#contact', start: 'top 90%', end: 'top 20%', scrub: 1.0 } });
+              if (line2) gsap.to(line2, { y: 0, ease: 'none', scrollTrigger: { trigger: '#contact', start: 'top 80%', end: 'top 10%', scrub: 1.6 } });
+
               document.querySelectorAll('.footer-contact-socials a').forEach(function(a) {
                   a.addEventListener('mousemove', function(e) {
                       var rect = a.getBoundingClientRect();
