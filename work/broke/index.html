@@ -51,38 +51,7 @@
           padding-bottom: 300px !important;
         }
 
-        /* ── MERCH GRID ── */
-        .merch-grid {
-          width: 1320px;
-          max-width: 100%;
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 0;
-          background: #111;
-          border-radius: 6px;
-          overflow: hidden;
-        }
-        .merch-card {
-          position: relative;
-          width: 100%;
-          aspect-ratio: 1 / 1;
-          background: #111;
-          overflow: hidden;
-          cursor: none;
-        }
-        .merch-card img {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          width: 75%;
-          height: 75%;
-          object-fit: contain;
-          transform: translate(-50%, -50%);
-          transition: transform 0.15s ease;
-          will-change: transform;
-          pointer-events: none;
-          border-radius: 0 !important;
-        }
+
       </style>
    </head>
    <body id="body" class="tt-boxed tt-smooth-scroll work broke" data-prev="../michi/" data-next="../big-mother-energy/">
@@ -202,17 +171,7 @@
                            <img src="content/broke-3.png" alt="Broke" />
                            <img src="content/broke-4.jpg" alt="Broke" />
                            <img src="content/broke-5.jpg" alt="Broke" />
-                           <div class="merch-grid">
-                             <div class="merch-card" data-merch>
-                               <img src="content/H1.png" alt="Broke Merch" />
-                             </div>
-                             <div class="merch-card" data-merch>
-                               <img src="content/H2.png" alt="Broke Merch" />
-                             </div>
-                             <div class="merch-card" data-merch>
-                               <img src="content/H3.png" alt="Broke Merch" />
-                             </div>
-                           </div>
+
                         </div>
                      </div>
                   </div>
@@ -326,22 +285,6 @@
       window.addEventListener('load', function() {
           if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
               gsap.registerPlugin(ScrollTrigger);
-
-              // Merch magnet
-              document.querySelectorAll('.merch-card').forEach(function(card) {
-                  var img = card.querySelector('img');
-                  card.addEventListener('mousemove', function(e) {
-                      var rect = card.getBoundingClientRect();
-                      var dx = (e.clientX - (rect.left + rect.width / 2)) / (rect.width / 2);
-                      var dy = (e.clientY - (rect.top + rect.height / 2)) / (rect.height / 2);
-                      img.style.transform = 'translate(calc(-50% + ' + (dx * 18) + 'px), calc(-50% + ' + (dy * 18) + 'px))';
-                      img.style.transition = 'transform 0.15s ease';
-                  });
-                  card.addEventListener('mouseleave', function() {
-                      img.style.transform = 'translate(-50%, -50%)';
-                      img.style.transition = 'transform 0.5s cubic-bezier(0.34,1.5,0.9,1)';
-                  });
-              });
 
               // Footer
               function matchLbHeight() {
