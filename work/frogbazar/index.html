@@ -125,13 +125,13 @@
           transform: translateY(0px);
         }
         .parallax-frame-2 {
-          aspect-ratio: 1320 / 600 !important;
+          aspect-ratio: 1320 / 400 !important;
         }
         .parallax-frame-2 .parallax-img-2 {
           width: 100%;
           height: 115%;
           object-fit: cover;
-          object-position: center 0%;
+          object-position: center 80%;
           display: block;
           border-radius: 0;
           will-change: transform;
@@ -406,9 +406,9 @@
               var pImg2 = document.querySelector('.parallax-img-2');
               if (pImg2) {
                   gsap.fromTo(pImg2,
-                      { y: '-7%' },
+                      { y: '7%' },
                       {
-                          y: '7%',
+                          y: '-7%',
                           ease: 'none',
                           scrollTrigger: {
                               trigger: '.parallax-frame-2',
