@@ -127,7 +127,8 @@
         .parallax-frame-e1 .parallax-img-e1,
         .parallax-frame-e2 .parallax-img-e2 {
           width: 100%;
-          height: 114%;
+          height: 100%;
+          min-height: 100%;
           object-fit: cover;
           object-position: center center;
           display: block;
@@ -390,16 +391,16 @@
               var pImgE1 = document.querySelector('.parallax-img-e1');
               if (pImgE1) {
                   gsap.fromTo(pImgE1,
-                      { y: '-7%' },
-                      { y: '7%', ease: 'none', scrollTrigger: { trigger: '.parallax-frame-e1', start: 'top bottom', end: 'bottom top', scrub: true } }
+                      { y: '0%' },
+                      { y: '7%', ease: 'none', scrollTrigger: { trigger: '.parallax-frame-e1', start: 'top center', end: 'bottom top', scrub: true } }
                   );
               }
               // Parallax estudio-3
               var pImgE2 = document.querySelector('.parallax-img-e2');
               if (pImgE2) {
                   gsap.fromTo(pImgE2,
-                      { y: '-7%' },
-                      { y: '7%', ease: 'none', scrollTrigger: { trigger: '.parallax-frame-e2', start: 'top bottom', end: 'bottom top', scrub: true } }
+                      { y: '0%' },
+                      { y: '7%', ease: 'none', scrollTrigger: { trigger: '.parallax-frame-e2', start: 'top center', end: 'bottom top', scrub: true } }
                   );
               }
 
