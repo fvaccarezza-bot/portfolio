@@ -124,8 +124,21 @@
           will-change: transform;
           transform: translateY(0px);
         }
+        .parallax-frame-3 {
+          aspect-ratio: 1320 / 600 !important;
+        }
+        .parallax-frame-3 .parallax-img-3 {
+          width: 100%;
+          height: 115%;
+          object-fit: cover;
+          object-position: center 50%;
+          display: block;
+          border-radius: 0;
+          will-change: transform;
+          transform: translateY(0px);
+        }
         .parallax-frame-2 {
-          aspect-ratio: 1320 / 650 !important;
+          aspect-ratio: 1320 / 600 !important;
         }
         .parallax-frame-2 .parallax-img-2 {
           width: 100%;
@@ -280,7 +293,9 @@
                            </div>
                            <img src="content/frog-4.png" alt="Frog Bazar" />
                            <img src="content/frog-5.jpg" alt="Frog Bazar" />
-                           <img src="content/frog-6.jpg" alt="Frog Bazar" />
+                           <div class="parallax-frame parallax-frame-3">
+                             <img src="content/frog-6-full.jpg" alt="Frog Bazar" class="parallax-img-3" />
+                           </div>
                            <img src="content/frog-7.jpg" alt="Frog Bazar" />
                            <img src="content/frog-8.png" alt="Frog Bazar" />
                            <img src="content/frog-9.png" alt="Frog Bazar" />
@@ -402,11 +417,29 @@
       window.addEventListener('load', function() {
           if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
               gsap.registerPlugin(ScrollTrigger);
+              // Parallax on frog-6
+              var pImg3 = document.querySelector('.parallax-img-3');
+              if (pImg3) {
+                  gsap.fromTo(pImg3,
+                      { y: '-7%' },
+                      {
+                          y: '7%',
+                          ease: 'none',
+                          scrollTrigger: {
+                              trigger: '.parallax-frame-3',
+                              start: 'top bottom',
+                              end: 'bottom top',
+                              scrub: true
+                          }
+                      }
+                  );
+              }
+
               // Parallax on frog-3
               var pImg2 = document.querySelector('.parallax-img-2');
               if (pImg2) {
                   gsap.fromTo(pImg2,
-                      { y: '15%' },
+                      { y: '30%' },
                       {
                           y: '-7%',
                           ease: 'none',
