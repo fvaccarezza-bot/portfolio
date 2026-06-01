@@ -83,7 +83,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         display: flex !important;
         flex-direction: column;
         align-items: center;
-        padding: 80px 24px 16px;
+        padding: 20px 24px 8px;
         gap: 0;
         text-align: center;
     }
@@ -103,7 +103,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .mobile-hero .mob-name-line img {
         display: block;
         width: auto;
-        max-width: 100%;
+        max-width: 92vw;
         height: auto;
         transform: translateY(110%);
         transition: transform 0.9s cubic-bezier(0.76,0,0.24,1);
@@ -116,18 +116,33 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     }
     .mobile-hero-text {
         display: block !important;
-        padding: 20px 24px 0;
+        padding: 24px 24px 0;
         font-size: 16px;
         line-height: 1.6;
         text-align: center;
         opacity: 0;
         transform: translateY(20px);
-        transition: opacity 0.7s ease 0.5s, transform 0.7s ease 0.5s;
+        transition: opacity 0.7s ease 0.8s, transform 0.7s ease 0.8s;
+        order: 10;
     }
     .mobile-hero-text.revealed {
         opacity: 1;
         transform: translateY(0);
     }
+    /* Photo comes right after SVGs */
+    #about {
+        order: 5;
+    }
+    #page-content {
+        display: flex;
+        flex-direction: column;
+    }
+    .mobile-hero { order: 1; }
+    #about { order: 2; }
+    .mobile-hero-text { order: 3; }
+    #works { order: 4; }
+    #services { order: 5; }
+    #contact { order: 6; }
 
     /* Ocultar titulo hola en mobile */
     #about .section-title.hola { display: none !important; }
