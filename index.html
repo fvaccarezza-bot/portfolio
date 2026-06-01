@@ -77,13 +77,12 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #page-header { display: none !important; }
     #about { padding-top: 0 !important; margin-top: 0 !important; padding-bottom: 0 !important; }
     #about .tt-section-inner { padding-top: 0 !important; padding-bottom: 0 !important; }
-    #hola-foto { margin-top: 0 !important; padding-top: 0 !important; gap: 16px !important; }
 
     .mobile-hero {
         display: flex !important;
         flex-direction: column;
         align-items: center;
-        padding: 20px 24px 8px;
+        padding: 145px 24px 0;
         gap: 0;
         text-align: center;
     }
@@ -92,13 +91,13 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         font-size: 12px;
         letter-spacing: 0.3em;
         text-transform: uppercase;
-        margin-bottom: 12px;
+        margin-bottom: 4px;
         color: var(--color-fede-fv, #3A3A39);
     }
     .mobile-hero .mob-name-line {
         overflow: hidden;
         line-height: 1;
-        margin-bottom: 12px;
+        margin-bottom: 4px;
     }
     .mobile-hero .mob-name-line img {
         display: block;
@@ -116,7 +115,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     }
     .mobile-hero-text {
         display: block !important;
-        padding: 24px 24px 0;
+        padding: 32px 24px 0;
         font-size: 16px;
         line-height: 1.6;
         text-align: center;
@@ -154,11 +153,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .photo .fede { width: 100% !important; height: 100% !important; }
     .photo .fede img { width: 100% !important; height: 100% !important; object-fit: cover !important; border-radius: 12px !important; }
     .photo .film, .photo .vectors { display: none !important; }
-    #hola-foto { flex-direction: column !important; align-items: center !important; gap: 24px !important; }
+    #hola-foto { flex-direction: column !important; align-items: center !important; gap: 0 !important; margin-top: 32px !important; }
     #hola-foto .tt-col-md-6 { width: 100% !important; align-items: center !important; }
-
-    /* Texto hola - solo primer parrafo */
-    #hola-foto .info p:last-child { display: none !important; }
 
     /* Gap entre subtitulo y cards */
     #works .tt-section-inner > span { margin-bottom: 32px !important; display: block !important; }
@@ -979,6 +975,29 @@ if (window.innerWidth <= 768) {
         setTimeout(revealMobileHero, 1800);
     } else {
         setTimeout(revealMobileHero, 500);
+    }
+}
+
+// Mobile hero parallax out — nombre sube y desaparece al scrollear
+if (window.innerWidth <= 768 && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+    var mobFed = document.getElementById('mob-federico');
+    var mobVac = document.getElementById('mob-vaccarezza');
+    var mobLabel = document.querySelector('.mobile-hero-portfolio-label');
+    var mobHero = document.querySelector('.mobile-hero');
+
+    if (mobHero) {
+        gsap.to([mobLabel, mobFed, mobVac], {
+            y: '-120%',
+            opacity: 0,
+            ease: 'none',
+            stagger: 0.05,
+            scrollTrigger: {
+                trigger: mobHero,
+                start: 'top top',
+                end: '+=200',
+                scrub: 0.8
+            }
+        });
     }
 }
 
