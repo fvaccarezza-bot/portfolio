@@ -72,6 +72,30 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .home-title { gap:16px; }
     .name-line { gap:2px !important; }
 }
+@media (max-width: 768px) {
+    /* Foto 270x270, sin hover, solo naranja */
+    .photo { width: 270px !important; height: 270px !important; border-radius: 50% !important; overflow: hidden !important; }
+    .photo .fede img { width: 100% !important; height: 100% !important; object-fit: cover !important; }
+    .photo .film, .photo .vectors { display: none !important; }
+    #hola-foto { flex-direction: column !important; align-items: center !important; }
+    #hola-foto .tt-col-md-6 { width: 100% !important; align-items: center !important; }
+
+    /* Gap entre featured works y foto */
+    #works .tt-section-inner { padding-top: 40px !important; }
+    .section-title.noise-fill-hover { margin-bottom: 8px !important; }
+    #works .tt-section-inner > span { margin-bottom: 20px !important; }
+
+    /* Cards 360px, sin texto del medio, 14pt nombre y numero */
+    .gallery { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 16px !important; }
+    .card { width: 360px !important; max-width: 100% !important; }
+    .card .meta p:nth-child(2) { display: none !important; }
+    .card .meta h3 { font-size: 14px !important; }
+    .card .meta p { font-size: 14px !important; }
+    .card:hover .img-hover { opacity: 0 !important; }
+    .card:hover .img-base { transform: none !important; }
+    .gallery:has(.card:hover) .card:not(:hover) { filter: none !important; opacity: 1 !important; }
+}
+
 @media (min-width:2560px) {
     .name-letter { height:215px !important; }
     .home-title { gap:54px; }
