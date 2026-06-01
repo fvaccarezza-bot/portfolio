@@ -79,7 +79,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .ph-caption .min-titles { font-size:24px !important; }
     .services-big { transform:scale(1.5); transform-origin:center center; margin-bottom:300px !important; margin-top:300px !important; }
     .services-big .sb-tag { bottom:-80px; right:-4%; width:28%; }
-    /* Gallery 50% más grande en ultrawide */
     #works .tt-wrap { max-width:min(1980px, 91.67vw) !important; }
     #works .gallery { gap: 67px 102px; }
 }
@@ -348,6 +347,14 @@ document.addEventListener('click', function(e) {
                     .services-btns-connect::before { content:''; position:absolute; bottom:-100%; left:0; width:100%; height:100%; background:#3A3A39; transition:bottom 0.5s cubic-bezier(0.76,0,0.24,1); z-index:0; }
                     .services-btns-connect:hover::before { bottom:0; }
                     .services-btns-connect span { position:relative; z-index:1; }
+                    @media (max-width: 768px) {
+                        .services-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+                        .services-btns { width: 100%; padding: 0 24px 40px; box-sizing: border-box; }
+                        .services-btns-row { gap: 16px; }
+                        .services-btns-row a { width: 100%; }
+                        .services-big { margin-top: 40px; margin-bottom: 80px; }
+                        .sb-tag { display: none; }
+                    }
                 </style>
                 <div class="services-big">
                     <img class="sb-line1" src="./assets/img/services-1.svg" alt="" />
@@ -437,6 +444,11 @@ document.addEventListener('click', function(e) {
                 .footer-lb-clip:last-child { margin-top:0px; }
                 #lb-line2 { display:block; width:100%; height:auto; transform:translateY(100%); filter:none; }
                 #lb-line1 { display:block; width:auto; height:auto; transform:translateY(100%); filter:none; margin:0 auto; }
+                @media (max-width: 768px) {
+                    .footer-contact-links { grid-template-columns: 1fr; gap: 16px; text-align: center; padding: 0 24px 24px; }
+                    .footer-col-right { justify-content: center; }
+                    .tt-section-inner.tt-wrap { padding-top: 180px; }
+                }
             </style>
             <div class="tt-section-inner tt-wrap">
                 <div class="footer-contact-links">
@@ -514,7 +526,6 @@ document.addEventListener('click', function(e) {
 <script src="./assets/js/form.js"></script>
 <script src="./assets/js/modal.js"></script>
 <script>
-// ── Repulsión entre cards ──────────────────────────────────────────
 (function() {
     const REPEL_RADIUS = 220;
     const REPEL_STRENGTH = 18;
@@ -666,7 +677,6 @@ window.addEventListener('load', () => {
             });
         });
 
-        // ── Imagen que sigue el cursor en services-grid ───────────────────
         (function() {
             const img = document.createElement('img');
             img.id = 'services-follow-img';
@@ -676,7 +686,8 @@ window.addEventListener('load', () => {
             (function animate() {
                 fx += (tx - fx) * 0.1;
                 fy += (ty - fy) * 0.1;
-                img.style.transform = 'translate(calc(' + fx + 'px + 20px), calc(' + fy + 'px - 80%)'+')';                requestAnimationFrame(animate);
+                img.style.transform = 'translate(calc(' + fx + 'px + 20px), calc(' + fy + 'px - 80%)'+')';
+                requestAnimationFrame(animate);
             })();
             document.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; });
             const grid = document.querySelector('.services-grid');
@@ -686,7 +697,6 @@ window.addEventListener('load', () => {
             }
         })();
 
-        // ── Magnet en todo el services-grid-item ─────────────────────────
         document.querySelectorAll('.services-grid-item').forEach(item => {
             item.addEventListener('mousemove', (e) => {
                 const rect = item.getBoundingClientRect();
@@ -701,7 +711,6 @@ window.addEventListener('load', () => {
             });
         });
 
-        // ── Tilt en botones services ──────────────────────────────────────
         document.querySelectorAll('.services-btns-row a, .services-btns-connect').forEach(btn => {
             btn.addEventListener('mousemove', (e) => {
                 const rect = btn.getBoundingClientRect();
@@ -718,13 +727,11 @@ window.addEventListener('load', () => {
             });
         });
 
-        // ── Corchetes y roll en overlay menu ─────────────────────────────
         document.querySelectorAll('.tt-ol-menu-list > li.common-li > a, .tt-ol-submenu-list > li > a').forEach(a => {
             const text = a.textContent.trim();
             a.innerHTML = '<span class="ol-roll-wrap"><span class="ol-brace ol-brace-l">[</span><span class="ol-roll-text"><span>' + text + '</span><span>' + text + '</span></span><span class="ol-brace ol-brace-r">]</span></span>';
         });
 
-        // ── Magnet suave en sociales del footer ───────────────────────────
         document.querySelectorAll('.footer-contact-socials a').forEach(a => {
             a.addEventListener('mousemove', (e) => {
                 const rect = a.getBoundingClientRect();
