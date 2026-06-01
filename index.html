@@ -82,9 +82,18 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .mobile-hero {
         display: flex !important;
         flex-direction: column;
-        align-items: flex-start;
-        padding: 70px 24px 16px;
+        align-items: center;
+        padding: 80px 24px 16px;
         gap: 0;
+        text-align: center;
+    }
+    .mobile-hero-portfolio-label {
+        display: block !important;
+        font-size: 12px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        color: var(--color-fede-fv, #3A3A39);
     }
     .mobile-hero .mob-name-line {
         overflow: hidden;
@@ -93,8 +102,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     }
     .mobile-hero .mob-name-line img {
         display: block;
-        width: 100% !important;
-        max-width: 100% !important;
+        width: auto;
+        max-width: 100%;
         height: auto;
         transform: translateY(110%);
         transition: transform 0.9s cubic-bezier(0.76,0,0.24,1);
@@ -327,6 +336,7 @@ document.addEventListener('click', function(e) {
         <div id="page-content">
             <!-- MOBILE HERO (solo visible en mobile) -->
             <div class="mobile-hero" style="display:none;">
+                <span class="mobile-hero-portfolio-label" style="display:none;">Portfolio</span>
                 <div class="mob-name-line">
                     <img src="./assets/img/federico-mobile.svg" alt="Federico" id="mob-federico" />
                 </div>
@@ -928,6 +938,8 @@ if (window.innerWidth <= 768) {
     var mobileText = document.querySelector('.mobile-hero-text');
     if (mobileHero) mobileHero.style.display = 'flex';
     if (mobileText) mobileText.style.display = 'block';
+    var portfolioLabel = document.querySelector('.mobile-hero-portfolio-label');
+    if (portfolioLabel) portfolioLabel.style.display = 'block';
 
     function revealMobileHero() {
         var fed = document.getElementById('mob-federico');
