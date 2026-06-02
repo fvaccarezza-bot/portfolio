@@ -77,13 +77,13 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #page-header { display: none !important; }
     #about { padding-top: 0 !important; margin-top: 0 !important; padding-bottom: 0 !important; }
     #about .tt-section-inner { padding-top: 0 !important; padding-bottom: 0 !important; }
-    #hola-foto { margin-top: 32px !important; padding-top: 0 !important; gap: 0 !important; }
+    #hola-foto { margin-top: 0 !important; padding-top: 0 !important; gap: 0 !important; }
 
     .mobile-hero {
         display: flex !important;
         flex-direction: column;
         align-items: center;
-        padding: 145px 24px 16px;
+        padding: 145px 24px 0;
         gap: 0;
         text-align: center;
     }
@@ -92,19 +92,19 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         font-size: 12px;
         letter-spacing: 0.3em;
         text-transform: uppercase;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
         color: var(--color-fede-fv, #3A3A39);
     }
     .mobile-hero .mob-name-line {
         overflow: hidden;
         line-height: 1;
-        margin-bottom: 12px;
+        margin-bottom: 4px;
     }
     .mobile-hero .mob-name-line img {
         display: block;
         width: auto;
         max-width: 100%;
-        height: auto;
+        height: 45px;
         transform: translateY(110%);
         transition: transform 0.9s cubic-bezier(0.76,0,0.24,1);
     }
@@ -114,11 +114,39 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .mobile-hero .mob-name-line:last-child img {
         transition-delay: 0.12s;
     }
+
+    /* Foto dentro del mobile-hero, despues del nombre */
+    .mobile-hero-photo {
+        display: block !important;
+        width: 100%;
+        margin-top: 24px;
+    }
+    .mobile-hero-photo .photo {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 4/3;
+        border-radius: 12px !important;
+        overflow: hidden !important;
+        margin: 0 auto;
+    }
+    .mobile-hero-photo .photo .fede {
+        width: 100% !important;
+        height: 100% !important;
+    }
+    .mobile-hero-photo .photo .fede img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        border-radius: 12px !important;
+    }
+    .mobile-hero-photo .photo .film,
+    .mobile-hero-photo .photo .vectors { display: none !important; }
+
     .mobile-hero-text {
         display: block !important;
-        padding: 32px 24px 0;
-        font-size: 16px;
-        line-height: 1.6;
+        padding: 24px 0 0;
+        font-size: 14px;
+        line-height: 1.5;
         text-align: center;
         opacity: 0;
         transform: translateY(20px);
@@ -131,19 +159,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 
     /* Ocultar titulo hola en mobile */
     #about .section-title.hola { display: none !important; }
-    /* Ocultar texto del about en mobile - se usa mobile-hero-text */
-    #hola-foto .info { display: none !important; }
-
-    /* Foto 270x270 cuadrada, bordes curvos */
-    .photo { width: 270px !important; height: 270px !important; border-radius: 12px !important; overflow: hidden !important; }
-    .photo .fede { width: 100% !important; height: 100% !important; }
-    .photo .fede img { width: 100% !important; height: 100% !important; object-fit: cover !important; border-radius: 12px !important; }
-    .photo .film, .photo .vectors { display: none !important; }
-    #hola-foto { flex-direction: column !important; align-items: center !important; }
-    #hola-foto .tt-col-md-6 { width: 100% !important; align-items: center !important; }
-
-    /* Texto hola - solo primer parrafo */
-    #hola-foto .info p:last-child { display: none !important; }
+    /* Ocultar foto y texto del about section en mobile - todo va en mobile-hero */
+    #hola-foto { display: none !important; }
 
     /* Gap entre subtitulo y cards */
     #works .tt-section-inner > span { margin-bottom: 32px !important; display: block !important; }
@@ -342,6 +359,12 @@ document.addEventListener('click', function(e) {
                 </div>
                 <div class="mob-name-line">
                     <img src="./assets/img/vaccarezza-mobile.svg" alt="Vaccarezza" id="mob-vaccarezza" />
+                </div>
+                <!-- Foto del about, movida al mobile hero -->
+                <div class="mobile-hero-photo" style="display:none;">
+                    <div class="photo">
+                        <div class="fede"><img src="./assets/img/fede.jpg" /></div>
+                    </div>
                 </div>
             </div>
             <p class="mobile-hero-text" style="display:none;">I'm a graphic designer from Tigre, Argentina. I studied at the University of Buenos Aires (UBA), where I started in industrial design but eventually switched to graphic design. I've always been into style, and that naturally pulled me into the creative world.</p>
@@ -936,8 +959,10 @@ window.addEventListener('load', () => {
 if (window.innerWidth <= 768) {
     var mobileHero = document.querySelector('.mobile-hero');
     var mobileText = document.querySelector('.mobile-hero-text');
+    var mobilePhoto = document.querySelector('.mobile-hero-photo');
     if (mobileHero) mobileHero.style.display = 'flex';
     if (mobileText) mobileText.style.display = 'block';
+    if (mobilePhoto) mobilePhoto.style.display = 'block';
     var portfolioLabel = document.querySelector('.mobile-hero-portfolio-label');
     if (portfolioLabel) portfolioLabel.style.display = 'block';
 
