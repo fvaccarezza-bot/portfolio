@@ -117,8 +117,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         transform: translateY(110%);
         transition: transform 0.9s cubic-bezier(0.76,0,0.24,1);
     }
-    /* Ambos al mismo factor: 92vw es el ancho de Vaccarezza (407px nativo)
-       Federico (309px) queda a 309/407 * 92vw — misma altura proporcional */
     #mob-federico {
         width: calc(92vw * 309 / 407) !important;
         height: auto !important;
@@ -142,7 +140,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         transition-delay: 0.12s;
     }
 
-    /* Foto dentro del mobile-hero, despues del nombre */
     .mobile-hero-photo {
         display: block !important;
         margin-top: 64px;
@@ -176,18 +173,14 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         transform: translateY(0);
     }
 
-    /* Ocultar titulo hola en mobile */
     #about .section-title.hola { display: none !important; }
-    /* Ocultar foto y texto del about section en mobile - todo va en mobile-hero */
     #hola-foto { display: none !important; }
 
-    /* Gap entre subtitulo y cards */
     #works .tt-section-inner > span { margin-bottom: 32px !important; display: block !important; }
     #about { padding-bottom: 0 !important; margin-bottom: 0 !important; }
     #works { padding-top: 0 !important; margin-top: 0 !important; }
     #works .tt-section-inner { padding-top: 200px !important; }
 
-    /* Sin ningun efecto en featured works */
     #title-works, #title-works a, #title-works a:hover, #title-works a:focus,
     .section-title.noise-fill-hover, .section-title.noise-fill-hover:hover {
         -webkit-text-stroke: 0 !important;
@@ -199,8 +192,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         -webkit-text-fill-color: inherit !important;
     }
 
-    /* Services: 1 columna, max 340px */
+    /* Services: 1 columna, centrado, sin icono, max 340px, gap 32 */
     .services-grid { grid-template-columns: 1fr !important; gap: 32px !important; max-width: 340px !important; margin-left: auto !important; margin-right: auto !important; }
+    .services-grid-item { text-align: center !important; }
     .services-grid-item h3 {
         font-family: 'PP Telegraf', sans-serif !important;
         font-size: 14px !important;
@@ -208,18 +202,19 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         text-transform: uppercase !important;
         letter-spacing: 0.5em !important;
         line-height: 1.5 !important;
+        justify-content: center !important;
     }
-    /* Product Design (UI/UX) — ocultar (UI/UX) en mobile */
-    .services-grid-item:nth-child(3) h3 {
-        font-size: 14px !important;
-        letter-spacing: 0.5em !important;
-    }
+    .services-grid-item h3 img { display: none !important; }
+    .services-grid-item p { text-align: center !important; }
     .uiux-label { display: none !important; }
+
+    /* Ocultar services-big en mobile, mostrar frase.png */
+    .services-big { display: none !important; }
+    .mobile-frase { display: block !important; }
 
     /* Ocultar botones Faqs y Process en mobile */
     .services-btns-row { display: none !important; }
 
-    /* Reviews mobile: imágenes estáticas */
     .words-container { overflow: visible !important; }
     .words-container .carousel,
     .words-container .stage {
@@ -240,7 +235,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .mobile-testimonials img { width: 380px !important; max-width: 100% !important; display: block !important; margin-bottom: -20px !important; }
     .mobile-testimonials img:last-child { margin-bottom: 0 !important; }
 
-    /* Cards: sin animaciones, border-radius 5px */
     .card { border-radius: 5px !important; }
     .card a.media, .card .pgi-image-holder { border-radius: 5px !important; }
     .card:hover .img-hover { opacity: 0 !important; }
@@ -250,19 +244,22 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .gallery:has(.card:hover) .card:not(:hover) { filter: none !important; opacity: 1 !important; }
     .gallery .card { transition: none !important; }
 
-    /* Services: sin animaciones hover */
     .services-grid-item { transition: none !important; filter: none !important; opacity: 1 !important; }
     .services-grid:has(.services-grid-item:hover) .services-grid-item:not(:hover) { filter: none !important; opacity: 1 !important; }
     .services-grid-item:hover h3 { color: #3A3A39 !important; }
     .services-grid-item:hover h3 img { filter: none !important; }
     .services-grid-item:hover { transform: none !important; }
 
-    /* Cards layout */
     .gallery { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 32px !important; }
     .card { width: 360px !important; max-width: 92vw !important; }
-    .card .meta { display: none !important; }
 
-    /* Scroll reveal en cards */
+    /* Card meta: nombre izq, numero der, gap 16px del card */
+    .card .meta { display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: center !important; padding-top: 16px !important; }
+    .card .meta h3 { display: none !important; }
+    .card .meta p { display: none !important; }
+    .card .meta .meta-name { display: inline !important; font-family: 'PP Telegraf', sans-serif !important; font-size: 12px !important; font-weight: 400 !important; letter-spacing: 0.5em !important; text-transform: uppercase !important; color: #3A3A39 !important; }
+    .card .meta .meta-num { display: inline !important; font-family: 'PP Telegraf', sans-serif !important; font-size: 12px !important; font-weight: 700 !important; letter-spacing: 0 !important; color: #3A3A39 !important; }
+
     .gallery .card {
         opacity: 0;
         transform: translateY(40px);
@@ -272,6 +269,15 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+@media (min-width: 769px) {
+    .card .meta { display: block !important; padding-top: 14px !important; }
+    .card .meta h3 { display: flex !important; letter-spacing: 0.5em !important; text-transform: uppercase !important; }
+    .card .meta p { display: block !important; }
+    .card .meta .meta-name,
+    .card .meta .meta-num { display: none !important; }
+    .mobile-frase { display: none !important; }
 }
 
 @media (min-width:2560px) {
@@ -449,7 +455,6 @@ document.addEventListener('click', function(e) {
                 <div class="mob-name-line">
                     <img src="./assets/img/vaccarezza-mobile.svg" alt="Vaccarezza" id="mob-vaccarezza" />
                 </div>
-                <!-- Foto del about, movida al mobile hero -->
                 <div class="mobile-hero-photo" style="display:none;">
                     <img class="mob-photo" src="./assets/img/fede-home-mobile.png" alt="Fede" />
                 </div>
@@ -486,46 +491,46 @@ document.addEventListener('click', function(e) {
                         <div class="card" id="frog-bazar">
                             <a href="https://www.behance.net/gallery/157959551/Frog-Bazar-2023" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a>
                             <a class="media" href="work/frogbazar/" alt="frog-bazar" data-vt-mode="slide"><img class="img-base" src="./assets/home/frogbazar-b.jpg" alt="Frog Bazar" /><img class="img-hover" src="./assets/home/frogbazar.jpg" alt="" aria-hidden="true" /></a>
-                            <div class="meta"><h3>Frog Bazar</h3><p>branding + website + photo</p><p>(001)</p></div>
+                            <div class="meta"><h3>Frog Bazar</h3><p>branding + website + photo</p><p>(001)</p><span class="meta-name">Frog Bazar</span><span class="meta-num">(001)</span></div>
                         </div>
                         <div class="card" id="estudio32">
                             <a href="http://behance.net/gallery/164603319/estudio32" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a>
                             <a class="media" href="work/estudio32/" alt="estudio32" data-vt-mode="slide"><img class="img-base" src="./assets/home/estudio32-b.jpg" alt="ESTUDIO 32" /><img class="img-hover" src="./assets/home/estudio32.jpg" alt="" aria-hidden="true" /></a>
-                            <div class="meta"><h3>ESTUDIO 32</h3><p>branding + photo</p><p>(002)</p></div>
+                            <div class="meta"><h3>ESTUDIO 32</h3><p>branding + photo</p><p>(002)</p><span class="meta-name">Estudio 32</span><span class="meta-num">(002)</span></div>
                         </div>
                         <div class="card" id="opame">
                             <a class="media" href="work/opame/" alt="opame" data-vt-mode="slide"><img class="img-base" src="./assets/home/opame-b.jpg" alt="OPAME" /><img class="img-hover" src="./assets/home/opame.jpg" alt="" aria-hidden="true" /></a>
-                            <div class="meta"><h3>OPAME COLLECTIVE</h3><p>website</p><p>(003)</p></div>
+                            <div class="meta"><h3>OPAME COLLECTIVE</h3><p>website</p><p>(003)</p><span class="meta-name">Opame Collective</span><span class="meta-num">(003)</span></div>
                         </div>
                         <div class="card" id="nmp">
                             <a class="media" href="work/nmp/" alt="nmp" data-vt-mode="slide"><img class="img-base" src="./assets/home/nmp-b.jpg" alt="N.M, P" /><img class="img-hover" src="./assets/home/nmp.jpg" alt="" aria-hidden="true" /></a>
-                            <div class="meta"><h3>N.M,P</h3><p>branding + website</p><p>(004)</p></div>
+                            <div class="meta"><h3>N.M,P</h3><p>branding + website</p><p>(004)</p><span class="meta-name">N.M,P</span><span class="meta-num">(004)</span></div>
                         </div>
                         <div class="card" id="cleo">
                             <a class="media" href="work/cleo/" alt="cleo" data-vt-mode="slide"><img class="img-base" src="./assets/home/cleo-b.jpg" alt="CLEO PAY" /><img class="img-hover" src="./assets/home/cleo.jpg" alt="" aria-hidden="true" /></a>
-                            <div class="meta"><h3>CLEO PAY</h3><p>branding</p><p>(005)</p></div>
+                            <div class="meta"><h3>CLEO PAY</h3><p>branding</p><p>(005)</p><span class="meta-name">Cleo Pay</span><span class="meta-num">(005)</span></div>
                         </div>
                         <div class="card" id="michi">
                             <a href="https://www.behance.net/gallery/162858615/Michi-Dine-In-Take-Away" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a>
                             <a class="media" href="work/michi/" alt="michi" data-vt-mode="slide"><img class="img-base" src="./assets/home/michi-b.jpg" alt="MICHI BISTRO" /><img class="img-hover" src="./assets/home/michi.jpg" alt="" aria-hidden="true" /></a>
-                            <div class="meta"><h3>MICHI BISTRO</h3><p>concept branding</p><p>(006)</p></div>
+                            <div class="meta"><h3>MICHI BISTRO</h3><p>concept branding</p><p>(006)</p><span class="meta-name">Michi Bistro</span><span class="meta-num">(006)</span></div>
                         </div>
                         <div class="card" id="broke">
                             <a href="https://www.behance.net/gallery/161530441/Broke-Music" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a>
                             <a class="media" href="work/broke/" alt="broke" data-vt-mode="slide"><img class="img-base" src="./assets/home/broke-b.jpg" alt="Broke" /><img class="img-hover" src="./assets/home/broke.jpg" alt="" aria-hidden="true" /></a>
-                            <div class="meta"><h3>BROKE</h3><p>branding</p><p>(007)</p></div>
+                            <div class="meta"><h3>BROKE</h3><p>branding</p><p>(007)</p><span class="meta-name">Broke</span><span class="meta-num">(007)</span></div>
                         </div>
                         <div class="card" id="big-mother-energy">
                             <a class="media" href="work/big-mother-energy/" alt="big-mother-energy" data-vt-mode="slide"><img class="img-base" src="./assets/home/big-mother-energy-b.jpg" alt="Big Mother Energy" loading="lazy" /><img class="img-hover" src="./assets/home/big-mother-energy.jpg" alt="" aria-hidden="true" /></a>
-                            <div class="meta"><h3>Big Mother Energy</h3><p>branding</p><p>(008)</p></div>
+                            <div class="meta"><h3>Big Mother Energy</h3><p>branding</p><p>(008)</p><span class="meta-name">Big Mother Energy</span><span class="meta-num">(008)</span></div>
                         </div>
                         <div class="card" id="ui-ux">
                             <a class="media" href="work/ui-ux/" alt="ui-ux" data-vt-mode="slide"><img class="img-base" src="./assets/home/ui-ux-b.jpg" alt="UI / UX" /><img class="img-hover" src="./assets/home/ui-ux.jpg" alt="" aria-hidden="true" /></a>
-                            <div class="meta"><h3>UI / UX</h3><p>(009)</p></div>
+                            <div class="meta"><h3>UI / UX</h3><p>(009)</p><span class="meta-name">UI / UX</span><span class="meta-num">(009)</span></div>
                         </div>
                         <div class="card" id="web">
                             <a class="media" href="work/web/" alt="web" data-vt-mode="slide"><img class="img-base" src="./assets/home/web-b.jpg" alt="Web" /><img class="img-hover" src="./assets/home/web.jpg" alt="" aria-hidden="true" /></a>
-                            <div class="meta"><h3>WEB</h3><p>(010)</p></div>
+                            <div class="meta"><h3>WEB</h3><p>(010)</p><span class="meta-name">Web</span><span class="meta-num">(010)</span></div>
                         </div>
                     </div>
                 </div>
@@ -573,6 +578,10 @@ document.addEventListener('click', function(e) {
                         .sb-tag { display: none; }
                     }
                 </style>
+                <!-- frase.png: solo mobile, reemplaza services-big -->
+                <div class="mobile-frase" style="display:none; text-align:center; margin: 40px auto 40px; width:340px; max-width:92vw;">
+                    <img src="./assets/img/frase.png" alt="" style="width:100%; height:auto; display:block;" />
+                </div>
                 <div class="services-big">
                     <img class="sb-line1" src="./assets/img/services-1.svg" alt="" />
                     <img class="sb-line2" src="./assets/img/services-2.svg" alt="" />
@@ -1068,7 +1077,6 @@ if (window.innerWidth <= 768) {
         if (mobileText) mobileText.classList.add('revealed');
     }
 
-    // Espera a que el preloader termine
     var preloader = document.getElementById('preloader');
     if (preloader) {
         var obs = new MutationObserver(function() {
@@ -1079,7 +1087,6 @@ if (window.innerWidth <= 768) {
             }
         });
         obs.observe(preloader, { attributes: true, attributeFilter: ['style', 'class'] });
-        // Fallback
         setTimeout(revealMobileHero, 1800);
     } else {
         setTimeout(revealMobileHero, 500);
@@ -1088,7 +1095,6 @@ if (window.innerWidth <= 768) {
 
 // Mobile scroll reveal para cards
 if (window.innerWidth <= 768) {
-    // Mostrar testimonials estáticos
     var mobileTesti = document.querySelector('.mobile-testimonials');
     if (mobileTesti) mobileTesti.style.display = 'flex';
     var wordsContainer = document.querySelector('.words-container');
