@@ -104,6 +104,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         align-items: center;
         justify-content: center;
     }
+    .mobile-hero .mob-name-line:first-of-type {
+        margin-bottom: 8px;
+    }
     .mobile-hero .mob-name-line img {
         display: block !important;
         width: auto !important;
@@ -115,21 +118,19 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         transform: translateY(110%);
         transition: transform 0.9s cubic-bezier(0.76,0,0.24,1);
     }
-    /* Federico: 309x42 nativo — escalar proporcionalmente al viewport */
+    /* Ambos al mismo factor: 92vw es el ancho de Vaccarezza (407px nativo)
+       Federico (309px) queda a 309/407 * 92vw — misma altura proporcional */
     #mob-federico {
+        width: calc(92vw * 309 / 407) !important;
         height: auto !important;
-        width: min(309px, 82vw) !important;
-        max-width: 82vw !important;
         transform: translateY(110%) !important;
     }
     #mob-federico.revealed {
         transform: translateY(0) !important;
     }
-    /* Vaccarezza: 407x42 nativo — escalar proporcionalmente al viewport */
     #mob-vaccarezza {
+        width: 92vw !important;
         height: auto !important;
-        width: min(407px, 92vw) !important;
-        max-width: 92vw !important;
         transform: translateY(110%) !important;
     }
     #mob-vaccarezza.revealed {
