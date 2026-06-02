@@ -184,6 +184,31 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 
     /* Gap entre subtitulo y cards */
     #works .tt-section-inner > span { margin-bottom: 32px !important; display: block !important; }
+    #about { padding-bottom: 0 !important; margin-bottom: 0 !important; }
+    #works { padding-top: 0 !important; margin-top: 0 !important; }
+    #works .tt-section-inner { padding-top: 175px !important; }
+
+    /* Sin outline en featured works hover */
+    #title-works, #title-works:hover, #title-works a, #title-works a:hover {
+        -webkit-text-stroke: 0 !important;
+        text-stroke: 0 !important;
+        color: inherit !important;
+    }
+    .section-title.noise-fill-hover, .section-title.noise-fill-hover:hover {
+        -webkit-text-stroke: 0 !important;
+        text-stroke: 0 !important;
+    }
+
+    /* Services: 1 columna */
+    .services-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+    .services-grid-item h3 {
+        font-family: 'PP Telegraf', sans-serif !important;
+        font-size: 14px !important;
+        font-weight: 400 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5em !important;
+        line-height: 1.5 !important;
+    }
 
     /* Cards sin meta, con efecto scroll */
     .gallery { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 32px !important; }
