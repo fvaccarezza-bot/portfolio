@@ -115,17 +115,25 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         transform: translateY(110%);
         transition: transform 0.9s cubic-bezier(0.76,0,0.24,1);
     }
-    /* Federico: 309x42 nativo — forzar altura exacta */
+    /* Federico: 309x42 nativo — escalar proporcionalmente al viewport */
     #mob-federico {
-        height: 42px !important;
-        width: 309px !important;
+        height: auto !important;
+        width: min(309px, 82vw) !important;
         max-width: 82vw !important;
+        transform: translateY(110%) !important;
     }
-    /* Vaccarezza: 407x42 nativo — forzar altura exacta */
+    #mob-federico.revealed {
+        transform: translateY(0) !important;
+    }
+    /* Vaccarezza: 407x42 nativo — escalar proporcionalmente al viewport */
     #mob-vaccarezza {
-        height: 42px !important;
-        width: 407px !important;
+        height: auto !important;
+        width: min(407px, 92vw) !important;
         max-width: 92vw !important;
+        transform: translateY(110%) !important;
+    }
+    #mob-vaccarezza.revealed {
+        transform: translateY(0) !important;
     }
     .mobile-hero .mob-name-line img.revealed {
         transform: translateY(0);
