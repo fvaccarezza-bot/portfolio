@@ -104,7 +104,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         display: block;
         width: auto;
         max-width: 100%;
-        height: 45px;
+        height: 45px !important;
         transform: translateY(110%);
         transition: transform 0.9s cubic-bezier(0.76,0,0.24,1);
     }
@@ -118,28 +118,28 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     /* Foto dentro del mobile-hero, despues del nombre */
     .mobile-hero-photo {
         display: block !important;
-        width: 100%;
         margin-top: 24px;
+        flex-shrink: 0;
     }
     .mobile-hero-photo .photo {
-        width: 100% !important;
-        height: auto !important;
-        aspect-ratio: 4/3;
+        width: 270px !important;
+        height: 270px !important;
         border-radius: 12px !important;
         overflow: hidden !important;
-        margin: 0 auto;
+        position: relative !important;
     }
     .mobile-hero-photo .photo .fede {
         width: 100% !important;
         height: 100% !important;
+        position: absolute !important;
+        inset: 0 !important;
     }
     .mobile-hero-photo .photo .fede img {
         width: 100% !important;
         height: 100% !important;
         object-fit: cover !important;
-        border-radius: 12px !important;
     }
-    .mobile-hero-photo .photo .film,
+    .mobile-hero-photo .photo .film { display: block !important; }
     .mobile-hero-photo .photo .vectors { display: none !important; }
 
     .mobile-hero-text {
@@ -148,6 +148,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         font-size: 14px;
         line-height: 1.5;
         text-align: center;
+        max-width: 340px;
         opacity: 0;
         transform: translateY(20px);
         transition: opacity 0.7s ease 0.5s, transform 0.7s ease 0.5s;
