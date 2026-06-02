@@ -219,13 +219,13 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     /* Ocultar botones Faqs y Process en mobile */
     .services-btns-row { display: none !important; }
 
-    /* Reviews: planas, sin efecto, una abajo de la otra */
+    /* Reviews mobile: imágenes estáticas */
     .words-container { overflow: visible !important; }
     .words-container .carousel,
     .words-container .stage {
         display: flex !important;
         flex-direction: column !important;
-        gap: 24px !important;
+        gap: 0 !important;
         position: static !important;
         transform: none !important;
         width: 100% !important;
@@ -233,20 +233,11 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         height: auto !important;
     }
     .words-container .verbatim {
-        display: flex !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        position: static !important;
-        transform: none !important;
-        width: 360px !important;
-        max-width: 92vw !important;
-        margin: 0 auto !important;
-        box-shadow: none !important;
-        filter: none !important;
-        transition: none !important;
-        animation: none !important;
+        display: none !important;
     }
     .hit { display: none !important; }
+    .mobile-testimonials { display: flex !important; flex-direction: column !important; gap: 0 !important; align-items: center !important; }
+    .mobile-testimonials img { width: 370px !important; max-width: 100% !important; display: block !important; }
 
     /* Cards sin meta, con efecto scroll */
     .gallery { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 32px !important; }
@@ -610,6 +601,13 @@ document.addEventListener('click', function(e) {
                             <div class="hit left" aria-hidden="true"></div>
                             <div class="hit right" aria-hidden="true"></div>
                         </div></div></div>
+                        <div class="mobile-testimonials" style="display:none;">
+                            <img src="./assets/img/testimonial-1.png" alt="" />
+                            <img src="./assets/img/testimonial-2.png" alt="" />
+                            <img src="./assets/img/testimonial-3.png" alt="" />
+                            <img src="./assets/img/testimonial-4.png" alt="" />
+                            <img src="./assets/img/testimonial-5.png" alt="" />
+                        </div>
                     </div>
                 </div>
                 </div>
@@ -1075,6 +1073,12 @@ if (window.innerWidth <= 768) {
 
 // Mobile scroll reveal para cards
 if (window.innerWidth <= 768) {
+    // Mostrar testimonials estáticos
+    var mobileTesti = document.querySelector('.mobile-testimonials');
+    if (mobileTesti) mobileTesti.style.display = 'flex';
+    var wordsContainer = document.querySelector('.words-container');
+    if (wordsContainer) wordsContainer.style.display = 'none';
+
     var cards = document.querySelectorAll('.gallery .card');
     var observer = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
