@@ -72,7 +72,101 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .home-title { gap:16px; }
     .name-line { gap:2px !important; }
 }
+@media (max-width: 768px) {
+    /* ── MOBILE HERO ── */
+    #page-header { display: none !important; }
+    #about { padding-top: 0 !important; margin-top: 0 !important; padding-bottom: 0 !important; }
+    #about .tt-section-inner { padding-top: 0 !important; padding-bottom: 0 !important; }
+    #hola-foto { margin-top: 0 !important; padding-top: 0 !important; gap: 16px !important; }
 
+    .mobile-hero {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        padding: 80px 24px 16px;
+        gap: 0;
+        text-align: center;
+    }
+    .mobile-hero-portfolio-label {
+        display: block !important;
+        font-size: 12px;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        color: var(--color-fede-fv, #3A3A39);
+    }
+    .mobile-hero .mob-name-line {
+        overflow: hidden;
+        line-height: 1;
+        margin-bottom: 12px;
+    }
+    .mobile-hero .mob-name-line img {
+        display: block;
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        transform: translateY(110%);
+        transition: transform 0.9s cubic-bezier(0.76,0,0.24,1);
+    }
+    .mobile-hero .mob-name-line img.revealed {
+        transform: translateY(0);
+    }
+    .mobile-hero .mob-name-line:last-child img {
+        transition-delay: 0.12s;
+    }
+    .mobile-hero-text {
+        display: block !important;
+        padding: 20px 24px 0;
+        font-size: 16px;
+        line-height: 1.6;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.7s ease 0.5s, transform 0.7s ease 0.5s;
+    }
+    .mobile-hero-text.revealed {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Ocultar titulo hola en mobile */
+    #about .section-title.hola { display: none !important; }
+    /* Ocultar texto del about en mobile - se usa mobile-hero-text */
+    #hola-foto .info { display: none !important; }
+
+    /* Foto 270x270 cuadrada, bordes curvos */
+    .photo { width: 270px !important; height: 270px !important; border-radius: 12px !important; overflow: hidden !important; }
+    .photo .fede { width: 100% !important; height: 100% !important; }
+    .photo .fede img { width: 100% !important; height: 100% !important; object-fit: cover !important; border-radius: 12px !important; }
+    .photo .film, .photo .vectors { display: none !important; }
+    #hola-foto { flex-direction: column !important; align-items: center !important; gap: 24px !important; }
+    #hola-foto .tt-col-md-6 { width: 100% !important; align-items: center !important; }
+
+    /* Texto hola - solo primer parrafo */
+    #hola-foto .info p:last-child { display: none !important; }
+
+    /* Gap entre subtitulo y cards */
+    #works .tt-section-inner > span { margin-bottom: 32px !important; display: block !important; }
+
+    /* Cards sin meta, con efecto scroll */
+    .gallery { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 16px !important; }
+    .card { width: 360px !important; max-width: 92vw !important; }
+    .card .meta { display: none !important; }
+    .card:hover .img-hover { opacity: 0 !important; }
+    .card:hover .img-base { transform: none !important; }
+    .gallery:has(.card:hover) .card:not(:hover) { filter: none !important; opacity: 1 !important; }
+
+    /* Scroll reveal en cards */
+    .gallery .card {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.5s ease, transform 0.5s ease !important;
+    }
+    .gallery .card.in-view {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
 @media (min-width:2560px) {
     .name-letter { height:215px !important; }
@@ -83,162 +177,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .services-big .sb-tag { bottom:-80px; right:-4%; width:28%; }
     #works .tt-wrap { max-width:min(1980px, 91.67vw) !important; }
     #works .gallery { gap: 67px 102px; }
-}
-
-/* Hide mobile-only elements on desktop */
-.mobile-hero { display: none; }
-.mobile-hero-text { display: none; }
-
-/* ════════════════════════════════
-   MOBILE — max 768px
-   ════════════════════════════════ */
-@media (max-width: 768px) {
-
-    /* ── Hide desktop hero ── */
-    #page-header { display: none !important; }
-
-    /* ── Page content flex order ── */
-    #page-content { display: flex; flex-direction: column; }
-    .mobile-hero  { order: 1; }
-    #about        { order: 2; }
-    .mobile-hero-text { order: 3; }
-    #works        { order: 4; }
-    #services     { order: 5; }
-    #contact      { order: 6; }
-
-    /* ── Mobile Hero block ── */
-    .mobile-hero {
-        display: flex !important;
-        flex-direction: column;
-        align-items: center;
-        padding: 145px 24px 0;
-    }
-    .mobile-hero-portfolio-label {
-        display: block !important;
-        font-size: 12px;
-        letter-spacing: 0.3em;
-        text-transform: uppercase;
-        margin-bottom: 8px;
-        color: #3A3A39;
-    }
-
-    /* Name lines — clip mask like LET'S BUILD */
-    .mob-name-line {
-        overflow: hidden;
-        line-height: 1;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-    }
-    .mob-name-line img {
-        display: block;
-        width: auto;
-        max-width: 92vw;
-        height: 42px;
-        transform: translateY(110%);
-        transition: transform 0.9s cubic-bezier(0.76, 0, 0.24, 1);
-    }
-    .mob-name-line img.revealed {
-        transform: translateY(0);
-    }
-    .mob-name-line:last-child img {
-        transition-delay: 0.12s;
-    }
-
-    /* ── About section ── */
-    #about {
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-        margin-top: 0 !important;
-    }
-    #about .tt-section-inner.tt-wrap {
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-    }
-    #about .bg-vectors { display: none !important; }
-    #hola-foto {
-        margin-top: 32px !important;
-        padding-top: 0 !important;
-    }
-    #about .tt-section-inner { padding-top: 0 !important; padding-bottom: 0 !important; }
-    #about .section-title.hola { display: none !important; }
-    #hola-foto {
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: 0 !important;
-        margin-top: 0 !important;
-        padding-top: 0 !important;
-    }
-    #hola-foto .tt-col-md-6 { width: 100% !important; align-items: center !important; }
-    #hola-foto .info { display: none !important; }
-
-    /* Photo 270x270 square */
-    .photo {
-        width: 270px !important;
-        height: 270px !important;
-        border-radius: 12px !important;
-        overflow: hidden !important;
-    }
-    .photo .fede { width: 100% !important; height: 100% !important; }
-    .photo .fede img {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover !important;
-        border-radius: 12px !important;
-    }
-    .photo .film, .photo .vectors { display: none !important; }
-
-    /* ── Mobile text ── */
-    .mobile-hero-text {
-        display: block !important;
-        margin-top: 32px;
-        padding: 0 24px;
-        font-size: 16px;
-        line-height: 1.6;
-        text-align: center;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.7s ease 0.8s, transform 0.7s ease 0.8s;
-    }
-    .mobile-hero-text.revealed {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    /* ── Cards ── */
-    .gallery {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        gap: 32px !important;
-    }
-    .card { width: 360px !important; max-width: 92vw !important; }
-    .card .meta { display: none !important; }
-    .card:hover .img-hover { opacity: 0 !important; }
-    .card:hover .img-base { transform: none !important; }
-    .gallery:has(.card:hover) .card:not(:hover) { filter: none !important; opacity: 1 !important; }
-    .gallery .card {
-        opacity: 0;
-        transform: translateY(50px);
-        transition: opacity 0.5s ease, transform 0.5s ease !important;
-    }
-    .gallery .card.in-view { opacity: 1; transform: translateY(0); }
-
-    /* ── Works gap ── */
-    #works .tt-section-inner > span { margin-bottom: 32px !important; display: block !important; }
-
-    /* ── Services ── */
-    .services-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
-    .services-btns { width: 100%; padding: 0 24px 40px; box-sizing: border-box; }
-    .services-btns-row { gap: 16px; }
-    .services-btns-row a { width: 100%; }
-    .services-big { margin-top: 40px; margin-bottom: 80px; }
-    .sb-tag { display: none; }
-
-    /* ── Footer ── */
-    .footer-contact-links { grid-template-columns: 1fr; gap: 16px; text-align: center; padding: 0 24px 24px; }
-    .footer-col-right { justify-content: center; }
-    .tt-section-inner.tt-wrap { padding-top: 180px; }
 }
 </style>
 
@@ -397,8 +335,8 @@ document.addEventListener('click', function(e) {
         </div>
         <div id="page-content">
             <!-- MOBILE HERO (solo visible en mobile) -->
-            <div class="mobile-hero">
-                <span class="mobile-hero-portfolio-label">Portfolio</span>
+            <div class="mobile-hero" style="display:none;">
+                <span class="mobile-hero-portfolio-label" style="display:none;">Portfolio</span>
                 <div class="mob-name-line">
                     <img src="./assets/img/federico-mobile.svg" alt="Federico" id="mob-federico" />
                 </div>
@@ -406,7 +344,7 @@ document.addEventListener('click', function(e) {
                     <img src="./assets/img/vaccarezza-mobile.svg" alt="Vaccarezza" id="mob-vaccarezza" />
                 </div>
             </div>
-            <p class="mobile-hero-text">I'm a graphic designer from Tigre, Argentina. I studied at the University of Buenos Aires (UBA), where I started in industrial design but eventually switched to graphic design. I've always been into style, and that naturally pulled me into the creative world.</p>
+            <p class="mobile-hero-text" style="display:none;">I'm a graphic designer from Tigre, Argentina. I studied at the University of Buenos Aires (UBA), where I started in industrial design but eventually switched to graphic design. I've always been into style, and that naturally pulled me into the creative world.</p>
             <div id="about" class="tt-section padding-bottom-xlg-90 psi-image-is-light">
                 <div class="bg-vectors" id="bg-vectors-2"><div class="pos bottom-right"><img src="./assets/img/bg-lines/bg-lines2.svg" /></div></div>
                 <div class="tt-section-inner tt-wrap">
@@ -994,6 +932,41 @@ window.addEventListener('load', () => {
 });
 </script>
 <script>
+// Mobile hero reveal post-preload
+if (window.innerWidth <= 768) {
+    var mobileHero = document.querySelector('.mobile-hero');
+    var mobileText = document.querySelector('.mobile-hero-text');
+    if (mobileHero) mobileHero.style.display = 'flex';
+    if (mobileText) mobileText.style.display = 'block';
+    var portfolioLabel = document.querySelector('.mobile-hero-portfolio-label');
+    if (portfolioLabel) portfolioLabel.style.display = 'block';
+
+    function revealMobileHero() {
+        var fed = document.getElementById('mob-federico');
+        var vac = document.getElementById('mob-vaccarezza');
+        if (fed) fed.classList.add('revealed');
+        if (vac) vac.classList.add('revealed');
+        if (mobileText) mobileText.classList.add('revealed');
+    }
+
+    // Espera a que el preloader termine
+    var preloader = document.getElementById('preloader');
+    if (preloader) {
+        var obs = new MutationObserver(function() {
+            var style = window.getComputedStyle(preloader);
+            if (style.opacity === '0' || style.display === 'none' || style.visibility === 'hidden') {
+                revealMobileHero();
+                obs.disconnect();
+            }
+        });
+        obs.observe(preloader, { attributes: true, attributeFilter: ['style', 'class'] });
+        // Fallback
+        setTimeout(revealMobileHero, 1800);
+    } else {
+        setTimeout(revealMobileHero, 500);
+    }
+}
+
 // Mobile scroll reveal para cards
 if (window.innerWidth <= 768) {
     var cards = document.querySelectorAll('.gallery .card');
