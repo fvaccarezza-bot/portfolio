@@ -82,7 +82,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         display: flex !important;
         flex-direction: column;
         align-items: center;
-        padding: 145px 0 0;
+        padding: 125px 0 0;
         gap: 0;
         text-align: center;
         width: 100%;
@@ -92,7 +92,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         font-size: 12px;
         letter-spacing: 0.3em;
         text-transform: uppercase;
-        margin-bottom: 8px;
+        margin-bottom: 16px;
         color: var(--color-fede-fv, #3A3A39);
     }
     .mobile-hero .mob-name-line {
@@ -240,13 +240,27 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .mobile-testimonials img { width: 380px !important; max-width: 100% !important; display: block !important; margin-bottom: -20px !important; }
     .mobile-testimonials img:last-child { margin-bottom: 0 !important; }
 
-    /* Cards sin meta, con efecto scroll */
+    /* Cards: sin animaciones, border-radius 5px */
+    .card { border-radius: 5px !important; }
+    .card a.media, .card .pgi-image-holder { border-radius: 5px !important; }
+    .card:hover .img-hover { opacity: 0 !important; }
+    .card:hover .img-base { transform: none !important; }
+    .card .img-hover { transition: none !important; }
+    .card .img-base { transition: none !important; }
+    .gallery:has(.card:hover) .card:not(:hover) { filter: none !important; opacity: 1 !important; }
+    .gallery .card { transition: none !important; }
+
+    /* Services: sin animaciones hover */
+    .services-grid-item { transition: none !important; filter: none !important; opacity: 1 !important; }
+    .services-grid:has(.services-grid-item:hover) .services-grid-item:not(:hover) { filter: none !important; opacity: 1 !important; }
+    .services-grid-item:hover h3 { color: #3A3A39 !important; }
+    .services-grid-item:hover h3 img { filter: none !important; }
+    .services-grid-item:hover { transform: none !important; }
+
+    /* Cards layout */
     .gallery { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 32px !important; }
     .card { width: 360px !important; max-width: 92vw !important; }
     .card .meta { display: none !important; }
-    .card:hover .img-hover { opacity: 0 !important; }
-    .card:hover .img-base { transform: none !important; }
-    .gallery:has(.card:hover) .card:not(:hover) { filter: none !important; opacity: 1 !important; }
 
     /* Scroll reveal en cards */
     .gallery .card {
