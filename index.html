@@ -533,11 +533,13 @@ document.addEventListener('click', function(e) {
             <div id="services" class="tt-section">
                 <div class="tt-section-inner tt-wrap">
                 <style>
-                    .services-big { position:relative; margin-top:100px; margin-bottom:180px; cursor:default; text-align:center; }
-                    .services-big > img { display:block; width:auto; max-width:100%; margin:0 auto; }
+                    .services-big { position:relative; margin-top:100px; margin-bottom:180px; cursor:default; text-align:left; display:flex; flex-direction:column; align-items:flex-start; gap:8px; }
+                    .services-big > img { display:block; width:auto; max-width:100%; margin:0; }
                     .services-big:hover .sb-line1 { transform:translateY(-55px) scale(1.02); }
                     .services-big:hover .sb-line2 { transform:translateY(-38px) scale(1.02); }
                     .services-big:hover .sb-line3 { transform:translateY(-22px) scale(1.02); }
+                    .services-big:hover .sb-line4 { transform:translateY(-16px) scale(1.02); }
+                    .services-big:hover .sb-line5 { transform:translateY(-10px) scale(1.02); }
                     .services-big:hover .sb-tag1  { transform:translateY(-14px) scale(1.02); transition-delay:0.05s; }
                     .services-big:hover .sb-tag2  { transform:translateY(-8px) scale(1.02); transition-delay:0.1s; }
                     .sb-tag { position:absolute; bottom:-120px; right:0; width:28%; display:flex; flex-direction:column; align-items:center; gap:0; }
@@ -574,9 +576,11 @@ document.addEventListener('click', function(e) {
                     }
                 </style>
                 <div class="services-big">
-                    <img class="sb-line1" src="./assets/img/services-1.svg" alt="" />
-                    <img class="sb-line2" src="./assets/img/services-2.svg" alt="" />
-                    <img class="sb-line3" src="./assets/img/services-3.svg" alt="" />
+                    <img class="sb-line1" src="./assets/img/HELPING.svg" alt="" />
+                    <img class="sb-line2" src="./assets/img/YOURISE.svg" alt="" />
+                    <img class="sb-line3" src="./assets/img/ABOVE.svg" alt="" />
+                    <img class="sb-line4" src="./assets/img/THE.svg" alt="" />
+                    <img class="sb-line5" src="./assets/img/CURRENT.svg" alt="" />
                     <div class="sb-tag">
                         <img class="sb-tag1" src="./assets/img/services-tag-1.svg" alt="" />
                         <img class="sb-tag2" src="./assets/img/services-tag-2.svg" alt="" />
@@ -902,23 +906,7 @@ window.addEventListener('load', () => {
         });
 
         (function() {
-            const img = document.createElement('img');
-            img.id = 'services-follow-img';
-            img.src = './assets/home/frogbazar.jpg';
-            document.body.appendChild(img);
-            let fx = 0, fy = 0, tx = 0, ty = 0;
-            (function animate() {
-                fx += (tx - fx) * 0.1;
-                fy += (ty - fy) * 0.1;
-                img.style.transform = 'translate(calc(' + fx + 'px + 20px), calc(' + fy + 'px - 80%)'+')';
-                requestAnimationFrame(animate);
-            })();
-            document.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; });
-            const grid = document.querySelector('.services-grid');
-            if (grid) {
-                grid.addEventListener('mouseenter', () => { img.style.opacity = '1'; });
-                grid.addEventListener('mouseleave', () => { img.style.opacity = '0'; });
-            }
+            // services follow image removed
         })();
 
         document.querySelectorAll('.services-grid-item').forEach(item => {
@@ -1011,7 +999,7 @@ window.addEventListener('load', () => {
 
         const servicesBig = document.querySelector('.services-big');
         if (servicesBig) {
-            [['.sb-line1',-180],['.sb-line2',-120],['.sb-line3',-70],['.sb-tag1',-40],['.sb-tag2',-20]].forEach(([sel,y]) => {
+            [['.sb-line1',-180],['.sb-line2',-140],['.sb-line3',-100],['.sb-line4',-70],['.sb-line5',-40],['.sb-tag1',-30],['.sb-tag2',-15]].forEach(([sel,y]) => {
                 const el = servicesBig.querySelector(sel);
                 if (!el) return;
                 gsap.to(el, { y, ease:'none', scrollTrigger: { trigger:servicesBig, start:'top bottom', end:'bottom top', scrub:0.8 } });
