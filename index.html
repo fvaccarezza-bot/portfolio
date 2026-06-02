@@ -199,8 +199,10 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         -webkit-text-fill-color: inherit !important;
     }
 
-    /* Services: 1 columna, max 340px */
-    .services-grid { grid-template-columns: 1fr !important; gap: 16px !important; max-width: 350px !important; margin-left: auto !important; margin-right: auto !important; }
+    /* Services mobile */
+    .services-big { display: none !important; }
+    .services-frase { display: block !important; margin: 60px auto 60px; }
+    .services-grid { grid-template-columns: 1fr !important; gap: 32px !important; max-width: 340px !important; margin-left: auto !important; margin-right: auto !important; text-align: center !important; }
     .services-grid-item h3 {
         font-family: 'PP Telegraf', sans-serif !important;
         font-size: 14px !important;
@@ -208,7 +210,10 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         text-transform: uppercase !important;
         letter-spacing: 0.5em !important;
         line-height: 1.5 !important;
+        justify-content: center !important;
     }
+    .services-grid-item h3 img { display: none !important; }
+    .services-grid-item p { text-align: center !important; }
     /* Product Design (UI/UX) — ocultar (UI/UX) en mobile */
     .services-grid-item:nth-child(3) h3 {
         font-size: 14px !important;
@@ -260,7 +265,23 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     /* Cards layout */
     .gallery { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 32px !important; }
     .card { width: 360px !important; max-width: 92vw !important; }
-    .card .meta { display: none !important; }
+    .card .meta { display: flex !important; justify-content: space-between !important; align-items: center !important; padding-top: 16px !important; }
+    .card .meta h3 {
+        font-family: 'PP Telegraf', sans-serif !important;
+        font-size: 12px !important;
+        font-weight: 400 !important;
+        letter-spacing: 0.5em !important;
+        text-transform: uppercase !important;
+        margin: 0 !important;
+    }
+    .card .meta p:last-child {
+        font-family: 'PP Telegraf', sans-serif !important;
+        font-size: 12px !important;
+        font-weight: 800 !important;
+        letter-spacing: 0 !important;
+        margin: 0 !important;
+    }
+    .card .meta p:not(:last-child) { display: none !important; }
 
     /* Scroll reveal en cards */
     .gallery .card {
@@ -586,6 +607,9 @@ document.addEventListener('click', function(e) {
                         <img class="sb-tag1" src="./assets/img/services-tag-1.svg" alt="" />
                         <img class="sb-tag2" src="./assets/img/services-tag-2.svg" alt="" />
                     </div>
+                </div>
+                <div class="services-frase" style="display:none;">
+                    <img src="./assets/img/frase.png" alt="" style="width:340px;max-width:100%;display:block;margin:0 auto;" />
                 </div>
                 <div class="services-grid">
                     <div class="services-grid-item"><h3><img src="./assets/img/services-item2.svg" alt="" /> Branding</h3><p>I help you shape a brand that's clear, consistent, and built to last, with visuals and strategy that work together.</p></div>
