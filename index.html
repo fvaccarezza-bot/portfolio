@@ -92,7 +92,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         font-size: 12px;
         letter-spacing: 0.3em;
         text-transform: uppercase;
-        margin-bottom: 16px;
+        margin-bottom: 24px;
         color: var(--color-fede-fv, #3A3A39);
     }
     .mobile-hero .mob-name-line {
@@ -105,6 +105,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     }
     .mobile-hero .mob-name-line:first-of-type {
         margin-bottom: 8px;
+    }
+    .mobile-hero-name-block {
+        margin-bottom: 64px;
     }
     .mobile-hero .mob-name-line img {
         display: block !important;
@@ -450,13 +453,15 @@ document.addEventListener('click', function(e) {
         <div id="page-content">
             <!-- MOBILE HERO (solo visible en mobile) -->
             <div class="mobile-hero" style="display:none;">
-                <span class="mobile-hero-portfolio-label" style="display:none;">Portfolio</span>
-                <div class="mob-name-line">
-                    <img src="./assets/img/federico-mobile.svg" alt="Federico" id="mob-federico" />
+                <div class="mobile-hero-name-block">
+                    <div class="mob-name-line">
+                        <img src="./assets/img/federico-mobile.svg" alt="Federico" id="mob-federico" />
+                    </div>
+                    <div class="mob-name-line">
+                        <img src="./assets/img/vaccarezza-mobile.svg" alt="Vaccarezza" id="mob-vaccarezza" />
+                    </div>
                 </div>
-                <div class="mob-name-line">
-                    <img src="./assets/img/vaccarezza-mobile.svg" alt="Vaccarezza" id="mob-vaccarezza" />
-                </div>
+                <span class="mobile-hero-portfolio-label" style="display:none;">PORTFOLIO – 2026</span>
                 <div class="mobile-hero-photo" style="display:none;">
                     <img class="mob-photo" src="./assets/img/fede-home-mobile.png" alt="Fede" />
                 </div>
