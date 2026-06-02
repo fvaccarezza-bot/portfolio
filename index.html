@@ -200,7 +200,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     }
 
     /* Services: 1 columna, max 340px */
-    .services-grid { grid-template-columns: 1fr !important; gap: 32px !important; max-width: 340px !important; margin-left: auto !important; margin-right: auto !important; }
+    .services-grid { grid-template-columns: 1fr !important; gap: 32px !important; max-width: 350px !important; margin-left: auto !important; margin-right: auto !important; }
     .services-grid-item h3 {
         font-family: 'PP Telegraf', sans-serif !important;
         font-size: 14px !important;
@@ -533,7 +533,7 @@ document.addEventListener('click', function(e) {
             <div id="services" class="tt-section">
                 <div class="tt-section-inner tt-wrap">
                 <style>
-                    .services-big { position:relative; margin-top:100px; margin-bottom:180px; cursor:default; text-align:left; display:flex; flex-direction:column; align-items:flex-start; gap:8px; }
+                    .services-big { position:relative; margin-top:100px; margin-bottom:240px; cursor:default; text-align:left; display:flex; flex-direction:column; align-items:flex-start; gap:8px; }
                     .services-big > img { display:block; width:auto; max-width:100%; margin:0; }
                     .services-big:hover .sb-line1 { transform:translateY(-55px) scale(1.02); }
                     .services-big:hover .sb-line2 { transform:translateY(-38px) scale(1.02); }
@@ -542,9 +542,9 @@ document.addEventListener('click', function(e) {
                     .services-big:hover .sb-line5 { transform:translateY(-10px) scale(1.02); }
                     .services-big:hover .sb-tag1  { transform:translateY(-14px) scale(1.02); transition-delay:0.05s; }
                     .services-big:hover .sb-tag2  { transform:translateY(-8px) scale(1.02); transition-delay:0.1s; }
-                    .sb-tag { position:absolute; bottom:-120px; right:0; width:28%; display:flex; flex-direction:column; align-items:center; gap:0; }
+                    .sb-tag { position:absolute; bottom:-160px; right:0; width:40%; display:flex; flex-direction:column; align-items:center; gap:0; }
                     .sb-tag2 { margin-top:-32px; }
-                    .sb-tag img { display:block; width:auto; max-width:none; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); transform:translateY(0); }
+                    .sb-tag img { display:block; width:100%; max-width:100%; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); transform:translateY(0); }
                     .trusted-track img { filter:none; }
                     .services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:40px; margin-bottom:40px; }
                     .services-grid-item h3 { display:flex; align-items:center; gap:10px; font-family:'PP Telegraf',sans-serif; font-size:16px; font-weight:400; color:#3A3A39; letter-spacing:0; margin-bottom:12px; padding-top:0; cursor:default; transition:color 0.3s ease, transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
@@ -566,13 +566,14 @@ document.addEventListener('click', function(e) {
                     .services-btns-connect::before { content:''; position:absolute; bottom:-100%; left:0; width:100%; height:100%; background:#3A3A39; transition:bottom 0.5s cubic-bezier(0.76,0,0.24,1); z-index:0; }
                     .services-btns-connect:hover::before { bottom:0; }
                     .services-btns-connect span { position:relative; z-index:1; }
-                    @media (max-width: 768px) {
+                    /* Services big: menos separacion en scroll mobile */
+    @media (max-width: 768px) {
                         .services-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
                         .services-btns { width: 100%; padding: 0 24px 40px; box-sizing: border-box; }
                         .services-btns-row { gap: 16px; }
                         .services-btns-row a { width: 100%; }
                         .services-big { margin-top: 40px; margin-bottom: 80px; }
-                        .sb-tag { display: none; }
+                        .sb-tag { display: flex; }
                     }
                 </style>
                 <div class="services-big">
@@ -999,7 +1000,11 @@ window.addEventListener('load', () => {
 
         const servicesBig = document.querySelector('.services-big');
         if (servicesBig) {
-            [['.sb-line1',-180],['.sb-line2',-140],['.sb-line3',-100],['.sb-line4',-70],['.sb-line5',-40],['.sb-tag1',-30],['.sb-tag2',-15]].forEach(([sel,y]) => {
+            const isMob = window.innerWidth <= 768;
+            const lines = isMob
+                ? [['.sb-line1',-30],['.sb-line2',-20],['.sb-line3',-12],['.sb-line4',-8],['.sb-line5',-4]]
+                : [['.sb-line1',-180],['.sb-line2',-140],['.sb-line3',-100],['.sb-line4',-70],['.sb-line5',-40],['.sb-tag1',-30],['.sb-tag2',-15]];
+            lines.forEach(([sel,y]) => {
                 const el = servicesBig.querySelector(sel);
                 if (!el) return;
                 gsap.to(el, { y, ease:'none', scrollTrigger: { trigger:servicesBig, start:'top bottom', end:'bottom top', scrub:0.8 } });
