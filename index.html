@@ -82,7 +82,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         display: flex !important;
         flex-direction: column;
         align-items: center;
-        padding: 125px 0 0;
+        padding: 170px 0 0;
         gap: 0;
         text-align: center;
         width: 100%;
@@ -145,15 +145,17 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 
     .mobile-hero-photo {
         display: block !important;
-        margin-top: 64px;
+        margin-top: 0 !important;
         flex-shrink: 0;
+        width: 100vw !important;
+        margin-left: calc(-50vw + 50%) !important;
     }
     .mobile-hero-photo img.mob-photo {
         display: block !important;
-        width: 360px !important;
-        height: 200px !important;
-        max-width: 92vw !important;
-        border-radius: 12px !important;
+        width: 100vw !important;
+        height: auto !important;
+        max-width: 100vw !important;
+        border-radius: 0 !important;
         object-fit: cover !important;
     }
 
