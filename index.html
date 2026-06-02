@@ -185,7 +185,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #works .tt-section-inner > span { margin-bottom: 32px !important; display: block !important; }
     #about { padding-bottom: 0 !important; margin-bottom: 0 !important; }
     #works { padding-top: 0 !important; margin-top: 0 !important; }
-    #works .tt-section-inner { padding-top: 80px !important; }
+    #works .tt-section-inner { padding-top: 200px !important; }
 
     /* Sin ningun efecto en featured works */
     #title-works, #title-works a, #title-works a:hover, #title-works a:focus,
@@ -210,11 +210,17 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         line-height: 1.5 !important;
     }
     /* Product Design (UI/UX) — ocultar (UI/UX) en mobile */
-    .services-grid-item:nth-child(4) h3 {
+    .services-grid-item:nth-child(3) h3 {
         font-size: 14px !important;
         letter-spacing: 0.5em !important;
     }
-    /* Reviews: una abajo de la otra */
+    .uiux-label { display: none !important; }
+
+    /* Ocultar botones Faqs y Process en mobile */
+    .services-btns-row { display: none !important; }
+
+    /* Reviews: planas, sin efecto, una abajo de la otra */
+    .words-container { overflow: visible !important; }
     .words-container .carousel,
     .words-container .stage {
         display: flex !important;
@@ -224,6 +230,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         transform: none !important;
         width: 100% !important;
         overflow: visible !important;
+        height: auto !important;
     }
     .words-container .verbatim {
         display: flex !important;
@@ -234,6 +241,10 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         width: 360px !important;
         max-width: 92vw !important;
         margin: 0 auto !important;
+        box-shadow: none !important;
+        filter: none !important;
+        transition: none !important;
+        animation: none !important;
     }
     .hit { display: none !important; }
 
