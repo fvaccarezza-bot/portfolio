@@ -209,11 +209,33 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         letter-spacing: 0.5em !important;
         line-height: 1.5 !important;
     }
-    /* Product Design (UI/UX) — achicado para entrar en una línea */
+    /* Product Design (UI/UX) — ocultar (UI/UX) en mobile */
     .services-grid-item:nth-child(4) h3 {
-        font-size: 11px !important;
-        letter-spacing: 0.3em !important;
+        font-size: 14px !important;
+        letter-spacing: 0.5em !important;
     }
+    /* Reviews: una abajo de la otra */
+    .words-container .carousel,
+    .words-container .stage {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 24px !important;
+        position: static !important;
+        transform: none !important;
+        width: 100% !important;
+        overflow: visible !important;
+    }
+    .words-container .verbatim {
+        display: flex !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        position: static !important;
+        transform: none !important;
+        width: 360px !important;
+        max-width: 92vw !important;
+        margin: 0 auto !important;
+    }
+    .hit { display: none !important; }
 
     /* Cards sin meta, con efecto scroll */
     .gallery { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 32px !important; }
@@ -544,10 +566,10 @@ document.addEventListener('click', function(e) {
                     </div>
                 </div>
                 <div class="services-grid">
-                    <div class="services-grid-item"><h3><img src="./assets/img/services-item1.svg" alt="" /> Web Design</h3><p>I design clean, responsive websites that look great and work even better. Let's make your site stand out.</p></div>
                     <div class="services-grid-item"><h3><img src="./assets/img/services-item2.svg" alt="" /> Branding</h3><p>I help you shape a brand that's clear, consistent, and built to last, with visuals and strategy that work together.</p></div>
+                    <div class="services-grid-item"><h3><img src="./assets/img/services-item1.svg" alt="" /> Web Design</h3><p>I design clean, responsive websites that look great and work even better. Let's make your site stand out.</p></div>
+                    <div class="services-grid-item"><h3><img src="./assets/img/services-item3.svg" alt="" /> Product Design <span class="uiux-label">(UI/UX)</span></h3><p>Great design is more than looks — I create interfaces that guide, engage, and convert.</p></div>
                     <div class="services-grid-item"><h3><img src="./assets/img/services-item4.svg" alt="" /> Graphic Design</h3><p>Bold, creative visuals that tell your story. From logos to social posts, I'll make it pop.</p></div>
-                    <div class="services-grid-item"><h3><img src="./assets/img/services-item3.svg" alt="" /> Product Design (UI/UX)</h3><p>Great design is more than looks — I create interfaces that guide, engage, and convert.</p></div>
                 </div>
                 <div class="services-btns">
                     <div class="services-btns-row">
