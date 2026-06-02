@@ -89,7 +89,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     }
     .mobile-hero-portfolio-label {
         display: block !important;
-        font-size: 12px;
+        font-size: 10px;
         letter-spacing: 0.3em;
         text-transform: uppercase;
         margin-top: 0;
@@ -108,7 +108,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         margin-bottom: 8px;
     }
     .mobile-hero-name-block {
-        margin-bottom: 24px;
+        margin-bottom: 64px;
     }
     .mobile-hero .mob-name-line img {
         display: block !important;
@@ -263,12 +263,13 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .gallery { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 32px !important; }
     .card { width: 360px !important; max-width: 92vw !important; }
 
-    /* Card meta: nombre izq, numero der, gap 16px del card */
-    .card .meta { display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: center !important; padding-top: 2px !important; }
+    /* Card meta: nombre izq, numero der */
+    .gallery .card { display: flex !important; flex-direction: column !important; }
+    .card .meta { display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: baseline !important; padding: 6px 0 0 !important; margin: 0 !important; }
     .card .meta h3 { display: none !important; }
     .card .meta p { display: none !important; }
-    .card .meta .meta-name { display: inline !important; font-family: 'PP Telegraf', sans-serif !important; font-size: 12px !important; font-weight: 400 !important; letter-spacing: 0.5em !important; text-transform: uppercase !important; color: #3A3A39 !important; line-height: 1 !important; }
-    .card .meta .meta-num { display: inline !important; font-family: 'PP Telegraf', sans-serif !important; font-size: 12px !important; font-weight: 700 !important; letter-spacing: 0 !important; color: #3A3A39 !important; line-height: 1 !important; }
+    .card .meta .meta-name { display: inline !important; font-family: 'PP Telegraf', sans-serif !important; font-size: 12px !important; font-weight: 400 !important; letter-spacing: 0.5em !important; text-transform: uppercase !important; color: #3A3A39 !important; line-height: 1 !important; vertical-align: baseline !important; }
+    .card .meta .meta-num { display: inline !important; font-family: 'PP Telegraf', sans-serif !important; font-size: 12px !important; font-weight: 700 !important; letter-spacing: 0 !important; color: #3A3A39 !important; line-height: 1 !important; vertical-align: baseline !important; }
 
     .gallery .card {
         opacity: 0;
