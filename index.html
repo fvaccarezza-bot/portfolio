@@ -378,7 +378,16 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         padding-bottom: 0 !important;
         padding: 0 !important;
         margin-top: 0 !important;
+        margin-bottom: 0 !important;
         min-height: 0 !important;
+    }
+    #services {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    #page-content > *:last-child {
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
     }
 }
 
@@ -1465,31 +1474,28 @@ if (window.innerWidth <= 768) {
         });
     }
 
-    // Footer words reveal
+    // Footer words reveal — staggered on scroll
     var footerClips = document.querySelectorAll('.mob-footer-clip');
     if (footerClips.length) {
-        var footerWordObserver = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    var word = entry.target.querySelector('.mob-footer-word');
-                    if (word) word.classList.add('in-view');
-                    footerWordObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.0 });
-        footerClips.forEach(function(clip) {
-            footerWordObserver.observe(clip);
-        });
-        // Fallback — if already in view on load
-        setTimeout(function() {
-            footerClips.forEach(function(clip) {
-                var rect = clip.getBoundingClientRect();
-                if (rect.top < window.innerHeight) {
-                    var word = clip.querySelector('.mob-footer-word');
-                    if (word) word.classList.add('in-view');
-                }
-            });
-        }, 500);
+        var footerText = document.querySelector('.mob-footer-text');
+        var footerTriggered = false;
+        if (footerText) {
+            var footerObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting && !footerTriggered) {
+                        footerTriggered = true;
+                        footerClips.forEach(function(clip, idx) {
+                            setTimeout(function() {
+                                var word = clip.querySelector('.mob-footer-word');
+                                if (word) word.classList.add('in-view');
+                            }, idx * 80);
+                        });
+                        footerObserver.disconnect();
+                    }
+                });
+            }, { threshold: 0.05 });
+            footerObserver.observe(footerText);
+        }
     }
 
     // Fade in services-tag-complete when near end of phrase SVGs
