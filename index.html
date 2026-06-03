@@ -74,6 +74,32 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 }
 @media (max-width: 768px) {
     #trusted-by-row { display: none !important; }
+    .services-btns { margin-bottom: 40px !important; }
+
+    /* Reveals de títulos */
+    #title-works,
+    #mob-works-subtitle,
+    #mob-some-kind-words {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    #title-works.in-view,
+    #mob-works-subtitle.in-view,
+    #mob-some-kind-words.in-view {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    /* Reveal testimonials */
+    .mobile-testimonials img {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .mobile-testimonials img.in-view {
+        opacity: 1;
+        transform: translateY(0);
+    }
 
     #page-header { display: none !important; }
     #about { display: none !important; }
@@ -681,7 +707,7 @@ document.addEventListener('click', function(e) {
                 <div class="bg-vectors" id="bg-vectors-3"><div class="pos top-left"><img src="./assets/img/bg-lines/bg-lines3.svg" /></div></div>
                 <div class="tt-section-inner tt-wrap">
                     <h2 class="section-title noise-fill-hover"><span class="title-clip"><span class="title-clip-inner" id="title-works">featured works</span></span></h2>
-                    <span><p>some of what I've done over the years.</p></span>
+                    <span id="mob-works-subtitle"><p>some of what I've done over the years.</p></span>
                     <div class="gallery">
                         <div class="card" id="frog-bazar">
                             <a href="https://www.behance.net/gallery/157959551/Frog-Bazar-2023" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a>
@@ -822,7 +848,7 @@ document.addEventListener('click', function(e) {
                 </div>
                 <div class="tt-row" style="margin-top:100px;">
                     <div class="tt-col-md-6 d-flex-center flex-col max-width-full">
-                        <h4 class="section-title">Some Kind Words:</h4>
+                        <h4 class="section-title" id="mob-some-kind-words">Some Kind Words:</h4>
                         <div class="words-container"><div class="carousel" role="region"><div class="stage" id="stage">
                             <article class="verbatim prev" tabindex="0"><img src="./assets/img/word2.jpg" alt="" /><div><p><span>Dana Johonson</span> (Dotted 8)</p><p>"As a US-based agency, it can be tricky to find reliable international talent that aligns with our time constraints and quality expectations. Fede has been an incredible resource and a valued member of our team for many years!"</p></div></article>
                             <article class="verbatim active" tabindex="0"><img src="./assets/img/word1.jpg" alt="" /><div><p><span>Ramiro Nieto Moreno</span> (N.M,P.)</p><p>"From the first call to the final delivery, everything just flowed. The site captures our vibe perfectly—and the whole process was smoother than expected!"</p></div></article>
@@ -875,8 +901,8 @@ document.addEventListener('click', function(e) {
                 </div>
                 <!-- Shapes left y right encima del contenido -->
                 <div style="position:absolute;top:-80px;left:0;right:0;bottom:0;pointer-events:none;z-index:20;overflow:visible;">
-                    <img src="./assets/img/mobile-footer-left-shape.svg" alt="" style="position:absolute;bottom:0;left:0;height:auto;mix-blend-mode:overlay;" />
-                    <img src="./assets/img/mobile-footer-right-shape.svg" alt="" style="position:absolute;top:-100px;right:0;height:auto;mix-blend-mode:overlay;" />
+                    <img src="./assets/img/mobile-footer-left-shape.svg" alt="" style="position:absolute;bottom:0;left:0;height:auto;mix-blend-mode:hard-light;" />
+                    <img src="./assets/img/mobile-footer-right-shape.svg" alt="" style="position:absolute;top:-100px;right:0;height:auto;mix-blend-mode:hard-light;" />
                 </div>
             </div>
             <style>
@@ -1469,6 +1495,53 @@ if (window.innerWidth <= 768) {
         serviceItems.forEach(function(item) {
             servicesObserver.observe(item);
         });
+    }
+
+    // Reveal featured works subtitle
+    var subtitleWorks = document.getElementById('mob-works-subtitle');
+    if (subtitleWorks) {
+        new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) { entry.target.classList.add('in-view'); }
+            });
+        }, { threshold: 0.3 }).observe(subtitleWorks);
+    }
+
+    // Reveal featured works title
+    var titleWorks = document.getElementById('title-works');
+    if (titleWorks) {
+        new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) { entry.target.classList.add('in-view'); }
+            });
+        }, { threshold: 0.3 }).observe(titleWorks);
+    }
+
+    // Reveal some kind words title
+    var titleSomeKind = document.getElementById('mob-some-kind-words');
+    if (titleSomeKind) {
+        new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) { entry.target.classList.add('in-view'); }
+            });
+        }, { threshold: 0.3 }).observe(titleSomeKind);
+    }
+
+    // Reveal testimonial images staggered
+    var testiImgs = document.querySelectorAll('.mobile-testimonials img');
+    if (testiImgs.length) {
+        var testiObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    var idx = Array.from(testiImgs).indexOf(entry.target);
+                    setTimeout(function() {
+                        entry.target.classList.add('in-view');
+                    }, idx * 100);
+                    testiObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+        testiImgs.forEach(function(img) { testiObserver.observe(img); });
     }
 
     // Footer words reveal — staggered on scroll
