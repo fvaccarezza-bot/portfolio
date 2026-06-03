@@ -1171,6 +1171,19 @@ if (window.innerWidth <= 768) {
     }
 }
 
+// Mobile photo mask on scroll
+if (window.innerWidth <= 768) {
+    window.addEventListener('scroll', function() {
+        var mask = document.getElementById('mob-photo-mask');
+        var photoWrap = document.querySelector('.mob-photo-wrap');
+        if (!mask || !photoWrap) return;
+        var rect = photoWrap.getBoundingClientRect();
+        var photoH = photoWrap.offsetHeight;
+        var progress = Math.max(0, Math.min(1, -rect.top / photoH));
+        mask.style.height = (progress * 100) + '%';
+    }, { passive: true });
+}
+
 if (window.innerWidth <= 768) {
     var mobileTesti = document.querySelector('.mobile-testimonials');
     if (mobileTesti) mobileTesti.style.display = 'flex';
