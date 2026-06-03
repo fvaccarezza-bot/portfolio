@@ -73,7 +73,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .name-line { gap:2px !important; }
 }
 @media (max-width: 768px) {
-    /* ── MOBILE HERO ── */
     #page-header { display: none !important; }
     #about { display: none !important; }
     #hola-foto { display: none !important; }
@@ -202,7 +201,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         -webkit-text-fill-color: inherit !important;
     }
 
-    /* Services: 1 columna, centrado, sin icono, max 340px, gap 32 */
     .services-grid { grid-template-columns: 1fr !important; gap: 32px !important; max-width: 340px !important; margin-left: auto !important; margin-right: auto !important; }
     .services-grid-item { text-align: center !important; }
     .services-grid-item h3 {
@@ -218,11 +216,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .services-grid-item p { text-align: center !important; }
     .uiux-label { display: none !important; }
 
-    /* Ocultar services-big en mobile, mostrar frase.png */
     .services-big { display: none !important; }
     .mobile-frase { display: block !important; }
 
-    /* Ocultar botones Faqs y Process en mobile */
     .services-btns-row { display: none !important; }
 
     .words-container { overflow: visible !important; }
@@ -237,9 +233,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         overflow: visible !important;
         height: auto !important;
     }
-    .words-container .verbatim {
-        display: none !important;
-    }
+    .words-container .verbatim { display: none !important; }
     .hit { display: none !important; }
     .mobile-testimonials { display: flex !important; flex-direction: column !important; gap: 0 !important; align-items: center !important; }
     .mobile-testimonials img { width: 380px !important; max-width: 100% !important; display: block !important; margin-bottom: -20px !important; }
@@ -263,7 +257,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .gallery { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 32px !important; }
     .card { width: 360px !important; max-width: 92vw !important; }
 
-    /* Card meta: nombre izq, numero der */
     .gallery .card { display: flex !important; flex-direction: column !important; }
     .card .meta { display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: baseline !important; padding: 6px 0 0 !important; margin: 0 !important; }
     .card .meta h3 { display: none !important; }
@@ -300,7 +293,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #works .gallery { gap: 67px 102px; }
 }
 </style>
-
 <link rel="preload" href="./assets/fonts/PPTelegraf-Regular.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="./assets/fonts/PPTelegraf-Ultrabold.woff2" as="font" type="font/woff2" crossorigin />
 <script src="./assets/js/sessionStorage.js"></script>
@@ -465,7 +457,7 @@ document.addEventListener('click', function(e) {
                         <img src="./assets/img/vaccarezza-mobile.svg" alt="Vaccarezza" id="mob-vaccarezza" />
                     </div>
                 </div>
-                <span class="mobile-hero-portfolio-label" style="display:none;">PORTFOLIO – 2026</span>
+                <span class="mobile-hero-portfolio-label" style="display:none;">PORTFOLIO - 2026</span>
                 <div class="mobile-hero-photo" style="display:none;">
                     <img class="mob-photo" src="./assets/img/fede-home-mobile.png" alt="Fede" />
                 </div>
@@ -589,7 +581,6 @@ document.addEventListener('click', function(e) {
                         .sb-tag { display: none; }
                     }
                 </style>
-                <!-- frase.png: solo mobile, reemplaza services-big -->
                 <div class="mobile-frase" style="display:none; text-align:center; margin: 40px auto 40px; width:340px; max-width:92vw;">
                     <img src="./assets/img/frase.png" alt="" style="width:100%; height:auto; display:block;" />
                 </div>
@@ -707,12 +698,8 @@ document.addEventListener('click', function(e) {
                 </div>
             </div>
             <div class="footer-letsbuild">
-                <div class="footer-lb-clip">
-                    <img id="lb-line1" src="./assets/img/LETSBUILD.svg" alt="LET'S BUILD" />
-                </div>
-                <div class="footer-lb-clip" style="margin-top:0px;">
-                    <img id="lb-line2" src="./assets/img/SOMETHING.svg" alt="SOMETHING" />
-                </div>
+                <div class="footer-lb-clip"><img id="lb-line1" src="./assets/img/LETSBUILD.svg" alt="LET'S BUILD" /></div>
+                <div class="footer-lb-clip" style="margin-top:0px;"><img id="lb-line2" src="./assets/img/SOMETHING.svg" alt="SOMETHING" /></div>
             </div>
         </footer>
         </div>
@@ -1038,6 +1025,23 @@ window.addEventListener('load', () => {
             });
         }
 
+        // Letter orange trail on hover — desktop only
+        if (window.innerWidth > 768) {
+            const allLetters = document.querySelectorAll('#line-federico .name-letter, #line-vaccarezza .name-letter');
+            allLetters.forEach((letter, i) => {
+                letter.style.transition = 'filter 0.15s ease';
+                letter.addEventListener('mouseenter', () => {
+                    letter.style.filter = 'brightness(0) saturate(100%) invert(45%) sepia(99%) saturate(700%) hue-rotate(1deg) brightness(103%)';
+                    letter.style.transition = 'filter 0.08s ease';
+                    // Return to normal with delay — staggered trail
+                    setTimeout(() => {
+                        letter.style.filter = 'none';
+                        letter.style.transition = 'filter 0.6s ease';
+                    }, 320);
+                });
+            });
+        }
+
         (function() {
             const heroLink = document.getElementById('hero-name-link');
             if (!heroLink) return;
@@ -1069,7 +1073,6 @@ window.addEventListener('load', () => {
 });
 </script>
 <script>
-// Mobile hero reveal post-preload
 if (window.innerWidth <= 768) {
     var mobileHero = document.querySelector('.mobile-hero');
     var mobileText = document.querySelector('.mobile-hero-text');
@@ -1104,7 +1107,6 @@ if (window.innerWidth <= 768) {
     }
 }
 
-// Mobile scroll reveal para cards
 if (window.innerWidth <= 768) {
     var mobileTesti = document.querySelector('.mobile-testimonials');
     if (mobileTesti) mobileTesti.style.display = 'flex';
