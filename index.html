@@ -836,13 +836,11 @@ document.addEventListener('click', function(e) {
             </div>
         <footer id="contact" class="tt-section">
             <div id="footer-bg-orange" style="position:absolute;top:100px;left:0;width:100%;z-index:2;pointer-events:none;"><img src="./assets/img/FOOTERBGORANGE.svg" style="width:100%;height:auto;display:block;" /></div>
-            <!-- MOBILE FOOTER -->
+            <!-- MOBILE FOOTER -->\
             <div class="mob-footer">
-                <!-- Shapes -->
-                <div class="mob-footer-shapes">
+                <!-- Shape fondo naranja -->
+                <div class="mob-footer-shapes" style="z-index:1;">
                     <img class="mob-footer-shape-orange" src="./assets/img/mobile-footer-orange-shape.svg" alt="" />
-                    <img class="mob-footer-shape-left"   src="./assets/img/mobile-footer-left-shape.svg" alt="" />
-                    <img class="mob-footer-shape-right"  src="./assets/img/mobile-footer-right-shape.svg" alt="" />
                 </div>
                 <!-- Links + socials -->
                 <div class="mob-footer-content" style="display:flex !important;flex-direction:column;align-items:center;gap:0;width:100%;padding:60px 0 0;position:relative;z-index:10;">
@@ -865,6 +863,11 @@ document.addEventListener('click', function(e) {
                     <div class="mob-footer-clip"><img src="./assets/img/mobile-footer-build.svg" alt="BUILD" class="mob-footer-word" /></div>
                     <div class="mob-footer-clip"><img src="./assets/img/mobile-footer-some.svg" alt="SOME" class="mob-footer-word" /></div>
                     <div class="mob-footer-clip"><img src="./assets/img/mobile-footer-thing.svg" alt="THING" class="mob-footer-word" /></div>
+                </div>
+                <!-- Shapes left y right encima del contenido -->
+                <div style="position:absolute;top:-80px;left:0;right:0;bottom:0;pointer-events:none;z-index:20;overflow:visible;">
+                    <img src="./assets/img/mobile-footer-left-shape.svg" alt="" style="position:absolute;bottom:0;left:0;height:auto;mix-blend-mode:plus-lighter;" />
+                    <img src="./assets/img/mobile-footer-right-shape.svg" alt="" style="position:absolute;top:-100px;right:0;height:auto;mix-blend-mode:plus-lighter;" />
                 </div>
             </div>
             <style>
