@@ -73,6 +73,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .name-line { gap:2px !important; }
 }
 @media (max-width: 768px) {
+    #trusted-by-row { display: none !important; }
+
     #page-header { display: none !important; }
     #about { display: none !important; }
     #hola-foto { display: none !important; }
@@ -151,6 +153,13 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         margin-left: calc(-50vw + 50%) !important;
         overflow: hidden;
         flex-shrink: 0;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .mob-photo-wrap.revealed {
+        opacity: 1;
+        transform: translateY(0);
     }
     .mob-photo-mask {
         position: absolute;
@@ -802,7 +811,7 @@ document.addEventListener('click', function(e) {
                     </div>
                     <a href="#contact" data-offset="14" class="services-btns-connect"><span>Connect</span></a>
                 </div>
-                <div class="tt-row" style="margin-top:80px;">
+                <div class="tt-row" style="margin-top:80px;" id="trusted-by-row">
                     <div class="tt-col-md-6 d-flex-center flex-col max-width-full" style="max-width:1400px !important;width:100%;margin-left:auto;margin-right:auto;">
                         <h4 class="section-title" style="margin:0 auto 0 !important;padding-bottom:0 !important;">Trusted By:</h4>
                         <div style="height:64px;"></div>
@@ -866,8 +875,8 @@ document.addEventListener('click', function(e) {
                 </div>
                 <!-- Shapes left y right encima del contenido -->
                 <div style="position:absolute;top:-80px;left:0;right:0;bottom:0;pointer-events:none;z-index:20;overflow:visible;">
-                    <img src="./assets/img/mobile-footer-left-shape.svg" alt="" style="position:absolute;bottom:0;left:0;height:auto;mix-blend-mode:plus-lighter;" />
-                    <img src="./assets/img/mobile-footer-right-shape.svg" alt="" style="position:absolute;top:-100px;right:0;height:auto;mix-blend-mode:plus-lighter;" />
+                    <img src="./assets/img/mobile-footer-left-shape.svg" alt="" style="position:absolute;bottom:0;left:0;height:auto;mix-blend-mode:screen;" />
+                    <img src="./assets/img/mobile-footer-right-shape.svg" alt="" style="position:absolute;top:-100px;right:0;height:auto;mix-blend-mode:screen;" />
                 </div>
             </div>
             <style>
@@ -1383,6 +1392,9 @@ if (window.innerWidth <= 768) {
         if (label) label.classList.add('revealed');
         setTimeout(function() { if (fed) fed.classList.add('revealed'); }, 120);
         setTimeout(function() { if (vac) vac.classList.add('revealed'); }, 240);
+        setTimeout(function() {
+            if (mobilePhoto) mobilePhoto.classList.add('revealed');
+        }, 360);
         setTimeout(function() { if (mobileText) mobileText.classList.add('revealed'); }, 480);
     }
 
@@ -1402,18 +1414,7 @@ if (window.innerWidth <= 768) {
     }
 }
 
-// Mobile photo mask on scroll
-if (window.innerWidth <= 768) {
-    window.addEventListener('scroll', function() {
-        var mask = document.getElementById('mob-photo-mask');
-        var photoWrap = document.querySelector('.mob-photo-wrap');
-        if (!mask || !photoWrap) return;
-        var rect = photoWrap.getBoundingClientRect();
-        var photoH = photoWrap.offsetHeight;
-        var progress = Math.max(0, Math.min(1, -rect.top / photoH));
-        mask.style.height = (progress * 100) + '%';
-    }, { passive: true });
-}
+// Mobile photo mask removed
 
 if (window.innerWidth <= 768) {
     var mobileTesti = document.querySelector('.mobile-testimonials');
