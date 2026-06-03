@@ -219,7 +219,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         -webkit-text-fill-color: inherit !important;
     }
 
-    .services-grid { grid-template-columns: 1fr !important; gap: 32px !important; max-width: 340px !important; margin-left: auto !important; margin-right: auto !important; }
+    .services-grid { grid-template-columns: 1fr !important; gap: 24px !important; max-width: 340px !important; margin-left: auto !important; margin-right: auto !important; }
     .services-grid-item { text-align: center !important; }
     .services-grid-item h3 {
         font-family: 'PP Telegraf', sans-serif !important;
@@ -236,12 +236,13 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 
     .services-big { display: none !important; }
     .mob-services-phrase {
+        position: relative;
         display: flex;
         flex-direction: column;
         align-items: center;
         width: 100%;
         gap: 15px;
-        margin-top: 100px;
+        margin-top: 48px;
         margin-bottom: 50px;
     }
     .mob-phrase-clip {
@@ -261,6 +262,24 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     }
     .mob-phrase-word.in-view {
         transform: translateY(0);
+    }
+    .mob-phrase-tags-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        width: 92vw;
+        pointer-events: none;
+        z-index: 2;
+    }
+    .mob-tag-overlay {
+        width: 92vw;
+        max-width: 340px;
+        height: auto;
     }
 
     .services-btns-row { display: none !important; }
@@ -650,6 +669,12 @@ document.addEventListener('click', function(e) {
                     <div class="mob-phrase-clip"><img src="./assets/img/serivces-the.svg" class="mob-phrase-word" alt="" /></div>
                     <div class="mob-phrase-clip"><img src="./assets/img/serivces-curr.svg" class="mob-phrase-word" alt="" /></div>
                     <div class="mob-phrase-clip"><img src="./assets/img/serivces-ent.svg" class="mob-phrase-word" alt="" /></div>
+                    <!-- Tags overlay — positioned absolute over the middle of the phrase -->
+                    <div class="mob-phrase-tags-overlay">
+                        <img src="./assets/img/services-tag-1.svg" class="mob-tag-overlay mob-phrase-word" alt="" />
+                        <img src="./assets/img/services-tag-2.svg" class="mob-tag-overlay mob-phrase-word" alt="" />
+                        <img src="./assets/img/services-tag-3.svg" class="mob-tag-overlay mob-phrase-word" alt="" />
+                    </div>
                 </div>
                 <div class="services-big">
                     <img class="sb-line1" src="./assets/img/services-1.svg" alt="" />
