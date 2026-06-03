@@ -1252,24 +1252,25 @@ if (window.innerWidth <= 768) {
         observer.observe(card);
     });
 
-    // Phrase words staggered reveal on scroll
-    var phraseWords = document.querySelectorAll('.mob-phrase-word');
-    if (phraseWords.length) {
-        var phraseObserver = new IntersectionObserver(function(entries) {
+    // Phrase words — observe the container, then stagger words when container enters viewport
+    var phraseContainer = document.querySelector('.mob-services-phrase');
+    if (phraseContainer) {
+        var phraseTriggered = false;
+        var phraseContainerObserver = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    var el = entry.target;
-                    var idx = Array.from(phraseWords).indexOf(el);
-                    setTimeout(function() {
-                        el.classList.add('in-view');
-                    }, idx * 80);
-                    phraseObserver.unobserve(el);
+                if (entry.isIntersecting && !phraseTriggered) {
+                    phraseTriggered = true;
+                    var words = phraseContainer.querySelectorAll('.mob-phrase-word');
+                    words.forEach(function(word, idx) {
+                        setTimeout(function() {
+                            word.classList.add('in-view');
+                        }, idx * 80);
+                    });
+                    phraseContainerObserver.disconnect();
                 }
             });
-        }, { threshold: 0.05, rootMargin: '0px 0px -10px 0px' });
-        phraseWords.forEach(function(word) {
-            phraseObserver.observe(word);
-        });
+        }, { threshold: 0.05 });
+        phraseContainerObserver.observe(phraseContainer);
     }
 }
 </script>
