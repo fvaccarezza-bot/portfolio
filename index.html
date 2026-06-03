@@ -67,6 +67,110 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .ph-caption-hover:hover .name-line:nth-child(1) { transform:translateY(-28px); }
 .ph-caption-hover:hover .name-line:nth-child(2) { transform:translateY(-16px); }
 .ph-caption-hover:hover .min-titles:last-child { transform:translateY(-6px); }
+/* ── DESKTOP HERO ─────────────────────────────────────────────────────── */
+@media (min-width: 769px) {
+    .dh-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-top: 120px;
+        padding-bottom: 40px;
+        gap: 0;
+        width: 100%;
+    }
+    .dh-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        overflow: hidden;
+    }
+    /* clip containers for reveal */
+    .dh-name-clip, .dh-label-clip, .dh-photo-clip, .dh-bio-clip {
+        overflow: hidden;
+    }
+    /* FEDERICO row */
+    .dh-top { margin-bottom: -8px; }
+    .dh-top .dh-label-clip { position: absolute; left: 50%; transform: translateX(-180px); }
+
+    /* Name lines */
+    .dh-name {
+        display: flex;
+        align-items: flex-end;
+        gap: 4px;
+        transform: translateY(110%);
+    }
+    .dh-name .name-letter {
+        height: 143px;
+        width: auto;
+    }
+    /* Photo row */
+    .dh-mid { margin: -4px 0; }
+    .dh-photo-wrap {
+        width: 200px;
+        height: 108px;
+        overflow: hidden;
+        border-radius: 8px;
+        transform: translateY(110%);
+        transition: width 0.7s cubic-bezier(0.76,0,0.24,1),
+                    height 0.7s cubic-bezier(0.76,0,0.24,1),
+                    border-radius 0.7s ease;
+        cursor: pointer;
+    }
+    .dh-photo-wrap:hover {
+        width: 605px;
+        height: 325px;
+        border-radius: 12px;
+    }
+    #dh-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.7s cubic-bezier(0.76,0,0.24,1);
+    }
+    .dh-photo-wrap:hover #dh-photo {
+        transform: scale(1.04);
+    }
+    /* Labels */
+    .dh-label {
+        font-family: 'PP Telegraf', sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: #3A3A39;
+        display: block;
+        transform: translateY(110%);
+    }
+    .dh-bot { margin-top: -8px; }
+    .dh-bot .dh-label-clip { position: absolute; right: 50%; transform: translateX(180px); }
+    /* Bio */
+    .dh-text-row { margin-top: 32px; }
+    .dh-bio {
+        font-family: 'PP Telegraf', sans-serif;
+        font-size: 11px;
+        font-weight: 400;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: #3A3A39;
+        text-align: center;
+        display: block;
+        transform: translateY(110%);
+        line-height: 1.8;
+    }
+    /* Wave push on photo hover */
+    #dh-federico { transition: transform 0.6s cubic-bezier(0.34,1.2,0.64,1); }
+    #dh-vaccarezza { transition: transform 0.6s cubic-bezier(0.34,1.2,0.64,1); }
+    #dh-portfolio { transition: transform 0.6s cubic-bezier(0.34,1.2,0.64,1); }
+    #dh-2026 { transition: transform 0.6s cubic-bezier(0.34,1.2,0.64,1); }
+    #dh-bio { transition: transform 0.6s cubic-bezier(0.34,1.2,0.64,1) 0.05s; }
+    /* hide old hero elements on desktop */
+    .ph-caption .min-titles { display: none; }
+    .ph-caption-title { display: none !important; }
+}
+
 @media (max-width:768px) {
     .name-letter { height:29px !important; }
     .home-title { gap:16px; }
@@ -421,36 +525,54 @@ document.addEventListener('click', function(e) {
             <div class="page-header-inner tt-wrap">
                 <div class="bg-vectors" id="bg-vectors-1"><div class="pos top-left"><img src="./assets/img/bg-lines/bg-lines1.svg" /></div></div>
                 <div class="ph-caption text-uppercase ph-caption-hover">
-                    <div class="text-center color-fv min-titles spacing">Portfolio</div>
-                    <div class="hover-fv">
-                        <h1 class="ph-caption-title font-bold text-center color-fv">
-                            <a href="#about" data-offset="-160" class="home-title" id="hero-name-link">
-                                <span class="name-line" id="line-federico">
-                                    <img class="name-letter" src="./assets/img/F.svg" alt="F" style="height:143px;width:auto;margin-right:5px;" />
-                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;margin-right:5px;" />
-                                    <img class="name-letter" src="./assets/img/D.svg" alt="D" style="height:143px;width:auto;margin-right:5px;" />
-                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;margin-right:5px;" />
-                                    <img class="name-letter" src="./assets/img/R.svg" alt="R" style="height:143px;width:auto;margin-right:5px;" />
-                                    <img class="name-letter" src="./assets/img/I.svg" alt="I" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/O.svg" alt="O" style="height:143px;width:auto;" />
-                                </span>
-                                <span class="name-line" id="line-vaccarezza">
-                                    <img class="name-letter" src="./assets/img/V.svg" alt="V" style="height:143px;width:auto;margin-right:-10px;" />
-                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;margin-left:-10px;margin-right:-6px;" />
-                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;margin-left:-6px;" />
-                                    <img class="name-letter" src="./assets/img/R.svg" alt="R" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/Z.svg" alt="Z" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/Z.svg" alt="Z" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;" />
-                                </span>
-                            </a>
-                        </h1>
+                    <!-- Desktop hero layout -->
+                    <div class="dh-wrap mob-no">
+                        <div class="dh-row dh-top">
+                            <div class="dh-label-clip"><span class="dh-label" id="dh-portfolio">PORTFOLIO</span></div>
+                            <div class="dh-name-clip"><span class="dh-name" id="dh-federico">
+                                <img class="name-letter" src="./assets/img/F.svg" alt="F" />
+                                <img class="name-letter" src="./assets/img/E.svg" alt="E" />
+                                <img class="name-letter" src="./assets/img/D.svg" alt="D" />
+                                <img class="name-letter" src="./assets/img/E.svg" alt="E" />
+                                <img class="name-letter" src="./assets/img/R.svg" alt="R" />
+                                <img class="name-letter" src="./assets/img/I.svg" alt="I" />
+                                <img class="name-letter" src="./assets/img/C.svg" alt="C" />
+                                <img class="name-letter" src="./assets/img/O.svg" alt="O" />
+                            </span></div>
+                        </div>
+                        <div class="dh-row dh-mid">
+                            <div class="dh-photo-clip"><div class="dh-photo-wrap" id="dh-photo-wrap">
+                                <img src="./assets/img/fede-home-mobile.png" alt="Federico Vaccarezza" id="dh-photo" />
+                            </div></div>
+                        </div>
+                        <div class="dh-row dh-bot">
+                            <div class="dh-name-clip"><span class="dh-name" id="dh-vaccarezza">
+                                <img class="name-letter" src="./assets/img/V.svg" alt="V" style="margin-right:-10px;" />
+                                <img class="name-letter" src="./assets/img/A.svg" alt="A" style="margin-left:-10px;margin-right:-6px;" />
+                                <img class="name-letter" src="./assets/img/C.svg" alt="C" />
+                                <img class="name-letter" src="./assets/img/C.svg" alt="C" />
+                                <img class="name-letter" src="./assets/img/A.svg" alt="A" style="margin-left:-6px;" />
+                                <img class="name-letter" src="./assets/img/R.svg" alt="R" />
+                                <img class="name-letter" src="./assets/img/E.svg" alt="E" />
+                                <img class="name-letter" src="./assets/img/Z.svg" alt="Z" />
+                                <img class="name-letter" src="./assets/img/Z.svg" alt="Z" />
+                                <img class="name-letter" src="./assets/img/A.svg" alt="A" />
+                            </span></div>
+                            <div class="dh-label-clip"><span class="dh-label" id="dh-2026">2026</span></div>
+                        </div>
+                        <div class="dh-row dh-text-row">
+                            <div class="dh-bio-clip"><span class="dh-bio" id="dh-bio">VISUAL DESIGNER BASED IN TIGRE, ARGENTINA. EDUCATED AT UBA, WITH A BACKGROUND SPANNING BOTH INDUSTRIAL AND GRAPHIC DESIGN.</span></div>
+                        </div>
                     </div>
-                    <div class="text-center color-fv min-titles spacing">2026</div>
+                    <!-- Legacy mobile refs (hidden desktop) -->
+                    <div class="mob-no" style="display:none;">
+                        <h1 class="ph-caption-title font-bold text-center color-fv" aria-hidden="true">
+                            <span class="name-line" id="line-federico"></span>
+                            <span class="name-line" id="line-vaccarezza"></span>
+                        </h1>
+                        <div class="min-titles" id="ph-min-1"></div>
+                        <div class="min-titles" id="ph-min-2"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -835,6 +957,57 @@ window.addEventListener('load', () => {
     matchLbHeight();
     window.addEventListener('resize', matchLbHeight);
     if (typeof gsap !== 'undefined') {
+
+        // ── DESKTOP HERO REVEAL ─────────────────────────────────────────────
+        if (window.innerWidth > 768) {
+            const dhReveal = () => {
+                const ease = 'power3.out';
+                // PORTFOLIO label
+                gsap.to('#dh-portfolio', { y: 0, duration: 0.9, ease, delay: 0.0 });
+                // FEDERICO
+                gsap.to('#dh-federico', { y: 0, duration: 1.0, ease, delay: 0.12 });
+                // Photo
+                gsap.to('.dh-photo-wrap', { y: 0, duration: 1.0, ease, delay: 0.24 });
+                // VACCAREZZA
+                gsap.to('#dh-vaccarezza', { y: 0, duration: 1.0, ease, delay: 0.36 });
+                // 2026 label
+                gsap.to('#dh-2026', { y: 0, duration: 0.9, ease, delay: 0.44 });
+                // Bio
+                gsap.to('#dh-bio', { y: 0, duration: 0.9, ease, delay: 0.54 });
+            };
+
+            // Wait for preloader to finish
+            const preloaderEl = document.getElementById('preloader');
+            if (preloaderEl) {
+                const dhObs = new MutationObserver(() => {
+                    const st = window.getComputedStyle(preloaderEl);
+                    if (parseFloat(st.opacity) < 0.1 || st.display === 'none' || st.visibility === 'hidden') {
+                        dhReveal();
+                        dhObs.disconnect();
+                    }
+                });
+                dhObs.observe(preloaderEl, { attributes: true, attributeFilter: ['style', 'class'] });
+                setTimeout(dhReveal, 2200); // fallback
+            } else {
+                setTimeout(dhReveal, 400);
+            }
+
+            // ── WAVE on photo hover ─────────────────────────────────────────
+            const photoWrap = document.getElementById('dh-photo-wrap');
+            if (photoWrap) {
+                photoWrap.addEventListener('mouseenter', () => {
+                    gsap.to('#dh-federico',  { y: -22, duration: 0.55, ease: 'power2.out' });
+                    gsap.to('#dh-portfolio', { y: -10, duration: 0.55, ease: 'power2.out', delay: 0.04 });
+                    gsap.to('#dh-vaccarezza',{ y: 22,  duration: 0.55, ease: 'power2.out', delay: 0.02 });
+                    gsap.to('#dh-2026',      { y: 10,  duration: 0.55, ease: 'power2.out', delay: 0.06 });
+                    gsap.to('#dh-bio',       { y: 10,  duration: 0.55, ease: 'power2.out', delay: 0.08 });
+                });
+                photoWrap.addEventListener('mouseleave', () => {
+                    gsap.to(['#dh-federico','#dh-portfolio','#dh-vaccarezza','#dh-2026','#dh-bio'],
+                        { y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.03 });
+                });
+            }
+        }
 
         gsap.fromTo('.ph-caption-title',
             { filter: 'blur(20px)', opacity: 0, y: 30 },
