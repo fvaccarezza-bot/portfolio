@@ -265,21 +265,23 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     }
     .mob-phrase-tags-overlay {
         position: absolute;
-        top: 50%;
+        bottom: 15%;
         left: 50%;
-        transform: translate(-50%, -50%);
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0;
-        width: 60vw;
+        transform: translateX(-50%);
+        width: 92vw;
+        max-width: 340px;
         pointer-events: none;
         z-index: 2;
     }
-    .mob-tag-overlay {
+    .mob-tag-complete {
+        display: block;
         width: 100%;
         height: auto;
-        display: block;
+        opacity: 0;
+        transition: opacity 1.2s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .mob-tag-complete.in-view {
+        opacity: 1;
     }
 
     .services-btns-row { display: none !important; }
@@ -669,11 +671,9 @@ document.addEventListener('click', function(e) {
                     <div class="mob-phrase-clip"><img src="./assets/img/serivces-the.svg" class="mob-phrase-word" alt="" /></div>
                     <div class="mob-phrase-clip"><img src="./assets/img/serivces-curr.svg" class="mob-phrase-word" alt="" /></div>
                     <div class="mob-phrase-clip"><img src="./assets/img/serivces-ent.svg" class="mob-phrase-word" alt="" /></div>
-                    <!-- Tags overlay — positioned absolute over the middle of the phrase -->
+                    <!-- Tags overlay — fade in near end of phrase -->
                     <div class="mob-phrase-tags-overlay">
-                        <img src="./assets/img/services-tag-1.svg" class="mob-tag-overlay mob-phrase-word" alt="" />
-                        <img src="./assets/img/services-tag-2.svg" class="mob-tag-overlay mob-phrase-word" alt="" />
-                        <img src="./assets/img/services-tag-3.svg" class="mob-tag-overlay mob-phrase-word" alt="" />
+                        <img src="./assets/img/services-tag-complete.svg" class="mob-tag-complete" alt="" />
                     </div>
                 </div>
                 <div class="services-big">
@@ -1296,6 +1296,20 @@ if (window.innerWidth <= 768) {
         phraseClips.forEach(function(clip) {
             phraseWordObserver.observe(clip);
         });
+    }
+
+    // Fade in services-tag-complete when near end of phrase SVGs
+    var tagComplete = document.querySelector('.mob-tag-complete');
+    if (tagComplete) {
+        var tagObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    tagComplete.classList.add('in-view');
+                    tagObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.3 });
+        tagObserver.observe(tagComplete);
     }
 }
 </script>
