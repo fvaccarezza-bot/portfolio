@@ -1033,19 +1033,28 @@ window.addEventListener('load', () => {
                 const lineFed = document.getElementById('line-federico');
                 const lineVac = document.getElementById('line-vaccarezza');
                 const rows = [minTitles[0], lineFed, lineVac, minTitles[1]];
-                const baseY = [-40, -28, -16, -6]; // current resting positions from GSAP
+                const baseY = [-40, -28, -16, -6];
 
                 heroCaption.addEventListener('mouseenter', () => {
                     rows.forEach((el, i) => {
                         if (!el) return;
                         gsap.to(el, {
-                            y: baseY[i] - 8,
-                            duration: 0.45,
+                            y: baseY[i] - 18,
+                            duration: 0.5,
                             ease: 'power2.out',
-                            delay: i * 0.06,
-                            onComplete: () => {
-                                gsap.to(el, { y: baseY[i], duration: 0.55, ease: 'power2.inOut' });
-                            }
+                            delay: i * 0.07,
+                        });
+                    });
+                });
+
+                heroCaption.addEventListener('mouseleave', () => {
+                    rows.forEach((el, i) => {
+                        if (!el) return;
+                        gsap.to(el, {
+                            y: baseY[i],
+                            duration: 0.6,
+                            ease: 'power2.inOut',
+                            delay: i * 0.05,
                         });
                     });
                 });
