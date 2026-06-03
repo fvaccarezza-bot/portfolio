@@ -368,6 +368,20 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     }
 }
 
+@media (max-width: 768px) {
+    /* Kill responsive.css padding on footer */
+    #contact,
+    #contact.tt-section,
+    footer#contact,
+    footer#contact.tt-section {
+        padding-top: 0 !important;
+        padding-bottom: 0 !important;
+        padding: 0 !important;
+        margin-top: 0 !important;
+        min-height: 0 !important;
+    }
+}
+
 @media (min-width:2560px) {
     .name-letter { height:215px !important; }
     .home-title { gap:54px; }
@@ -773,7 +787,7 @@ document.addEventListener('click', function(e) {
                             text-align: center;
                         }
                         .mob-footer-links { display: flex; flex-direction: column; align-items: center; gap: 32px; }
-                        .mob-footer-gap { height: 100px; }
+                        .mob-footer-gap { height: 100px; display: block; }
                         .mob-footer-gap-sm { height: 75px; }
                         .mob-footer-link {
                             font-family: 'PP Telegraf', sans-serif;
@@ -891,7 +905,18 @@ document.addEventListener('click', function(e) {
                 }
                 @media (max-width: 768px) {
                     /* Mobile footer override */
-                    #contact { background: transparent !important; margin-top: 0 !important; overflow: visible !important; padding: 0 !important; min-height: 0 !important; }
+                    #contact,
+                    #contact.tt-section,
+                    footer#contact,
+                    footer#contact.tt-section {
+                        background: transparent !important;
+                        margin-top: 0 !important;
+                        overflow: visible !important;
+                        padding: 0 !important;
+                        padding-top: 0 !important;
+                        padding-bottom: 0 !important;
+                        min-height: 0 !important;
+                    }
                     #contact .tt-section-inner.tt-wrap { display: none !important; padding: 0 !important; }
                     #contact .tt-section-inner { padding: 0 !important; margin: 0 !important; }
                     #footer-bg-orange { display: none !important; }
@@ -1455,6 +1480,16 @@ if (window.innerWidth <= 768) {
         footerClips.forEach(function(clip) {
             footerWordObserver.observe(clip);
         });
+        // Fallback — if already in view on load
+        setTimeout(function() {
+            footerClips.forEach(function(clip) {
+                var rect = clip.getBoundingClientRect();
+                if (rect.top < window.innerHeight) {
+                    var word = clip.querySelector('.mob-footer-word');
+                    if (word) word.classList.add('in-view');
+                }
+            });
+        }, 500);
     }
 
     // Fade in services-tag-complete when near end of phrase SVGs
