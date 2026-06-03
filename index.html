@@ -145,18 +145,33 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         transition-delay: 0.12s;
     }
 
-    .mobile-hero-photo {
-        display: block !important;
-        margin: 0 !important;
-        flex-shrink: 0;
+    .mob-photo-wrap {
+        position: relative;
         width: 100vw !important;
         margin-left: calc(-50vw + 50%) !important;
+        overflow: hidden;
+        flex-shrink: 0;
+    }
+    .mob-photo-mask {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 0%;
+        background: var(--tt-body-bg, #F5F4F0);
+        z-index: 2;
+        pointer-events: none;
+        will-change: height;
+    }
+    .mobile-hero-photo {
+        display: block !important;
+        width: 100% !important;
+        margin: 0 !important;
     }
     .mobile-hero-photo img.mob-photo {
         display: block !important;
-        width: 100vw !important;
+        width: 100% !important;
         height: auto !important;
-        max-width: 100vw !important;
         border-radius: 0 !important;
         object-fit: cover !important;
     }
@@ -490,8 +505,11 @@ document.addEventListener('click', function(e) {
                 <div class="mob-name-line">
                     <img src="./assets/img/federico-mobile.svg" alt="Federico" id="mob-federico" />
                 </div>
-                <div class="mobile-hero-photo" style="display:none;">
-                    <img class="mob-photo" src="./assets/img/fede-home-mobile.png" alt="Fede" />
+                <div class="mob-photo-wrap" style="display:none;">
+                    <div class="mobile-hero-photo">
+                        <img class="mob-photo" src="./assets/img/fede-home-mobile.png" alt="Fede" />
+                    </div>
+                    <div class="mob-photo-mask" id="mob-photo-mask"></div>
                 </div>
                 <div class="mob-name-line">
                     <img src="./assets/img/vaccarezza-mobile.svg" alt="Vaccarezza" id="mob-vaccarezza" />
@@ -1161,7 +1179,7 @@ window.addEventListener('load', () => {
 if (window.innerWidth <= 768) {
     var mobileHero = document.querySelector('.mobile-hero');
     var mobileText = document.querySelector('.mobile-hero-text');
-    var mobilePhoto = document.querySelector('.mobile-hero-photo');
+    var mobilePhoto = document.querySelector('.mob-photo-wrap');
     if (mobileHero) mobileHero.style.display = 'flex';
     if (mobileText) mobileText.style.display = 'block';
     if (mobilePhoto) mobilePhoto.style.display = 'block';
