@@ -561,6 +561,7 @@ document.addEventListener('click', function(e) {
                     .services-big:hover .sb-tag2  { transform:translateY(-8px) scale(1.02); transition-delay:0.1s; }
                     .sb-tag { position:absolute; bottom:-120px; right:0; width:28%; display:flex; flex-direction:column; align-items:center; gap:0; }
                     .sb-tag2 { margin-top:-32px; }
+                    .sb-tag3 { margin-top:-32px; }
                     .sb-tag img { display:block; width:auto; max-width:none; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); transform:translateY(0); }
                     .trusted-track img { filter:none; }
                     .services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:40px; margin-bottom:40px; }
@@ -602,6 +603,7 @@ document.addEventListener('click', function(e) {
                     <div class="sb-tag">
                         <img class="sb-tag1" src="./assets/img/services-tag-1.svg" alt="" />
                         <img class="sb-tag2" src="./assets/img/services-tag-2.svg" alt="" />
+                        <img class="sb-tag3" src="./assets/img/services-tag-3.svg" alt="" />
                     </div>
                 </div>
                 <div class="services-grid">
@@ -1057,10 +1059,10 @@ window.addEventListener('load', () => {
 
         const servicesBig = document.querySelector('.services-big');
         if (servicesBig) {
-            [['.sb-line1',-180],['.sb-line2',-120],['.sb-line3',-70],['.sb-tag1',-40],['.sb-tag2',-20]].forEach(([sel,y]) => {
+            [['.sb-line1',-180,0.8],['.sb-line2',-120,0.8],['.sb-line3',-70,0.8],['.sb-tag1',-40,0.25],['.sb-tag2',-20,0.3],['.sb-tag3',-8,0.35]].forEach(([sel,y,scrub]) => {
                 const el = servicesBig.querySelector(sel);
                 if (!el) return;
-                gsap.to(el, { y, ease:'none', scrollTrigger: { trigger:servicesBig, start:'top bottom', end:'bottom top', scrub:0.8 } });
+                gsap.to(el, { y, ease:'none', scrollTrigger: { trigger:servicesBig, start:'top bottom', end:'bottom top', scrub } });
             });
         }
 
