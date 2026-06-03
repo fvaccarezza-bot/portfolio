@@ -280,6 +280,17 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .card .meta .meta-num { display: none !important; }
     .mobile-frase { display: none !important; }
     .card .meta p:last-of-type { font-family: 'PP Telegraf', sans-serif !important; font-weight: 700 !important; }
+    /* Remove noise-fill hover on hola! and featured works */
+    #title-hola.noise-fill-hover, #title-hola.noise-fill-hover:hover,
+    #title-works.noise-fill-hover, #title-works.noise-fill-hover:hover {
+        -webkit-text-stroke: 0 !important;
+        text-stroke: 0 !important;
+        color: inherit !important;
+        background: none !important;
+        -webkit-background-clip: unset !important;
+        background-clip: unset !important;
+        -webkit-text-fill-color: inherit !important;
+    }
 }
 
 @media (min-width:2560px) {
@@ -944,6 +955,52 @@ window.addEventListener('load', () => {
             const text = a.textContent.trim();
             a.innerHTML = '<span class="ol-roll-wrap"><span class="ol-brace ol-brace-l">[</span><span class="ol-roll-text"><span>' + text + '</span><span>' + text + '</span></span><span class="ol-brace ol-brace-r">]</span></span>';
         });
+
+        // Trusted by logos — orange on hover + magnet + scale (delegated for cloned nodes)
+        (function() {
+            const container = document.querySelector('.trusted-container');
+            if (!container) return;
+
+            // Inject base style for all current and future imgs
+            const styleTag = document.createElement('style');
+            styleTag.textContent = '.trusted-track img { cursor: default; }';
+            document.head.appendChild(styleTag);
+
+            let hoveredImg = null;
+
+            container.addEventListener('mouseover', (e) => {
+                const img = e.target.closest('.trusted-track img');
+                if (!img || img === hoveredImg) return;
+                if (hoveredImg) {
+                    hoveredImg.style.filter = 'none';
+                    hoveredImg.style.transform = 'scale(1) translate(0,0)';
+                    hoveredImg.style.transition = 'filter 0.4s ease, transform 0.5s cubic-bezier(0.34,1.5,0.9,1)';
+                }
+                hoveredImg = img;
+                img.style.transition = 'filter 0.2s ease, transform 0.2s cubic-bezier(0.34,1.5,0.9,1)';
+                img.style.filter = 'brightness(0) saturate(100%) invert(45%) sepia(99%) saturate(700%) hue-rotate(1deg) brightness(103%)';
+                img.style.transform = 'scale(1.18)';
+            });
+
+            container.addEventListener('mousemove', (e) => {
+                const img = e.target.closest('.trusted-track img');
+                if (!img) return;
+                const rect = img.getBoundingClientRect();
+                const dx = (e.clientX - (rect.left + rect.width/2)) / (rect.width/2);
+                const dy = (e.clientY - (rect.top + rect.height/2)) / (rect.height/2);
+                img.style.transform = 'scale(1.18) translate(' + (dx*5) + 'px,' + (dy*5) + 'px)';
+                img.style.transition = 'filter 0.2s ease, transform 0.1s ease';
+            });
+
+            container.addEventListener('mouseout', (e) => {
+                const img = e.target.closest('.trusted-track img');
+                if (!img) return;
+                hoveredImg = null;
+                img.style.filter = 'none';
+                img.style.transform = 'scale(1) translate(0,0)';
+                img.style.transition = 'filter 0.4s ease, transform 0.5s cubic-bezier(0.34,1.5,0.9,1)';
+            });
+        })();
 
         document.querySelectorAll('.footer-contact-socials a').forEach(a => {
             a.addEventListener('mousemove', (e) => {
