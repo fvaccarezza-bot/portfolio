@@ -752,13 +752,13 @@ document.addEventListener('click', function(e) {
                             position: relative;
                             overflow: hidden;
                             background: transparent;
-                            padding: 80px 0 0;
+                            padding: 60px 0 0;
                             box-sizing: border-box;
                         }
-                        .mob-footer-shapes { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+                        .mob-footer-shapes { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: visible; }
                         .mob-footer-shape-orange { position: absolute; bottom: 0; left: 0; width: 100vw; height: auto; }
-                        .mob-footer-shape-left  { position: absolute; bottom: 0; left: 0; width: 55vw; height: auto; }
-                        .mob-footer-shape-right { position: absolute; top: 0; right: 0; width: 55vw; height: auto; }
+                        .mob-footer-shape-left  { position: absolute; bottom: 0; left: -10vw; width: 70vw; height: auto; }
+                        .mob-footer-shape-right { position: absolute; top: -20px; right: -10vw; width: 60vw; height: auto; }
                         .mob-footer-content {
                             position: relative;
                             z-index: 2;
@@ -775,15 +775,15 @@ document.addEventListener('click', function(e) {
                             font-weight: 400;
                             letter-spacing: 0.5em;
                             text-transform: uppercase;
-                            color: #fff;
+                            color: #3A3A39;
                             text-decoration: none;
                         }
                         .mob-footer-socials { display: flex; gap: 24px; align-items: center; }
-                        .mob-footer-socials img { width: 28px; height: 28px; filter: brightness(0) invert(1); }
+                        .mob-footer-socials img { width: 28px; height: 28px; filter: none; }
                         .mob-footer-text {
                             position: relative;
                             z-index: 2;
-                            width: 100%;
+                            width: 100vw;
                             display: flex;
                             flex-direction: column;
                             align-items: flex-start;
@@ -792,7 +792,7 @@ document.addEventListener('click', function(e) {
                             margin: 0;
                             line-height: 0;
                         }
-                        .mob-footer-text img { width: 100%; height: auto; display: block; max-width: 100%; }
+                        .mob-footer-text img { width: 100vw; height: auto; display: block; }
                     }
                 </style>
                 <!-- Shapes -->
@@ -866,7 +866,7 @@ document.addEventListener('click', function(e) {
                 }
                 @media (max-width: 768px) {
                     /* Mobile footer override */
-                    #contact { background: transparent !important; margin-top: 0 !important; overflow: visible !important; }
+                    #contact { background: transparent !important; margin-top: 0 !important; overflow: visible !important; padding: 0 !important; }
                     #contact .tt-section-inner.tt-wrap { display: none !important; }
                     #footer-bg-orange { display: none !important; }
                     .footer-letsbuild { display: none !important; }
@@ -1405,6 +1405,14 @@ if (window.innerWidth <= 768) {
             });
         }, { threshold: 0.3 });
         tagObserver.observe(tagComplete);
+
+        // Parallax float — centered in viewport = natural, otherwise drifts
+        window.addEventListener('scroll', function() {
+            var rect = tagComplete.getBoundingClientRect();
+            var centerOffset = (rect.top + rect.height / 2) - (window.innerHeight / 2);
+            var parallaxY = centerOffset * 0.12;
+            tagComplete.style.transform = 'translateY(' + parallaxY + 'px)';
+        }, { passive: true });
     }
 }
 </script>
