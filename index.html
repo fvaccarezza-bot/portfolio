@@ -69,30 +69,34 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .ph-caption-hover:hover .min-titles:last-child { transform:translateY(-6px); }
 /* ── DESKTOP HERO ─────────────────────────────────────────────────────── */
 @media (min-width: 769px) {
+    #page-header { overflow: hidden; }
     .dh-wrap {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        padding-top: 120px;
-        padding-bottom: 40px;
+        padding-top: 100px;
+        padding-bottom: 60px;
         gap: 0;
         width: 100%;
+        overflow: hidden;
     }
-    .dh-row {
-        display: flex;
+    /* Each row clips its children for reveal */
+    .dh-name-clip { overflow: hidden; display: flex; }
+    .dh-label-clip { overflow: hidden; display: flex; }
+    .dh-photo-clip { overflow: hidden; display: flex; justify-content: center; }
+    .dh-bio-clip   { overflow: hidden; display: flex; justify-content: center; }
+
+    /* Row layout */
+    .dh-row { display: flex; align-items: center; justify-content: center; width: 100%; }
+
+    /* PORTFOLIO label — sits above FEDERICO, left-aligned relative to name */
+    .dh-top {
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
-        width: 100%;
-        overflow: hidden;
+        gap: 12px;
     }
-    /* clip containers for reveal */
-    .dh-name-clip, .dh-label-clip, .dh-photo-clip, .dh-bio-clip {
-        overflow: hidden;
-    }
-    /* FEDERICO row */
-    .dh-top { margin-bottom: -8px; }
-    .dh-top .dh-label-clip { position: absolute; left: 50%; transform: translateX(-180px); }
+    .dh-top .dh-label-clip { align-self: flex-start; margin-left: 2px; }
 
     /* Name lines */
     .dh-name {
@@ -100,54 +104,53 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         align-items: flex-end;
         gap: 4px;
         transform: translateY(110%);
+        will-change: transform;
     }
-    .dh-name .name-letter {
-        height: 143px;
-        width: auto;
-    }
+    .dh-name .name-letter { height: 143px; width: auto; }
+
     /* Photo row */
-    .dh-mid { margin: -4px 0; }
+    .dh-mid { margin: 16px 0; }
     .dh-photo-wrap {
         width: 200px;
         height: 108px;
         overflow: hidden;
         border-radius: 8px;
         transform: translateY(110%);
+        will-change: transform, width, height;
         transition: width 0.7s cubic-bezier(0.76,0,0.24,1),
                     height 0.7s cubic-bezier(0.76,0,0.24,1),
                     border-radius 0.7s ease;
         cursor: pointer;
     }
-    .dh-photo-wrap:hover {
-        width: 605px;
-        height: 325px;
-        border-radius: 12px;
-    }
+    .dh-photo-wrap:hover { width: 605px; height: 325px; border-radius: 12px; }
     #dh-photo {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
+        width: 100%; height: 100%; object-fit: cover; display: block;
         transition: transform 0.7s cubic-bezier(0.76,0,0.24,1);
     }
-    .dh-photo-wrap:hover #dh-photo {
-        transform: scale(1.04);
+    .dh-photo-wrap:hover #dh-photo { transform: scale(1.04); }
+
+    /* VACCAREZZA + 2026 row */
+    .dh-bot {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
     }
+    .dh-bot .dh-label-clip { align-self: flex-end; margin-right: 2px; }
+
     /* Labels */
     .dh-label {
         font-family: 'PP Telegraf', sans-serif;
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 400;
-        letter-spacing: 0.4em;
+        letter-spacing: 0.5em;
         text-transform: uppercase;
         color: #3A3A39;
         display: block;
         transform: translateY(110%);
     }
-    .dh-bot { margin-top: -8px; }
-    .dh-bot .dh-label-clip { position: absolute; right: 50%; transform: translateX(180px); }
+
     /* Bio */
-    .dh-text-row { margin-top: 32px; }
+    .dh-text-row { margin-top: 40px; }
     .dh-bio {
         font-family: 'PP Telegraf', sans-serif;
         font-size: 11px;
@@ -158,15 +161,19 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         text-align: center;
         display: block;
         transform: translateY(110%);
-        line-height: 1.8;
+        line-height: 2;
+        max-width: 950px;
+        width: 100%;
     }
-    /* Wave push on photo hover */
-    #dh-federico { transition: transform 0.6s cubic-bezier(0.34,1.2,0.64,1); }
-    #dh-vaccarezza { transition: transform 0.6s cubic-bezier(0.34,1.2,0.64,1); }
+
+    /* Wave transitions */
+    #dh-federico  { transition: transform 0.6s cubic-bezier(0.34,1.2,0.64,1); }
+    #dh-vaccarezza{ transition: transform 0.6s cubic-bezier(0.34,1.2,0.64,1); }
     #dh-portfolio { transition: transform 0.6s cubic-bezier(0.34,1.2,0.64,1); }
-    #dh-2026 { transition: transform 0.6s cubic-bezier(0.34,1.2,0.64,1); }
-    #dh-bio { transition: transform 0.6s cubic-bezier(0.34,1.2,0.64,1) 0.05s; }
-    /* hide old hero elements on desktop */
+    #dh-2026      { transition: transform 0.6s cubic-bezier(0.34,1.2,0.64,1); }
+    #dh-bio       { transition: transform 0.6s cubic-bezier(0.34,1.2,0.64,1) 0.05s; }
+
+    /* hide old hero elements */
     .ph-caption .min-titles { display: none; }
     .ph-caption-title { display: none !important; }
 }
@@ -527,39 +534,47 @@ document.addEventListener('click', function(e) {
                 <div class="ph-caption text-uppercase ph-caption-hover">
                     <!-- Desktop hero layout -->
                     <div class="dh-wrap mob-no">
+                        <!-- PORTFOLIO label + FEDERICO -->
                         <div class="dh-row dh-top">
-                            <div class="dh-label-clip"><span class="dh-label" id="dh-portfolio">PORTFOLIO</span></div>
-                            <div class="dh-name-clip"><span class="dh-name" id="dh-federico">
-                                <img class="name-letter" src="./assets/img/F.svg" alt="F" />
-                                <img class="name-letter" src="./assets/img/E.svg" alt="E" />
-                                <img class="name-letter" src="./assets/img/D.svg" alt="D" />
-                                <img class="name-letter" src="./assets/img/E.svg" alt="E" />
-                                <img class="name-letter" src="./assets/img/R.svg" alt="R" />
-                                <img class="name-letter" src="./assets/img/I.svg" alt="I" />
-                                <img class="name-letter" src="./assets/img/C.svg" alt="C" />
-                                <img class="name-letter" src="./assets/img/O.svg" alt="O" />
-                            </span></div>
+                            <div style="display:flex;flex-direction:column;align-items:flex-start;">
+                                <div class="dh-label-clip"><span class="dh-label" id="dh-portfolio">PORTFOLIO –</span></div>
+                                <div class="dh-name-clip"><span class="dh-name" id="dh-federico">
+                                    <img class="name-letter" src="./assets/img/F.svg" alt="F" />
+                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" />
+                                    <img class="name-letter" src="./assets/img/D.svg" alt="D" />
+                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" />
+                                    <img class="name-letter" src="./assets/img/R.svg" alt="R" />
+                                    <img class="name-letter" src="./assets/img/I.svg" alt="I" />
+                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" />
+                                    <img class="name-letter" src="./assets/img/O.svg" alt="O" />
+                                </span></div>
+                            </div>
                         </div>
+                        <!-- Photo -->
                         <div class="dh-row dh-mid">
                             <div class="dh-photo-clip"><div class="dh-photo-wrap" id="dh-photo-wrap">
                                 <img src="./assets/img/fede-home-mobile.png" alt="Federico Vaccarezza" id="dh-photo" />
                             </div></div>
                         </div>
+                        <!-- VACCAREZZA + 2026 label -->
                         <div class="dh-row dh-bot">
-                            <div class="dh-name-clip"><span class="dh-name" id="dh-vaccarezza">
-                                <img class="name-letter" src="./assets/img/V.svg" alt="V" style="margin-right:-10px;" />
-                                <img class="name-letter" src="./assets/img/A.svg" alt="A" style="margin-left:-10px;margin-right:-6px;" />
-                                <img class="name-letter" src="./assets/img/C.svg" alt="C" />
-                                <img class="name-letter" src="./assets/img/C.svg" alt="C" />
-                                <img class="name-letter" src="./assets/img/A.svg" alt="A" style="margin-left:-6px;" />
-                                <img class="name-letter" src="./assets/img/R.svg" alt="R" />
-                                <img class="name-letter" src="./assets/img/E.svg" alt="E" />
-                                <img class="name-letter" src="./assets/img/Z.svg" alt="Z" />
-                                <img class="name-letter" src="./assets/img/Z.svg" alt="Z" />
-                                <img class="name-letter" src="./assets/img/A.svg" alt="A" />
-                            </span></div>
-                            <div class="dh-label-clip"><span class="dh-label" id="dh-2026">2026</span></div>
+                            <div style="display:flex;flex-direction:column;align-items:flex-end;">
+                                <div class="dh-name-clip"><span class="dh-name" id="dh-vaccarezza">
+                                    <img class="name-letter" src="./assets/img/V.svg" alt="V" style="margin-right:-10px;" />
+                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="margin-left:-10px;margin-right:-6px;" />
+                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" />
+                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" />
+                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="margin-left:-6px;" />
+                                    <img class="name-letter" src="./assets/img/R.svg" alt="R" />
+                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" />
+                                    <img class="name-letter" src="./assets/img/Z.svg" alt="Z" />
+                                    <img class="name-letter" src="./assets/img/Z.svg" alt="Z" />
+                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" />
+                                </span></div>
+                                <div class="dh-label-clip"><span class="dh-label" id="dh-2026">2026</span></div>
+                            </div>
                         </div>
+                        <!-- Bio -->
                         <div class="dh-row dh-text-row">
                             <div class="dh-bio-clip"><span class="dh-bio" id="dh-bio">VISUAL DESIGNER BASED IN TIGRE, ARGENTINA. EDUCATED AT UBA, WITH A BACKGROUND SPANNING BOTH INDUSTRIAL AND GRAPHIC DESIGN.</span></div>
                         </div>
