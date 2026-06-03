@@ -260,7 +260,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .mob-phrase-word {
         display: block;
         width: auto;
-        height: 65px;
+        height: 80px;
         transform: translateY(110%);
         transition: transform 1.1s cubic-bezier(0.76,0,0.24,1);
     }
@@ -386,6 +386,78 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #page-content > *:last-child {
         margin-bottom: 0 !important;
         padding-bottom: 0 !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .mob-footer {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        position: relative;
+        overflow: visible;
+        background: transparent;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .mob-footer-shapes { position: absolute; top: -80px; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 3; overflow: visible; }
+    .mob-footer-shape-orange { position: absolute; bottom: 0; left: 0; width: 100vw; height: auto; z-index: 0; }
+    .mob-footer-shape-left  { position: absolute; bottom: 0; left: 0; height: auto; z-index: 1; mix-blend-mode: plus-lighter; }
+    .mob-footer-shape-right { position: absolute; top: -100px; right: 0; height: auto; z-index: 1; mix-blend-mode: plus-lighter; }
+    .mob-footer-content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        width: 100%;
+        padding: 60px 0 0;
+        text-align: center;
+    }
+    .mob-footer-links { display: flex; flex-direction: column; align-items: center; gap: 100px; }
+    .mob-footer-gap { height: 100px; display: block; }
+    .mob-footer-gap-sm { height: 75px; }
+    .mob-footer-link {
+        font-family: 'PP Telegraf', sans-serif;
+        font-size: 13px;
+        font-weight: 400;
+        letter-spacing: 0.5em;
+        text-transform: uppercase;
+        color: #3A3A39;
+        text-decoration: none;
+    }
+    .mob-footer-socials { display: flex; gap: 24px; align-items: center; }
+    .mob-footer-socials img { width: 28px; height: 28px; filter: none; }
+    .mob-footer-text {
+        position: relative;
+        z-index: 4;
+        width: 100%;
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 0;
+        padding-bottom: env(safe-area-inset-bottom);
+        margin: 0;
+        line-height: 0;
+    }
+    .mob-footer-clip {
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        line-height: 0;
+    }
+    .mob-footer-word {
+        display: block;
+        height: 80px;
+        width: auto;
+        transform: translateY(110%);
+        transition: transform 1.1s cubic-bezier(0.76,0,0.24,1);
+    }
+    .mob-footer-word.in-view {
+        transform: translateY(0);
     }
 }
 
@@ -560,14 +632,14 @@ document.addEventListener('click', function(e) {
                 <div class="mob-name-line">
                     <img src="./assets/img/federico-mobile.svg" alt="Federico" id="mob-federico" />
                 </div>
+                <div class="mob-name-line">
+                    <img src="./assets/img/vaccarezza-mobile.svg" alt="Vaccarezza" id="mob-vaccarezza" />
+                </div>
                 <div class="mob-photo-wrap" style="display:none;">
                     <div class="mobile-hero-photo">
                         <img class="mob-photo" src="./assets/img/fede-home-mobile.png" alt="Fede" />
                     </div>
                     <div class="mob-photo-mask" id="mob-photo-mask"></div>
-                </div>
-                <div class="mob-name-line">
-                    <img src="./assets/img/vaccarezza-mobile.svg" alt="Vaccarezza" id="mob-vaccarezza" />
                 </div>
             </div>
             <p class="mobile-hero-text" style="display:none;">VISUAL DESIGNER BASED IN TIGRE, ARGENTINA. EDUCATED AT UBA, WITH A BACKGROUND SPANNING BOTH INDUSTRIAL AND GRAPHIC DESIGN.</p>
@@ -763,80 +835,6 @@ document.addEventListener('click', function(e) {
             <div id="footer-bg-orange" style="position:absolute;top:100px;left:0;width:100%;z-index:2;pointer-events:none;"><img src="./assets/img/FOOTERBGORANGE.svg" style="width:100%;height:auto;display:block;" /></div>
             <!-- MOBILE FOOTER -->
             <div class="mob-footer">
-                <style>
-                    @media (max-width: 768px) {
-                        .mob-footer {
-                            display: flex !important;
-                            flex-direction: column;
-                            align-items: center;
-                            width: 100%;
-                            position: relative;
-                            overflow: hidden;
-                            background: transparent;
-                            padding: 0;
-                            box-sizing: border-box;
-                            overflow: visible;
-                        }
-                        .mob-footer-shapes { position: absolute; top: -80px; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 3; overflow: visible; }
-                        .mob-footer-shape-orange { position: absolute; bottom: 0; left: 0; width: 100vw; height: auto; z-index: 0; }
-                        .mob-footer-shape-left  { position: absolute; bottom: 0; left: 0; height: auto; z-index: 1; mix-blend-mode: plus-lighter; }
-                        .mob-footer-shape-right { position: absolute; top: -100px; right: 0; height: auto; z-index: 1; mix-blend-mode: plus-lighter; }
-                        .mob-footer-content {
-                            position: relative;
-                            z-index: 2;
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            gap: 0;
-                            width: 100%;
-                            padding: 60px 0 0;
-                            text-align: center;
-                        }
-                        .mob-footer-links { display: flex; flex-direction: column; align-items: center; gap: 100px; }
-                        .mob-footer-gap { height: 100px; display: block; }
-                        .mob-footer-gap-sm { height: 75px; }
-                        .mob-footer-link {
-                            font-family: 'PP Telegraf', sans-serif;
-                            font-size: 13px;
-                            font-weight: 400;
-                            letter-spacing: 0.5em;
-                            text-transform: uppercase;
-                            color: #3A3A39;
-                            text-decoration: none;
-                        }
-                        .mob-footer-socials { display: flex; gap: 24px; align-items: center; }
-                        .mob-footer-socials img { width: 28px; height: 28px; filter: none; }
-                        .mob-footer-text {
-                            position: relative;
-                            z-index: 4;
-                            width: 100%;
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            gap: 8px;
-                            padding: 0;
-                            padding-bottom: env(safe-area-inset-bottom);
-                            margin: 0;
-                            line-height: 0;
-                        }
-                        .mob-footer-clip {
-                            overflow: hidden;
-                            display: flex;
-                            justify-content: center;
-                            line-height: 0;
-                        }
-                        .mob-footer-word {
-                            display: block;
-                            height: 80px;
-                            width: auto;
-                            transform: translateY(110%);
-                            transition: transform 1.1s cubic-bezier(0.76,0,0.24,1);
-                        }
-                        .mob-footer-word.in-view {
-                            transform: translateY(0);
-                        }
-                    }
-                </style>
                 <!-- Shapes -->
                 <div class="mob-footer-shapes">
                     <img class="mob-footer-shape-orange" src="./assets/img/mobile-footer-orange-shape.svg" alt="" />
@@ -1379,7 +1377,7 @@ if (window.innerWidth <= 768) {
         if (label) label.classList.add('revealed');
         setTimeout(function() { if (fed) fed.classList.add('revealed'); }, 120);
         setTimeout(function() { if (vac) vac.classList.add('revealed'); }, 240);
-        setTimeout(function() { if (mobileText) mobileText.classList.add('revealed'); }, 360);
+        setTimeout(function() { if (mobileText) mobileText.classList.add('revealed'); }, 480);
     }
 
     var preloader = document.getElementById('preloader');
