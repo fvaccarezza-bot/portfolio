@@ -742,7 +742,7 @@ document.addEventListener('click', function(e) {
         <footer id="contact" class="tt-section">
             <div id="footer-bg-orange" style="position:absolute;top:100px;left:0;width:100%;z-index:2;pointer-events:none;"><img src="./assets/img/FOOTERBGORANGE.svg" style="width:100%;height:auto;display:block;" /></div>
             <!-- MOBILE FOOTER -->
-            <div class="mob-footer" style="display:none;">
+            <div class="mob-footer">
                 <style>
                     @media (max-width: 768px) {
                         .mob-footer {
@@ -767,10 +767,14 @@ document.addEventListener('click', function(e) {
                             display: flex;
                             flex-direction: column;
                             align-items: center;
-                            gap: 32px;
+                            gap: 0;
                             width: 100%;
-                            padding: 80px 0 48px;
+                            padding: 60px 0 0;
+                            text-align: center;
                         }
+                        .mob-footer-links { display: flex; flex-direction: column; align-items: center; gap: 32px; }
+                        .mob-footer-gap { height: 100px; }
+                        .mob-footer-gap-sm { height: 75px; }
                         .mob-footer-link {
                             font-family: 'PP Telegraf', sans-serif;
                             font-size: 13px;
@@ -788,7 +792,7 @@ document.addEventListener('click', function(e) {
                             width: 100%;
                             display: flex;
                             flex-direction: column;
-                            align-items: flex-start;
+                            align-items: center;
                             gap: 8px;
                             padding: 0;
                             margin: 0;
@@ -797,6 +801,7 @@ document.addEventListener('click', function(e) {
                         .mob-footer-clip {
                             overflow: hidden;
                             display: flex;
+                            justify-content: center;
                             line-height: 0;
                         }
                         .mob-footer-word {
@@ -819,14 +824,18 @@ document.addEventListener('click', function(e) {
                 </div>
                 <!-- Links + socials -->
                 <div class="mob-footer-content">
-                    <a href="https://calendly.com/fvaccarezza/intro-call" target="_blank" class="mob-footer-link">CALL ME</a>
-                    <a href="mailto:fvaccarezza@gmail.com" class="mob-footer-link">WRITE ME</a>
+                    <div class="mob-footer-links">
+                        <a href="https://calendly.com/fvaccarezza/intro-call" target="_blank" class="mob-footer-link">CALL ME</a>
+                        <a href="mailto:fvaccarezza@gmail.com" class="mob-footer-link">WRITE ME</a>
+                    </div>
+                    <div class="mob-footer-gap"></div>
                     <div class="mob-footer-socials">
                         <a href="https://www.behance.net/Vaccarezza" target="_blank"><img src="./assets/img/social-behance.svg" alt="Behance" /></a>
                         <a href="https://dribbble.com/Vaccarezza" target="_blank"><img src="./assets/img/social-dribble.svg" alt="Dribbble" /></a>
                         <a href="https://www.linkedin.com/in/federico-vaccarezza-38b987255/" target="_blank"><img src="./assets/img/social-linkedin.svg" alt="LinkedIn" /></a>
                         <a href="https://vsco.co/fedevaccarezza/" target="_blank"><img src="./assets/img/social-vsco.svg" alt="VSCO" /></a>
                     </div>
+                    <div class="mob-footer-gap-sm"></div>
                 </div>
                 <!-- LET'S BUILD SOMETHING SVGs -->
                 <div class="mob-footer-text">
