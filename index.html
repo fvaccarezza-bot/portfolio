@@ -781,10 +781,10 @@ document.addEventListener('click', function(e) {
                             box-sizing: border-box;
                             overflow: visible;
                         }
-                        .mob-footer-shapes { position: absolute; top: -80px; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 0; overflow: visible; }
+                        .mob-footer-shapes { position: absolute; top: -80px; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 3; overflow: visible; }
                         .mob-footer-shape-orange { position: absolute; bottom: 0; left: 0; width: 100vw; height: auto; z-index: 0; }
-                        .mob-footer-shape-left  { position: absolute; bottom: 0; left: 0; height: auto; z-index: 1; }
-                        .mob-footer-shape-right { position: absolute; top: 0; right: 0; height: auto; z-index: 1; }
+                        .mob-footer-shape-left  { position: absolute; bottom: 0; left: 0; height: auto; z-index: 1; mix-blend-mode: plus-lighter; }
+                        .mob-footer-shape-right { position: absolute; top: -100px; right: 0; height: auto; z-index: 1; mix-blend-mode: plus-lighter; }
                         .mob-footer-content {
                             position: relative;
                             z-index: 2;
@@ -1479,9 +1479,9 @@ if (window.innerWidth <= 768) {
     // Footer words reveal — staggered on scroll
     var footerClips = document.querySelectorAll('.mob-footer-clip');
     if (footerClips.length) {
-        var footerText = document.querySelector('.mob-footer-text');
+        var footerTrigger = document.querySelector('.mob-footer');
         var footerTriggered = false;
-        if (footerText) {
+        if (footerTrigger) {
             var footerObserver = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
                     if (entry.isIntersecting && !footerTriggered) {
@@ -1490,13 +1490,13 @@ if (window.innerWidth <= 768) {
                             setTimeout(function() {
                                 var word = clip.querySelector('.mob-footer-word');
                                 if (word) word.classList.add('in-view');
-                            }, idx * 80);
+                            }, idx * 120);
                         });
                         footerObserver.disconnect();
                     }
                 });
             }, { threshold: 0.05 });
-            footerObserver.observe(footerText);
+            footerObserver.observe(footerTrigger);
         }
     }
 
