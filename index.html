@@ -868,13 +868,13 @@ document.addEventListener('click', function(e) {
                 @media (max-width: 768px) {
                     /* Mobile footer override */
                     #contact { background: transparent !important; margin-top: 0 !important; overflow: visible !important; padding: 0 !important; min-height: 0 !important; }
-                    #contact .tt-section-inner.tt-wrap { display: none !important; }
+                    #contact .tt-section-inner.tt-wrap { display: none !important; padding: 0 !important; }
+                    #contact .tt-section-inner { padding: 0 !important; margin: 0 !important; }
                     #footer-bg-orange { display: none !important; }
                     .footer-letsbuild { display: none !important; }
+                    .footer-contact-links { display: none !important; }
                     .mob-footer { display: flex !important; }
-                    /* Kill any spacing from sections above footer */
                     #services { margin-bottom: 0 !important; padding-bottom: 0 !important; }
-                    #scroll-container > #content-wrap > footer { margin-top: 0 !important; }
                 }
             </style>
             <div class="tt-section-inner tt-wrap">
@@ -1394,6 +1394,23 @@ if (window.innerWidth <= 768) {
         }, { threshold: 0.0, rootMargin: '0px 0px 0px 0px' });
         phraseClips.forEach(function(clip) {
             phraseWordObserver.observe(clip);
+        });
+    }
+
+    // Footer words reveal
+    var footerClips = document.querySelectorAll('.mob-footer-clip');
+    if (footerClips.length) {
+        var footerWordObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    var word = entry.target.querySelector('.mob-footer-word');
+                    if (word) word.classList.add('in-view');
+                    footerWordObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.0 });
+        footerClips.forEach(function(clip) {
+            footerWordObserver.observe(clip);
         });
     }
 
