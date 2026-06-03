@@ -906,16 +906,16 @@ document.addEventListener('click', function(e) {
                     <div class="mob-footer-gap-sm" style="height:75px;display:block !important;"></div>
                 </div>
                 <!-- LET'S BUILD SOMETHING SVGs -->
-                <div class="mob-footer-text">
+                <div class="mob-footer-text" style="position:relative;z-index:10;">
                     <div class="mob-footer-clip"><img src="./assets/img/mobile-footer-lets.svg" alt="LET'S" class="mob-footer-word" /></div>
                     <div class="mob-footer-clip"><img src="./assets/img/mobile-footer-build.svg" alt="BUILD" class="mob-footer-word" /></div>
                     <div class="mob-footer-clip"><img src="./assets/img/mobile-footer-some.svg" alt="SOME" class="mob-footer-word" /></div>
                     <div class="mob-footer-clip"><img src="./assets/img/mobile-footer-thing.svg" alt="THING" class="mob-footer-word" /></div>
                 </div>
                 <!-- Shapes left y right encima del contenido -->
-                <div style="position:absolute;top:-80px;left:0;right:0;bottom:0;pointer-events:none;overflow:visible;">
-                    <img src="./assets/img/mobile-footer-left-shape.svg" alt="" style="position:absolute;bottom:0;left:0;height:auto;mix-blend-mode:plus-lighter;" />
-                    <img src="./assets/img/mobile-footer-right-shape.svg" alt="" style="position:absolute;top:-100px;right:0;height:auto;mix-blend-mode:plus-lighter;" />
+                <div style="position:absolute;top:-80px;left:0;right:0;bottom:0;pointer-events:none;overflow:visible;z-index:5;">
+                    <img id="footer-shape-left" src="./assets/img/mobile-footer-left-shape.svg" alt="" style="position:absolute;bottom:0;left:0;height:auto;filter:brightness(0) saturate(100%) invert(87%) sepia(93%) saturate(600%) hue-rotate(1deg) brightness(103%);" />
+                    <img id="footer-shape-right" src="./assets/img/mobile-footer-right-shape.svg" alt="" style="position:absolute;top:-100px;right:0;height:auto;filter:brightness(0) saturate(100%) invert(87%) sepia(93%) saturate(600%) hue-rotate(1deg) brightness(103%);" />
                 </div>
             </div>
             <style>
@@ -1609,6 +1609,24 @@ if (window.innerWidth <= 768) {
             var centerOffset = (rect.top + rect.height / 2) - (window.innerHeight / 2);
             var parallaxY = centerOffset * 0.06;
             tagComplete.style.transform = 'translateY(' + parallaxY + 'px)';
+        }, { passive: true });
+    }
+
+    // Parallax leve en shapes del footer
+    var shapeLeft = document.getElementById('footer-shape-left');
+    var shapeRight = document.getElementById('footer-shape-right');
+    if (shapeLeft || shapeRight) {
+        window.addEventListener('scroll', function() {
+            if (shapeLeft) {
+                var rectL = shapeLeft.getBoundingClientRect();
+                var offsetL = (rectL.top + rectL.height / 2) - (window.innerHeight / 2);
+                shapeLeft.style.transform = 'translateY(' + (offsetL * 0.05) + 'px)';
+            }
+            if (shapeRight) {
+                var rectR = shapeRight.getBoundingClientRect();
+                var offsetR = (rectR.top + rectR.height / 2) - (window.innerHeight / 2);
+                shapeRight.style.transform = 'translateY(' + (offsetR * -0.05) + 'px)';
+            }
         }, { passive: true });
     }
 }
