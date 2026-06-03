@@ -1025,21 +1025,25 @@ window.addEventListener('load', () => {
             });
         }
 
-        // Letter orange trail on hover — desktop only
+        // Staggered breathe on name hover — desktop only
         if (window.innerWidth > 768) {
-            const allLetters = document.querySelectorAll('#line-federico .name-letter, #line-vaccarezza .name-letter');
-            allLetters.forEach((letter, i) => {
-                letter.style.transition = 'filter 0.15s ease';
-                letter.addEventListener('mouseenter', () => {
-                    letter.style.filter = 'brightness(0) saturate(100%) invert(45%) sepia(99%) saturate(700%) hue-rotate(1deg) brightness(103%)';
-                    letter.style.transition = 'filter 0.08s ease';
-                    // Return to normal with delay — staggered trail
-                    setTimeout(() => {
-                        letter.style.filter = 'none';
-                        letter.style.transition = 'filter 0.6s ease';
-                    }, 320);
+            const heroName = document.getElementById('hero-name-link');
+            if (heroName) {
+                heroName.addEventListener('mouseenter', () => {
+                    const letters = document.querySelectorAll('#line-federico .name-letter, #line-vaccarezza .name-letter');
+                    letters.forEach((letter, i) => {
+                        setTimeout(() => {
+                            letter.style.transition = 'transform 0.35s cubic-bezier(0.34,1.6,0.64,1)';
+                            const current = new DOMMatrix(getComputedStyle(letter).transform);
+                            letter.style.transform = `translateY(${current.f - 6}px) scale(1.06)`;
+                            setTimeout(() => {
+                                letter.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)';
+                                letter.style.transform = `translateY(${current.f}px) scale(1)`;
+                            }, 220);
+                        }, i * 28);
+                    });
                 });
-            });
+            }
         }
 
         (function() {
