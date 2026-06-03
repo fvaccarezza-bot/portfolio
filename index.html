@@ -741,26 +741,79 @@ document.addEventListener('click', function(e) {
         <footer id="contact" class="tt-section">
             <div id="footer-bg-orange" style="position:absolute;top:100px;left:0;width:100%;z-index:2;pointer-events:none;"><img src="./assets/img/FOOTERBGORANGE.svg" style="width:100%;height:auto;display:block;" /></div>
             <!-- MOBILE FOOTER -->
-            <div class="mob-footer" style="display:none; flex-direction:column; align-items:center; width:100%; position:relative; overflow:hidden; background:#FF6600; padding: 80px 0 0;">
-                <!-- Background shapes -->
-                <img src="./assets/img/mobile-footer-orange-shape.svg" alt="" style="position:absolute;bottom:0;left:0;width:100vw;height:auto;pointer-events:none;z-index:0;" />
-                <img src="./assets/img/mobile-footer-left-shape.svg" alt="" style="position:absolute;bottom:0;left:0;width:50vw;height:auto;pointer-events:none;z-index:1;" />
-                <img src="./assets/img/mobile-footer-right-shape.svg" alt="" style="position:absolute;bottom:400px;right:0;width:50vw;height:auto;pointer-events:none;z-index:1;" />
-                <!-- Content -->
-                <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:32px;width:100%;padding-bottom:60px;">
-                    <a href="https://calendly.com/fvaccarezza/intro-call" target="_blank" style="font-family:'PP Telegraf',sans-serif;font-size:13px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#fff;text-decoration:none;">CALL ME</a>
-                    <a href="mailto:fvaccarezza@gmail.com" style="font-family:'PP Telegraf',sans-serif;font-size:13px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#fff;text-decoration:none;">WRITE ME</a>
-                    <div style="display:flex;gap:24px;align-items:center;">
-                        <a href="https://www.behance.net/Vaccarezza" target="_blank"><img src="./assets/img/social-behance.svg" alt="Behance" style="width:28px;height:28px;filter:brightness(0) invert(1);" /></a>
-                        <a href="https://dribbble.com/Vaccarezza" target="_blank"><img src="./assets/img/social-dribble.svg" alt="Dribbble" style="width:28px;height:28px;filter:brightness(0) invert(1);" /></a>
-                        <a href="https://www.linkedin.com/in/federico-vaccarezza-38b987255/" target="_blank"><img src="./assets/img/social-linkedin.svg" alt="LinkedIn" style="width:28px;height:28px;filter:brightness(0) invert(1);" /></a>
-                        <a href="https://vsco.co/fedevaccarezza/" target="_blank"><img src="./assets/img/social-vsco.svg" alt="VSCO" style="width:28px;height:28px;filter:brightness(0) invert(1);" /></a>
+            <div class="mob-footer" style="display:none;">
+                <style>
+                    @media (max-width: 768px) {
+                        .mob-footer {
+                            display: flex !important;
+                            flex-direction: column;
+                            align-items: center;
+                            width: 100%;
+                            position: relative;
+                            overflow: hidden;
+                            background: #FF6600;
+                            padding: 80px 0 0;
+                        }
+                        .mob-footer-shapes { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+                        .mob-footer-shape-orange { position: absolute; bottom: 0; left: 0; width: 100%; height: auto; }
+                        .mob-footer-shape-left  { position: absolute; bottom: 0; left: 0; width: 55vw; height: auto; }
+                        .mob-footer-shape-right { position: absolute; top: 0; right: 0; width: 55vw; height: auto; }
+                        .mob-footer-content {
+                            position: relative;
+                            z-index: 2;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            gap: 32px;
+                            width: 100%;
+                            padding: 0 0 64px;
+                        }
+                        .mob-footer-link {
+                            font-family: 'PP Telegraf', sans-serif;
+                            font-size: 13px;
+                            font-weight: 400;
+                            letter-spacing: 0.5em;
+                            text-transform: uppercase;
+                            color: #fff;
+                            text-decoration: none;
+                        }
+                        .mob-footer-socials { display: flex; gap: 24px; align-items: center; }
+                        .mob-footer-socials img { width: 28px; height: 28px; filter: brightness(0) invert(1); }
+                        .mob-footer-text {
+                            position: relative;
+                            z-index: 2;
+                            width: 100%;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            gap: 8px;
+                        }
+                        .mob-footer-text img { width: 100%; height: auto; display: block; }
+                    }
+                </style>
+                <!-- Shapes -->
+                <div class="mob-footer-shapes">
+                    <img class="mob-footer-shape-orange" src="./assets/img/mobile-footer-orange-shape.svg" alt="" />
+                    <img class="mob-footer-shape-left"   src="./assets/img/mobile-footer-left-shape.svg" alt="" />
+                    <img class="mob-footer-shape-right"  src="./assets/img/mobile-footer-right-shape.svg" alt="" />
+                </div>
+                <!-- Links + socials -->
+                <div class="mob-footer-content">
+                    <a href="https://calendly.com/fvaccarezza/intro-call" target="_blank" class="mob-footer-link">CALL ME</a>
+                    <a href="mailto:fvaccarezza@gmail.com" class="mob-footer-link">WRITE ME</a>
+                    <div class="mob-footer-socials">
+                        <a href="https://www.behance.net/Vaccarezza" target="_blank"><img src="./assets/img/social-behance.svg" alt="Behance" /></a>
+                        <a href="https://dribbble.com/Vaccarezza" target="_blank"><img src="./assets/img/social-dribble.svg" alt="Dribbble" /></a>
+                        <a href="https://www.linkedin.com/in/federico-vaccarezza-38b987255/" target="_blank"><img src="./assets/img/social-linkedin.svg" alt="LinkedIn" /></a>
+                        <a href="https://vsco.co/fedevaccarezza/" target="_blank"><img src="./assets/img/social-vsco.svg" alt="VSCO" /></a>
                     </div>
                 </div>
-                <!-- LET'S BUILD SOMETHING -->
-                <div style="position:relative;z-index:2;width:100%;text-align:center;line-height:0;">
-                    <img src="./assets/img/LETSBUILD.svg" alt="LET'S BUILD" style="width:100%;height:auto;display:block;filter:brightness(0) saturate(100%)" />
-                    <img src="./assets/img/SOMETHING.svg" alt="SOMETHING" style="width:100%;height:auto;display:block;filter:brightness(0) saturate(100%)" />
+                <!-- LET'S BUILD SOMETHING SVGs -->
+                <div class="mob-footer-text">
+                    <img src="./assets/img/mobile-footer-lets.svg" alt="LET'S" />
+                    <img src="./assets/img/mobile-footer-build.svg" alt="BUILD" />
+                    <img src="./assets/img/mobile-footer-some.svg" alt="SOME" />
+                    <img src="./assets/img/mobile-footer-thing.svg" alt="THING" />
                 </div>
             </div>
             <style>
