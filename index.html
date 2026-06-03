@@ -5,7 +5,7 @@
 <meta charset="utf-8" />
 <meta name="Graphic Designer" content="I'm based in Tigre, Argentina, and I spent several years studying at the University of Buenos Aires (UBA), switching from industrial to graphic design." />
 <meta name="Federico Vaccarezza" content="fvaccarezza.com" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover" />
 <script>
 (function() {
 if (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)) return;
@@ -818,6 +818,7 @@ document.addEventListener('click', function(e) {
                             align-items: center;
                             gap: 8px;
                             padding: 0;
+                            padding-bottom: env(safe-area-inset-bottom);
                             margin: 0;
                             line-height: 0;
                         }
