@@ -751,11 +751,12 @@ document.addEventListener('click', function(e) {
                             width: 100%;
                             position: relative;
                             overflow: hidden;
-                            background: #FF6600;
+                            background: transparent;
                             padding: 80px 0 0;
+                            box-sizing: border-box;
                         }
                         .mob-footer-shapes { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
-                        .mob-footer-shape-orange { position: absolute; bottom: 0; left: 0; width: 100%; height: auto; }
+                        .mob-footer-shape-orange { position: absolute; bottom: 0; left: 0; width: 100vw; height: auto; }
                         .mob-footer-shape-left  { position: absolute; bottom: 0; left: 0; width: 55vw; height: auto; }
                         .mob-footer-shape-right { position: absolute; top: 0; right: 0; width: 55vw; height: auto; }
                         .mob-footer-content {
@@ -766,7 +767,7 @@ document.addEventListener('click', function(e) {
                             align-items: center;
                             gap: 32px;
                             width: 100%;
-                            padding: 0 0 64px;
+                            padding: 0 0 48px;
                         }
                         .mob-footer-link {
                             font-family: 'PP Telegraf', sans-serif;
@@ -785,10 +786,13 @@ document.addEventListener('click', function(e) {
                             width: 100%;
                             display: flex;
                             flex-direction: column;
-                            align-items: center;
+                            align-items: flex-start;
                             gap: 8px;
+                            padding: 0;
+                            margin: 0;
+                            line-height: 0;
                         }
-                        .mob-footer-text img { width: 100%; height: auto; display: block; }
+                        .mob-footer-text img { width: 100%; height: auto; display: block; max-width: 100%; }
                     }
                 </style>
                 <!-- Shapes -->
@@ -862,7 +866,7 @@ document.addEventListener('click', function(e) {
                 }
                 @media (max-width: 768px) {
                     /* Mobile footer override */
-                    #contact { background: #FF6600 !important; margin-top: 0 !important; overflow: hidden !important; position: relative; }
+                    #contact { background: transparent !important; margin-top: 0 !important; overflow: visible !important; }
                     #contact .tt-section-inner.tt-wrap { display: none !important; }
                     #footer-bg-orange { display: none !important; }
                     .footer-letsbuild { display: none !important; }
