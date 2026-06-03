@@ -752,13 +752,14 @@ document.addEventListener('click', function(e) {
                             position: relative;
                             overflow: hidden;
                             background: transparent;
-                            padding: 60px 0 0;
+                            padding: 0;
                             box-sizing: border-box;
+                            overflow: visible;
                         }
-                        .mob-footer-shapes { position: absolute; inset: 0; pointer-events: none; z-index: 0; overflow: visible; }
-                        .mob-footer-shape-orange { position: absolute; bottom: 0; left: 0; width: 100vw; height: auto; }
-                        .mob-footer-shape-left  { position: absolute; bottom: 0; left: -10vw; width: 70vw; height: auto; }
-                        .mob-footer-shape-right { position: absolute; top: -20px; right: -10vw; width: 60vw; height: auto; }
+                        .mob-footer-shapes { position: absolute; top: -80px; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 0; overflow: visible; }
+                        .mob-footer-shape-orange { position: absolute; bottom: 0; left: 0; width: 100vw; height: auto; z-index: 0; }
+                        .mob-footer-shape-left  { position: absolute; bottom: 0; left: -10vw; width: 70vw; height: auto; z-index: 1; }
+                        .mob-footer-shape-right { position: absolute; top: -60px; right: -10vw; width: 60vw; height: auto; z-index: 1; }
                         .mob-footer-content {
                             position: relative;
                             z-index: 2;
@@ -767,7 +768,7 @@ document.addEventListener('click', function(e) {
                             align-items: center;
                             gap: 32px;
                             width: 100%;
-                            padding: 0 0 48px;
+                            padding: 80px 0 48px;
                         }
                         .mob-footer-link {
                             font-family: 'PP Telegraf', sans-serif;
@@ -866,11 +867,14 @@ document.addEventListener('click', function(e) {
                 }
                 @media (max-width: 768px) {
                     /* Mobile footer override */
-                    #contact { background: transparent !important; margin-top: 0 !important; overflow: visible !important; padding: 0 !important; }
+                    #contact { background: transparent !important; margin-top: 0 !important; overflow: visible !important; padding: 0 !important; min-height: 0 !important; }
                     #contact .tt-section-inner.tt-wrap { display: none !important; }
                     #footer-bg-orange { display: none !important; }
                     .footer-letsbuild { display: none !important; }
                     .mob-footer { display: flex !important; }
+                    /* Kill any spacing from sections above footer */
+                    #services { margin-bottom: 0 !important; padding-bottom: 0 !important; }
+                    #scroll-container > #content-wrap > footer { margin-top: 0 !important; }
                 }
             </style>
             <div class="tt-section-inner tt-wrap">
@@ -1410,7 +1414,7 @@ if (window.innerWidth <= 768) {
         window.addEventListener('scroll', function() {
             var rect = tagComplete.getBoundingClientRect();
             var centerOffset = (rect.top + rect.height / 2) - (window.innerHeight / 2);
-            var parallaxY = centerOffset * 0.12;
+            var parallaxY = centerOffset * 0.06;
             tagComplete.style.transform = 'translateY(' + parallaxY + 'px)';
         }, { passive: true });
     }
