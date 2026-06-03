@@ -235,7 +235,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .uiux-label { display: none !important; }
 
     .services-big { display: none !important; }
-    .mobile-frase { display: block !important; }
     .mob-services-phrase {
         display: flex;
         flex-direction: column;
@@ -262,7 +261,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 
     .services-btns-row { display: none !important; }
     /* Ocultar trusted by en mobile */
-    #services .tt-row { display: none !important; }
+    #services .tt-row:first-of-type { display: none !important; }
 
     .words-container { overflow: visible !important; }
     .words-container .carousel,
@@ -321,7 +320,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 @media (min-width: 769px) {
     .card .meta .meta-name,
     .card .meta .meta-num { display: none !important; }
-    .mobile-frase { display: none !important; }
+    .mob-services-phrase { display: none !important; }
     .card .meta p:last-of-type { font-family: 'PP Telegraf', sans-serif !important; font-weight: 700 !important; }
     /* Remove noise-fill hover on hola! and featured works */
     #title-hola.noise-fill-hover, #title-hola.noise-fill-hover:hover,
@@ -638,17 +637,15 @@ document.addEventListener('click', function(e) {
                         .sb-tag { display: none; }
                     }
                 </style>
-                <div class="mobile-frase" style="display:none;">
-                    <div class="mob-services-phrase">
-                        <div class="mob-phrase-clip"><img src="./assets/img/serivces-help.svg" class="mob-phrase-word" alt="" /></div>
-                        <div class="mob-phrase-clip"><img src="./assets/img/serivces-ing.svg" class="mob-phrase-word" alt="" /></div>
-                        <div class="mob-phrase-clip"><img src="./assets/img/serivces-you.svg" class="mob-phrase-word" alt="" /></div>
-                        <div class="mob-phrase-clip"><img src="./assets/img/serivces-rise.svg" class="mob-phrase-word" alt="" /></div>
-                        <div class="mob-phrase-clip"><img src="./assets/img/serivces-above.svg" class="mob-phrase-word" alt="" /></div>
-                        <div class="mob-phrase-clip"><img src="./assets/img/serivces-the.svg" class="mob-phrase-word" alt="" /></div>
-                        <div class="mob-phrase-clip"><img src="./assets/img/serivces-curr.svg" class="mob-phrase-word" alt="" /></div>
-                        <div class="mob-phrase-clip"><img src="./assets/img/serivces-ent.svg" class="mob-phrase-word" alt="" /></div>
-                    </div>
+                <div class="mob-services-phrase">
+                    <div class="mob-phrase-clip"><img src="./assets/img/serivces-help.svg" class="mob-phrase-word" alt="" /></div>
+                    <div class="mob-phrase-clip"><img src="./assets/img/serivces-ing.svg" class="mob-phrase-word" alt="" /></div>
+                    <div class="mob-phrase-clip"><img src="./assets/img/serivces-you.svg" class="mob-phrase-word" alt="" /></div>
+                    <div class="mob-phrase-clip"><img src="./assets/img/serivces-rise.svg" class="mob-phrase-word" alt="" /></div>
+                    <div class="mob-phrase-clip"><img src="./assets/img/serivces-above.svg" class="mob-phrase-word" alt="" /></div>
+                    <div class="mob-phrase-clip"><img src="./assets/img/serivces-the.svg" class="mob-phrase-word" alt="" /></div>
+                    <div class="mob-phrase-clip"><img src="./assets/img/serivces-curr.svg" class="mob-phrase-word" alt="" /></div>
+                    <div class="mob-phrase-clip"><img src="./assets/img/serivces-ent.svg" class="mob-phrase-word" alt="" /></div>
                 </div>
                 <div class="services-big">
                     <img class="sb-line1" src="./assets/img/services-1.svg" alt="" />
@@ -1254,10 +1251,6 @@ if (window.innerWidth <= 768) {
         card.style.transitionDelay = (i * 0.06) + 's';
         observer.observe(card);
     });
-
-    // Show mobile-frase so observer can detect it
-    var mobileFrase = document.querySelector('.mobile-frase');
-    if (mobileFrase) mobileFrase.style.display = 'block';
 
     // Phrase words staggered reveal on scroll
     var phraseWords = document.querySelectorAll('.mob-phrase-word');
