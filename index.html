@@ -265,7 +265,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     }
     .mob-phrase-tags-overlay {
         position: absolute;
-        top: calc(4 * (65px + 15px) - 15px);
+        top: calc(4 * (65px + 15px) - 55px);
         left: 50%;
         transform: translateX(-50%);
         width: 92vw;
@@ -277,8 +277,12 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         display: block;
         width: 100%;
         height: auto;
-        opacity: 0.001;
+        opacity: 0;
+        will-change: opacity;
         transition: opacity 1.2s cubic-bezier(0.25,0.46,0.45,0.94);
+        /* force compositing layer so blend mode is active before fade */
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
     }
     .mob-tag-complete.in-view {
         opacity: 1;
