@@ -256,7 +256,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         justify-content: center;
         width: 92vw;
         max-width: 340px;
-        /* observer watches clip, not word */
     }
     .mob-phrase-word {
         display: block;
@@ -285,7 +284,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         opacity: 0;
         will-change: opacity;
         transition: opacity 1.2s cubic-bezier(0.25,0.46,0.45,0.94);
-        /* force compositing layer so blend mode is active before fade */
         transform: translateZ(0);
         -webkit-transform: translateZ(0);
     }
@@ -294,7 +292,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     }
 
     .services-btns-row { display: none !important; }
-    /* Ocultar trusted by en mobile */
     #services .tt-row:first-of-type { display: none !important; }
 
     .words-container { overflow: visible !important; }
@@ -358,7 +355,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .mob-services-phrase { display: none !important; }
     .mob-footer, .mob-footer-text { display: none !important; }
     .card .meta p:last-of-type { font-family: 'PP Telegraf', sans-serif !important; font-weight: 700 !important; }
-    /* Remove noise-fill hover on hola! and featured works */
     #title-hola.noise-fill-hover, #title-hola.noise-fill-hover:hover,
     #title-works.noise-fill-hover, #title-works.noise-fill-hover:hover {
         -webkit-text-stroke: 0 !important;
@@ -372,7 +368,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 }
 
 @media (max-width: 768px) {
-    /* Kill responsive.css padding on footer */
     #contact,
     #contact.tt-section,
     footer#contact,
@@ -705,7 +700,6 @@ document.addEventListener('click', function(e) {
                     <div class="mob-phrase-clip"><img src="./assets/img/serivces-the.svg" class="mob-phrase-word" alt="" /></div>
                     <div class="mob-phrase-clip"><img src="./assets/img/serivces-curr.svg" class="mob-phrase-word" alt="" /></div>
                     <div class="mob-phrase-clip"><img src="./assets/img/serivces-ent.svg" class="mob-phrase-word" alt="" /></div>
-                    <!-- Tags overlay — fade in near end of phrase -->
                     <div class="mob-phrase-tags-overlay">
                         <img src="./assets/img/services-tag-complete.svg" class="mob-tag-complete" alt="" />
                     </div>
@@ -866,10 +860,10 @@ document.addEventListener('click', function(e) {
                 </div>
                 <!-- LET'S BUILD SOMETHING SVGs -->
                 <div class="mob-footer-text">
-                    <img src="./assets/img/mobile-footer-lets.svg" alt="LET'S" />
-                    <img src="./assets/img/mobile-footer-build.svg" alt="BUILD" />
-                    <img src="./assets/img/mobile-footer-some.svg" alt="SOME" />
-                    <img src="./assets/img/mobile-footer-thing.svg" alt="THING" />
+                    <div class="mob-footer-clip"><img src="./assets/img/mobile-footer-lets.svg" alt="LET'S" class="mob-footer-word" /></div>
+                    <div class="mob-footer-clip"><img src="./assets/img/mobile-footer-build.svg" alt="BUILD" class="mob-footer-word" /></div>
+                    <div class="mob-footer-clip"><img src="./assets/img/mobile-footer-some.svg" alt="SOME" class="mob-footer-word" /></div>
+                    <div class="mob-footer-clip"><img src="./assets/img/mobile-footer-thing.svg" alt="THING" class="mob-footer-word" /></div>
                 </div>
             </div>
             <style>
@@ -917,7 +911,6 @@ document.addEventListener('click', function(e) {
                     .tt-section-inner.tt-wrap { padding-top: 180px; }
                 }
                 @media (max-width: 768px) {
-                    /* Mobile footer override */
                     #contact,
                     #contact.tt-section,
                     footer#contact,
@@ -1162,8 +1155,6 @@ window.addEventListener('load', () => {
             });
         });
 
-        // services follow image removed
-
         document.querySelectorAll('.services-grid-item').forEach(item => {
             item.addEventListener('mousemove', (e) => {
                 const rect = item.getBoundingClientRect();
@@ -1199,12 +1190,10 @@ window.addEventListener('load', () => {
             a.innerHTML = '<span class="ol-roll-wrap"><span class="ol-brace ol-brace-l">[</span><span class="ol-roll-text"><span>' + text + '</span><span>' + text + '</span></span><span class="ol-brace ol-brace-r">]</span></span>';
         });
 
-        // Trusted by logos — orange on hover + magnet + scale (delegated for cloned nodes)
         (function() {
             const container = document.querySelector('.trusted-container');
             if (!container) return;
 
-            // Inject base style for all current and future imgs
             const styleTag = document.createElement('style');
             styleTag.textContent = '.trusted-track img { cursor: default; }';
             document.head.appendChild(styleTag);
@@ -1307,7 +1296,6 @@ window.addEventListener('load', () => {
             });
         }
 
-        // Wave breathe on name hover — whole rows, desktop only
         if (window.innerWidth > 768) {
             const heroCaption = document.querySelector('.ph-caption-hover');
             if (heroCaption) {
@@ -1481,25 +1469,24 @@ if (window.innerWidth <= 768) {
     // Footer words reveal — staggered on scroll
     var footerClips = document.querySelectorAll('.mob-footer-clip');
     if (footerClips.length) {
-        var footerTrigger = document.querySelector('.mob-footer');
         var footerTriggered = false;
-        if (footerTrigger) {
-            var footerObserver = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting && !footerTriggered) {
-                        footerTriggered = true;
-                        footerClips.forEach(function(clip, idx) {
-                            setTimeout(function() {
-                                var word = clip.querySelector('.mob-footer-word');
-                                if (word) word.classList.add('in-view');
-                            }, idx * 120);
-                        });
-                        footerObserver.disconnect();
-                    }
-                });
-            }, { threshold: 0.05 });
-            footerObserver.observe(footerTrigger);
-        }
+        var footerObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting && !footerTriggered) {
+                    footerTriggered = true;
+                    footerClips.forEach(function(clip, idx) {
+                        setTimeout(function() {
+                            var word = clip.querySelector('.mob-footer-word');
+                            if (word) word.classList.add('in-view');
+                        }, idx * 120);
+                    });
+                    footerObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.05 });
+        footerClips.forEach(function(clip) {
+            footerObserver.observe(clip);
+        });
     }
 
     // Fade in services-tag-complete when near end of phrase SVGs
@@ -1515,7 +1502,7 @@ if (window.innerWidth <= 768) {
         }, { threshold: 0.3 });
         tagObserver.observe(tagComplete);
 
-        // Parallax float — centered in viewport = natural, otherwise drifts
+        // Parallax float
         window.addEventListener('scroll', function() {
             var rect = tagComplete.getBoundingClientRect();
             var centerOffset = (rect.top + rect.height / 2) - (window.innerHeight / 2);
