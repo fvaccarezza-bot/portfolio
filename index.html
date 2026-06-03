@@ -69,34 +69,31 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .ph-caption-hover:hover .min-titles:last-child { transform:translateY(-6px); }
 /* ── DESKTOP HERO ─────────────────────────────────────────────────────── */
 @media (min-width: 769px) {
-    #page-header { overflow: hidden; }
+    /* Allow hero to breathe full width */
+    #page-header { overflow: visible; }
+    #page-header .page-header-inner.tt-wrap { max-width: 100% !important; padding: 0 !important; }
+
     .dh-wrap {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        padding-top: 100px;
+        padding-top: 110px;
         padding-bottom: 60px;
-        gap: 0;
+        gap: 36px;
         width: 100%;
-        overflow: hidden;
     }
-    /* Each row clips its children for reveal */
+
+    .dh-row { display: flex; align-items: center; justify-content: center; width: 100%; }
+
+    /* Clip wrappers for reveal animation */
     .dh-name-clip { overflow: hidden; display: flex; }
     .dh-label-clip { overflow: hidden; display: flex; }
     .dh-photo-clip { overflow: hidden; display: flex; justify-content: center; }
     .dh-bio-clip   { overflow: hidden; display: flex; justify-content: center; }
 
-    /* Row layout */
-    .dh-row { display: flex; align-items: center; justify-content: center; width: 100%; }
-
-    /* PORTFOLIO label — sits above FEDERICO, left-aligned relative to name */
-    .dh-top {
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-    }
-    .dh-top .dh-label-clip { align-self: flex-start; margin-left: 2px; }
+    /* PORTFOLIO – above FEDERICO, left-aligned to name edge */
+    .dh-top { flex-direction: column; align-items: center; gap: 0; }
+    .dh-top > div { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
 
     /* Name lines */
     .dh-name {
@@ -106,36 +103,28 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         transform: translateY(110%);
         will-change: transform;
     }
-    .dh-name .name-letter { height: 143px; width: auto; }
+    .dh-name .name-letter { height: 143px; width: auto; display: block; }
 
-    /* Photo row */
-    .dh-mid { margin: 16px 0; }
+    /* Photo — no hover effect, static size */
+    .dh-mid { margin: 0; }
     .dh-photo-wrap {
-        width: 200px;
-        height: 108px;
+        width: 605px;
+        height: 325px;
         overflow: hidden;
-        border-radius: 8px;
+        border-radius: 12px;
         transform: translateY(110%);
-        will-change: transform, width, height;
-        transition: width 0.7s cubic-bezier(0.76,0,0.24,1),
-                    height 0.7s cubic-bezier(0.76,0,0.24,1),
-                    border-radius 0.7s ease;
-        cursor: pointer;
+        will-change: transform;
     }
-    .dh-photo-wrap:hover { width: 605px; height: 325px; border-radius: 12px; }
     #dh-photo {
-        width: 100%; height: 100%; object-fit: cover; display: block;
-        transition: transform 0.7s cubic-bezier(0.76,0,0.24,1);
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
     }
-    .dh-photo-wrap:hover #dh-photo { transform: scale(1.04); }
 
-    /* VACCAREZZA + 2026 row */
-    .dh-bot {
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-    }
-    .dh-bot .dh-label-clip { align-self: flex-end; margin-right: 2px; }
+    /* VACCAREZZA + 2026 below, right-aligned */
+    .dh-bot { flex-direction: column; align-items: center; gap: 0; }
+    .dh-bot > div { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
 
     /* Labels */
     .dh-label {
@@ -150,7 +139,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     }
 
     /* Bio */
-    .dh-text-row { margin-top: 40px; }
+    .dh-text-row { margin: 0; }
     .dh-bio {
         font-family: 'PP Telegraf', sans-serif;
         font-size: 11px;
@@ -166,12 +155,11 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         width: 100%;
     }
 
-    /* Wave transitions */
-    #dh-federico  { transition: transform 0.6s cubic-bezier(0.34,1.2,0.64,1); }
-    #dh-vaccarezza{ transition: transform 0.6s cubic-bezier(0.34,1.2,0.64,1); }
-    #dh-portfolio { transition: transform 0.6s cubic-bezier(0.34,1.2,0.64,1); }
-    #dh-2026      { transition: transform 0.6s cubic-bezier(0.34,1.2,0.64,1); }
-    #dh-bio       { transition: transform 0.6s cubic-bezier(0.34,1.2,0.64,1) 0.05s; }
+    /* Reveal transitions */
+    #dh-federico, #dh-vaccarezza, #dh-portfolio, #dh-2026, #dh-bio {
+        transition: transform 0.7s cubic-bezier(0.34,1.2,0.64,1);
+    }
+    .dh-photo-wrap { transition: transform 0.7s cubic-bezier(0.34,1.2,0.64,1); }
 
     /* hide old hero elements */
     .ph-caption .min-titles { display: none; }
@@ -1007,21 +995,7 @@ window.addEventListener('load', () => {
                 setTimeout(dhReveal, 400);
             }
 
-            // ── WAVE on photo hover ─────────────────────────────────────────
-            const photoWrap = document.getElementById('dh-photo-wrap');
-            if (photoWrap) {
-                photoWrap.addEventListener('mouseenter', () => {
-                    gsap.to('#dh-federico',  { y: -22, duration: 0.55, ease: 'power2.out' });
-                    gsap.to('#dh-portfolio', { y: -10, duration: 0.55, ease: 'power2.out', delay: 0.04 });
-                    gsap.to('#dh-vaccarezza',{ y: 22,  duration: 0.55, ease: 'power2.out', delay: 0.02 });
-                    gsap.to('#dh-2026',      { y: 10,  duration: 0.55, ease: 'power2.out', delay: 0.06 });
-                    gsap.to('#dh-bio',       { y: 10,  duration: 0.55, ease: 'power2.out', delay: 0.08 });
-                });
-                photoWrap.addEventListener('mouseleave', () => {
-                    gsap.to(['#dh-federico','#dh-portfolio','#dh-vaccarezza','#dh-2026','#dh-bio'],
-                        { y: 0, duration: 0.7, ease: 'power3.out', stagger: 0.03 });
-                });
-            }
+            // hover wave removed
         }
 
         gsap.fromTo('.ph-caption-title',
@@ -1109,25 +1083,7 @@ window.addEventListener('load', () => {
             });
         });
 
-        (function() {
-            const img = document.createElement('img');
-            img.id = 'services-follow-img';
-            img.src = './assets/home/frogbazar.jpg';
-            document.body.appendChild(img);
-            let fx = 0, fy = 0, tx = 0, ty = 0;
-            (function animate() {
-                fx += (tx - fx) * 0.1;
-                fy += (ty - fy) * 0.1;
-                img.style.transform = 'translate(calc(' + fx + 'px + 20px), calc(' + fy + 'px - 80%)'+')';
-                requestAnimationFrame(animate);
-            })();
-            document.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; });
-            const grid = document.querySelector('.services-grid');
-            if (grid) {
-                grid.addEventListener('mouseenter', () => { img.style.opacity = '1'; });
-                grid.addEventListener('mouseleave', () => { img.style.opacity = '0'; });
-            }
-        })();
+        // services follow image removed
 
         document.querySelectorAll('.services-grid-item').forEach(item => {
             item.addEventListener('mousemove', (e) => {
