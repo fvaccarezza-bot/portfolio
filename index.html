@@ -81,7 +81,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         display: flex !important;
         flex-direction: column;
         align-items: center;
-        padding: 100px 0 0;
+        padding: 75px 0 0;
         gap: 16px;
         text-align: center;
         width: 100%;
@@ -260,7 +260,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .mob-phrase-word {
         display: block;
         width: auto;
-        height: 80px;
+        height: auto;
+        max-width: 340px;
         transform: translateY(110%);
         transition: transform 1.1s cubic-bezier(0.76,0,0.24,1);
     }
@@ -518,7 +519,7 @@ document.addEventListener('click', function(e) {
 </div>
 <div class="fx-cursor" aria-hidden="true"></div>
 <div id="scroll-container">
-    <div id="logo-header" class="tt-logo logo-home mob-ok outside-menu">
+    <div id="logo-header" class="tt-logo logo-home mob-ok outside-menu" style="display:none !important;">
         <a href="#page-header" id="main-logo" data-offset="0">
             <img src="./assets/img/fv-logo-vector.svg" alt="" />
             <img src="./assets/img/fv-logo.svg" alt="" />
