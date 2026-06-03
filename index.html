@@ -93,6 +93,15 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         text-transform: uppercase;
         margin: 0;
         color: var(--color-fede-fv, #3A3A39);
+        overflow: hidden;
+    }
+    .mobile-hero-portfolio-label-inner {
+        display: block;
+        transform: translateY(110%);
+        transition: transform 0.9s cubic-bezier(0.76,0,0.24,1);
+    }
+    .mobile-hero-portfolio-label-inner.revealed {
+        transform: translateY(0);
     }
     .mobile-hero .mob-name-line {
         overflow: hidden;
@@ -454,7 +463,7 @@ document.addEventListener('click', function(e) {
         <div id="page-content">
             <!-- MOBILE HERO (solo visible en mobile) -->
             <div class="mobile-hero" style="display:none;">
-                <span class="mobile-hero-portfolio-label" style="display:none;">PORTFOLIO – 2026</span>
+                <span class="mobile-hero-portfolio-label" style="display:none;"><span class="mobile-hero-portfolio-label-inner">PORTFOLIO – 2026</span></span>
                 <div class="mob-name-line">
                     <img src="./assets/img/federico-mobile.svg" alt="Federico" id="mob-federico" />
                 </div>
@@ -1137,11 +1146,13 @@ if (window.innerWidth <= 768) {
     if (portfolioLabel) portfolioLabel.style.display = 'block';
 
     function revealMobileHero() {
+        var label = document.querySelector('.mobile-hero-portfolio-label-inner');
         var fed = document.getElementById('mob-federico');
         var vac = document.getElementById('mob-vaccarezza');
-        if (fed) fed.classList.add('revealed');
-        if (vac) vac.classList.add('revealed');
-        if (mobileText) mobileText.classList.add('revealed');
+        if (label) label.classList.add('revealed');
+        setTimeout(function() { if (fed) fed.classList.add('revealed'); }, 120);
+        setTimeout(function() { if (vac) vac.classList.add('revealed'); }, 240);
+        setTimeout(function() { if (mobileText) mobileText.classList.add('revealed'); }, 360);
     }
 
     var preloader = document.getElementById('preloader');
