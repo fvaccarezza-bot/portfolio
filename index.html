@@ -67,105 +67,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .ph-caption-hover:hover .name-line:nth-child(1) { transform:translateY(-28px); }
 .ph-caption-hover:hover .name-line:nth-child(2) { transform:translateY(-16px); }
 .ph-caption-hover:hover .min-titles:last-child { transform:translateY(-6px); }
-/* ── DESKTOP HERO ─────────────────────────────────────────────────────── */
-@media (min-width: 769px) {
-    /* Allow hero to breathe full width */
-    #page-header { overflow: visible; }
-    #page-header .page-header-inner.tt-wrap { max-width: 100% !important; padding: 0 !important; }
-
-    .dh-wrap {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 110px;
-        padding-bottom: 60px;
-        gap: 36px;
-        width: 100%;
-    }
-
-    .dh-row { display: flex; align-items: center; justify-content: center; width: 100%; }
-
-    /* Clip wrappers for reveal animation */
-    .dh-name-clip { overflow: hidden; display: flex; }
-    .dh-label-clip { overflow: hidden; display: flex; }
-    .dh-photo-clip { overflow: hidden; display: flex; justify-content: center; }
-    .dh-bio-clip   { overflow: hidden; display: flex; justify-content: center; }
-
-    /* PORTFOLIO – above FEDERICO, left-aligned to name edge */
-    .dh-top { flex-direction: column; align-items: center; gap: 0; }
-    .dh-top > div { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
-
-    /* Name lines */
-    .dh-name {
-        display: flex;
-        align-items: flex-end;
-        gap: 4px;
-        transform: translateY(110%);
-        will-change: transform;
-    }
-    .dh-name .name-letter { height: 143px; width: auto; display: block; }
-
-    /* Photo — no hover effect, static size */
-    .dh-mid { margin: 0; }
-    .dh-photo-wrap {
-        width: 605px;
-        height: 325px;
-        overflow: hidden;
-        border-radius: 12px;
-        transform: translateY(110%);
-        will-change: transform;
-    }
-    #dh-photo {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        display: block;
-    }
-
-    /* VACCAREZZA + 2026 below, right-aligned */
-    .dh-bot { flex-direction: column; align-items: center; gap: 0; }
-    .dh-bot > div { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
-
-    /* Labels */
-    .dh-label {
-        font-family: 'PP Telegraf', sans-serif;
-        font-size: 13px;
-        font-weight: 400;
-        letter-spacing: 0.5em;
-        text-transform: uppercase;
-        color: #3A3A39;
-        display: block;
-        transform: translateY(110%);
-    }
-
-    /* Bio */
-    .dh-text-row { margin: 0; }
-    .dh-bio {
-        font-family: 'PP Telegraf', sans-serif;
-        font-size: 11px;
-        font-weight: 400;
-        letter-spacing: 0.4em;
-        text-transform: uppercase;
-        color: #3A3A39;
-        text-align: center;
-        display: block;
-        transform: translateY(110%);
-        line-height: 2;
-        max-width: 950px;
-        width: 100%;
-    }
-
-    /* Reveal transitions */
-    #dh-federico, #dh-vaccarezza, #dh-portfolio, #dh-2026, #dh-bio {
-        transition: transform 0.7s cubic-bezier(0.34,1.2,0.64,1);
-    }
-    .dh-photo-wrap { transition: transform 0.7s cubic-bezier(0.34,1.2,0.64,1); }
-
-    /* hide old hero elements */
-    .ph-caption .min-titles { display: none; }
-    .ph-caption-title { display: none !important; }
-}
-
 @media (max-width:768px) {
     .name-letter { height:29px !important; }
     .home-title { gap:16px; }
@@ -520,62 +421,36 @@ document.addEventListener('click', function(e) {
             <div class="page-header-inner tt-wrap">
                 <div class="bg-vectors" id="bg-vectors-1"><div class="pos top-left"><img src="./assets/img/bg-lines/bg-lines1.svg" /></div></div>
                 <div class="ph-caption text-uppercase ph-caption-hover">
-                    <!-- Desktop hero layout -->
-                    <div class="dh-wrap mob-no">
-                        <!-- PORTFOLIO label + FEDERICO -->
-                        <div class="dh-row dh-top">
-                            <div style="display:flex;flex-direction:column;align-items:flex-start;">
-                                <div class="dh-label-clip"><span class="dh-label" id="dh-portfolio">PORTFOLIO –</span></div>
-                                <div class="dh-name-clip"><span class="dh-name" id="dh-federico">
-                                    <img class="name-letter" src="./assets/img/F.svg" alt="F" />
-                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" />
-                                    <img class="name-letter" src="./assets/img/D.svg" alt="D" />
-                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" />
-                                    <img class="name-letter" src="./assets/img/R.svg" alt="R" />
-                                    <img class="name-letter" src="./assets/img/I.svg" alt="I" />
-                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" />
-                                    <img class="name-letter" src="./assets/img/O.svg" alt="O" />
-                                </span></div>
-                            </div>
-                        </div>
-                        <!-- Photo -->
-                        <div class="dh-row dh-mid">
-                            <div class="dh-photo-clip"><div class="dh-photo-wrap" id="dh-photo-wrap">
-                                <img src="./assets/img/fede-home-mobile.png" alt="Federico Vaccarezza" id="dh-photo" />
-                            </div></div>
-                        </div>
-                        <!-- VACCAREZZA + 2026 label -->
-                        <div class="dh-row dh-bot">
-                            <div style="display:flex;flex-direction:column;align-items:flex-end;">
-                                <div class="dh-name-clip"><span class="dh-name" id="dh-vaccarezza">
-                                    <img class="name-letter" src="./assets/img/V.svg" alt="V" style="margin-right:-10px;" />
-                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="margin-left:-10px;margin-right:-6px;" />
-                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" />
-                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" />
-                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="margin-left:-6px;" />
-                                    <img class="name-letter" src="./assets/img/R.svg" alt="R" />
-                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" />
-                                    <img class="name-letter" src="./assets/img/Z.svg" alt="Z" />
-                                    <img class="name-letter" src="./assets/img/Z.svg" alt="Z" />
-                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" />
-                                </span></div>
-                                <div class="dh-label-clip"><span class="dh-label" id="dh-2026">2026</span></div>
-                            </div>
-                        </div>
-                        <!-- Bio -->
-                        <div class="dh-row dh-text-row">
-                            <div class="dh-bio-clip"><span class="dh-bio" id="dh-bio">VISUAL DESIGNER BASED IN TIGRE, ARGENTINA. EDUCATED AT UBA, WITH A BACKGROUND SPANNING BOTH INDUSTRIAL AND GRAPHIC DESIGN.</span></div>
-                        </div>
-                    </div>
-                    <!-- Legacy mobile refs (hidden desktop) -->
-                    <div class="mob-no" style="display:none;">
-                        <h1 class="ph-caption-title font-bold text-center color-fv" aria-hidden="true">
-                            <span class="name-line" id="line-federico"></span>
-                            <span class="name-line" id="line-vaccarezza"></span>
+                    <div class="text-center color-fv min-titles spacing">Portfolio</div>
+                    <div class="hover-fv">
+                        <h1 class="ph-caption-title font-bold text-center color-fv">
+                            <a href="#about" data-offset="-160" class="home-title" id="hero-name-link">
+                                <span class="name-line" id="line-federico">
+                                    <img class="name-letter" src="./assets/img/F.svg" alt="F" style="height:143px;width:auto;margin-right:5px;" />
+                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;margin-right:5px;" />
+                                    <img class="name-letter" src="./assets/img/D.svg" alt="D" style="height:143px;width:auto;margin-right:5px;" />
+                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;margin-right:5px;" />
+                                    <img class="name-letter" src="./assets/img/R.svg" alt="R" style="height:143px;width:auto;margin-right:5px;" />
+                                    <img class="name-letter" src="./assets/img/I.svg" alt="I" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/O.svg" alt="O" style="height:143px;width:auto;" />
+                                </span>
+                                <span class="name-line" id="line-vaccarezza">
+                                    <img class="name-letter" src="./assets/img/V.svg" alt="V" style="height:143px;width:auto;margin-right:-10px;" />
+                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;margin-left:-10px;margin-right:-6px;" />
+                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;margin-left:-6px;" />
+                                    <img class="name-letter" src="./assets/img/R.svg" alt="R" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/Z.svg" alt="Z" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/Z.svg" alt="Z" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;" />
+                                </span>
+                            </a>
                         </h1>
-                        <div class="min-titles" id="ph-min-1"></div>
-                        <div class="min-titles" id="ph-min-2"></div>
                     </div>
+                    <div class="text-center color-fv min-titles spacing">2026</div>
                 </div>
             </div>
         </div>
@@ -961,43 +836,6 @@ window.addEventListener('load', () => {
     window.addEventListener('resize', matchLbHeight);
     if (typeof gsap !== 'undefined') {
 
-        // ── DESKTOP HERO REVEAL ─────────────────────────────────────────────
-        if (window.innerWidth > 768) {
-            const dhReveal = () => {
-                const ease = 'power3.out';
-                // PORTFOLIO label
-                gsap.to('#dh-portfolio', { y: 0, duration: 0.9, ease, delay: 0.0 });
-                // FEDERICO
-                gsap.to('#dh-federico', { y: 0, duration: 1.0, ease, delay: 0.12 });
-                // Photo
-                gsap.to('.dh-photo-wrap', { y: 0, duration: 1.0, ease, delay: 0.24 });
-                // VACCAREZZA
-                gsap.to('#dh-vaccarezza', { y: 0, duration: 1.0, ease, delay: 0.36 });
-                // 2026 label
-                gsap.to('#dh-2026', { y: 0, duration: 0.9, ease, delay: 0.44 });
-                // Bio
-                gsap.to('#dh-bio', { y: 0, duration: 0.9, ease, delay: 0.54 });
-            };
-
-            // Wait for preloader to finish
-            const preloaderEl = document.getElementById('preloader');
-            if (preloaderEl) {
-                const dhObs = new MutationObserver(() => {
-                    const st = window.getComputedStyle(preloaderEl);
-                    if (parseFloat(st.opacity) < 0.1 || st.display === 'none' || st.visibility === 'hidden') {
-                        dhReveal();
-                        dhObs.disconnect();
-                    }
-                });
-                dhObs.observe(preloaderEl, { attributes: true, attributeFilter: ['style', 'class'] });
-                setTimeout(dhReveal, 2200); // fallback
-            } else {
-                setTimeout(dhReveal, 400);
-            }
-
-            // hover wave removed
-        }
-
         gsap.fromTo('.ph-caption-title',
             { filter: 'blur(20px)', opacity: 0, y: 30 },
             { filter: 'blur(0px)', opacity: 1, y: 0, duration: 1.4, ease: 'power3.out',
@@ -1083,7 +921,25 @@ window.addEventListener('load', () => {
             });
         });
 
-        // services follow image removed
+        (function() {
+            const img = document.createElement('img');
+            img.id = 'services-follow-img';
+            img.src = './assets/home/frogbazar.jpg';
+            document.body.appendChild(img);
+            let fx = 0, fy = 0, tx = 0, ty = 0;
+            (function animate() {
+                fx += (tx - fx) * 0.1;
+                fy += (ty - fy) * 0.1;
+                img.style.transform = 'translate(calc(' + fx + 'px + 20px), calc(' + fy + 'px - 80%)'+')';
+                requestAnimationFrame(animate);
+            })();
+            document.addEventListener('mousemove', (e) => { tx = e.clientX; ty = e.clientY; });
+            const grid = document.querySelector('.services-grid');
+            if (grid) {
+                grid.addEventListener('mouseenter', () => { img.style.opacity = '1'; });
+                grid.addEventListener('mouseleave', () => { img.style.opacity = '0'; });
+            }
+        })();
 
         document.querySelectorAll('.services-grid-item').forEach(item => {
             item.addEventListener('mousemove', (e) => {
