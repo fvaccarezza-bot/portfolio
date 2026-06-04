@@ -112,6 +112,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         transform: translateY(0);
     }
 
+    #logo-header { display: none !important; }
     #page-header { display: none !important; }
     #about { display: none !important; }
     #hola-foto { display: none !important; }
@@ -333,6 +334,10 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         transition: opacity 1.2s cubic-bezier(0.25,0.46,0.45,0.94);
         transform: translateZ(0);
         -webkit-transform: translateZ(0);
+    }
+    #mob-testi-tag {
+        width: auto !important;
+        height: auto !important;
     }
     .mob-tag-complete.in-view {
         opacity: 1;
@@ -566,7 +571,7 @@ document.addEventListener('click', function(e) {
 </div>
 <div class="fx-cursor" aria-hidden="true"></div>
 <div id="scroll-container">
-    <div id="logo-header" class="tt-logo logo-home mob-ok outside-menu" style="display:none !important;">
+    <div id="logo-header" class="tt-logo logo-home mob-ok outside-menu">
         <a href="#page-header" id="main-logo" data-offset="0">
             <img src="./assets/img/fv-logo-vector.svg" alt="" />
             <img src="./assets/img/fv-logo.svg" alt="" />
@@ -864,8 +869,8 @@ document.addEventListener('click', function(e) {
                             <div class="mob-phrase-clip"><img src="./assets/img/testimonials-they.svg" class="mob-phrase-word" alt="" /></div>
                             <div class="mob-phrase-clip"><img src="./assets/img/testimonials-said.svg" class="mob-phrase-word" alt="" /></div>
                             <div class="mob-phrase-clip"><img src="./assets/img/testimonials-it.svg" class="mob-phrase-word" alt="" /></div>
-                            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:92vw;max-width:340px;pointer-events:none;z-index:2;">
-                                <img src="./assets/img/testimonials-tag-complete.svg" id="mob-testi-tag" class="mob-tag-complete" alt="" />
+                            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:2;">
+                                <img src="./assets/img/testimonials-tag-complete.svg" id="mob-testi-tag" class="mob-tag-complete" alt="" style="width:auto;height:auto;" />
                             </div>
                         </div>
                         <div class="words-container"><div class="carousel" role="region"><div class="stage" id="stage">
