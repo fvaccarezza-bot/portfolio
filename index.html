@@ -1224,25 +1224,64 @@ window.addEventListener('load', () => {
     window.addEventListener('resize', matchLbHeight);
     if (typeof gsap !== 'undefined') {
 
-        gsap.fromTo('.ph-caption-title',
-            { filter: 'blur(20px)', opacity: 0, y: 30 },
-            { filter: 'blur(0px)', opacity: 1, y: 0, duration: 1.4, ease: 'power3.out',
-              onComplete: () => {
-                const lines = document.querySelectorAll('.name-line');
-                const minTitles = document.querySelectorAll('.ph-caption .min-titles');
-                gsap.to(minTitles[0], { y: -40, duration: 0.9, ease: 'power2.out' });
-                gsap.to(lines[0],     { y: -28, duration: 0.9, ease: 'power2.out', delay: 0.05 });
-                gsap.to(lines[1],     { y: -16, duration: 0.9, ease: 'power2.out', delay: 0.1 });
-                gsap.to(minTitles[1], { y: -6,  duration: 0.9, ease: 'power2.out', delay: 0.15,
-                    onComplete: () => {
-                        if (typeof window.__registerTitleParallax === 'function') {
-                            window.__registerTitleParallax();
+        // Wraps de clip para cada letra
+        document.querySelectorAll('.name-letter').forEach(letter => {
+            const wrap = document.createElement('span');
+            wrap.style.cssText = 'display:inline-block;overflow:hidden;vertical-align:bottom;';
+            letter.parentNode.insertBefore(wrap, letter);
+            wrap.appendChild(letter);
+            gsap.set(letter, { y: '110%' });
+        });
+
+        const fedLettersReveal = document.querySelectorAll('#line-federico .name-letter');
+        const vacLettersReveal = document.querySelectorAll('#line-vaccarezza .name-letter');
+        const minTitlesReveal  = document.querySelectorAll('.ph-caption .min-titles');
+
+        // Portfolio y 2026 también desde abajo
+        gsap.set(minTitlesReveal, { y: '110%', overflow: 'hidden' });
+
+        // Reveal staggerado después del preloader
+        const doReveal = () => {
+            gsap.to(minTitlesReveal[0], { y: 0, duration: 0.9, ease: 'power3.out', delay: 0 });
+            fedLettersReveal.forEach((l, i) => {
+                gsap.to(l, { y: 0, duration: 0.9, ease: 'power3.out', delay: 0.1 + i * 0.04 });
+            });
+            vacLettersReveal.forEach((l, i) => {
+                gsap.to(l, { y: 0, duration: 0.9, ease: 'power3.out', delay: 0.2 + i * 0.04 });
+            });
+            gsap.to(minTitlesReveal[1], { y: 0, duration: 0.9, ease: 'power3.out', delay: 0.5,
+                onComplete: () => {
+                    // Breathe: mover a posiciones base
+                    const lines = document.querySelectorAll('.name-line');
+                    gsap.to(minTitlesReveal[0], { y: -40, duration: 0.9, ease: 'power2.out' });
+                    gsap.to(lines[0],           { y: -28, duration: 0.9, ease: 'power2.out', delay: 0.05 });
+                    gsap.to(lines[1],           { y: -16, duration: 0.9, ease: 'power2.out', delay: 0.1 });
+                    gsap.to(minTitlesReveal[1], { y: -6,  duration: 0.9, ease: 'power2.out', delay: 0.15,
+                        onComplete: () => {
+                            if (typeof window.__registerTitleParallax === 'function') {
+                                window.__registerTitleParallax();
+                            }
                         }
-                    }
-                });
-              }
-            }
-        );
+                    });
+                }
+            });
+        };
+
+        // Esperar al preloader
+        const preloaderEl = document.getElementById('preloader');
+        if (preloaderEl) {
+            const obsReveal = new MutationObserver(() => {
+                const s = window.getComputedStyle(preloaderEl);
+                if (s.opacity === '0' || s.display === 'none' || s.visibility === 'hidden') {
+                    doReveal();
+                    obsReveal.disconnect();
+                }
+            });
+            obsReveal.observe(preloaderEl, { attributes: true, attributeFilter: ['style', 'class'] });
+            setTimeout(doReveal, 2000);
+        } else {
+            setTimeout(doReveal, 300);
+        }
 
         const viewCursor = document.createElement('div');
         viewCursor.id = 'view-cursor';
