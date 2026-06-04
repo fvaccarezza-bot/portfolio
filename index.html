@@ -103,10 +103,12 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     margin: 0 auto;
     clip-path: inset(0);
 }
+.testi-phrase-clip { overflow: hidden; line-height: 0; display: flex; justify-content: center; }
+#testi-phrase-img { display: block; width: auto; max-width: 100%; transform: translateY(100%); }
 .tt-col-md-6.d-flex-center { overflow: visible !important; }
 .desktop-testi-tag {
     position: absolute;
-    bottom: -260px;
+    bottom: -140px;
     left: -180px;
     width: 23.4%;
     display: flex;
@@ -947,7 +949,9 @@ document.addEventListener('click', function(e) {
                                 <img src="./assets/img/testimonials-words.svg" alt="Words" />
                                 <img src="./assets/img/testimonials-line.svg" alt="" />
                             </div>
-                            <img src="./assets/img/testimonials-phrase.svg" alt="They said it" id="testi-phrase-img" style="transform:translateY(100%);" />
+                            <div class="testi-phrase-clip">
+                                <img src="./assets/img/testimonials-phrase.svg" alt="They said it" id="testi-phrase-img" />
+                            </div>
                         </div>
                         <div class="mob-somekind-phrase" style="position:relative;display:flex;flex-direction:column;align-items:center;width:100%;gap:8px;margin-bottom:8px;">
                             <div class="mob-phrase-clip"><img src="./assets/img/testimonials-they.svg" class="mob-phrase-word" alt="" /></div>
