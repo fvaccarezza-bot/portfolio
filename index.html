@@ -75,7 +75,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 @media (max-width: 768px) {
     #trusted-by-row { display: none !important; }
     .services-btns { margin-bottom: 40px !important; }
-    #mob-some-kind-words { margin-bottom: 0 !important; margin-top: 0 !important; padding-bottom: 0 !important; }
     .mobile-testimonials { margin-top: 8px !important; }
     #services .words-container { margin-top: 0 !important; padding-top: 0 !important; }
 
@@ -93,14 +92,12 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     /* Reveals de títulos */
     #title-works,
     #mob-works-subtitle,
-    #mob-some-kind-words {
         opacity: 0;
         transform: translateY(30px);
         transition: opacity 1.1s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.1s cubic-bezier(0.25,0.46,0.45,0.94);
     }
     #title-works.in-view,
-    #mob-works-subtitle.in-view,
-    #mob-some-kind-words.in-view {
+    #mob-works-subtitle.in-view {
         opacity: 1;
         transform: translateY(0);
     }
@@ -863,7 +860,11 @@ document.addEventListener('click', function(e) {
                 </div>
                 <div class="tt-row" style="margin-top:100px;">
                     <div class="tt-col-md-6 d-flex-center flex-col max-width-full">
-                        <h4 class="section-title" id="mob-some-kind-words">Some Kind Words:</h4>
+                        <div class="mob-somekind-phrase" style="display:flex;flex-direction:column;align-items:center;width:100%;gap:8px;margin-bottom:8px;">
+                            <div class="mob-phrase-clip"><img src="./assets/img/testimonials-they.svg" class="mob-phrase-word" alt="" /></div>
+                            <div class="mob-phrase-clip"><img src="./assets/img/testimonials-said.svg" class="mob-phrase-word" alt="" /></div>
+                            <div class="mob-phrase-clip"><img src="./assets/img/testimonials-it.svg" class="mob-phrase-word" alt="" /></div>
+                        </div>
                         <div class="words-container"><div class="carousel" role="region"><div class="stage" id="stage">
                             <article class="verbatim prev" tabindex="0"><img src="./assets/img/word2.jpg" alt="" /><div><p><span>Dana Johonson</span> (Dotted 8)</p><p>"As a US-based agency, it can be tricky to find reliable international talent that aligns with our time constraints and quality expectations. Fede has been an incredible resource and a valued member of our team for many years!"</p></div></article>
                             <article class="verbatim active" tabindex="0"><img src="./assets/img/word1.jpg" alt="" /><div><p><span>Ramiro Nieto Moreno</span> (N.M,P.)</p><p>"From the first call to the final delivery, everything just flowed. The site captures our vibe perfectly—and the whole process was smoother than expected!"</p></div></article>
@@ -1542,14 +1543,19 @@ if (window.innerWidth <= 768) {
         }, { threshold: 0.3 }).observe(titleWorks);
     }
 
-    // Reveal some kind words title
-    var titleSomeKind = document.getElementById('mob-some-kind-words');
-    if (titleSomeKind) {
-        new IntersectionObserver(function(entries) {
+    // Reveal testimonials phrase SVGs
+    var someKindClips = document.querySelectorAll('.mob-somekind-phrase .mob-phrase-clip');
+    if (someKindClips.length) {
+        var someKindObserver = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
-                if (entry.isIntersecting) { entry.target.classList.add('in-view'); }
+                if (entry.isIntersecting) {
+                    var word = entry.target.querySelector('.mob-phrase-word');
+                    if (word) word.classList.add('in-view');
+                    someKindObserver.unobserve(entry.target);
+                }
             });
-        }, { threshold: 0.3 }).observe(titleSomeKind);
+        }, { threshold: 0.0 });
+        someKindClips.forEach(function(clip) { someKindObserver.observe(clip); });
     }
 
     // Reveal testimonial images staggered
