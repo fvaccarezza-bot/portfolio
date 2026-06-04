@@ -103,8 +103,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 }
 .desktop-testi-tag {
     position: absolute;
-    bottom: -10px;
-    left: -20px;
+    bottom: -40px;
+    left: -140px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -114,6 +114,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     display: block;
     width: auto;
     margin-bottom: -5px;
+}
+.desktop-testi-tag img:nth-child(2) {
+    margin-bottom: 4px;
 }
 .desktop-testi-tag img:last-child {
     margin-bottom: 0;
@@ -429,7 +432,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     }
     .words-container .verbatim { display: none !important; }
     .hit { display: none !important; }
-    .mobile-testimonials { display: flex !important; flex-direction: column !important; gap: 0 !important; align-items: center !important; }
+    .mobile-testimonials { display: flex !important; flex-direction: column !important; gap: 0 !important; align-items: center !important; position: relative; z-index: 10; }
     .mobile-testimonials img { width: 380px !important; max-width: 100% !important; display: block !important; margin-bottom: -40px !important; }
     .mobile-testimonials img:last-child { margin-bottom: 0 !important; }
 
@@ -1645,7 +1648,7 @@ if (window.innerWidth <= 768) {
         window.addEventListener('scroll', function() {
             var rect = testiTag.getBoundingClientRect();
             var centerOffset = (rect.top + rect.height / 2) - (window.innerHeight / 2);
-            testiTag.style.transform = 'translateY(' + (centerOffset * 0.06) + 'px)';
+            testiTag.style.transform = 'scale(1.2) translateY(' + (centerOffset * 0.06) + 'px)';
         }, { passive: true });
     }
 
@@ -1734,12 +1737,12 @@ if (window.innerWidth <= 768) {
             if (shapeLeft) {
                 var rectL = shapeLeft.getBoundingClientRect();
                 var offsetL = (rectL.top + rectL.height / 2) - (window.innerHeight / 2);
-                shapeLeft.style.transform = 'translateY(' + (offsetL * 0.05) + 'px)';
+                shapeLeft.style.transform = 'translateY(' + (offsetL * 0.12) + 'px)';
             }
             if (shapeRight) {
                 var rectR = shapeRight.getBoundingClientRect();
                 var offsetR = (rectR.top + rectR.height / 2) - (window.innerHeight / 2);
-                shapeRight.style.transform = 'translateY(' + (offsetR * -0.05) + 'px)';
+                shapeRight.style.transform = 'translateY(' + (offsetR * -0.12) + 'px)';
             }
         }, { passive: true });
     }
