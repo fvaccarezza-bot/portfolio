@@ -87,6 +87,38 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .desktop-testi-phrase { margin-bottom: 150px; margin-top: 50px; }
 }
 
+/* SOME KIND WORDS tag — desktop only */
+.desktop-testi-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 48px;
+}
+.desktop-testi-tag {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: -8px;
+}
+.desktop-testi-tag img {
+    display: block;
+    width: auto;
+}
+@media (max-width: 768px) {
+    .desktop-testi-wrap { display: none !important; }
+}
+@media (min-width: 769px) {
+    .mob-somekind-phrase { display: none !important; }
+}
+@media (min-width: 2560px) {
+    .desktop-testi-wrap img { transform: scale(1.5); transform-origin: center center; }
+    .desktop-testi-wrap { margin-bottom: 150px; margin-top: 50px; }
+}
+
 @media (max-width:768px) {
     .name-letter { height:29px !important; }
     .home-title { gap:16px; }
@@ -885,8 +917,13 @@ document.addEventListener('click', function(e) {
                 </div>
                 <div class="tt-row" style="margin-top:100px;">
                     <div class="tt-col-md-6 d-flex-center flex-col max-width-full">
-                        <!-- THEY SAID IT — desktop only -->
-                        <div class="desktop-testi-phrase">
+                        <!-- THEY SAID IT + SOME KIND WORDS — desktop only -->
+                        <div class="desktop-testi-wrap">
+                            <div class="desktop-testi-tag">
+                                <img src="./assets/img/testimonials-some-kind.svg" alt="Some kind" style="margin-bottom:-12px;" />
+                                <img src="./assets/img/testimonials-words.svg" alt="Words" style="margin-bottom:-8px;" />
+                                <img src="./assets/img/testimonials-line.svg" alt="" />
+                            </div>
                             <img src="./assets/img/testimonials-phrase.svg" alt="They said it" />
                         </div>
                         <div class="mob-somekind-phrase" style="position:relative;display:flex;flex-direction:column;align-items:center;width:100%;gap:8px;margin-bottom:8px;">
