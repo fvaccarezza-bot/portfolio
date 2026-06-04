@@ -34,7 +34,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 <style>
 
 .name-line { display:flex !important; flex-direction:row !important; align-items:flex-end; justify-content:center; gap:4px; transform:translateY(0px); transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
-.name-letter { display:block; height:143px; width:auto; flex-shrink:0; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); will-change:transform; }
+.name-letter { display:block; width:auto; height:auto; flex-shrink:0; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); will-change:transform; }
 .letter-wrap { display:inline-flex; flex-direction:column; overflow:hidden; height:143px; cursor:pointer; }
 .letter-wrap .name-letter { flex-shrink:0; transition:transform 0.5s cubic-bezier(0.76,0,0.24,1); will-change:transform; }
 .letter-wrap:hover .name-letter { transform:translateY(-100%) !important; }
@@ -597,8 +597,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 }
 
 @media (min-width:2560px) {
-    .name-letter { height:215px !important; }
-    .name-line > span { height:215px !important; }
+    #line-federico, #line-vaccarezza { transform: scale(1.5); transform-origin: center center; }
     .home-title { gap:54px; }
     .name-line { gap:6px !important; }
     .ph-caption .min-titles { font-size:24px !important; }
