@@ -120,11 +120,11 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     display: block;
     width: auto;
     max-width: none;
-    margin-bottom: -40px;
+    margin-bottom: -30px;
     transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 .desktop-testi-tag img:nth-child(2) {
-    margin-bottom: -20px;
+    margin-bottom: -15px;
 }
 .desktop-testi-tag img:last-child {
     margin-bottom: 0;
@@ -1778,9 +1778,9 @@ if (window.innerWidth <= 768) {
 if (window.innerWidth > 768) {
     var desktopStyle = document.createElement('style');
     desktopStyle.textContent = [
-        '.gallery .card { opacity:0; transform:translateY(40px); transition:opacity 1.0s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.0s cubic-bezier(0.25,0.46,0.45,0.94); }',
+        '.gallery .card { opacity:0; transform:translateY(20px); transition:opacity 1.6s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.6s cubic-bezier(0.25,0.46,0.45,0.94); }',
         '.gallery .card.in-view { opacity:1; transform:translateY(0); }',
-        '.services-grid-item { opacity:0; transform:translateY(30px); transition:opacity 1.0s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.0s cubic-bezier(0.25,0.46,0.45,0.94); }',
+        '.services-grid-item { opacity:0; transform:translateY(16px); transition:opacity 1.6s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.6s cubic-bezier(0.25,0.46,0.45,0.94); }',
         '.services-grid-item.in-view { opacity:1; transform:translateY(0); }'
     ].join('');
     document.head.appendChild(desktopStyle);
