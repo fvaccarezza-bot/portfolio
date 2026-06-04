@@ -733,26 +733,10 @@ document.addEventListener('click', function(e) {
                         <h1 class="ph-caption-title font-bold text-center color-fv">
                             <a href="#about" data-offset="-160" class="home-title" id="hero-name-link">
                                 <span class="name-line" id="line-federico">
-                                    <img class="name-letter" src="./assets/img/F.svg" alt="F" style="height:143px;width:auto;margin-right:5px;" />
-                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;margin-right:5px;" />
-                                    <img class="name-letter" src="./assets/img/D.svg" alt="D" style="height:143px;width:auto;margin-right:5px;" />
-                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;margin-right:5px;" />
-                                    <img class="name-letter" src="./assets/img/R.svg" alt="R" style="height:143px;width:auto;margin-right:5px;" />
-                                    <img class="name-letter" src="./assets/img/I.svg" alt="I" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/O.svg" alt="O" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/desk-federico.svg" alt="Federico" style="width:auto;" />
                                 </span>
                                 <span class="name-line" id="line-vaccarezza">
-                                    <img class="name-letter" src="./assets/img/V.svg" alt="V" style="height:143px;width:auto;margin-right:-10px;" />
-                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;margin-left:-10px;margin-right:-6px;" />
-                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/C.svg" alt="C" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;margin-left:-6px;" />
-                                    <img class="name-letter" src="./assets/img/R.svg" alt="R" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/E.svg" alt="E" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/Z.svg" alt="Z" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/Z.svg" alt="Z" style="height:143px;width:auto;" />
-                                    <img class="name-letter" src="./assets/img/A.svg" alt="A" style="height:143px;width:auto;" />
+                                    <img class="name-letter" src="./assets/img/desk-vaccarezza.svg" alt="Vaccarezza" style="width:auto;" />
                                 </span>
                             </a>
                         </h1>
@@ -1224,43 +1208,37 @@ window.addEventListener('load', () => {
     window.addEventListener('resize', matchLbHeight);
     if (typeof gsap !== 'undefined') {
 
-        // Wraps de clip para cada letra — respetando margins originales
-        document.querySelectorAll('.name-letter').forEach(letter => {
+        // Wraps de clip para federico y vaccarezza
+        const lineFedImg = document.querySelector('#line-federico .name-letter');
+        const lineVacImg = document.querySelector('#line-vaccarezza .name-letter');
+        const minTitlesReveal = document.querySelectorAll('.ph-caption .min-titles');
+
+        [lineFedImg, lineVacImg].forEach(img => {
+            if (!img) return;
             const wrap = document.createElement('span');
-            wrap.style.cssText = 'display:inline-block;overflow:hidden;vertical-align:bottom;line-height:1;';
-            // Copiar margins al wrap y quitarlos de la letra
-            ['marginLeft','marginRight'].forEach(prop => {
-                if (letter.style[prop]) {
-                    wrap.style[prop] = letter.style[prop];
-                    letter.style[prop] = '';
-                }
-            });
-            letter.parentNode.insertBefore(wrap, letter);
-            wrap.appendChild(letter);
-            gsap.set(letter, { y: '110%' });
+            wrap.style.cssText = 'display:block;overflow:hidden;';
+            img.parentNode.insertBefore(wrap, img);
+            wrap.appendChild(img);
+            gsap.set(img, { y: '110%' });
         });
-
-        const fedLettersReveal = document.querySelectorAll('#line-federico .name-letter');
-        const vacLettersReveal = document.querySelectorAll('#line-vaccarezza .name-letter');
-        const minTitlesReveal  = document.querySelectorAll('.ph-caption .min-titles');
-
-        gsap.set(minTitlesReveal, { y: '110%', overflow: 'hidden' });
+        gsap.set(minTitlesReveal, { y: '110%' });
 
         const doReveal = () => {
             gsap.to(minTitlesReveal[0], { y: 0, duration: 0.9, ease: 'power3.out', delay: 0 });
-            fedLettersReveal.forEach((l, i) => {
-                gsap.to(l, { y: 0, duration: 0.9, ease: 'power3.out', delay: 0.1 + i * 0.04 });
-            });
-            vacLettersReveal.forEach((l, i) => {
-                gsap.to(l, { y: 0, duration: 0.9, ease: 'power3.out', delay: 0.2 + i * 0.04,
-                    ...(i === vacLettersReveal.length - 1 ? {
+            if (lineFedImg) gsap.to(lineFedImg, { y: 0, duration: 1.0, ease: 'power3.out', delay: 0.1 });
+            if (lineVacImg) gsap.to(lineVacImg, { y: 0, duration: 1.0, ease: 'power3.out', delay: 0.2,
+                onComplete: () => {
+                    const lines = document.querySelectorAll('.name-line');
+                    gsap.to(minTitlesReveal[0], { y: -40, duration: 0.9, ease: 'power2.out' });
+                    gsap.to(lines[0], { y: -28, duration: 0.9, ease: 'power2.out', delay: 0.05 });
+                    gsap.to(lines[1], { y: -16, duration: 0.9, ease: 'power2.out', delay: 0.1,
                         onComplete: () => {
                             if (typeof window.__registerTitleParallax === 'function') {
                                 window.__registerTitleParallax();
                             }
                         }
-                    } : {})
-                });
+                    });
+                }
             });
         };
 
@@ -1494,30 +1472,20 @@ window.addEventListener('load', () => {
                 const minTitles = document.querySelectorAll('.ph-caption .min-titles');
                 const lineFed = document.getElementById('line-federico');
                 const lineVac = document.getElementById('line-vaccarezza');
-                const rows = [minTitles[0], lineFed, lineVac, minTitles[1]];
-                const baseY = [-40, -28, -16, -6];
+                const rows = [minTitles[0], lineFed, lineVac];
+                const baseY = [-40, -28, -16];
 
                 heroCaption.addEventListener('mouseenter', () => {
                     rows.forEach((el, i) => {
                         if (!el) return;
-                        gsap.to(el, {
-                            y: baseY[i] - 18,
-                            duration: 0.5,
-                            ease: 'power2.out',
-                            delay: i * 0.12,
-                        });
+                        gsap.to(el, { y: baseY[i] - 18, duration: 0.5, ease: 'power2.out', delay: i * 0.12 });
                     });
                 });
 
                 heroCaption.addEventListener('mouseleave', () => {
                     rows.forEach((el, i) => {
                         if (!el) return;
-                        gsap.to(el, {
-                            y: baseY[i],
-                            duration: 0.6,
-                            ease: 'power2.inOut',
-                            delay: i * 0.09,
-                        });
+                        gsap.to(el, { y: baseY[i], duration: 0.6, ease: 'power2.inOut', delay: i * 0.09 });
                     });
                 });
             }
@@ -1528,19 +1496,11 @@ window.addEventListener('load', () => {
             if (!heroLink) return;
             heroLink.addEventListener('click', function(e) {
                 e.preventDefault();
-                const fedLetters = document.querySelectorAll('#line-federico .name-letter');
-                const vacLetters = document.querySelectorAll('#line-vaccarezza .name-letter');
-                const minTitles  = document.querySelectorAll('.ph-caption .min-titles');
-                function animateOut(letters, centerIndex) {
-                    letters.forEach((letter, i) => {
-                        const dist = Math.abs(i - centerIndex);
-                        gsap.to(letter, { y: -180 + dist * 18, duration: 0.6, ease: 'power3.inOut', delay: dist * 0.04 });
-                    });
-                }
-                animateOut(fedLetters, 3.5);
-                animateOut(vacLetters, 4.5);
+                const lines = document.querySelectorAll('.name-line');
+                const minTitles = document.querySelectorAll('.ph-caption .min-titles');
+                if (lineFedImg) gsap.to(lineFedImg, { y: '-110%', duration: 0.6, ease: 'power3.inOut' });
+                if (lineVacImg) gsap.to(lineVacImg, { y: '-110%', duration: 0.6, ease: 'power3.inOut', delay: 0.05 });
                 gsap.to(minTitles[0], { y: -220, duration: 0.5, ease: 'power3.inOut' });
-                gsap.to(minTitles[1], { y: -160, duration: 0.5, ease: 'power3.inOut', delay: 0.05 });
                 setTimeout(() => {
                     const target = document.getElementById('about');
                     if (!target) return;
