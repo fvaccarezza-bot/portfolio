@@ -860,10 +860,13 @@ document.addEventListener('click', function(e) {
                 </div>
                 <div class="tt-row" style="margin-top:100px;">
                     <div class="tt-col-md-6 d-flex-center flex-col max-width-full">
-                        <div class="mob-somekind-phrase" style="display:flex;flex-direction:column;align-items:center;width:100%;gap:8px;margin-bottom:8px;">
+                        <div class="mob-somekind-phrase" style="position:relative;display:flex;flex-direction:column;align-items:center;width:100%;gap:8px;margin-bottom:8px;">
                             <div class="mob-phrase-clip"><img src="./assets/img/testimonials-they.svg" class="mob-phrase-word" alt="" /></div>
                             <div class="mob-phrase-clip"><img src="./assets/img/testimonials-said.svg" class="mob-phrase-word" alt="" /></div>
                             <div class="mob-phrase-clip"><img src="./assets/img/testimonials-it.svg" class="mob-phrase-word" alt="" /></div>
+                            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:92vw;max-width:340px;pointer-events:none;z-index:2;">
+                                <img src="./assets/img/testimonials-tag-complete.svg" id="mob-testi-tag" class="mob-tag-complete" alt="" />
+                            </div>
                         </div>
                         <div class="words-container"><div class="carousel" role="region"><div class="stage" id="stage">
                             <article class="verbatim prev" tabindex="0"><img src="./assets/img/word2.jpg" alt="" /><div><p><span>Dana Johonson</span> (Dotted 8)</p><p>"As a US-based agency, it can be tricky to find reliable international talent that aligns with our time constraints and quality expectations. Fede has been an incredible resource and a valued member of our team for many years!"</p></div></article>
@@ -1541,6 +1544,26 @@ if (window.innerWidth <= 768) {
                 if (entry.isIntersecting) { entry.target.classList.add('in-view'); }
             });
         }, { threshold: 0.3 }).observe(titleWorks);
+    }
+
+    // Reveal + parallax testimonials tag
+    var testiTag = document.getElementById('mob-testi-tag');
+    if (testiTag) {
+        var testiTagObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    testiTag.classList.add('in-view');
+                    testiTagObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.3 });
+        testiTagObserver.observe(testiTag);
+
+        window.addEventListener('scroll', function() {
+            var rect = testiTag.getBoundingClientRect();
+            var centerOffset = (rect.top + rect.height / 2) - (window.innerHeight / 2);
+            testiTag.style.transform = 'translateY(' + (centerOffset * 0.06) + 'px)';
+        }, { passive: true });
     }
 
     // Reveal testimonials phrase SVGs
