@@ -90,17 +90,16 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 /* THEY SAID IT — desktop only, mismo sistema que services-big */
 .desktop-testi-wrap {
     position: relative;
-    margin-bottom: 48px;
-    margin-top: 120px;
+    width: 1250px;
+    max-width: 100%;
+    margin: 120px auto 48px;
     cursor: default;
-    text-align: center;
     overflow: visible;
 }
 .desktop-testi-wrap > img {
     display: block;
-    width: auto;
-    max-width: 100%;
-    margin: 0 auto;
+    width: 100%;
+    height: auto;
 }
 .tt-col-md-6.d-flex-center { overflow: visible !important; }
 .desktop-testi-tag {
@@ -115,7 +114,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 }
 .desktop-testi-tag img {
     display: block;
-    width: 100%;
+    width: auto;
+    max-width: 100%;
     margin-bottom: -5px;
 }
 .desktop-testi-tag img:nth-child(2) {
