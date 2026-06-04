@@ -87,20 +87,28 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .desktop-testi-phrase { margin-bottom: 150px; margin-top: 50px; }
 }
 
-/* SOME KIND WORDS tag — desktop only */
+/* THEY SAID IT — desktop only, mismo sistema que services-big */
 .desktop-testi-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    position: relative;
     margin-bottom: 48px;
     margin-top: 120px;
+    cursor: default;
+    text-align: center;
+}
+.desktop-testi-wrap > img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    margin: 0 auto;
 }
 .desktop-testi-tag {
+    position: absolute;
+    bottom: -10px;
+    left: -20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 10;
-    margin-bottom: 8px;
 }
 .desktop-testi-tag img {
     display: block;
@@ -109,11 +117,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 }
 .desktop-testi-tag img:last-child {
     margin-bottom: 0;
-}
-.desktop-testi-wrap > img {
-    display: block;
-    width: auto;
-    max-width: 100%;
 }
 @media (max-width: 768px) {
     .desktop-testi-wrap { display: none !important; }
@@ -129,6 +132,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 }
 @media (min-width: 2560px) {
     .desktop-testi-wrap { margin-bottom: 150px; margin-top: 200px; }
+    .desktop-testi-wrap > img { transform: scale(1.5); transform-origin: center center; }
+    .desktop-testi-tag img { transform: scale(1.5); transform-origin: center center; }
 }
 
 @media (max-width:768px) {
