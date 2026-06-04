@@ -1224,10 +1224,14 @@ window.addEventListener('load', () => {
     window.addEventListener('resize', matchLbHeight);
     if (typeof gsap !== 'undefined') {
 
-        // Wraps de clip para cada letra
+        // Wraps de clip para cada letra — respetando margins originales
         document.querySelectorAll('.name-letter').forEach(letter => {
             const wrap = document.createElement('span');
+            const cs = letter.style;
+            // Mover margins del letter al wrap
             wrap.style.cssText = 'display:inline-block;overflow:hidden;vertical-align:bottom;';
+            if (cs.marginRight) { wrap.style.marginRight = cs.marginRight; cs.marginRight = ''; }
+            if (cs.marginLeft)  { wrap.style.marginLeft  = cs.marginLeft;  cs.marginLeft  = ''; }
             letter.parentNode.insertBefore(wrap, letter);
             wrap.appendChild(letter);
             gsap.set(letter, { y: '110%' });
