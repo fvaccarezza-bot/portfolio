@@ -41,7 +41,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .letter-wrap:hover .name-letter { transform:translateY(-100%) !important; }
 .ph-caption-hover { display:block; }
 .ph-caption .min-titles { display:block; transform:translateY(0px); transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
-.home-title { gap: 40px; }
+.home-title { gap: 60px; }
 .home-title,.home-title:hover,.home-title:focus,.home-title .name-line,.home-title:hover .name-line,.home-title:focus .name-line { color:inherit !important; -webkit-text-stroke:0 !important; text-decoration:none !important; }
 #modal-works .modal__dialog { display:flex; flex-direction:column; align-items:center; justify-content:center; }
 #modal-works .content { justify-content:center !important; align-items:center !important; }
@@ -599,14 +599,12 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 }
 
 @media (min-width:2560px) {
-    #line-federico, #line-vaccarezza { transform: scale(1.5); transform-origin: center center; }
-    .home-title { gap:54px; }
-    .name-line { gap:6px !important; }
-    .ph-caption .min-titles { font-size:24px !important; }
+    #line-federico, #line-vaccarezza { transform: scale(1.5); }
     .services-big { transform:scale(1.5); transform-origin:center center; margin-bottom:300px !important; margin-top:300px !important; }
     .services-big .sb-tag { bottom:-80px; right:-4%; width:28%; }
     #works .tt-wrap { max-width:min(1980px, 91.67vw) !important; }
     #works .gallery { gap: 67px 102px; }
+    .desktop-testi-wrap { transform: scale(1.5); transform-origin: center center; margin-bottom: 150px; margin-top: 200px; }
 }
 </style>
 <link rel="preload" href="./assets/fonts/PPTelegraf-Regular.woff2" as="font" type="font/woff2" crossorigin />
