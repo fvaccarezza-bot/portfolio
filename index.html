@@ -101,12 +101,13 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     width: auto;
     max-width: 100%;
     margin: 0 auto;
+    clip-path: inset(0);
 }
 .tt-col-md-6.d-flex-center { overflow: visible !important; }
 .desktop-testi-tag {
     position: absolute;
-    bottom: -38%;
-    left: -8%;
+    bottom: -260px;
+    left: -180px;
     width: 23.4%;
     display: flex;
     flex-direction: column;
@@ -938,7 +939,7 @@ document.addEventListener('click', function(e) {
                     </div>
                 </div>
                 <div class="tt-row" style="margin-top:280px;">
-                    <div class="tt-col-md-6 d-flex-center flex-col max-width-full">
+                    <div class="tt-col-md-6 d-flex-center flex-col max-width-full" style="position:relative;">
                         <!-- THEY SAID IT + SOME KIND WORDS — desktop only -->
                         <div class="desktop-testi-wrap">
                             <div class="desktop-testi-tag">
@@ -946,7 +947,7 @@ document.addEventListener('click', function(e) {
                                 <img src="./assets/img/testimonials-words.svg" alt="Words" />
                                 <img src="./assets/img/testimonials-line.svg" alt="" />
                             </div>
-                            <img src="./assets/img/testimonials-phrase.svg" alt="They said it" />
+                            <img src="./assets/img/testimonials-phrase.svg" alt="They said it" id="testi-phrase-img" style="transform:translateY(100%);" />
                         </div>
                         <div class="mob-somekind-phrase" style="position:relative;display:flex;flex-direction:column;align-items:center;width:100%;gap:8px;margin-bottom:8px;">
                             <div class="mob-phrase-clip"><img src="./assets/img/testimonials-they.svg" class="mob-phrase-word" alt="" /></div>
@@ -1431,6 +1432,14 @@ window.addEventListener('load', () => {
             if (!line1 || !line2) return;
             gsap.to(line1, { y: 0, ease: 'none', scrollTrigger: { trigger: '#contact', start: 'top 90%', end: 'top 20%', scrub: 1.0 } });
             gsap.to(line2, { y: 0, ease: 'none', scrollTrigger: { trigger: '#contact', start: 'top 80%', end: 'top 10%', scrub: 1.6 } });
+        })();
+
+        (function() {
+            const testiPhrase = document.getElementById('testi-phrase-img');
+            if (!testiPhrase) return;
+            gsap.to(testiPhrase, { y: 0, ease: 'none',
+                scrollTrigger: { trigger: '.desktop-testi-wrap', start: 'top 90%', end: 'top 20%', scrub: 1.2 }
+            });
         })();
 
         const servicesBig = document.querySelector('.services-big');
