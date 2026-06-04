@@ -205,8 +205,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     }
     .mobile-hero-portfolio-label {
         display: block !important;
-        font-size: 10px;
-        letter-spacing: 0.3em;
+        font-size: 12px;
+        letter-spacing: 0.5em;
         text-transform: uppercase;
         margin: 0;
         color: var(--color-fede-fv, #3A3A39);
@@ -774,7 +774,7 @@ document.addEventListener('click', function(e) {
                     <div class="mob-photo-mask" id="mob-photo-mask"></div>
                 </div>
             </div>
-            <p class="mobile-hero-text" style="display:none;">VISUAL DESIGNER BASED IN TIGRE, ARGENTINA. EDUCATED AT UBA, WITH A BACKGROUND SPANNING BOTH INDUSTRIAL AND GRAPHIC DESIGN.</p>
+            <p class="mobile-hero-text" style="display:none;">VISUAL DESIGNER BASED IN BUENOS AIRES, ARGENTINA. EDUCATED AT UBA, WITH A BACKGROUND SPANNING BOTH INDUSTRIAL AND GRAPHIC DESIGN.</p>
             <div id="about" class="tt-section padding-bottom-xlg-90 psi-image-is-light">
                 <div class="bg-vectors" id="bg-vectors-2"><div class="pos bottom-right"><img src="./assets/img/bg-lines/bg-lines2.svg" /></div></div>
                 <div class="tt-section-inner tt-wrap">
@@ -940,7 +940,7 @@ document.addEventListener('click', function(e) {
                         </div></div>
                     </div>
                 </div>
-                <div class="tt-row" style="margin-top:280px;">
+                <div class="tt-row" style="margin-top:180px;">
                     <div class="tt-col-md-6 d-flex-center flex-col max-width-full" style="position:relative;">
                         <!-- THEY SAID IT + SOME KIND WORDS — desktop only -->
                         <div class="desktop-testi-wrap">
@@ -1458,7 +1458,7 @@ window.addEventListener('load', () => {
         const testiTag = document.querySelector('.desktop-testi-tag');
         if (testiTag) {
             const testiWrap = document.querySelector('.desktop-testi-wrap');
-            [['img:nth-child(1)',-8,0.25],['img:nth-child(2)',-15,0.3],['img:nth-child(3)',-25,0.35]].forEach(([sel,y,scrub]) => {
+            [['img:nth-child(1)',-25,0.25],['img:nth-child(2)',-15,0.3],['img:nth-child(3)',-8,0.35]].forEach(([sel,y,scrub]) => {
                 const el = testiTag.querySelector(sel);
                 if (!el) return;
                 gsap.to(el, { y, ease:'none', scrollTrigger: { trigger: testiWrap, start:'top bottom', end:'bottom top', scrub } });
