@@ -91,22 +91,35 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .desktop-testi-wrap {
     position: relative;
     display: flex;
+    align-items: center;
     justify-content: center;
     margin-bottom: 48px;
+    margin-top: 120px;
 }
 .desktop-testi-tag {
     position: absolute;
-    left: 0;
+    left: -20px;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translate(-100%, -50%);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: -8px;
+    z-index: 10;
 }
 .desktop-testi-tag img {
     display: block;
     width: auto;
+    margin-bottom: 4px;
+}
+.desktop-testi-tag img:last-child {
+    margin-bottom: 0;
+}
+.desktop-testi-wrap > img {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    position: relative;
+    z-index: 1;
 }
 @media (max-width: 768px) {
     .desktop-testi-wrap { display: none !important; }
@@ -115,8 +128,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .mob-somekind-phrase { display: none !important; }
 }
 @media (min-width: 2560px) {
-    .desktop-testi-wrap img { transform: scale(1.5); transform-origin: center center; }
-    .desktop-testi-wrap { margin-bottom: 150px; margin-top: 50px; }
+    .desktop-testi-wrap { margin-bottom: 150px; margin-top: 200px; }
 }
 
 @media (max-width:768px) {
@@ -915,13 +927,13 @@ document.addEventListener('click', function(e) {
                         </div></div>
                     </div>
                 </div>
-                <div class="tt-row" style="margin-top:100px;">
+                <div class="tt-row" style="margin-top:180px;">
                     <div class="tt-col-md-6 d-flex-center flex-col max-width-full">
                         <!-- THEY SAID IT + SOME KIND WORDS — desktop only -->
                         <div class="desktop-testi-wrap">
                             <div class="desktop-testi-tag">
-                                <img src="./assets/img/testimonials-some-kind.svg" alt="Some kind" style="margin-bottom:-12px;" />
-                                <img src="./assets/img/testimonials-words.svg" alt="Words" style="margin-bottom:-8px;" />
+                                <img src="./assets/img/testimonials-some-kind.svg" alt="Some kind" />
+                                <img src="./assets/img/testimonials-words.svg" alt="Words" />
                                 <img src="./assets/img/testimonials-line.svg" alt="" />
                             </div>
                             <img src="./assets/img/testimonials-phrase.svg" alt="They said it" />
