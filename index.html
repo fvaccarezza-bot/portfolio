@@ -90,16 +90,17 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 /* THEY SAID IT — desktop only, mismo sistema que services-big */
 .desktop-testi-wrap {
     position: relative;
-    width: 1250px;
-    max-width: 100%;
-    margin: 120px auto 48px;
+    margin-top: 120px;
+    margin-bottom: 48px;
     cursor: default;
+    text-align: center;
     overflow: visible;
 }
 .desktop-testi-wrap > img {
     display: block;
-    width: 100%;
-    height: auto;
+    width: auto;
+    max-width: 100%;
+    margin: 0 auto;
 }
 .tt-col-md-6.d-flex-center { overflow: visible !important; }
 .desktop-testi-tag {
@@ -115,8 +116,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .desktop-testi-tag img {
     display: block;
     width: auto;
-    max-width: 100%;
+    max-width: none;
     margin-bottom: -5px;
+    transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 .desktop-testi-tag img:nth-child(2) {
     margin-bottom: 4px;
@@ -136,8 +138,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .mob-somekind-phrase { display: none !important; }
 }
 @media (min-width: 2560px) {
-    .desktop-testi-wrap { margin-bottom: 150px; margin-top: 200px; }
-    .desktop-testi-wrap > img { transform: scale(1.5); transform-origin: center center; }
+    .desktop-testi-wrap { transform: scale(1.5); transform-origin: center center; margin-bottom: 150px; margin-top: 200px; }
 }
 
 @media (max-width:768px) {
