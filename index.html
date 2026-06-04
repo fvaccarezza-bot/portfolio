@@ -120,11 +120,11 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     display: block;
     width: auto;
     max-width: none;
-    margin-bottom: -30px;
+    margin-bottom: -40px;
     transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 .desktop-testi-tag img:nth-child(2) {
-    margin-bottom: -15px;
+    margin-bottom: -20px;
 }
 .desktop-testi-tag img:last-child {
     margin-bottom: 0;
@@ -1458,7 +1458,7 @@ window.addEventListener('load', () => {
         const testiTag = document.querySelector('.desktop-testi-tag');
         if (testiTag) {
             const testiWrap = document.querySelector('.desktop-testi-wrap');
-            [['img:nth-child(1)',-40,0.25],['img:nth-child(2)',-20,0.3],['img:nth-child(3)',-8,0.35]].forEach(([sel,y,scrub]) => {
+            [['img:nth-child(1)',-8,0.25],['img:nth-child(2)',-15,0.3],['img:nth-child(3)',-25,0.35]].forEach(([sel,y,scrub]) => {
                 const el = testiTag.querySelector(sel);
                 if (!el) return;
                 gsap.to(el, { y, ease:'none', scrollTrigger: { trigger: testiWrap, start:'top bottom', end:'bottom top', scrub } });
@@ -1772,6 +1772,43 @@ if (window.innerWidth <= 768) {
             }
         }, { passive: true });
     }
+}
+
+// DESKTOP REVEAL — cards y services grid
+if (window.innerWidth > 768) {
+    var desktopStyle = document.createElement('style');
+    desktopStyle.textContent = [
+        '.gallery .card { opacity:0; transform:translateY(40px); transition:opacity 1.0s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.0s cubic-bezier(0.25,0.46,0.45,0.94); }',
+        '.gallery .card.in-view { opacity:1; transform:translateY(0); }',
+        '.services-grid-item { opacity:0; transform:translateY(30px); transition:opacity 1.0s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.0s cubic-bezier(0.25,0.46,0.45,0.94); }',
+        '.services-grid-item.in-view { opacity:1; transform:translateY(0); }'
+    ].join('');
+    document.head.appendChild(desktopStyle);
+
+    var desktopCards = document.querySelectorAll('.gallery .card');
+    var desktopCardObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                var idx = Array.from(desktopCards).indexOf(entry.target);
+                entry.target.style.transitionDelay = (idx * 0.06) + 's';
+                entry.target.classList.add('in-view');
+                desktopCardObs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    desktopCards.forEach(function(card) { desktopCardObs.observe(card); });
+
+    var desktopServices = document.querySelectorAll('.services-grid-item');
+    var desktopServicesObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                var idx = Array.from(desktopServices).indexOf(entry.target);
+                setTimeout(function() { entry.target.classList.add('in-view'); }, idx * 100);
+                desktopServicesObs.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    desktopServices.forEach(function(item) { desktopServicesObs.observe(item); });
 }
 </script>
 </body>
