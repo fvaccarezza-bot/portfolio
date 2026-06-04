@@ -1227,11 +1227,14 @@ window.addEventListener('load', () => {
         // Wraps de clip para cada letra — respetando margins originales
         document.querySelectorAll('.name-letter').forEach(letter => {
             const wrap = document.createElement('span');
-            const cs = letter.style;
-            // Mover margins del letter al wrap
-            wrap.style.cssText = 'display:inline-block;overflow:hidden;vertical-align:bottom;';
-            if (cs.marginRight) { wrap.style.marginRight = cs.marginRight; cs.marginRight = ''; }
-            if (cs.marginLeft)  { wrap.style.marginLeft  = cs.marginLeft;  cs.marginLeft  = ''; }
+            wrap.style.cssText = 'display:inline-block;overflow:hidden;vertical-align:bottom;line-height:1;';
+            // Copiar margins al wrap y quitarlos de la letra
+            ['marginLeft','marginRight'].forEach(prop => {
+                if (letter.style[prop]) {
+                    wrap.style[prop] = letter.style[prop];
+                    letter.style[prop] = '';
+                }
+            });
             letter.parentNode.insertBefore(wrap, letter);
             wrap.appendChild(letter);
             gsap.set(letter, { y: '110%' });
@@ -1457,19 +1460,8 @@ window.addEventListener('load', () => {
         })();
 
         (function() {
-            const fedLetters = document.querySelectorAll('#line-federico .name-letter');
-            const vacLetters = document.querySelectorAll('#line-vaccarezza .name-letter');
             const minTitles  = document.querySelectorAll('.ph-caption .min-titles');
             const triggerCfg = { trigger: '#page-header', start: '8% top', end: '65% top' };
-            function applyParallax(letters, centerIndex) {
-                letters.forEach((letter, i) => {
-                    const dist  = Math.abs(i - centerIndex);
-                    const yMove = -180 + dist * 18;
-                    gsap.to(letter, { y: yMove, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 0.25 + dist * 0.04 } });
-                });
-            }
-            applyParallax(fedLetters, 3.5);
-            applyParallax(vacLetters, 4.5);
             window.__registerTitleParallax = function() {
                 if (minTitles[0]) gsap.to(minTitles[0], { y: -220, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 0.25 } });
                 if (minTitles[1]) gsap.to(minTitles[1], { y: -160, ease: 'none', scrollTrigger: { ...triggerCfg, scrub: 0.3 } });
