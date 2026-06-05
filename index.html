@@ -195,6 +195,15 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         opacity: 1;
         transform: translateY(0);
     }
+    .mob-works-phrase {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 8px;
+        position: relative;
+        margin-bottom: 48px;
+    }
     /* Reveal testimonials */
     .mobile-testimonials img {
         opacity: 0;
@@ -796,8 +805,17 @@ document.addEventListener('click', function(e) {
             <div id="works" class="tt-section">
                 <div class="bg-vectors" id="bg-vectors-3"><div class="pos top-left"><img src="./assets/img/bg-lines/bg-lines3.svg" /></div></div>
                 <div class="tt-section-inner tt-wrap">
-                    <h2 class="section-title noise-fill-hover"><span class="title-clip"><span class="title-clip-inner" id="title-works">featured works</span></span></h2>
-                    <span id="mob-works-subtitle"><p>some of what I've done over the years.</p></span>
+                    <h2 class="section-title noise-fill-hover mob-no"><span class="title-clip"><span class="title-clip-inner" id="title-works">featured works</span></span></h2>
+                    <span id="mob-works-subtitle" class="mob-no"><p>some of what I've done over the years.</p></span>
+                    <!-- MOBILE works phrase SVGs -->
+                    <div class="mob-works-phrase mob-ok" style="display:none;">
+                        <div class="mob-phrase-clip"><img src="./assets/img/work-featu.svg" class="mob-phrase-word" alt="" /></div>
+                        <div class="mob-phrase-clip"><img src="./assets/img/work-red.svg" class="mob-phrase-word" alt="" /></div>
+                        <div class="mob-phrase-clip"><img src="./assets/img/work-work.svg" class="mob-phrase-word" alt="" /></div>
+                        <div style="position:relative;width:100%;display:flex;justify-content:center;pointer-events:none;z-index:2;">
+                            <img src="./assets/img/work-tag-complete.svg" id="mob-works-tag" class="mob-tag-complete" alt="" style="position:absolute;top:-60px;" />
+                        </div>
+                    </div>
                     <div class="gallery">
                         <div class="card" id="frog-bazar">
                             <a href="https://www.behance.net/gallery/157959551/Frog-Bazar-2023" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a>
@@ -1650,6 +1668,42 @@ if (window.innerWidth <= 768) {
             });
         }, { threshold: 0.0 });
         someKindClips.forEach(function(clip) { someKindObserver.observe(clip); });
+    }
+
+    // Reveal works phrase SVGs — mismo sistema que someKind
+    var worksClips = document.querySelectorAll('.mob-works-phrase .mob-phrase-clip');
+    if (worksClips.length) {
+        var worksObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    var word = entry.target.querySelector('.mob-phrase-word');
+                    if (word) word.classList.add('in-view');
+                    worksObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.0 });
+        worksClips.forEach(function(clip) { worksObserver.observe(clip); });
+    }
+
+    // Works tag — reveal + parallax, mismo que testiTag
+    var worksTag = document.getElementById('mob-works-tag');
+    if (worksTag) {
+        var worksTagObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    worksTag.classList.add('in-view');
+                    worksTagObserver.disconnect();
+                }
+            });
+        }, { threshold: 0.3 });
+        worksTagObserver.observe(worksTag);
+
+        window.addEventListener('scroll', function() {
+            var rect = worksTag.getBoundingClientRect();
+            var centerOffset = (rect.top + rect.height / 2) - (window.innerHeight / 2);
+            var parallaxY = centerOffset * 0.06;
+            worksTag.style.transform = 'translateY(' + parallaxY + 'px)';
+        }, { passive: true });
     }
 
     // Reveal testimonial images staggered
