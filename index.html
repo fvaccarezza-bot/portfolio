@@ -1614,6 +1614,9 @@ if (window.innerWidth <= 768) {
     var nav = document.querySelector('.tt-overlay-menu');
     if (nav) menuObserver.observe(nav, { attributes: true, attributeFilter: ['class'] });
 }
+
+if (window.innerWidth <= 768) {
+    var mobileHero = document.querySelector('.mobile-hero');
     var mobileText = document.querySelector('.mobile-hero-text');
     var mobilePhoto = document.querySelector('.mob-photo-wrap');
     var mobAbout = document.querySelector('.mob-about-block');
