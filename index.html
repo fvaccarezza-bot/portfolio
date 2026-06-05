@@ -229,21 +229,16 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         margin: 120px auto 0;
         gap: 32px;
     }
-    .mob-about-clip-title {
+    .mob-about-clip {
         overflow: hidden;
+        display: flex;
+        justify-content: center;
     }
-    .mob-about-title {
-        font-family: 'PP Telegraf', sans-serif;
-        font-weight: 800;
-        font-size: 53px;
-        line-height: 1;
-        text-align: center;
-        color: #3A3A39;
-        text-transform: lowercase;
-        transform: translateY(110%);
+    #mob-about-svg {
+        transform: translateY(100%);
         transition: transform 1.1s cubic-bezier(0.76,0,0.24,1);
     }
-    .mob-about-title.in-view {
+    #mob-about-svg.in-view {
         transform: translateY(0);
     }
     .mob-about-clip-text {
@@ -832,8 +827,8 @@ document.addEventListener('click', function(e) {
 
             <!-- MOBILE ABOUT BLOCK -->
             <div class="mob-about-block" style="display:none;">
-                <div class="mob-about-clip-title">
-                    <div class="mob-about-title">about</div>
+                <div class="mob-about-clip">
+                    <img src="./assets/img/mobile-about.svg" id="mob-about-svg" alt="about" style="display:block;width:auto;height:auto;" />
                 </div>
                 <div class="mob-about-clip-text">
                     <p class="mob-about-text">Educated at the University of Buenos Aires (UBA), I began in Industrial Design before transitioning to Graphic Design. Over the years, my work has spanned branding, web design, and UI/UX, collaborating with startups and established companies to create brands, websites, and digital experiences that are clear, effective, and thoughtfully designed.</p>
@@ -1614,16 +1609,16 @@ if (window.innerWidth <= 768) {
     if (wordsContainer) wordsContainer.style.display = 'none';
 
     // Reveal about block
-    var aboutTitle = document.querySelector('.mob-about-title');
+    var aboutSvg = document.getElementById('mob-about-svg');
     var aboutText = document.querySelector('.mob-about-text');
-    if (aboutTitle) {
+    if (aboutSvg) {
         new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('in-view');
                 }
             });
-        }, { threshold: 0.0 }).observe(aboutTitle);
+        }, { threshold: 0.0 }).observe(aboutSvg);
     }
     if (aboutText) {
         new IntersectionObserver(function(entries) {
