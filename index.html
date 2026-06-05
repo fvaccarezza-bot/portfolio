@@ -1232,6 +1232,9 @@ window.addEventListener('load', () => {
             gsap.to(lineFed, { y: 0, duration: 1.4, ease: 'power4.out', delay: 0.18,
                 onComplete: () => {
                     document.querySelectorAll('.name-reveal-mask').forEach(m => m.style.overflow = 'visible');
+                    document.querySelectorAll('.ph-caption .min-titles').forEach(m => {
+                        if (m.parentNode) m.parentNode.style.overflow = 'visible';
+                    });
                 }
             });
             gsap.to(lineVac, { y: 0, duration: 1.4, ease: 'power4.out', delay: 0.32 });
