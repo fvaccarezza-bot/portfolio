@@ -33,9 +33,13 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 <link rel="stylesheet" href="./assets/css/ui-scale.css" />
 <style>
 
-.name-reveal-mask { display:flex; justify-content:center; overflow:hidden; padding:8px 0; }
-.name-line { display:flex; justify-content:center; align-items:center; overflow:visible; line-height:0; }
-#line-federico, #line-vaccarezza { width:auto; }
+.name-reveal-mask { display:flex; justify-content:center; }
+.name-line { display:block; }
+.name-letter { display:block; width:auto; height:auto; }
+.home-title { display:flex; flex-direction:column; align-items:center; gap:16px; text-decoration:none; }
+@media (min-width: 2560px) {
+    .home-title { transform:scale(1.5); transform-origin:center center; }
+}
 /* name-letter: tamaño nativo, sin width/height forzados */
 .name-letter { display:block; width:auto; height:auto; flex-shrink:0; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); will-change:transform; }
 #line-federico, #line-vaccarezza { transform-origin: center center; }
@@ -146,12 +150,11 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .mob-somekind-phrase { display: none !important; }
 }
 
-/* ─── ULTRAWIDE: solo las imágenes SVG del hero escalan a 1.5 ─── */
+/* ─── ULTRAWIDE: escala el bloque completo del hero ─── */
 @media (min-width: 2560px) {
-    #line-federico .name-letter,
-    #line-vaccarezza .name-letter {
+    .home-title {
         transform: scale(1.5);
-        transform-origin: center bottom;
+        transform-origin: center center;
     }
     .services-big { transform:scale(1.5); transform-origin:center center; margin-bottom:300px !important; margin-top:300px !important; }
     .services-big .sb-tag { bottom:-80px; right:-4%; width:28%; }
@@ -1216,31 +1219,11 @@ window.addEventListener('load', () => {
     window.addEventListener('resize', matchLbHeight);
     if (typeof gsap !== 'undefined') {
 
-        const lineFedImg = document.querySelector('#line-federico');
-        const lineVacImg = document.querySelector('#line-vaccarezza');
         const minTitlesReveal = document.querySelectorAll('.ph-caption .min-titles');
-
-        gsap.set(lineFedImg, { y: '100%' });
-        gsap.set(lineVacImg, { y: '100%' });
-        gsap.set(minTitlesReveal, { y: '110%' });
+        gsap.set(minTitlesReveal, { y: 0 });
 
         const doReveal = () => {
-            gsap.to(minTitlesReveal[0], { y: 0, duration: 0.9, ease: 'power3.out', delay: 0 });
-            if (lineFedImg) gsap.to(lineFedImg, { y: 0, duration: 1.0, ease: 'power3.out', delay: 0.1 });
-            if (lineVacImg) gsap.to(lineVacImg, { y: 0, duration: 1.0, ease: 'power3.out', delay: 0.2,
-                onComplete: () => {
-                    const lines = document.querySelectorAll('.name-line');
-                    gsap.to(minTitlesReveal[0], { y: -40, duration: 0.9, ease: 'power2.out' });
-                    gsap.to(lines[0], { y: -28, duration: 0.9, ease: 'power2.out', delay: 0.05 });
-                    gsap.to(lines[1], { y: -16, duration: 0.9, ease: 'power2.out', delay: 0.1,
-                        onComplete: () => {
-                            if (typeof window.__registerTitleParallax === 'function') {
-                                window.__registerTitleParallax();
-                            }
-                        }
-                    });
-                }
-            });
+            // nombres sin animación por ahora
         };
 
         // Esperar al preloader
@@ -1467,49 +1450,6 @@ window.addEventListener('load', () => {
             });
         }
 
-        if (window.innerWidth > 768) {
-            const heroCaption = document.querySelector('.ph-caption-hover');
-            if (heroCaption) {
-                const minTitles = document.querySelectorAll('.ph-caption .min-titles');
-                const lineFed = document.getElementById('line-federico');
-                const lineVac = document.getElementById('line-vaccarezza');
-                const rows = [minTitles[0], lineFed, lineVac];
-                const baseY = [-40, -28, -16];
-
-                heroCaption.addEventListener('mouseenter', () => {
-                    rows.forEach((el, i) => {
-                        if (!el) return;
-                        gsap.to(el, { y: baseY[i] - 18, duration: 0.5, ease: 'power2.out', delay: i * 0.12 });
-                    });
-                });
-
-                heroCaption.addEventListener('mouseleave', () => {
-                    rows.forEach((el, i) => {
-                        if (!el) return;
-                        gsap.to(el, { y: baseY[i], duration: 0.6, ease: 'power2.inOut', delay: i * 0.09 });
-                    });
-                });
-            }
-        }
-
-        (function() {
-            const heroLink = document.getElementById('hero-name-link');
-            if (!heroLink) return;
-            heroLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                const lines = document.querySelectorAll('.name-line');
-                const minTitles = document.querySelectorAll('.ph-caption .min-titles');
-                if (lineFedImg) gsap.to(lineFedImg, { y: '-110%', duration: 0.6, ease: 'power3.inOut' });
-                if (lineVacImg) gsap.to(lineVacImg, { y: '-110%', duration: 0.6, ease: 'power3.inOut', delay: 0.05 });
-                gsap.to(minTitles[0], { y: -220, duration: 0.5, ease: 'power3.inOut' });
-                setTimeout(() => {
-                    const target = document.getElementById('about');
-                    if (!target) return;
-                    const top = target.getBoundingClientRect().top + window.scrollY + 160;
-                    window.scrollTo({ top, behavior: 'smooth' });
-                }, 400);
-            });
-        })();
 
     }
 });
