@@ -807,13 +807,11 @@ document.addEventListener('click', function(e) {
                 <div class="tt-section-inner tt-wrap">
                     <h2 class="section-title noise-fill-hover mob-no"><span class="title-clip"><span class="title-clip-inner" id="title-works">featured works</span></span></h2>
                     <!-- MOBILE works phrase SVGs -->
-                    <div class="mob-works-phrase mob-ok" style="display:none;">
+                    <div class="mob-works-phrase mob-ok" style="display:none;position:relative;">
                         <div class="mob-phrase-clip"><img src="./assets/img/work-featu.svg" class="mob-phrase-word" alt="" /></div>
-                        <div class="mob-phrase-clip" style="position:relative;">
-                            <img src="./assets/img/work-red.svg" class="mob-phrase-word" alt="" />
-                            <img src="./assets/img/work-tag-complete.svg" id="mob-works-tag" class="mob-tag-complete" alt="" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:auto;height:auto;" />
-                        </div>
+                        <div class="mob-phrase-clip" id="mob-works-red-clip"><img src="./assets/img/work-red.svg" class="mob-phrase-word" alt="" /></div>
                         <div class="mob-phrase-clip"><img src="./assets/img/work-work.svg" class="mob-phrase-word" alt="" /></div>
+                        <img src="./assets/img/work-tag-complete.svg" id="mob-works-tag" class="mob-tag-complete" alt="" style="position:absolute;left:50%;transform:translateX(-50%);width:auto;height:auto;pointer-events:none;z-index:2;" />
                     </div>
                     <div class="gallery">
                         <div class="card" id="frog-bazar">
@@ -1687,6 +1685,17 @@ if (window.innerWidth <= 768) {
     // Works tag — reveal + parallax, mismo que testiTag
     var worksTag = document.getElementById('mob-works-tag');
     if (worksTag) {
+        // Posicionar sobre work-red
+        function positionWorksTag() {
+            var redClip = document.getElementById('mob-works-red-clip');
+            if (!redClip) return;
+            var redTop = redClip.offsetTop + redClip.offsetHeight / 2;
+            worksTag.style.top = redTop + 'px';
+            worksTag.style.marginTop = '-' + (worksTag.offsetHeight / 2) + 'px';
+        }
+        setTimeout(positionWorksTag, 100);
+        window.addEventListener('resize', positionWorksTag);
+
         var worksTagObserver = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
@@ -1701,7 +1710,7 @@ if (window.innerWidth <= 768) {
             var rect = worksTag.getBoundingClientRect();
             var centerOffset = (rect.top + rect.height / 2) - (window.innerHeight / 2);
             var parallaxY = centerOffset * 0.06;
-            worksTag.style.transform = 'translateY(' + parallaxY + 'px)';
+            worksTag.style.transform = 'translateX(-50%) translateY(' + parallaxY + 'px)';
         }, { passive: true });
     }
 
