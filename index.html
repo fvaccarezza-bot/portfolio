@@ -36,7 +36,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .name-reveal-mask { display:flex; justify-content:center; }
 .name-line { display:block; }
 .name-letter { display:block; width:auto; height:auto; }
-.home-title { display:flex; flex-direction:column; align-items:center; gap:16px; text-decoration:none; }
+.home-title { display:flex; flex-direction:column; align-items:center; gap:16px; text-decoration:none; transition:none !important; }
 @media (min-width: 2560px) {
     .home-title { transform:scale(1.5); transform-origin:center center; }
 }
@@ -72,10 +72,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 #services .words-container { margin-top:0 !important; }
 .ph-caption .min-titles,.ph-caption-hover:hover .min-titles,.ph-caption .min-titles:hover { -webkit-text-stroke:0 !important; text-stroke:0 !important; }
 .home-title span img { display:block; width:auto; max-width:100%; margin:0 auto; }
-.ph-caption-hover:hover .min-titles:first-child { transform:translateY(-40px); }
-.ph-caption-hover:hover .name-line:nth-child(1) { transform:translateY(-28px); }
-.ph-caption-hover:hover .name-line:nth-child(2) { transform:translateY(-16px); }
-.ph-caption-hover:hover .min-titles:last-child { transform:translateY(-6px); }
 
 /* THEY SAID IT — desktop only */
 .desktop-testi-phrase {
