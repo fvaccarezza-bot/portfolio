@@ -569,30 +569,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 }
 
 @media (max-width: 768px) {
-    /* Anular TODO del tema en el overlay */
-    .tt-overlay-menu {
-        display: block !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        animation: none !important;
-        transform: translateY(105%) !important;
-        transition: transform 0.7s cubic-bezier(0.76,0,0.24,1) !important;
-        background: var(--tt-body-bg, #F5F4F0) !important;
-    }
-    body.tt-ol-menu-open .tt-overlay-menu {
-        transform: translateY(0) !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
-    .tt-ol-menu-holder,
-    .tt-ol-menu-inner,
-    .tt-ol-menu-content {
-        opacity: 1 !important;
-        visibility: visible !important;
-        animation: none !important;
-        transition: none !important;
-        transform: none !important;
-    }
     /* Texto negro */
     .tt-ol-menu-list > li > a,
     .tt-ol-submenu-list > li > a { color: #3A3A39 !important; }
@@ -1372,19 +1348,22 @@ window.addEventListener('load', () => {
         }
 
         // Esperar al preloader
+        let revealed = false;
+        const safeReveal = () => { if (!revealed) { revealed = true; doReveal(); } };
+
         const preloaderEl = document.getElementById('preloader');
         if (preloaderEl) {
             const obsReveal = new MutationObserver(() => {
                 const s = window.getComputedStyle(preloaderEl);
-                if (s.opacity === '0' || s.display === 'none' || s.visibility === 'hidden') {
-                    doReveal();
+                if (s.opacity === '0' || s.display === 'none' || s.visibility === 'hidden' || parseFloat(s.opacity) < 0.1) {
+                    safeReveal();
                     obsReveal.disconnect();
                 }
             });
             obsReveal.observe(preloaderEl, { attributes: true, attributeFilter: ['style', 'class'] });
-            setTimeout(doReveal, 2000);
+            setTimeout(safeReveal, 3500);
         } else {
-            setTimeout(doReveal, 300);
+            setTimeout(safeReveal, 300);
         }
 
         const viewCursor = document.createElement('div');
@@ -1574,7 +1553,7 @@ window.addEventListener('load', () => {
             const testiPhrase = document.getElementById('testi-phrase-img');
             if (!testiPhrase) return;
             gsap.to(testiPhrase, { y: 0, ease: 'none',
-                scrollTrigger: { trigger: '.desktop-testi-wrap', start: 'top 90%', end: 'top 20%', scrub: 1.2 }
+                scrollTrigger: { trigger: '.desktop-testi-wrap', start: 'top bottom', end: 'center center', scrub: 1.2 }
             });
         })();
 
