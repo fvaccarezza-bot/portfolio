@@ -299,6 +299,8 @@
 
          $('.tt-overlay-menu a, .tt-logo a').not('[target="_blank"]').not('[href="#"]').not('[href^="mailto"]').not('[href^="tel"]').on('click', function () {
             $('body').addClass('olm-toggle-no-click');
+            var $clickedHref = $(this).attr('href') || $(this).data('href') || null;
+            var $clickedOffset = $(this).data('offset') || 0;
             gsap.set('#content-wrap, .ttgr-cat-nav', { autoAlpha: 0 });
             var tl_olMenuClick = gsap.timeline({
                onComplete: function () {
@@ -307,6 +309,14 @@
                   $('.tt-ol-submenu-trigger > a').css('color', '');
                   $('html').removeClass('tt-no-scroll');
                   $('body').removeClass('olm-toggle-no-click');
+                  // Scroll después de que salió el menú
+                  if (isMob && $clickedHref && $clickedHref.charAt(0) === '#') {
+                     var $target = $($clickedHref);
+                     if ($target.length) {
+                        var topY = $target.offset().top - $('body').offset().top - $clickedOffset;
+                        $('html,body').animate({ scrollTop: topY }, 600);
+                     }
+                  }
                }
             });
             tl_olMenuClick.to('.tt-ol-menu-list > li', { duration: 0.3, y: -30, autoAlpha: 0, stagger: 0.04, ease: 'power2.in' });
@@ -318,6 +328,10 @@
             }
             tl_olMenuClick.set('.tt-ol-menu-list > li', { clearProps: 'all' });
             setTimeout(function () { $('body').removeClass('tt-ol-menu-open'); }, 500);
+            // En mobile prevenimos la navegación nativa para anchors — manejamos nosotros
+            if (isMob && $clickedHref && $clickedHref.charAt(0) === '#') {
+               return false;
+            }
          });
 
          if ($('.tt-sliding-sidebar-wrap').length) { gsap.to('.tt-sliding-sidebar-trigger', { duration: 1, autoAlpha: 0, ease: Expo.easeOut }); }
@@ -382,7 +396,7 @@
             var targetHeight = $submenu[0].scrollHeight;
             gsap.to($submenu, {
                duration: 0.6, height: targetHeight, autoAlpha: 1, ease: 'power3.inOut',
-               onComplete: function () { $submenu.css({ height: '', overflow: '' }); }
+               onComplete: function () { $submenu.css({ height: 'auto', overflow: 'visible' }); }
             });
          }
       }
