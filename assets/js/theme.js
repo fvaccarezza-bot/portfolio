@@ -290,11 +290,11 @@
 
          if (isMob) {
             gsap.set('.tt-overlay-menu', { y: '100%', autoAlpha: 1 });
-            tl_olMenuIn.to('.tt-overlay-menu', { duration: 0.8, y: '0%', ease: 'power4.out' });
-            tl_olMenuIn.from('.tt-ol-menu-list > li', { duration: 0.6, y: 24, autoAlpha: 0, stagger: 0.08, ease: 'power3.out', clearProps: 'all' }, '-=0.4');
+            tl_olMenuIn.to('.tt-overlay-menu', { duration: 1.0, y: '0%', ease: 'power4.out' });
+            tl_olMenuIn.from('.tt-ol-menu-list > li', { duration: 0.7, y: 24, autoAlpha: 0, stagger: 0.09, ease: 'power3.out', clearProps: 'all' }, '-=0.5');
          } else {
-            tl_olMenuIn.to('.tt-overlay-menu', { duration: 0.6, autoAlpha: 1, ease: 'power3.out' });
-            tl_olMenuIn.from('.tt-ol-menu-list > li', { duration: 0.6, y: 80, autoAlpha: 0, stagger: 0.06, ease: 'power3.out', clearProps: 'all' }, '-=0.3');
+            tl_olMenuIn.to('.tt-overlay-menu', { duration: 0.7, autoAlpha: 1, ease: 'power3.out' });
+            tl_olMenuIn.from('.tt-ol-menu-list > li', { duration: 0.7, y: 80, autoAlpha: 0, stagger: 0.07, ease: 'power3.out', clearProps: 'all' }, '-=0.4');
          }
 
          $('.tt-overlay-menu a, .tt-logo a').not('[target="_blank"]').not('[href="#"]').not('[href^="mailto"]').not('[href^="tel"]').on('click', function () {
@@ -302,19 +302,19 @@
             gsap.set('#content-wrap, .ttgr-cat-nav', { autoAlpha: 0 });
             var tl_olMenuClick = gsap.timeline({
                onComplete: function () {
-                  $('.tt-ol-submenu').slideUp(350);
+                  $('.tt-ol-submenu').hide().css('height', '');
                   $('.tt-ol-submenu-trigger').removeClass('tt-ol-submenu-open');
+                  $('.tt-ol-submenu-trigger > a').css('color', '');
                   $('html').removeClass('tt-no-scroll');
                   $('body').removeClass('olm-toggle-no-click');
-                  $('#works-submenu').css('color', '');
                }
             });
             tl_olMenuClick.to('.tt-ol-menu-list > li', { duration: 0.3, y: -30, autoAlpha: 0, stagger: 0.04, ease: 'power2.in' });
             tl_olMenuClick.to('#content-wrap, .ttgr-cat-nav', { duration: 0.4, autoAlpha: 1, clearProps: 'all' });
             if (isMob) {
-               tl_olMenuClick.to('.tt-overlay-menu', { duration: 0.6, y: '-100%', ease: 'power4.in', clearProps: 'all' }, '-=0.2');
+               tl_olMenuClick.to('.tt-overlay-menu', { duration: 0.7, y: '-100%', ease: 'power4.in', clearProps: 'all' }, '-=0.2');
             } else {
-               tl_olMenuClick.to('.tt-overlay-menu', { duration: 0.5, autoAlpha: 0, ease: 'power3.in', clearProps: 'all' }, '-=0.2');
+               tl_olMenuClick.to('.tt-overlay-menu', { duration: 0.6, autoAlpha: 0, ease: 'power3.in', clearProps: 'all' }, '-=0.2');
             }
             tl_olMenuClick.set('.tt-ol-menu-list > li', { clearProps: 'all' });
             setTimeout(function () { $('body').removeClass('tt-ol-menu-open'); }, 500);
@@ -328,19 +328,19 @@
          var tl_olMenuOut = gsap.timeline({
             onComplete: function () {
                $('body').removeClass('olm-toggle-no-click');
-               $('.tt-ol-submenu').slideUp(350);
+               $('.tt-ol-submenu').hide().css('height', '');
                $('.tt-ol-submenu-trigger').removeClass('tt-ol-submenu-open');
-               $('#works-submenu').css('color', '');
+               $('.tt-ol-submenu-trigger > a').css('color', '');
             }
          });
 
          if (isMob) {
             tl_olMenuOut.to('.tt-ol-menu-list > li', { duration: 0.3, y: -20, autoAlpha: 0, stagger: 0.05, ease: 'power2.in' });
-            tl_olMenuOut.to('.tt-overlay-menu', { duration: 0.6, y: '-100%', ease: 'power4.in', clearProps: 'all' }, '-=0.1');
+            tl_olMenuOut.to('.tt-overlay-menu', { duration: 0.7, y: '-100%', ease: 'power4.in', clearProps: 'all' }, '-=0.1');
             tl_olMenuOut.set('.tt-ol-menu-list > li', { clearProps: 'all' });
          } else {
             tl_olMenuOut.to('.tt-ol-menu-list > li', { duration: 0.4, y: -60, autoAlpha: 0, stagger: 0.06, ease: 'power3.in' });
-            tl_olMenuOut.to('.tt-overlay-menu', { duration: 0.5, autoAlpha: 0, ease: 'power3.in', clearProps: 'all' }, '-=0.2');
+            tl_olMenuOut.to('.tt-overlay-menu', { duration: 0.6, autoAlpha: 0, ease: 'power3.in', clearProps: 'all' }, '-=0.2');
             tl_olMenuOut.set('.tt-ol-menu-list > li', { clearProps: 'all' });
          }
 
@@ -352,26 +352,38 @@
 
    $('.tt-ol-menu-list').on('mouseenter', function () { $(this).addClass('tt-ol-menu-hover'); }).on('mouseleave', function () { $(this).removeClass('tt-ol-menu-hover'); });
 
-   // Works submenu — naranja al abrir, negro al cerrar, smooth con GSAP
+   // Works submenu — naranja solo cuando está abierto, GSAP smooth
    $('.tt-ol-submenu-trigger > a').on('click', function () {
       if ($(this).is('[href^="#"]')) {
-         var $this = $(this).parent();
-         var $submenu = $this.next('.tt-ol-submenu');
-         if ($this.hasClass('tt-ol-submenu-open')) {
-            $this.removeClass('tt-ol-submenu-open');
-            $(this).css('color', '');
-            gsap.to($submenu, { duration: 0.4, height: 0, autoAlpha: 0, ease: 'power3.inOut', onComplete: function () { $submenu.hide().css('height', ''); } });
-         } else {
-            $this.parent().parent().find('.tt-ol-submenu').prev().removeClass('tt-ol-submenu-open');
-            $this.parent().parent().find('.tt-ol-submenu').each(function () {
-               gsap.to($(this), { duration: 0.4, height: 0, autoAlpha: 0, ease: 'power3.inOut', onComplete: function () { $(this).hide().css('height', ''); } });
+         var $trigger = $(this).parent();
+         var $link = $(this);
+         var $submenu = $trigger.next('.tt-ol-submenu');
+
+         if ($trigger.hasClass('tt-ol-submenu-open')) {
+            // Cerrar — color vuelve a negro
+            $trigger.removeClass('tt-ol-submenu-open');
+            $link.css('color', '');
+            gsap.to($submenu, {
+               duration: 0.5, height: 0, autoAlpha: 0, ease: 'power3.inOut',
+               onComplete: function () { $submenu.hide().css({ height: '', overflow: '' }); }
             });
-            $this.parent().parent().find('.tt-ol-submenu-trigger > a').css('color', '');
-            $this.toggleClass('tt-ol-submenu-open');
-            $(this).css('color', '#FF6600');
-            $submenu.show().css({ height: 0, autoAlpha: 0, overflow: 'hidden' });
+         } else {
+            // Cerrar otros
+            $trigger.parent().parent().find('.tt-ol-submenu-trigger').removeClass('tt-ol-submenu-open');
+            $trigger.parent().parent().find('.tt-ol-submenu-trigger > a').css('color', '');
+            $trigger.parent().parent().find('.tt-ol-submenu').each(function () {
+               var $s = $(this);
+               gsap.to($s, { duration: 0.5, height: 0, autoAlpha: 0, ease: 'power3.inOut', onComplete: function () { $s.hide().css({ height: '', overflow: '' }); } });
+            });
+            // Abrir este — color naranja
+            $trigger.addClass('tt-ol-submenu-open');
+            $link.css('color', '#FF6600');
+            $submenu.show().css({ height: 0, overflow: 'hidden', opacity: 0, visibility: 'visible' });
             var targetHeight = $submenu[0].scrollHeight;
-            gsap.to($submenu, { duration: 0.5, height: targetHeight, autoAlpha: 1, ease: 'power3.inOut', onComplete: function () { $submenu.css({ height: '', overflow: '' }); } });
+            gsap.to($submenu, {
+               duration: 0.6, height: targetHeight, autoAlpha: 1, ease: 'power3.inOut',
+               onComplete: function () { $submenu.css({ height: '', overflow: '' }); }
+            });
          }
       }
       return false;
