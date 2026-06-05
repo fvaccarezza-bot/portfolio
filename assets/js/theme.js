@@ -366,23 +366,40 @@
 
    $('.tt-ol-menu-list').on('mouseenter', function () { $(this).addClass('tt-ol-menu-hover'); }).on('mouseleave', function () { $(this).removeClass('tt-ol-menu-hover'); });
 
-   // Works submenu — naranja solo cuando está abierto, slideToggle original
+   // Works submenu — naranja solo cuando está abierto, stagger igual que menú principal
    $('.tt-ol-submenu-trigger > a').on('click touchend', function (e) {
       e.stopPropagation();
       if ($(this).is('[href^="#"]')) {
          var $this = $(this).parent();
          var $link = $(this);
+         var $submenu = $this.next('.tt-ol-submenu');
+         var $items = $submenu.find('li');
+
          if ($this.hasClass('tt-ol-submenu-open')) {
             $this.removeClass('tt-ol-submenu-open');
             $link.css('color', '');
-            $this.next().slideUp(350);
+            gsap.to($items, { duration: 0.25, y: -10, autoAlpha: 0, stagger: 0.04, ease: 'power2.in',
+               onComplete: function () {
+                  $submenu.slideUp(200);
+                  gsap.set($items, { clearProps: 'all' });
+               }
+            });
          } else {
+            // Cerrar otros
             $this.parent().parent().find('.tt-ol-submenu').prev().removeClass('tt-ol-submenu-open');
             $this.parent().parent().find('.tt-ol-submenu-trigger > a').css('color', '');
-            $this.parent().parent().find('.tt-ol-submenu').slideUp(350);
+            $this.parent().parent().find('.tt-ol-submenu').each(function () {
+               var $s = $(this); var $si = $s.find('li');
+               gsap.to($si, { duration: 0.2, y: -10, autoAlpha: 0, stagger: 0.03, ease: 'power2.in',
+                  onComplete: function () { $s.slideUp(150); gsap.set($si, { clearProps: 'all' }); }
+               });
+            });
+            // Abrir
             $this.toggleClass('tt-ol-submenu-open');
             $link.css('color', '#FF6600');
-            $this.next().slideToggle(350);
+            gsap.set($items, { y: 16, autoAlpha: 0 });
+            $submenu.slideDown(0);
+            gsap.to($items, { duration: 0.5, y: 0, autoAlpha: 1, stagger: 0.06, ease: 'power3.out', clearProps: 'all' });
          }
       }
       return false;
