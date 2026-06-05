@@ -1231,13 +1231,31 @@ window.addEventListener('load', () => {
             gsap.to(lineFed, { y: 0, duration: 1.4, ease: 'power4.out', delay: 0.18,
                 onComplete: () => {
                     document.querySelectorAll('.name-reveal-mask').forEach(m => m.style.overflow = 'visible');
-                    gsap.to(lineFed, { y: -8, duration: 1.6, ease: 'power2.inOut' });
-                    gsap.to(lineVac, { y: -8, duration: 1.6, ease: 'power2.inOut', delay: 0.12 });
                 }
             });
             gsap.to(lineVac, { y: 0, duration: 1.4, ease: 'power4.out', delay: 0.32 });
             gsap.to(heroSubtitle, { y: 0, duration: 1.2, ease: 'power4.out', delay: 0.46 });
         };
+
+        // Hover breathe — todo el hero, escalonado
+        const heroCaption = document.querySelector('.ph-caption-hover');
+        const heroEls = [minTitlesReveal[0], lineFed, lineVac, heroSubtitle];
+        const heroBaseY = [0, 0, 0, 0];
+
+        if (heroCaption) {
+            heroCaption.addEventListener('mouseenter', () => {
+                heroEls.forEach((el, i) => {
+                    if (!el) return;
+                    gsap.to(el, { y: heroBaseY[i] - 8, duration: 0.6, ease: 'power2.out', delay: i * 0.06 });
+                });
+            });
+            heroCaption.addEventListener('mouseleave', () => {
+                heroEls.forEach((el, i) => {
+                    if (!el) return;
+                    gsap.to(el, { y: heroBaseY[i], duration: 0.7, ease: 'power2.inOut', delay: i * 0.04 });
+                });
+            });
+        }
 
         // Esperar al preloader
         const preloaderEl = document.getElementById('preloader');
