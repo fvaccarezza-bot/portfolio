@@ -423,9 +423,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     }
     .mob-phrase-tags-overlay {
         position: absolute;
-        top: calc(4 * (65px + 15px) - 55px);
+        top: 50%;
         left: 50%;
-        transform: translateX(-50%);
+        transform: translate(-50%, -50%);
         width: 92vw;
         max-width: 340px;
         pointer-events: none;
@@ -1758,7 +1758,7 @@ if (window.innerWidth <= 768) {
 
     // Fade in services-tag-complete when near end of phrase SVGs
     var tagComplete = document.querySelector('.mob-phrase-tags-overlay .mob-tag-complete');
-    var servicesLastClip = document.querySelector('.mob-services-phrase .mob-phrase-clip:last-of-type');
+    var servicesLastClip = document.querySelector('.mob-services-phrase .mob-phrase-clip:last-child');
     if (tagComplete && servicesLastClip) {
         var tagObserver = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
