@@ -569,28 +569,34 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 }
 
 @media (max-width: 768px) {
-    /* Anular completamente animación del tema */
-    .tt-overlay-menu,
-    .tt-ol-menu-holder,
-    .tt-ol-menu-inner,
-    .tt-ol-menu-content { 
-        animation: none !important;
+    /* Anular TODO del tema en el overlay */
+    .tt-overlay-menu {
+        display: block !important;
         opacity: 1 !important;
         visibility: visible !important;
-        transition: none !important;
-    }
-    /* Slide desde abajo — solo en el nav */
-    .tt-overlay-menu {
+        animation: none !important;
         transform: translateY(105%) !important;
         transition: transform 0.7s cubic-bezier(0.76,0,0.24,1) !important;
         background: var(--tt-body-bg, #F5F4F0) !important;
     }
     body.tt-ol-menu-open .tt-overlay-menu {
         transform: translateY(0) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    .tt-ol-menu-holder,
+    .tt-ol-menu-inner,
+    .tt-ol-menu-content {
+        opacity: 1 !important;
+        visibility: visible !important;
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
     }
     /* Texto negro */
     .tt-ol-menu-list > li > a,
     .tt-ol-submenu-list > li > a { color: #3A3A39 !important; }
+    .tt-ol-submenu-list > li > a { font-size: 10px !important; letter-spacing: 0.3em !important; }
     /* Items escalonados */
     .tt-ol-menu-list > li {
         opacity: 0;
@@ -793,18 +799,18 @@ document.addEventListener('click', function(e) {
                         <li class="tt-ol-submenu-wrap">
                             <div class="tt-ol-submenu-trigger"><a id="works-submenu" href="#" class="tt-ol-submenu-link">Works</a></div>
                             <div class="tt-ol-submenu"><ul class="tt-ol-submenu-list">
-                                <li><a class="media" data-vt-mode="shared" data-vt-dir="next" href="work/frogbazar/" alt="frog-bazar">/ FROG BAZAR.</a></li>
-                                <li><a class="media" href="work/estudio32/" alt="estudio32" data-vt-mode="slide">/ ESTUDIO 32.</a></li>
-                                <li><a class="media" href="work/opame/" alt="opame" data-vt-mode="slide">/ OPAME.</a></li>
-                                <li><a class="media" href="work/nmp/" alt="nmp" data-vt-mode="slide">/ NM, P.</a></li>
-                                <li><a class="media" href="work/cleo/" alt="cleo" data-vt-mode="slide">/ CLEO.</a></li>
-                                <li><a class="media" href="work/michi/" alt="michi" data-vt-mode="slide">/ MICHI BISTRO.</a></li>
-                                <li><a class="media" href="work/broke/" alt="broke" data-vt-mode="slide">/ BROKE.</a></li>
-                                <li><a class="media" href="work/big-mother-energy/" alt="big-mother-energy" data-vt-mode="slide">/ BIG MOTHER ENERGY.</a></li>
-                                <li><a class="media" href="work/ui-ux/" alt="ui-ux" data-vt-mode="slide">/ UI / UX.</a></li>
-                                <li><a class="media" href="work/web/" alt="web" data-vt-mode="slide">/ WEB.</a></li>
-                                <li><a class="media" href="work/logofolio/" alt="logofolio" data-vt-mode="slide">/ LOGOFOLIO.</a></li>
-                                <li><a class="media" href="work/photography/" alt="photography" data-vt-mode="slide">/ PHOTOGRAPHY.</a></li>
+                                <li><a class="media" data-vt-mode="shared" data-vt-dir="next" href="work/frogbazar/" alt="frog-bazar">FROG BAZAR.</a></li>
+                                <li><a class="media" href="work/estudio32/" alt="estudio32" data-vt-mode="slide">ESTUDIO 32.</a></li>
+                                <li><a class="media" href="work/opame/" alt="opame" data-vt-mode="slide">OPAME.</a></li>
+                                <li><a class="media" href="work/nmp/" alt="nmp" data-vt-mode="slide">NM, P.</a></li>
+                                <li><a class="media" href="work/cleo/" alt="cleo" data-vt-mode="slide">CLEO.</a></li>
+                                <li><a class="media" href="work/michi/" alt="michi" data-vt-mode="slide">MICHI BISTRO.</a></li>
+                                <li><a class="media" href="work/broke/" alt="broke" data-vt-mode="slide">BROKE.</a></li>
+                                <li><a class="media" href="work/big-mother-energy/" alt="big-mother-energy" data-vt-mode="slide">BIG MOTHER ENERGY.</a></li>
+                                <li><a class="media" href="work/ui-ux/" alt="ui-ux" data-vt-mode="slide">UI / UX.</a></li>
+                                <li><a class="media" href="work/web/" alt="web" data-vt-mode="slide">WEB.</a></li>
+                                <li><a class="media" href="work/logofolio/" alt="logofolio" data-vt-mode="slide">LOGOFOLIO.</a></li>
+                                <li><a class="media" href="work/photography/" alt="photography" data-vt-mode="slide">PHOTOGRAPHY.</a></li>
                             </ul></div>
                         </li>
                         <li class="common-li"><a href="#services" data-offset="40">Services</a></li>
@@ -1597,11 +1603,11 @@ window.addEventListener('load', () => {
 </script>
 <script>
 if (window.innerWidth <= 768) {
-    // Prevenir scroll al cerrar menu
-    var closeBtn = document.querySelector('.tt-ol-menu-toggle-btn');
-    if (closeBtn) {
-        closeBtn.addEventListener('click', function(e) { e.preventDefault(); });
-    }
+    // Prevenir scroll al cerrar menu — capture phase
+    document.addEventListener('click', function(e) {
+        var btn = e.target.closest('.tt-ol-menu-toggle-btn');
+        if (btn) e.preventDefault();
+    }, true);
     // Mobile menu stagger
     var menuItems = document.querySelectorAll('.tt-ol-menu-list > li');
     function staggerMenuIn() {
