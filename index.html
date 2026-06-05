@@ -569,7 +569,37 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 }
 
 @media (max-width: 768px) {
-    #contact,
+    /* Slide desde abajo */
+    .tt-overlay-menu {
+        transform: translateY(100%) !important;
+        transition: transform 0.6s cubic-bezier(0.76,0,0.24,1) !important;
+    }
+    .tt-overlay-menu.tt-open,
+    body.tt-ol-menu-is-open .tt-overlay-menu {
+        transform: translateY(0) !important;
+    }
+    /* Texto negro */
+    .tt-overlay-menu,
+    .tt-ol-menu-list > li > a,
+    .tt-ol-submenu-list > li > a,
+    .tt-ol-menu-toggle-btn-text,
+    .tt-ol-menu-content,
+    .tt-ol-menu-inner {
+        color: #3A3A39 !important;
+        background: var(--tt-body-bg, #F5F4F0) !important;
+    }
+    .tt-ol-menu-list > li > a { color: #3A3A39 !important; }
+    /* Items escalonados */
+    .tt-ol-menu-list > li {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.76,0,0.24,1);
+    }
+    .tt-ol-menu-list > li.mob-menu-in {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
     #contact.tt-section,
     footer#contact,
     footer#contact.tt-section {
@@ -1560,7 +1590,27 @@ window.addEventListener('load', () => {
 </script>
 <script>
 if (window.innerWidth <= 768) {
-    var mobileHero = document.querySelector('.mobile-hero');
+    // Mobile menu stagger
+    var menuItems = document.querySelectorAll('.tt-ol-menu-list > li');
+    function staggerMenuIn() {
+        menuItems.forEach(function(li, i) {
+            li.classList.remove('mob-menu-in');
+            setTimeout(function() { li.classList.add('mob-menu-in'); }, 300 + i * 80);
+        });
+    }
+    function staggerMenuOut() {
+        menuItems.forEach(function(li) { li.classList.remove('mob-menu-in'); });
+    }
+    var menuObserver = new MutationObserver(function() {
+        var nav = document.querySelector('.tt-overlay-menu');
+        if (!nav) return;
+        var isOpen = nav.classList.contains('tt-open') || document.body.classList.contains('tt-ol-menu-is-open');
+        isOpen ? staggerMenuIn() : staggerMenuOut();
+    });
+    menuObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+    var nav = document.querySelector('.tt-overlay-menu');
+    if (nav) menuObserver.observe(nav, { attributes: true, attributeFilter: ['class'] });
+}
     var mobileText = document.querySelector('.mobile-hero-text');
     var mobilePhoto = document.querySelector('.mob-photo-wrap');
     var mobAbout = document.querySelector('.mob-about-block');
