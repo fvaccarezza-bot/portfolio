@@ -366,38 +366,22 @@
 
    $('.tt-ol-menu-list').on('mouseenter', function () { $(this).addClass('tt-ol-menu-hover'); }).on('mouseleave', function () { $(this).removeClass('tt-ol-menu-hover'); });
 
-   // Works submenu — naranja solo cuando está abierto, GSAP smooth
+   // Works submenu — naranja solo cuando está abierto, slideToggle original
    $('.tt-ol-submenu-trigger > a').on('click', function () {
       if ($(this).is('[href^="#"]')) {
-         var $trigger = $(this).parent();
+         var $this = $(this).parent();
          var $link = $(this);
-         var $submenu = $trigger.next('.tt-ol-submenu');
-
-         if ($trigger.hasClass('tt-ol-submenu-open')) {
-            // Cerrar — color vuelve a negro
-            $trigger.removeClass('tt-ol-submenu-open');
+         if ($this.hasClass('tt-ol-submenu-open')) {
+            $this.removeClass('tt-ol-submenu-open');
             $link.css('color', '');
-            gsap.to($submenu, {
-               duration: 0.5, height: 0, autoAlpha: 0, ease: 'power3.inOut',
-               onComplete: function () { $submenu.hide().css({ height: '', overflow: '' }); }
-            });
+            $this.next().slideUp(350);
          } else {
-            // Cerrar otros
-            $trigger.parent().parent().find('.tt-ol-submenu-trigger').removeClass('tt-ol-submenu-open');
-            $trigger.parent().parent().find('.tt-ol-submenu-trigger > a').css('color', '');
-            $trigger.parent().parent().find('.tt-ol-submenu').each(function () {
-               var $s = $(this);
-               gsap.to($s, { duration: 0.5, height: 0, autoAlpha: 0, ease: 'power3.inOut', onComplete: function () { $s.hide().css({ height: '', overflow: '' }); } });
-            });
-            // Abrir este — color naranja
-            $trigger.addClass('tt-ol-submenu-open');
+            $this.parent().parent().find('.tt-ol-submenu').prev().removeClass('tt-ol-submenu-open');
+            $this.parent().parent().find('.tt-ol-submenu-trigger > a').css('color', '');
+            $this.parent().parent().find('.tt-ol-submenu').slideUp(350);
+            $this.toggleClass('tt-ol-submenu-open');
             $link.css('color', '#FF6600');
-            $submenu.show().css({ height: 0, overflow: 'hidden', opacity: 0, visibility: 'visible' });
-            var targetHeight = $submenu[0].scrollHeight;
-            gsap.to($submenu, {
-               duration: 0.6, height: targetHeight, autoAlpha: 1, ease: 'power3.inOut',
-               onComplete: function () { $submenu.css({ height: 'auto', overflow: 'visible' }); }
-            });
+            $this.next().slideToggle(350);
          }
       }
       return false;
