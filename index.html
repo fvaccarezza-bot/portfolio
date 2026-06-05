@@ -408,11 +408,12 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         justify-content: center;
         width: 92vw;
         max-width: 340px;
+        height: 80px;
     }
     .mob-phrase-word {
         display: block;
         width: auto;
-        height: auto;
+        height: 80px;
         max-width: 340px;
         transform: translateY(110%);
         transition: transform 1.1s cubic-bezier(0.76,0,0.24,1);
@@ -1775,20 +1776,6 @@ if (window.innerWidth <= 768) {
             var centerOffset = (rect.top + rect.height / 2) - (window.innerHeight / 2);
             var parallaxY = centerOffset * 0.06;
             tagComplete.style.transform = 'translateY(' + parallaxY + 'px)';
-        }, { passive: true });
-    }
-
-    // Parallax sutil en cards mobile
-    var parallaxCards = document.querySelectorAll('.gallery .card');
-    if (parallaxCards.length) {
-        window.addEventListener('scroll', function() {
-            parallaxCards.forEach(function(card, i) {
-                var rect = card.getBoundingClientRect();
-                var centerOffset = (rect.top + rect.height / 2) - (window.innerHeight / 2);
-                var speed = (i % 2 === 0) ? 0.03 : 0.05;
-                var py = centerOffset * speed;
-                card.style.transform = 'translateY(' + py + 'px)';
-            });
         }, { passive: true });
     }
 
