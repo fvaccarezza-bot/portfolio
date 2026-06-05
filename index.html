@@ -469,8 +469,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .mobile-testimonials img { width: 380px !important; max-width: 100% !important; display: block !important; margin-bottom: -40px !important; }
     .mobile-testimonials img:last-child { margin-bottom: 0 !important; }
 
-    .card { border-radius: 5px !important; }
-    .card a.media, .card .pgi-image-holder { border-radius: 5px !important; }
+    .card { border-radius: 3px !important; }
+    .card a.media, .card .pgi-image-holder { border-radius: 3px !important; }
     .card:hover .img-hover { opacity: 0 !important; }
     .card:hover .img-base { transform: none !important; }
     .card .img-hover { transition: none !important; }
@@ -1757,7 +1757,8 @@ if (window.innerWidth <= 768) {
 
     // Fade in services-tag-complete when near end of phrase SVGs
     var tagComplete = document.querySelector('.mob-phrase-tags-overlay .mob-tag-complete');
-    if (tagComplete) {
+    var servicesLastClip = document.querySelector('.mob-services-phrase .mob-phrase-clip:last-of-type');
+    if (tagComplete && servicesLastClip) {
         var tagObserver = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
@@ -1765,8 +1766,8 @@ if (window.innerWidth <= 768) {
                     tagObserver.disconnect();
                 }
             });
-        }, { threshold: 0.3 });
-        tagObserver.observe(tagComplete);
+        }, { threshold: 0.0 });
+        tagObserver.observe(servicesLastClip);
 
         // Parallax float
         window.addEventListener('scroll', function() {
@@ -1774,6 +1775,20 @@ if (window.innerWidth <= 768) {
             var centerOffset = (rect.top + rect.height / 2) - (window.innerHeight / 2);
             var parallaxY = centerOffset * 0.06;
             tagComplete.style.transform = 'translateY(' + parallaxY + 'px)';
+        }, { passive: true });
+    }
+
+    // Parallax sutil en cards mobile
+    var parallaxCards = document.querySelectorAll('.gallery .card');
+    if (parallaxCards.length) {
+        window.addEventListener('scroll', function() {
+            parallaxCards.forEach(function(card, i) {
+                var rect = card.getBoundingClientRect();
+                var centerOffset = (rect.top + rect.height / 2) - (window.innerHeight / 2);
+                var speed = (i % 2 === 0) ? 0.03 : 0.05;
+                var py = centerOffset * speed;
+                card.style.transform = 'translateY(' + py + 'px)';
+            });
         }, { passive: true });
     }
 
