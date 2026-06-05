@@ -917,7 +917,7 @@ document.addEventListener('click', function(e) {
                     <div class="mob-phrase-clip"><img src="./assets/img/serivces-curr.svg" class="mob-phrase-word" alt="" /></div>
                     <div class="mob-phrase-clip"><img src="./assets/img/serivces-ent.svg" class="mob-phrase-word" alt="" /></div>
                     <div class="mob-phrase-tags-overlay">
-                        <img src="./assets/img/services-tag-complete.svg" class="mob-tag-complete" alt="" style="width:auto;height:auto;" />
+                        <img src="./assets/img/services-tag-complete.svg" id="mob-services-tag" class="mob-tag-complete" alt="" style="width:auto;height:auto;" />
                     </div>
                 </div>
                 <div class="services-big">
@@ -1757,25 +1757,23 @@ if (window.innerWidth <= 768) {
     }
 
     // Fade in services-tag-complete when near end of phrase SVGs
-    var tagComplete = document.querySelector('.mob-phrase-tags-overlay .mob-tag-complete');
-    var servicesLastClip = document.querySelector('.mob-services-phrase .mob-phrase-clip:last-child');
-    if (tagComplete && servicesLastClip) {
-        var tagObserver = new IntersectionObserver(function(entries) {
+    var servicesTag = document.getElementById('mob-services-tag');
+    if (servicesTag) {
+        var servicesTagObserver = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
-                    tagComplete.classList.add('in-view');
-                    tagObserver.disconnect();
+                    servicesTag.classList.add('in-view');
+                    servicesTagObserver.disconnect();
                 }
             });
-        }, { threshold: 0.0 });
-        tagObserver.observe(servicesLastClip);
+        }, { threshold: 0.3 });
+        servicesTagObserver.observe(servicesTag);
 
-        // Parallax float
         window.addEventListener('scroll', function() {
-            var rect = tagComplete.getBoundingClientRect();
+            var rect = servicesTag.getBoundingClientRect();
             var centerOffset = (rect.top + rect.height / 2) - (window.innerHeight / 2);
             var parallaxY = centerOffset * 0.06;
-            tagComplete.style.transform = 'translateY(' + parallaxY + 'px)';
+            servicesTag.style.transform = 'translateY(' + parallaxY + 'px)';
         }, { passive: true });
     }
 
