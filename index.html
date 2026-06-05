@@ -33,7 +33,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 <link rel="stylesheet" href="./assets/css/ui-scale.css" />
 <style>
 
-.name-reveal-mask { display:flex; justify-content:center; }
+.name-reveal-mask { display:flex; justify-content:center; overflow:hidden; }
 .name-line { display:block; }
 .name-letter { display:block; width:auto; height:auto; }
 .home-title { display:flex; flex-direction:column; align-items:center; gap:16px; text-decoration:none; transition:none !important; }
@@ -734,7 +734,7 @@ document.addEventListener('click', function(e) {
                     <div class="hover-fv">
                         <h1 class="ph-caption-title font-bold text-center color-fv">
                             <a href="#about" data-offset="-160" class="home-title" id="hero-name-link">
-                                <div class="text-center color-fv min-titles spacing">Portfolio – 2026</div>
+                                <div style="overflow:hidden;"><div class="text-center color-fv min-titles spacing">Portfolio – 2026</div></div>
                                 <span class="name-reveal-mask">
                                     <span class="name-line" id="line-federico">
                                         <img class="name-letter" src="./assets/img/desk-federico.svg" alt="Federico" />
@@ -1216,10 +1216,17 @@ window.addEventListener('load', () => {
     if (typeof gsap !== 'undefined') {
 
         const minTitlesReveal = document.querySelectorAll('.ph-caption .min-titles');
-        gsap.set(minTitlesReveal, { y: 0 });
+        const lineFed = document.querySelector('#line-federico');
+        const lineVac = document.querySelector('#line-vaccarezza');
+
+        gsap.set(minTitlesReveal, { y: '100%' });
+        gsap.set(lineFed, { y: '100%' });
+        gsap.set(lineVac, { y: '100%' });
 
         const doReveal = () => {
-            // nombres sin animación por ahora
+            gsap.to(minTitlesReveal, { y: 0, duration: 0.9, ease: 'power3.out', delay: 0 });
+            gsap.to(lineFed, { y: 0, duration: 1.0, ease: 'power3.out', delay: 0.15 });
+            gsap.to(lineVac, { y: 0, duration: 1.0, ease: 'power3.out', delay: 0.3 });
         };
 
         // Esperar al preloader
