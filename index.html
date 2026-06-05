@@ -220,6 +220,53 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #about { display: none !important; }
     #hola-foto { display: none !important; }
 
+    .mob-about-block {
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        width: 92vw;
+        max-width: 360px;
+        margin: 80px auto 0;
+        gap: 32px;
+    }
+    .mob-about-clip-title {
+        overflow: hidden;
+    }
+    .mob-about-title {
+        font-family: 'PP Telegraf', sans-serif;
+        font-weight: 800;
+        font-size: 56px;
+        line-height: 1;
+        text-align: center;
+        color: #3A3A39;
+        text-transform: lowercase;
+        transform: translateY(110%);
+        transition: transform 1.1s cubic-bezier(0.76,0,0.24,1);
+    }
+    .mob-about-title.in-view {
+        transform: translateY(0);
+    }
+    .mob-about-clip-text {
+        overflow: hidden;
+    }
+    .mob-about-text {
+        font-family: 'PP Telegraf', sans-serif;
+        font-size: 14px;
+        font-weight: 400;
+        color: #979797;
+        letter-spacing: 0.03em;
+        line-height: 1.6;
+        text-align: center;
+        margin: 0;
+        transform: translateY(30px);
+        opacity: 0;
+        transition: transform 1.1s cubic-bezier(0.25,0.46,0.45,0.94) 0.15s, opacity 1.1s cubic-bezier(0.25,0.46,0.45,0.94) 0.15s;
+    }
+    .mob-about-text.in-view {
+        transform: translateY(0);
+        opacity: 1;
+    }
+
     .mobile-hero {
         display: flex !important;
         flex-direction: column;
@@ -781,6 +828,16 @@ document.addEventListener('click', function(e) {
                 </div>
             </div>
             <p class="mobile-hero-text" style="display:none;">VISUAL DESIGNER BASED IN BUENOS AIRES, ARGENTINA</p>
+
+            <!-- MOBILE ABOUT BLOCK -->
+            <div class="mob-about-block" style="display:none;">
+                <div class="mob-about-clip-title">
+                    <div class="mob-about-title">about</div>
+                </div>
+                <div class="mob-about-clip-text">
+                    <p class="mob-about-text">Educated at the University of Buenos Aires (UBA), I began in Industrial Design before transitioning to Graphic Design. Over the years, my work has spanned branding, web design, and UI/UX, collaborating with startups and established companies to create brands, websites, and digital experiences that are clear, effective, and thoughtfully designed.</p>
+                </div>
+            </div>
             <div id="about" class="tt-section padding-bottom-xlg-90 psi-image-is-light">
                 <div class="bg-vectors" id="bg-vectors-2"><div class="pos bottom-right"><img src="./assets/img/bg-lines/bg-lines2.svg" /></div></div>
                 <div class="tt-section-inner tt-wrap">
@@ -1510,9 +1567,11 @@ if (window.innerWidth <= 768) {
     var mobileHero = document.querySelector('.mobile-hero');
     var mobileText = document.querySelector('.mobile-hero-text');
     var mobilePhoto = document.querySelector('.mob-photo-wrap');
+    var mobAbout = document.querySelector('.mob-about-block');
     if (mobileHero) mobileHero.style.display = 'flex';
     if (mobileText) mobileText.style.display = 'block';
     if (mobilePhoto) mobilePhoto.style.display = 'block';
+    if (mobAbout) mobAbout.style.display = 'flex';
     var portfolioLabel = document.querySelector('.mobile-hero-portfolio-label');
     if (portfolioLabel) portfolioLabel.style.display = 'block';
 
@@ -1553,7 +1612,29 @@ if (window.innerWidth <= 768) {
     var wordsContainer = document.querySelector('.words-container');
     if (wordsContainer) wordsContainer.style.display = 'none';
 
-    var cards = document.querySelectorAll('.gallery .card');
+    // Reveal about block
+    var aboutTitle = document.querySelector('.mob-about-title');
+    var aboutText = document.querySelector('.mob-about-text');
+    if (aboutTitle) {
+        new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, { threshold: 0.3 }).observe(aboutTitle);
+    }
+    if (aboutText) {
+        new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                }
+            });
+        }, { threshold: 0.3 }).observe(aboutText);
+    }
+
+    // Reveal cards mobile
     var observer = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
             if (entry.isIntersecting) {
