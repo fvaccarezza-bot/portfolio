@@ -35,7 +35,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 
 .name-line { display:flex !important; flex-direction:row !important; align-items:flex-end; justify-content:center; gap:4px; transform:translateY(0px); transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); overflow:visible; }
 /* clip estático igual que .mob-footer-clip / .footer-lb-clip */
-.name-letter-clip { display:block; overflow:hidden; }
+.name-letter-clip { overflow:hidden; display:inline-block; }
 /* name-letter: tamaño nativo, sin width/height forzados */
 .name-letter { display:block; width:auto; height:auto; flex-shrink:0; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); will-change:transform; }
 #line-federico, #line-vaccarezza { transform-origin: center center; }
