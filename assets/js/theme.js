@@ -367,7 +367,8 @@
    $('.tt-ol-menu-list').on('mouseenter', function () { $(this).addClass('tt-ol-menu-hover'); }).on('mouseleave', function () { $(this).removeClass('tt-ol-menu-hover'); });
 
    // Works submenu — naranja solo cuando está abierto, slideToggle original
-   $('.tt-ol-submenu-trigger > a').on('click', function () {
+   $('.tt-ol-submenu-trigger > a').on('click touchend', function (e) {
+      e.stopPropagation();
       if ($(this).is('[href^="#"]')) {
          var $this = $(this).parent();
          var $link = $(this);
