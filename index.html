@@ -33,10 +33,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 <link rel="stylesheet" href="./assets/css/ui-scale.css" />
 <style>
 
-.name-line { display:block; overflow:hidden; margin:0 auto; }
-#line-federico { width:970px; }
-#line-vaccarezza { width:1283px; }
-.home-title { display:flex; flex-direction:column; align-items:center; gap:60px; }
+.name-reveal-mask { display:flex; justify-content:center; overflow:hidden; padding:8px 0; }
+.name-line { display:flex; justify-content:center; align-items:center; overflow:visible; line-height:0; }
+#line-federico, #line-vaccarezza { width:auto; }
 /* name-letter: tamaño nativo, sin width/height forzados */
 .name-letter { display:block; width:auto; height:auto; flex-shrink:0; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); will-change:transform; }
 #line-federico, #line-vaccarezza { transform-origin: center center; }
@@ -737,11 +736,15 @@ document.addEventListener('click', function(e) {
                     <div class="hover-fv">
                         <h1 class="ph-caption-title font-bold text-center color-fv">
                             <a href="#about" data-offset="-160" class="home-title" id="hero-name-link">
-                                <span class="name-line" id="line-federico">
-                                    <img class="name-letter" src="./assets/img/desk-federico.svg" alt="Federico" />
+                                <span class="name-reveal-mask">
+                                    <span class="name-line" id="line-federico">
+                                        <img class="name-letter" src="./assets/img/desk-federico.svg" alt="Federico" />
+                                    </span>
                                 </span>
-                                <span class="name-line" id="line-vaccarezza">
-                                    <img class="name-letter" src="./assets/img/desk-vaccarezza.svg" alt="Vaccarezza" />
+                                <span class="name-reveal-mask">
+                                    <span class="name-line" id="line-vaccarezza">
+                                        <img class="name-letter" src="./assets/img/desk-vaccarezza.svg" alt="Vaccarezza" />
+                                    </span>
                                 </span>
                             </a>
                         </h1>
@@ -1213,9 +1216,8 @@ window.addEventListener('load', () => {
     window.addEventListener('resize', matchLbHeight);
     if (typeof gsap !== 'undefined') {
 
-        // Apunta directo a las imágenes, el clip ya está en el HTML
-        const lineFedImg = document.querySelector('#line-federico .name-letter');
-        const lineVacImg = document.querySelector('#line-vaccarezza .name-letter');
+        const lineFedImg = document.querySelector('#line-federico');
+        const lineVacImg = document.querySelector('#line-vaccarezza');
         const minTitlesReveal = document.querySelectorAll('.ph-caption .min-titles');
 
         gsap.set(lineFedImg, { y: '100%' });
