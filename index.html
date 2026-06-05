@@ -575,7 +575,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         transition: transform 0.6s cubic-bezier(0.76,0,0.24,1) !important;
     }
     .tt-overlay-menu.tt-open,
-    body.tt-ol-menu-is-open .tt-overlay-menu {
+    body.tt-ol-menu-open .tt-overlay-menu {
         transform: translateY(0) !important;
     }
     /* Texto negro */
@@ -1607,7 +1607,7 @@ if (window.innerWidth <= 768) {
     var menuObserver = new MutationObserver(function() {
         var nav = document.querySelector('.tt-overlay-menu');
         if (!nav) return;
-        var isOpen = nav.classList.contains('tt-open') || document.body.classList.contains('tt-ol-menu-is-open');
+        var isOpen = nav.classList.contains('tt-open') || document.body.classList.contains('tt-ol-menu-open');
         isOpen ? staggerMenuIn() : staggerMenuOut();
     });
     menuObserver.observe(document.body, { attributes: true, attributeFilter: ['class'] });
