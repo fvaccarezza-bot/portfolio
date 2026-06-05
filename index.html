@@ -573,9 +573,14 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     /* Solo colores, sin tocar animaciones del tema */
     .tt-overlay-menu { background-color: var(--tt-body-bg, #F5F4F0) !important; }
     .tt-ol-menu-list > li > a,
-    .tt-ol-submenu-list > li > a { color: #3A3A39 !important; }
+    .tt-ol-submenu-list > li > a { color: #3A3A39 !important; -webkit-tap-highlight-color: transparent; }
     .tt-ol-submenu-list > li > a { font-size: 14px !important; letter-spacing: 0.3em !important; }
     .tt-ol-submenu-list > li { padding: 0 !important; margin: 0 !important; line-height: 16px !important; }
+    .tt-ol-menu-list > li > a,
+    .tt-ol-submenu-trigger,
+    .tt-ol-submenu-trigger > a,
+    .tt-ol-menu-toggle-btn,
+    #tt-ol-menu-toggle-btn-wrap { -webkit-tap-highlight-color: transparent !important; }
 }
 
 @media (max-width: 768px) {
