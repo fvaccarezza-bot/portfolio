@@ -569,27 +569,33 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 }
 
 @media (max-width: 768px) {
-    /* Deshabilitar animación del tema */
-    .tt-overlay-menu * { animation: none !important; }
-    /* Slide desde abajo */
-    .tt-overlay-menu {
-        transform: translateY(100%) !important;
-        transition: transform 0.5s cubic-bezier(0.76,0,0.24,1) !important;
+    /* Anular completamente animación del tema */
+    .tt-overlay-menu,
+    .tt-ol-menu-holder,
+    .tt-ol-menu-inner,
+    .tt-ol-menu-content { 
+        animation: none !important;
         opacity: 1 !important;
         visibility: visible !important;
+        transition: none !important;
+    }
+    /* Slide desde abajo — solo en el nav */
+    .tt-overlay-menu {
+        transform: translateY(105%) !important;
+        transition: transform 0.7s cubic-bezier(0.76,0,0.24,1) !important;
+        background: var(--tt-body-bg, #F5F4F0) !important;
     }
     body.tt-ol-menu-open .tt-overlay-menu {
         transform: translateY(0) !important;
     }
-    /* Texto negro, fondo claro */
-    .tt-overlay-menu { background: var(--tt-body-bg, #F5F4F0) !important; }
+    /* Texto negro */
     .tt-ol-menu-list > li > a,
     .tt-ol-submenu-list > li > a { color: #3A3A39 !important; }
     /* Items escalonados */
     .tt-ol-menu-list > li {
         opacity: 0;
         transform: translateY(16px);
-        transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.76,0,0.24,1);
+        transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.76,0,0.24,1);
     }
     .tt-ol-menu-list > li.mob-menu-in {
         opacity: 1;
@@ -1379,7 +1385,7 @@ window.addEventListener('load', () => {
         viewCursor.id = 'view-cursor';
         viewCursor.style.cssText = 'position:fixed;pointer-events:none;z-index:999998;opacity:1;display:flex;align-items:center;justify-content:center;width:10px;height:10px;border-radius:50%;background:#FF6600;font-family:"PP Telegraf",sans-serif;font-size:0px;font-weight:400;letter-spacing:0.2em;color:white;overflow:hidden;will-change:left,top;transition:width 0.5s cubic-bezier(0.34,1.2,0.64,1), height 0.5s cubic-bezier(0.34,1.2,0.64,1), font-size 0.3s ease, opacity 0.3s ease;';
         viewCursor.innerHTML = '<span style="display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1;letter-spacing:0.2em;text-align:center;text-transform:uppercase;"><span style="margin-left:0.2em;">VIEW</span><span style="margin-left:0.2em;">MORE</span></span>';
-        document.body.appendChild(viewCursor);
+        if (window.innerWidth > 768) document.body.appendChild(viewCursor);
 
         let vcX = -300, vcY = -300, vcTargetX = -300, vcTargetY = -300;
         document.addEventListener('mousemove', (e) => { vcTargetX = e.clientX; vcTargetY = e.clientY; });
@@ -1591,6 +1597,11 @@ window.addEventListener('load', () => {
 </script>
 <script>
 if (window.innerWidth <= 768) {
+    // Prevenir scroll al cerrar menu
+    var closeBtn = document.querySelector('.tt-ol-menu-toggle-btn');
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function(e) { e.preventDefault(); });
+    }
     // Mobile menu stagger
     var menuItems = document.querySelectorAll('.tt-ol-menu-list > li');
     function staggerMenuIn() {
