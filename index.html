@@ -1685,15 +1685,16 @@ if (window.innerWidth <= 768) {
     // Works tag — reveal + parallax, mismo que testiTag
     var worksTag = document.getElementById('mob-works-tag');
     if (worksTag) {
-        // Posicionar sobre work-red
         function positionWorksTag() {
             var redClip = document.getElementById('mob-works-red-clip');
-            if (!redClip) return;
-            var redTop = redClip.offsetTop + redClip.offsetHeight / 2;
-            worksTag.style.top = redTop + 'px';
-            worksTag.style.marginTop = '-' + (worksTag.offsetHeight / 2) + 'px';
+            var phrase = document.querySelector('.mob-works-phrase');
+            if (!redClip || !phrase) return;
+            var phraseTop = phrase.getBoundingClientRect().top + window.scrollY;
+            var redTop = redClip.getBoundingClientRect().top + window.scrollY;
+            var redCenter = redTop + redClip.offsetHeight / 2;
+            worksTag.style.top = (redCenter - phraseTop - worksTag.offsetHeight / 2) + 'px';
         }
-        setTimeout(positionWorksTag, 100);
+        setTimeout(positionWorksTag, 200);
         window.addEventListener('resize', positionWorksTag);
 
         var worksTagObserver = new IntersectionObserver(function(entries) {
@@ -1755,7 +1756,7 @@ if (window.innerWidth <= 768) {
     }
 
     // Fade in services-tag-complete when near end of phrase SVGs
-    var tagComplete = document.querySelector('.mob-tag-complete');
+    var tagComplete = document.querySelector('.mob-phrase-tags-overlay .mob-tag-complete');
     if (tagComplete) {
         var tagObserver = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
