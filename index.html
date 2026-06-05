@@ -732,9 +732,9 @@ document.addEventListener('click', function(e) {
                 <div class="bg-vectors" id="bg-vectors-1"><div class="pos top-left"><img src="./assets/img/bg-lines/bg-lines1.svg" /></div></div>
                 <div class="ph-caption text-uppercase ph-caption-hover">
                     <div class="hover-fv">
+                        <div style="overflow:hidden;"><div class="text-center color-fv min-titles spacing">Portfolio – 2026</div></div>
                         <h1 class="ph-caption-title font-bold text-center color-fv">
                             <a href="#about" data-offset="-160" class="home-title" id="hero-name-link">
-                                <div style="overflow:hidden;"><div class="text-center color-fv min-titles spacing">Portfolio – 2026</div></div>
                                 <span class="name-reveal-mask">
                                     <span class="name-line" id="line-federico">
                                         <img class="name-letter" src="./assets/img/desk-federico.svg" alt="Federico" />
@@ -747,6 +747,7 @@ document.addEventListener('click', function(e) {
                                 </span>
                             </a>
                         </h1>
+                        <div style="overflow:hidden;"><div class="text-center color-fv min-titles spacing hero-subtitle">Visual Designer based in Buenos Aires, Argentina</div></div>
                     </div>
                 </div>
             </div>
@@ -1218,10 +1219,12 @@ window.addEventListener('load', () => {
         const minTitlesReveal = document.querySelectorAll('.ph-caption .min-titles');
         const lineFed = document.querySelector('#line-federico');
         const lineVac = document.querySelector('#line-vaccarezza');
+        const heroSubtitle = document.querySelector('.hero-subtitle');
 
         gsap.set(minTitlesReveal, { y: '100%' });
         gsap.set(lineFed, { y: '100%' });
         gsap.set(lineVac, { y: '100%' });
+        gsap.set(heroSubtitle, { y: '100%' });
 
         const doReveal = () => {
             gsap.to(minTitlesReveal, { y: 0, duration: 1.2, ease: 'power4.out', delay: 0 });
@@ -1235,6 +1238,7 @@ window.addEventListener('load', () => {
                     gsap.to(lineVac, { y: -6, duration: 1.8, ease: 'power2.inOut', yoyo: true, repeat: 1, delay: 0.1 });
                 }
             });
+            gsap.to(heroSubtitle, { y: 0, duration: 1.2, ease: 'power4.out', delay: 0.46 });
         };
 
         // Esperar al preloader
