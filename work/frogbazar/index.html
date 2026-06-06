@@ -187,7 +187,7 @@
             </button>
          </div>
          <div id="scroll-container">
-            <div id="logo-header" class="tt-logo logo-home mob-ok outside-menu">
+            <div id="logo-header" class="tt-logo logo-home mob-ok outside-menu" style="position:fixed;top:20px;left:20px;z-index:100;">
                <a href="../.." id="main-logo" data-offset="0" data-vt-mode="fade">
                   <img src="../../assets/img/fv-logo-vector.svg" alt="" />
                   <img src="../../assets/img/fv-logo.svg" alt="" />
@@ -425,11 +425,11 @@
 
               function revealWorkHeader() {
                   if (titleSvg) titleSvg.classList.add('revealed');
-                  setTimeout(function() { if (order) order.classList.add('revealed'); }, 250);
-                  setTimeout(function() { if (desc) desc.classList.add('revealed'); }, 500);
+                  setTimeout(function() { if (order) order.classList.add('revealed'); }, 150);
+                  setTimeout(function() { if (desc) desc.classList.add('revealed'); }, 300);
                   var galleryItems = document.querySelectorAll('.frog-gallery > *');
-                  if (galleryItems[0]) setTimeout(function() { galleryItems[0].classList.add('in-view'); }, 750);
-                  if (galleryItems[1]) setTimeout(function() { galleryItems[1].classList.add('in-view'); }, 1000);
+                  if (galleryItems[0]) setTimeout(function() { galleryItems[0].classList.add('in-view'); }, 450);
+                  if (galleryItems[1]) setTimeout(function() { galleryItems[1].classList.add('in-view'); }, 650);
               }
 
               // Try preloader observer
