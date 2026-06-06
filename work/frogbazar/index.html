@@ -417,9 +417,9 @@
               var desc = document.querySelector('.work-title .desc');
 
               function revealWorkHeader() {
-                  if (titleSvg) titleSvg.classList.add('revealed');
-                  setTimeout(function() { if (order) order.classList.add('revealed'); }, 150);
-                  setTimeout(function() { if (desc) desc.classList.add('revealed'); }, 300);
+                  if (titleSvg) { titleSvg.style.opacity = ''; titleSvg.classList.add('revealed'); }
+                  setTimeout(function() { if (order) { order.style.opacity = ''; order.classList.add('revealed'); } }, 150);
+                  setTimeout(function() { if (desc) { desc.style.opacity = ''; desc.classList.add('revealed'); } }, 300);
                   var firstGalleryItem = document.querySelector('.frog-gallery > *');
                   if (firstGalleryItem) setTimeout(function() { firstGalleryItem.classList.add('in-view'); }, 450);
               }
