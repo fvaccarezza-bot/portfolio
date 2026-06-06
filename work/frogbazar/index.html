@@ -402,8 +402,6 @@
       <script>
       window.addEventListener('load', function() {
 
-          var swipeHintActive = false;
-
           // ── HIDE/SHOW header on scroll direction ──
           if (window.innerWidth <= 768) {
               var lastScrollY = 0;
@@ -416,16 +414,14 @@
                       requestAnimationFrame(function() {
                           var currentScrollY = window.scrollY;
                           var diff = currentScrollY - lastScrollY;
-                          lastScrollY = currentScrollY; // always update
+                          lastScrollY = currentScrollY;
 
-                          if (!swipeHintActive) {
-                              if (diff > 4) {
-                                  if (logoHeader) { logoHeader.style.transition = 'transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94)'; logoHeader.style.transform = 'translateY(-120px)'; }
-                                  if (menuBtn) { menuBtn.style.transition = 'transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94)'; menuBtn.style.transform = 'translateY(-120px)'; }
-                              } else if (diff < -4) {
-                                  if (logoHeader) { logoHeader.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)'; logoHeader.style.transform = 'translateY(0)'; }
-                                  if (menuBtn) { menuBtn.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)'; menuBtn.style.transform = 'translateY(0)'; }
-                              }
+                          if (diff > 4) {
+                              if (logoHeader) { logoHeader.style.transition = 'transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94)'; logoHeader.style.transform = 'translateY(-120px)'; }
+                              if (menuBtn) { menuBtn.style.transition = 'transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94)'; menuBtn.style.transform = 'translateY(-120px)'; }
+                          } else if (diff < -4) {
+                              if (logoHeader) { logoHeader.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)'; logoHeader.style.transform = 'translateY(0)'; }
+                              if (menuBtn) { menuBtn.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)'; menuBtn.style.transform = 'translateY(0)'; }
                           }
 
                           ticking = false;
@@ -433,8 +429,6 @@
                       ticking = true;
                   }
               }, { passive: true });
-
-              // Smooth transition
           }
           if (window.innerWidth <= 768) {
               var touchStartX = 0;
@@ -515,20 +509,17 @@
 
                   var content = document.getElementById('scroll-container') || document.getElementById('content-wrap');
 
-                  // Slide content left + slide hint in + fade in
                   setTimeout(function() {
-                      swipeHintActive = true;
                       if (content) { content.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)'; content.style.transform = 'translateX(-30px)'; }
                       wrapper.style.opacity = '1';
                       wrapper.style.transform = 'translateX(0)';
                   }, 100);
 
-                  // Return after 2s
                   setTimeout(function() {
                       if (content) content.style.transform = 'translateX(0)';
                       wrapper.style.opacity = '0';
                       wrapper.style.transform = 'translateX(40px)';
-                      setTimeout(function() { wrapper.remove(); swipeHintActive = false; lastScrollY = window.scrollY; }, 600);
+                      setTimeout(function() { wrapper.remove(); }, 600);
                   }, 2100);
 
               }, 3800);
