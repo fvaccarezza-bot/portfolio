@@ -37,19 +37,6 @@
       <link rel="preload" href="../../assets/fonts/PPTelegraf-Regular.woff2" as="font" type="font/woff2" crossorigin />
       <link rel="preload" href="../../assets/fonts/PPTelegraf-Ultrabold.woff2" as="font" type="font/woff2" crossorigin />
       <script src="../../assets/js/sessionStorage.js"></script>
-      <script>
-      // Hide title elements immediately on mobile before render
-      if (window.innerWidth <= 768) {
-          document.addEventListener('DOMContentLoaded', function() {
-              var titleSvg = document.querySelector('.frog-title-svg');
-              var order = document.querySelector('.work-title .order');
-              var desc = document.querySelector('.work-title .desc');
-              if (titleSvg) titleSvg.classList.add('will-reveal');
-              if (order) order.classList.add('will-reveal');
-              if (desc) desc.classList.add('will-reveal');
-          });
-      }
-      </script>
       <style>
         /* ── DESKTOP: fix centrado título ── */
         body.frogbazar .tt-section.title-work { padding-left:0!important; padding-right:0!important; width:100vw!important; max-width:100%!important; box-sizing:border-box!important; }
@@ -429,10 +416,18 @@
               var order = document.querySelector('.work-title .order');
               var desc = document.querySelector('.work-title .desc');
 
+              // Hide immediately now that CSS is loaded
+              if (titleSvg) titleSvg.classList.add('will-reveal');
+              if (order) order.classList.add('will-reveal');
+              if (desc) desc.classList.add('will-reveal');
+
               function revealWorkHeader() {
                   if (titleSvg) { titleSvg.classList.remove('will-reveal'); titleSvg.classList.add('revealed'); }
                   setTimeout(function() { if (order) { order.classList.remove('will-reveal'); order.classList.add('revealed'); } }, 150);
                   setTimeout(function() { if (desc) { desc.classList.remove('will-reveal'); desc.classList.add('revealed'); } }, 300);
+                  // First gallery item reveals with header
+                  var firstGalleryItem = document.querySelector('.frog-gallery > *');
+                  if (firstGalleryItem) setTimeout(function() { firstGalleryItem.classList.add('in-view'); }, 450);
               }
 
               // Try preloader observer
@@ -463,6 +458,7 @@
                       });
                   }, { threshold: 0.1 });
                   galleryItems.forEach(function(item, i) {
+                      if (i === 0) return; // handled by header reveal
                       item.style.transitionDelay = '0s';
                       galleryObserver.observe(item);
                   });
@@ -554,8 +550,9 @@
               }
               setTimeout(safeDeskReveal, 2000);
 
-                  // Desktop gallery reveal
+                  // Desktop gallery reveal (skip first — handled by header reveal)
                   document.querySelectorAll('.frog-gallery > *').forEach(function(el, i) {
+                      if (i === 0) return;
                       gsap.fromTo(el,
                           { opacity: 0, y: 40 },
                           { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', delay: 0,
