@@ -291,7 +291,7 @@
          if (isMob) {
             gsap.set('.tt-overlay-menu', { y: '100%', autoAlpha: 1 });
             tl_olMenuIn.to('.tt-overlay-menu', { duration: 1.0, y: '0%', ease: 'power4.out' });
-            tl_olMenuIn.from('.tt-ol-menu-list > li', { duration: 0.7, y: 24, autoAlpha: 0, stagger: 0.09, ease: 'power3.out', clearProps: 'all' }, '-=0.5');
+            tl_olMenuIn.from('.tt-ol-menu-list > li', { duration: 0.35, y: 24, autoAlpha: 0, stagger: 0.05, ease: 'power3.out', clearProps: 'all' }, '-=0.3');
          } else {
             tl_olMenuIn.to('.tt-overlay-menu', { duration: 0.7, autoAlpha: 1, ease: 'power3.out' });
             tl_olMenuIn.from('.tt-ol-menu-list > li', { duration: 0.7, y: 80, autoAlpha: 0, stagger: 0.07, ease: 'power3.out', clearProps: 'all' }, '-=0.4');
@@ -315,7 +315,17 @@
                      setTimeout(function() {
                         var $target = $($clickedHref);
                         if ($target.length) {
-                           var topY = $target.offset().top - $('body').offset().top - $clickedOffset;
+                           var offset = parseInt($clickedOffset) || 0;
+                           var topY;
+                           if (offset <= -9000) {
+                              // scroll to very bottom
+                              topY = document.body.scrollHeight;
+                           } else if (offset >= 9000) {
+                              // scroll to very top
+                              topY = 0;
+                           } else {
+                              topY = $target.offset().top - $('body').offset().top - offset;
+                           }
                            $('html,body').animate({ scrollTop: topY }, 500);
                         }
                      }, 50);
