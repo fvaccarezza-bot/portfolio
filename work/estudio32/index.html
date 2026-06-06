@@ -521,7 +521,7 @@
                   });
               }
 
-              // ── SWIPE HINT ──
+              // ── SWIPE HINT NEXT ──
               setTimeout(function() {
                   var wrapper = document.createElement('div');
                   wrapper.style.cssText = 'position:fixed;right:12px;top:0;bottom:0;width:20px;display:flex;align-items:center;justify-content:center;z-index:999;pointer-events:none;opacity:0;transform:translateX(40px);transition:opacity 0.5s ease, transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);';
@@ -543,6 +543,29 @@
                       setTimeout(function() { wrapper.remove(); }, 600);
                   }, 2100);
               }, 3800);
+
+              // ── SWIPE HINT PREVIOUS — appears right after next hint leaves ──
+              setTimeout(function() {
+                  var wrapperPrev = document.createElement('div');
+                  wrapperPrev.style.cssText = 'position:fixed;left:12px;top:0;bottom:0;width:20px;display:flex;align-items:center;justify-content:center;z-index:999;pointer-events:none;opacity:0;transform:translateX(-40px);transition:opacity 0.5s ease, transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);';
+                  var hintPrev = document.createElement('div');
+                  hintPrev.innerText = 'PREVIOUS PROJECT';
+                  hintPrev.style.cssText = 'font-family:"PP Telegraf",sans-serif;font-size:12px;letter-spacing:0.4em;text-transform:uppercase;color:#3A3A39;white-space:nowrap;transform:rotate(-90deg);';
+                  wrapperPrev.appendChild(hintPrev);
+                  document.body.appendChild(wrapperPrev);
+                  var content = document.getElementById('page-content');
+                  setTimeout(function() {
+                      if (content) { content.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)'; content.style.transform = 'translateX(30px)'; }
+                      wrapperPrev.style.opacity = '1';
+                      wrapperPrev.style.transform = 'translateX(0)';
+                  }, 100);
+                  setTimeout(function() {
+                      if (content) content.style.transform = 'translateX(0)';
+                      wrapperPrev.style.opacity = '0';
+                      wrapperPrev.style.transform = 'translateX(-40px)';
+                      setTimeout(function() { wrapperPrev.remove(); }, 600);
+                  }, 1600);
+              }, 6500);
 
               // Footer words reveal
               var footerClips = document.querySelectorAll('.mob-footer-clip');
