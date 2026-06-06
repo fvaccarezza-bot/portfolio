@@ -52,7 +52,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .home-title { gap: 60px; }
 .home-title,.home-title:hover,.home-title:focus,.home-title .name-line,.home-title:hover .name-line,.home-title:focus .name-line { color:inherit !important; -webkit-text-stroke:0 !important; text-decoration:none !important; }
 #title-hola, #title-works { cursor: default !important; }
-.desk-works-phrase { display:flex; flex-direction:column; align-items:center; margin-bottom:48px; gap:16px; width:100vw; position:relative; left:50%; transform:translateX(-50%); }
+.desk-works-phrase { display:flex; flex-direction:column; align-items:center; margin-bottom:48px; gap:16px; width:100%; }
 .desk-works-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; width:100%; }
 #desk-featured, #desk-work { display:block; width:auto; max-width:100%; transform:translateY(110%); transition:transform 1.1s cubic-bezier(0.76,0,0.24,1); }
 #desk-work { transition-delay:0.18s; }
@@ -876,11 +876,11 @@ document.addEventListener('click', function(e) {
             </div>
             <div id="works" class="tt-section">
                 <div class="bg-vectors" id="bg-vectors-3"><div class="pos top-left"><img src="./assets/img/bg-lines/bg-lines3.svg" /></div></div>
+                <div class="desk-works-phrase mob-no">
+                    <div class="desk-works-clip"><img id="desk-featured" src="./assets/img/desk-featured.svg" alt="featured" /></div>
+                    <div class="desk-works-clip"><img id="desk-work" src="./assets/img/desk-work.svg" alt="works" /></div>
+                </div>
                 <div class="tt-section-inner tt-wrap">
-                    <div class="desk-works-phrase mob-no">
-                        <div class="desk-works-clip"><img id="desk-featured" src="./assets/img/desk-featured.svg" alt="featured" /></div>
-                        <div class="desk-works-clip"><img id="desk-work" src="./assets/img/desk-work.svg" alt="works" /></div>
-                    </div>
                     <!-- MOBILE works phrase SVGs -->
                     <div class="mob-works-phrase mob-ok" style="display:none;position:relative;">
                         <div class="mob-phrase-clip"><img src="./assets/img/work-featu.svg" class="mob-phrase-word" alt="" /></div>
