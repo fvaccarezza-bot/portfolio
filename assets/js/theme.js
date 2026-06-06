@@ -309,13 +309,16 @@
                   $('.tt-ol-submenu-trigger > a').css('color', '');
                   $('html').removeClass('tt-no-scroll');
                   $('body').removeClass('olm-toggle-no-click');
-                  // Scroll después de que salió el menú
+                  $('body').removeClass('tt-ol-menu-open');
+                  // Scroll solo después de que todo terminó
                   if (isMob && $clickedHref && $clickedHref.charAt(0) === '#') {
-                     var $target = $($clickedHref);
-                     if ($target.length) {
-                        var topY = $target.offset().top - $('body').offset().top - $clickedOffset;
-                        $('html,body').animate({ scrollTop: topY }, 600);
-                     }
+                     setTimeout(function() {
+                        var $target = $($clickedHref);
+                        if ($target.length) {
+                           var topY = $target.offset().top - $('body').offset().top - $clickedOffset;
+                           $('html,body').animate({ scrollTop: topY }, 500);
+                        }
+                     }, 50);
                   }
                }
             });
@@ -327,8 +330,6 @@
                tl_olMenuClick.to('.tt-overlay-menu', { duration: 0.6, autoAlpha: 0, ease: 'power3.in', clearProps: 'all' }, '-=0.2');
             }
             tl_olMenuClick.set('.tt-ol-menu-list > li', { clearProps: 'all' });
-            setTimeout(function () { $('body').removeClass('tt-ol-menu-open'); }, 500);
-            // En mobile prevenimos la navegación nativa para anchors — manejamos nosotros
             if (isMob && $clickedHref && $clickedHref.charAt(0) === '#') {
                return false;
             }
