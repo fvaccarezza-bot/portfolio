@@ -54,11 +54,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 #title-hola, #title-works { cursor: default !important; }
 .desk-works-phrase { display:flex; flex-direction:column; align-items:center; margin-bottom:48px; gap:16px; width:100%; }
 .desk-works-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; width:100%; }
-#desk-featured, #desk-work { display:block; width:auto; max-width:100%; transform:translateY(110%); transition:transform 1.1s cubic-bezier(0.76,0,0.24,1); }
-#desk-work { transition-delay:0.18s; }
-#desk-featured.revealed, #desk-work.revealed { transform:translateY(0); }
+#desk-featured, #desk-work { display:block; width:auto; max-width:100%; }
 @media (min-width: 2560px) {
-    .desk-works-phrase { transform:scale(1.5); transform-origin:left center; margin-bottom:150px; margin-top:50px; }
+    .desk-works-phrase { transform:scale(1.5); transform-origin:center center; margin-bottom:150px; margin-top:50px; }
 }
 .section-title.hola, .section-title.hola:hover,
 .section-title.noise-fill-hover, .section-title.noise-fill-hover:hover {
@@ -1524,17 +1522,19 @@ window.addEventListener('load', () => {
                     scrollTrigger: { trigger: '#about', start: 'top 85%', toggleActions: 'play none none none' }
                 });
             }
-            // featured/work SVG reveal
+            // featured/work SVG reveal — scrub like footer
             const deskFeatured = document.getElementById('desk-featured');
             const deskWork = document.getElementById('desk-work');
-            if (deskFeatured || deskWork) {
-                ScrollTrigger.create({
-                    trigger: '#works',
-                    start: 'top 85%',
-                    onEnter: () => {
-                        if (deskFeatured) deskFeatured.classList.add('revealed');
-                        if (deskWork) deskWork.classList.add('revealed');
-                    }
+            if (deskFeatured) {
+                gsap.set(deskFeatured, { y: '110%' });
+                gsap.to(deskFeatured, { y: 0, ease: 'none',
+                    scrollTrigger: { trigger: '#works', start: 'top 90%', end: 'top 20%', scrub: 1.0 }
+                });
+            }
+            if (deskWork) {
+                gsap.set(deskWork, { y: '110%' });
+                gsap.to(deskWork, { y: 0, ease: 'none',
+                    scrollTrigger: { trigger: '#works', start: 'top 80%', end: 'top 10%', scrub: 1.6 }
                 });
             }
         })();
