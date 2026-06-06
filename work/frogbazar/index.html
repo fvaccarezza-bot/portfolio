@@ -37,6 +37,19 @@
       <link rel="preload" href="../../assets/fonts/PPTelegraf-Regular.woff2" as="font" type="font/woff2" crossorigin />
       <link rel="preload" href="../../assets/fonts/PPTelegraf-Ultrabold.woff2" as="font" type="font/woff2" crossorigin />
       <script src="../../assets/js/sessionStorage.js"></script>
+      <script>
+      // Hide title elements immediately on mobile before render
+      if (window.innerWidth <= 768) {
+          document.addEventListener('DOMContentLoaded', function() {
+              var titleSvg = document.querySelector('.frog-title-svg');
+              var order = document.querySelector('.work-title .order');
+              var desc = document.querySelector('.work-title .desc');
+              if (titleSvg) titleSvg.classList.add('will-reveal');
+              if (order) order.classList.add('will-reveal');
+              if (desc) desc.classList.add('will-reveal');
+          });
+      }
+      </script>
       <style>
         /* ── DESKTOP: fix centrado título ── */
         body.frogbazar .tt-section.title-work { padding-left:0!important; padding-right:0!important; width:100vw!important; max-width:100%!important; box-sizing:border-box!important; }
@@ -50,7 +63,11 @@
         body.frogbazar .work-title .order { margin-top:50px; }
         body.frogbazar .work-title h3 { font-size:clamp(60px,8vw,100px)!important; line-height:1!important; text-align:center!important; width:100%!important; margin:0 auto!important; }
 
-        /* ── PARALLAX FRAMES ── */
+        /* z-index — gallery over footer */
+        @media (max-width: 768px) {
+          #content-wrap.work { position: relative; z-index: 2; }
+          footer#contact { z-index: 1; }
+        }
         .parallax-frame { width:1320px; max-width:100%; overflow:hidden; border-radius:6px; position:relative; aspect-ratio:1320/680; }
         .parallax-frame .parallax-img { width:100%; height:115%; object-fit:cover; object-position:center 55%; display:block; border-radius:0; will-change:transform; transform:translateY(0px); }
         .parallax-frame-3 { aspect-ratio:1320/600!important; }
@@ -408,18 +425,14 @@
 
           // ── MOBILE reveals ──
           if (window.innerWidth <= 768) {
-              // Add will-reveal immediately to hide elements before animation
               var titleSvg = document.querySelector('.frog-title-svg');
               var order = document.querySelector('.work-title .order');
               var desc = document.querySelector('.work-title .desc');
-              if (titleSvg) titleSvg.classList.add('will-reveal');
-              if (order) order.classList.add('will-reveal');
-              if (desc) desc.classList.add('will-reveal');
 
               function revealWorkHeader() {
-                  if (titleSvg) titleSvg.classList.add('revealed');
-                  setTimeout(function() { if (order) order.classList.add('revealed'); }, 150);
-                  setTimeout(function() { if (desc) desc.classList.add('revealed'); }, 300);
+                  if (titleSvg) { titleSvg.classList.remove('will-reveal'); titleSvg.classList.add('revealed'); }
+                  setTimeout(function() { if (order) { order.classList.remove('will-reveal'); order.classList.add('revealed'); } }, 150);
+                  setTimeout(function() { if (desc) { desc.classList.remove('will-reveal'); desc.classList.add('revealed'); } }, 300);
               }
 
               // Try preloader observer
@@ -509,6 +522,37 @@
                   var line1 = document.getElementById('lb-line1'), line2 = document.getElementById('lb-line2');
                   if (line1) gsap.to(line1, { y:0, ease:'none', scrollTrigger:{ trigger:'#contact', start:'top 90%', end:'top 20%', scrub:1.0 } });
                   if (line2) gsap.to(line2, { y:0, ease:'none', scrollTrigger:{ trigger:'#contact', start:'top 80%', end:'top 10%', scrub:1.6 } });
+
+              // Desktop header + first image reveal — after preloader
+              var deskTitle = document.querySelector('.frog-title-svg');
+              var deskOrder = document.querySelector('.work-title .order');
+              var deskDesc = document.querySelector('.work-title .desc');
+              var deskTags = document.querySelector('.work-tags');
+              var firstFrame = document.querySelector('.parallax-frame');
+              if (deskTitle) gsap.set(deskTitle, { opacity:0, y:20 });
+              if (deskOrder) gsap.set(deskOrder, { opacity:0, y:14 });
+              if (deskDesc) gsap.set(deskDesc, { opacity:0, y:14 });
+              if (deskTags) gsap.set(deskTags, { opacity:0, y:10 });
+              if (firstFrame) gsap.set(firstFrame, { opacity:0, y:30 });
+
+              function deskReveal() {
+                  if (deskTitle) gsap.to(deskTitle, { opacity:1, y:0, duration:1.0, ease:'power3.out', delay:0.0 });
+                  if (deskOrder) gsap.to(deskOrder, { opacity:1, y:0, duration:0.9, ease:'power3.out', delay:0.15 });
+                  if (deskDesc) gsap.to(deskDesc, { opacity:1, y:0, duration:0.9, ease:'power3.out', delay:0.28 });
+                  if (deskTags) gsap.to(deskTags, { opacity:1, y:0, duration:0.8, ease:'power3.out', delay:0.42 });
+                  if (firstFrame) gsap.to(firstFrame, { opacity:1, y:0, duration:1.2, ease:'power3.out', delay:0.55 });
+              }
+              var deskRev = false;
+              function safeDeskReveal() { if (!deskRev) { deskRev = true; deskReveal(); } }
+              var deskPL = document.getElementById('preloader');
+              if (deskPL) {
+                  var deskObs = new MutationObserver(function() {
+                      var s = window.getComputedStyle(deskPL);
+                      if (s.opacity === '0' || s.display === 'none' || s.visibility === 'hidden') { safeDeskReveal(); deskObs.disconnect(); }
+                  });
+                  deskObs.observe(deskPL, { attributes: true, attributeFilter: ['style', 'class'] });
+              }
+              setTimeout(safeDeskReveal, 2000);
 
                   // Desktop gallery reveal
                   document.querySelectorAll('.frog-gallery > *').forEach(function(el, i) {
