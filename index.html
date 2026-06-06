@@ -52,7 +52,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .home-title { gap: 60px; }
 .home-title,.home-title:hover,.home-title:focus,.home-title .name-line,.home-title:hover .name-line,.home-title:focus .name-line { color:inherit !important; -webkit-text-stroke:0 !important; text-decoration:none !important; }
 #title-hola, #title-works { cursor: default !important; }
-.desk-works-phrase { display:flex; flex-direction:column; align-items:center; margin-bottom:48px; gap:16px; width:100%; }
+.desk-works-phrase { display:flex; flex-direction:column; align-items:center; margin-bottom:48px; gap:16px; width:100vw; position:relative; left:50%; transform:translateX(-50%); }
 .desk-works-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; width:100%; }
 #desk-featured, #desk-work { display:block; width:auto; max-width:100%; transform:translateY(110%); transition:transform 1.1s cubic-bezier(0.76,0,0.24,1); }
 #desk-work { transition-delay:0.18s; }
@@ -867,8 +867,8 @@ document.addEventListener('click', function(e) {
                         </div>
                         <div class="tt-col-md-6">
                             <div class="info" style="height:400px;display:flex;flex-direction:column;justify-content:center;">
-                                <p style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.8;max-width:420px;">I'm a graphic designer from Tigre, Argentina. I studied at the University of Buenos Aires (UBA), where I started in industrial design but eventually switched to graphic design. I've always been into style, and that naturally pulled me into the creative world.</p>
-                                <p style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.8;margin-top:1.5em;max-width:420px;">Over the past few years, I've been working on branding, web design, and UI/UX. I like creating things that not only look good but are clear and easy to use. Clean visuals, smart layouts, and designs that make sense — that's what I try to bring to every project.</p>
+                                <p style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.8;max-width:100%;">I'm a graphic designer from Tigre, Argentina. I studied at the University of Buenos Aires (UBA), where I started in industrial design but eventually switched to graphic design. I've always been into style, and that naturally pulled me into the creative world.</p>
+                                <p style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.8;margin-top:1.5em;max-width:100%;">Over the past few years, I've been working on branding, web design, and UI/UX. I like creating things that not only look good but are clear and easy to use. Clean visuals, smart layouts, and designs that make sense — that's what I try to bring to every project.</p>
                             </div>
                         </div>
                     </div>
