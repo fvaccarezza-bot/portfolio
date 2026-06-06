@@ -1365,6 +1365,7 @@ window.addEventListener('load', () => {
 
         document.querySelectorAll('.card').forEach(card => {
             const mediaLink = card.querySelector('a.media');
+            if (window.innerWidth <= 768) return; // no effects on mobile
             card.addEventListener('mouseenter', (e) => {
                 if (e.target.closest('.stamp')) return;
                 viewCursor.style.width = '70px';
