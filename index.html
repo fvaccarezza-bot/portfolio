@@ -235,7 +235,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         transform: translateY(0);
     }
 
-    #logo-header { display: none !important; }
+    #logo-header { display: block !important; position: fixed; top: 20px; left: 20px; z-index: 100; }
     #page-header { display: none !important; }
     #about { display: none !important; }
     #hola-foto { display: none !important; }
@@ -287,7 +287,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         display: flex !important;
         flex-direction: column;
         align-items: center;
-        padding: 75px 0 0;
+        padding: 95px 0 0;
         gap: 16px;
         text-align: center;
         width: 100%;
@@ -1351,6 +1351,32 @@ window.addEventListener('load', () => {
             setTimeout(safeReveal, 2000);
         } else {
             setTimeout(safeReveal, 300);
+        }
+
+        // ── HIDE/SHOW burger on scroll direction (mobile) ──
+        if (window.innerWidth <= 768) {
+            var lastScrollY = 0;
+            var menuBtn = document.getElementById('tt-ol-menu-toggle-btn-wrap');
+            var logoHeader = document.getElementById('logo-header');
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    requestAnimationFrame(function() {
+                        var currentScrollY = window.scrollY;
+                        var diff = currentScrollY - lastScrollY;
+                        if (diff > 4) {
+                            if (menuBtn) { menuBtn.style.transition = 'transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94)'; menuBtn.style.transform = 'translateY(-120px)'; }
+                            if (logoHeader) { logoHeader.style.transition = 'transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94)'; logoHeader.style.transform = 'translateY(-120px)'; }
+                        } else if (diff < -4) {
+                            if (menuBtn) { menuBtn.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)'; menuBtn.style.transform = 'translateY(0)'; }
+                            if (logoHeader) { logoHeader.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)'; logoHeader.style.transform = 'translateY(0)'; }
+                        }
+                        lastScrollY = currentScrollY;
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
         }
 
         const viewCursor = document.createElement('div');
