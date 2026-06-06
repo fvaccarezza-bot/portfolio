@@ -51,6 +51,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .ph-caption .min-titles { display:block; transform:translateY(0px); transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
 .home-title { gap: 60px; }
 .home-title,.home-title:hover,.home-title:focus,.home-title .name-line,.home-title:hover .name-line,.home-title:focus .name-line { color:inherit !important; -webkit-text-stroke:0 !important; text-decoration:none !important; }
+#title-hola, #title-works { cursor: default !important; }
 #modal-works .modal__dialog { display:flex; flex-direction:column; align-items:center; justify-content:center; }
 #modal-works .content { justify-content:center !important; align-items:center !important; }
 .tt-ol-menu-list > li > a,
@@ -567,6 +568,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
         background-clip: unset !important;
         -webkit-text-fill-color: inherit !important;
     }
+    #title-hola, #title-works { cursor: default !important; }
 }
 
 @media (max-width: 768px) {
@@ -850,7 +852,7 @@ document.addEventListener('click', function(e) {
             <div id="about" class="tt-section padding-bottom-xlg-90 psi-image-is-light">
                 <div class="bg-vectors" id="bg-vectors-2"><div class="pos bottom-right"><img src="./assets/img/bg-lines/bg-lines2.svg" /></div></div>
                 <div class="tt-section-inner tt-wrap">
-                    <h2 class="section-title hola"><span class="title-clip"><span class="title-clip-inner" id="title-hola"><a href="#works" data-offset="-260">hola!</a></span></span></h2>
+                    <h2 class="section-title hola"><span class="title-clip"><span class="title-clip-inner" id="title-hola">hola!</span></span></h2>
                     <a href="#works" data-offset="-260" id="hola-foto" class="tt-row">
                         <div class="tt-col-md-6">
                             <div class="photo">
@@ -1505,12 +1507,13 @@ window.addEventListener('load', () => {
         });
 
         (function() {
-            [['#title-hola','#about'],['#title-works','#works']].forEach(([id, trigger], i) => {
-                const el = document.querySelector(id);
-                if (!el) return;
-                gsap.to(el, {
-                    y: 0, ease: 'power3.out', duration: 1.0,
-                    scrollTrigger: { trigger, start: 'top 80%', toggleActions: 'play none none none' }
+            [['#title-hola','#about'],['#title-works','#works']].forEach(([id, trigger]) => {
+                const inner = document.querySelector(id);
+                if (!inner) return;
+                gsap.set(inner, { y: '110%' });
+                gsap.to(inner, {
+                    y: 0, ease: 'power3.out', duration: 1.2,
+                    scrollTrigger: { trigger, start: 'top 85%', toggleActions: 'play none none none' }
                 });
             });
         })();
