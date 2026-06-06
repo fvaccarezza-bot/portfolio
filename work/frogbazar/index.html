@@ -410,9 +410,13 @@
               document.addEventListener('touchend', function(e) {
                   touchEndX = e.changedTouches[0].screenX;
                   var diff = touchStartX - touchEndX;
-                  if (Math.abs(diff) > 50) {
-                      if (diff > 0) { window.location.href = '../estudio32/'; } // swipe left = next
-                      else { window.location.href = '../photography/'; }          // swipe right = prev
+                  if (Math.abs(diff) > 60) {
+                      var dir = diff > 0 ? -1 : 1; // -1 = left (next), 1 = right (prev)
+                      var target = diff > 0 ? '../estudio32/' : '../photography/';
+                      document.body.style.transition = 'transform 0.3s cubic-bezier(0.76,0,0.24,1), opacity 0.3s ease';
+                      document.body.style.transform = 'translateX(' + (dir * 60) + 'px)';
+                      document.body.style.opacity = '0';
+                      setTimeout(function() { window.location.href = target; }, 320);
                   }
               }, { passive: true });
           }
