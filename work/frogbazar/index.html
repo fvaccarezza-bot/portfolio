@@ -402,7 +402,40 @@
       <script>
       window.addEventListener('load', function() {
 
-          // ── SWIPE for mobile ──
+          // ── HIDE/SHOW header on scroll direction ──
+          if (window.innerWidth <= 768) {
+              var lastScrollY = 0;
+              var logoHeader = document.getElementById('logo-header');
+              var menuBtn = document.getElementById('tt-ol-menu-toggle-btn-wrap');
+              var ticking = false;
+
+              window.addEventListener('scroll', function() {
+                  if (!ticking) {
+                      requestAnimationFrame(function() {
+                          var currentScrollY = window.scrollY;
+                          var diff = currentScrollY - lastScrollY;
+
+                          if (diff > 4) {
+                              // scrolling down — hide
+                              if (logoHeader) logoHeader.style.transform = 'translateY(-80px)';
+                              if (menuBtn) menuBtn.style.transform = 'translateY(-80px)';
+                          } else if (diff < -4) {
+                              // scrolling up — show
+                              if (logoHeader) logoHeader.style.transform = 'translateY(0)';
+                              if (menuBtn) menuBtn.style.transform = 'translateY(0)';
+                          }
+
+                          lastScrollY = currentScrollY;
+                          ticking = false;
+                      });
+                      ticking = true;
+                  }
+              }, { passive: true });
+
+              // Smooth transition
+              if (logoHeader) logoHeader.style.transition = 'transform 0.4s cubic-bezier(0.76,0,0.24,1)';
+              if (menuBtn) menuBtn.style.transition = 'transform 0.4s cubic-bezier(0.76,0,0.24,1)';
+          }
           if (window.innerWidth <= 768) {
               var touchStartX = 0;
               var touchEndX = 0;
