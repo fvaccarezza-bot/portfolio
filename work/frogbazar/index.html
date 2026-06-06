@@ -60,7 +60,7 @@
           #content-wrap.work { position: relative; z-index: 2; }
           footer#contact { z-index: 1; }
           /* hide logo and burger until preloader finishes */
-          #logo-header, #tt-ol-menu-toggle-btn-wrap { opacity: 0 !important; transition: opacity 0.4s ease; }
+          #logo-header, #tt-ol-menu-toggle-btn-wrap { opacity: 0; transition: opacity 0.4s ease; }
         }
         .parallax-frame { width:1320px; max-width:100%; overflow:hidden; border-radius:6px; position:relative; aspect-ratio:1320/680; }
         .parallax-frame .parallax-img { width:100%; height:115%; object-fit:cover; object-position:center 55%; display:block; border-radius:0; will-change:transform; transform:translateY(0px); }
@@ -460,13 +460,11 @@
                   var diff = touchStartX - e.changedTouches[0].clientX;
 
                   if (diff > threshold) {
-                      // Navigate to next
+                      // Navigate to next with loader
                       if (pageContent) {
                           pageContent.style.transition = 'transform 0.3s cubic-bezier(0.76,0,0.24,1)';
                           pageContent.style.transform = 'translateX(-100vw)';
                       }
-                      document.body.style.transition = 'opacity 0.3s ease';
-                      document.body.style.opacity = '0';
                       setTimeout(function() { window.location.href = '../estudio32/'; }, 320);
                   } else {
                       // Snap back
