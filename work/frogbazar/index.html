@@ -55,6 +55,9 @@
         body.frogbazar .work-title .order { margin-top:50px; }
         body.frogbazar .work-title h3 { font-size:clamp(60px,8vw,100px)!important; line-height:1!important; text-align:center!important; width:100%!important; margin:0 auto!important; }
 
+        /* hide logo and burger until preloader finishes */
+        #logo-header, #tt-ol-menu-toggle-btn-wrap { opacity: 0; transition: opacity 0.4s ease; }
+
         /* z-index — gallery over footer */
         @media (max-width: 768px) {
           #content-wrap.work { position: relative; z-index: 2; }
@@ -455,6 +458,12 @@
               var desc = document.querySelector('.work-title .desc');
 
               function revealWorkHeader() {
+                  // Show logo and burger
+                  var logoEl = document.getElementById('logo-header');
+                  var burgerEl = document.getElementById('tt-ol-menu-toggle-btn-wrap');
+                  if (logoEl) logoEl.style.opacity = '1';
+                  if (burgerEl) burgerEl.style.opacity = '1';
+
                   if (titleSvg) titleSvg.classList.add('revealed');
                   setTimeout(function() { if (order) order.classList.add('revealed'); }, 150);
                   setTimeout(function() { if (desc) desc.classList.add('revealed'); }, 300);
