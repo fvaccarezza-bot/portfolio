@@ -61,7 +61,7 @@
         @media (max-width: 768px) {
           #content-wrap.work { position:relative; z-index:2; }
           footer#contact { z-index:1; }
-          #logo-header, #tt-ol-menu-toggle-btn-wrap { opacity: 0 !important; transition: opacity 0.4s ease; }
+          #logo-header, #tt-ol-menu-toggle-btn-wrap { opacity: 0; transition: opacity 0.4s ease; }
         }
 
         /* ── DESKTOP footer show/hide title ── */
@@ -421,20 +421,57 @@
               }, { passive: true });
           }
 
-          // ── SWIPE mobile ──
+          // ── INTERACTIVE SWIPE ──
           if (window.innerWidth <= 768) {
-              var touchStartX = 0, touchEndX = 0;
-              document.addEventListener('touchstart', function(e) { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+              var touchStartX = 0;
+              var currentDragX = 0;
+              var isDragging = false;
+              var pageContent = document.getElementById('page-content');
+              var threshold = 80;
+
+              document.addEventListener('touchstart', function(e) {
+                  touchStartX = e.touches[0].clientX;
+                  isDragging = true;
+                  if (pageContent) pageContent.style.transition = 'none';
+              }, { passive: true });
+
+              document.addEventListener('touchmove', function(e) {
+                  if (!isDragging) return;
+                  currentDragX = e.touches[0].clientX - touchStartX;
+                  if (currentDragX < 0 && pageContent) {
+                      // swipe left — next (opame)
+                      pageContent.style.transform = 'translateX(' + currentDragX + 'px)';
+                  } else if (currentDragX > 0 && pageContent) {
+                      // swipe right — prev (frogbazar)
+                      pageContent.style.transform = 'translateX(' + currentDragX + 'px)';
+                  }
+              }, { passive: true });
+
               document.addEventListener('touchend', function(e) {
-                  touchEndX = e.changedTouches[0].screenX;
-                  var diff = touchStartX - touchEndX;
-                  if (Math.abs(diff) > 60) {
-                      var dir = diff > 0 ? -1 : 1;
-                      var target = diff > 0 ? '../opame/' : '../frogbazar/';
-                      document.body.style.transition = 'transform 0.3s cubic-bezier(0.76,0,0.24,1), opacity 0.3s ease';
-                      document.body.style.transform = 'translateX(' + (dir * 60) + 'px)';
-                      document.body.style.opacity = '0';
-                      setTimeout(function() { window.location.href = target; }, 320);
+                  if (!isDragging) return;
+                  isDragging = false;
+                  var diff = touchStartX - e.changedTouches[0].clientX;
+
+                  if (diff > threshold) {
+                      // Navigate to next (opame)
+                      if (pageContent) {
+                          pageContent.style.transition = 'transform 0.3s cubic-bezier(0.76,0,0.24,1)';
+                          pageContent.style.transform = 'translateX(-100vw)';
+                      }
+                      setTimeout(function() { window.location.href = '../opame/'; }, 320);
+                  } else if (diff < -threshold) {
+                      // Navigate to prev (frogbazar)
+                      if (pageContent) {
+                          pageContent.style.transition = 'transform 0.3s cubic-bezier(0.76,0,0.24,1)';
+                          pageContent.style.transform = 'translateX(100vw)';
+                      }
+                      setTimeout(function() { window.location.href = '../frogbazar/'; }, 320);
+                  } else {
+                      // Snap back
+                      if (pageContent) {
+                          pageContent.style.transition = 'transform 0.4s cubic-bezier(0.34,1.2,0.64,1)';
+                          pageContent.style.transform = 'translateX(0)';
+                      }
                   }
               }, { passive: true });
           }
