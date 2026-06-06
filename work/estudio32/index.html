@@ -61,6 +61,7 @@
         @media (max-width: 768px) {
           #content-wrap.work { position:relative; z-index:2; }
           footer#contact { z-index:1; }
+          #logo-header, #tt-ol-menu-toggle-btn-wrap { opacity: 0 !important; transition: opacity 0.4s ease; }
         }
 
         /* ── DESKTOP footer show/hide title ── */
@@ -445,6 +446,10 @@
               var desc = document.querySelector('.work-title .desc');
 
               function revealWorkHeader() {
+                  var logoEl = document.getElementById('logo-header');
+                  var burgerEl = document.getElementById('tt-ol-menu-toggle-btn-wrap');
+                  if (logoEl) logoEl.style.opacity = '1';
+                  if (burgerEl) burgerEl.style.opacity = '1';
                   if (titleSvg) titleSvg.classList.add('revealed');
                   setTimeout(function() { if (order) order.classList.add('revealed'); }, 150);
                   setTimeout(function() { if (desc) desc.classList.add('revealed'); }, 300);
@@ -478,6 +483,29 @@
                       galleryObserver.observe(item);
                   });
               }
+
+              // ── SWIPE HINT ──
+              setTimeout(function() {
+                  var wrapper = document.createElement('div');
+                  wrapper.style.cssText = 'position:fixed;right:12px;top:0;bottom:0;width:20px;display:flex;align-items:center;justify-content:center;z-index:999;pointer-events:none;opacity:0;transform:translateX(40px);transition:opacity 0.5s ease, transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);';
+                  var hint = document.createElement('div');
+                  hint.innerText = 'SWIPE FOR NEXT PROJECT';
+                  hint.style.cssText = 'font-family:"PP Telegraf",sans-serif;font-size:12px;letter-spacing:0.4em;text-transform:uppercase;color:#3A3A39;white-space:nowrap;transform:rotate(90deg);';
+                  wrapper.appendChild(hint);
+                  document.body.appendChild(wrapper);
+                  var content = document.getElementById('page-content');
+                  setTimeout(function() {
+                      if (content) { content.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)'; content.style.transform = 'translateX(-30px)'; }
+                      wrapper.style.opacity = '1';
+                      wrapper.style.transform = 'translateX(0)';
+                  }, 100);
+                  setTimeout(function() {
+                      if (content) content.style.transform = 'translateX(0)';
+                      wrapper.style.opacity = '0';
+                      wrapper.style.transform = 'translateX(40px)';
+                      setTimeout(function() { wrapper.remove(); }, 600);
+                  }, 2100);
+              }, 3800);
 
               // Footer words reveal
               var footerClips = document.querySelectorAll('.mob-footer-clip');
