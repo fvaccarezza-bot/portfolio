@@ -43,6 +43,11 @@
         body.frogbazar .title-work .work-header-inner { width:100%!important; display:flex!important; flex-direction:column!important; align-items:center!important; justify-content:center!important; text-align:center!important; padding:60px 0 40px!important; }
         body.frogbazar .work-title { width:100%!important; max-width:100%!important; display:flex!important; flex-direction:column!important; align-items:center!important; text-align:center!important; }
         body.frogbazar .frog-title-svg { display:block; margin:0 auto; }
+        body.frogbazar .frog-title-mob { display:none; }
+        @media (max-width: 768px) {
+          body.frogbazar .frog-title-desk { display:none !important; }
+          body.frogbazar .frog-title-mob { display:block !important; }
+        }
         body.frogbazar .work-title .desc { max-width:650px!important; width:650px!important; margin-left:auto!important; margin-right:auto!important; box-sizing:border-box!important; text-align:center!important; }
         body.frogbazar .tt-section.padding-bottom-xlg-150 { padding-top:0!important; padding-bottom:300px!important; }
         body.frogbazar .work-tags { display:flex; justify-content:center; gap:60px; margin-top:50px; margin-bottom:10px; }
@@ -249,7 +254,8 @@
                   <div class="tt-section title-work no-padding-bottom work-header">
                      <div class="work-header-inner">
                         <div class="work-title">
-                           <img src="../../assets/img/mob-title-frog.svg" alt="Frog Bazar" class="frog-title-svg will-reveal" />
+                           <img src="content/FROGTITLE.svg" alt="Frog Bazar" class="frog-title-svg frog-title-desk" />
+                           <img src="../../assets/img/mob-title-frog.svg" alt="Frog Bazar" class="frog-title-svg frog-title-mob will-reveal" />
                            <p class="order will-reveal">(001)</p>
                            <p class="desc will-reveal">A home décor store based in Tigre, Buenos Aires, open since 2010. Visual identity built around simplicity and editorial restraint. Neutral palette, organic textures, and confident typography — designed to let the products speak for themselves. Photography and web direction follow the same logic: clean, calm, and considered.</p>
                            <div class="work-tags">
@@ -412,7 +418,7 @@
 
           // ── MOBILE reveals ──
           if (window.innerWidth <= 768) {
-              var titleSvg = document.querySelector('.frog-title-svg');
+              var titleSvg = document.querySelector('.frog-title-mob');
               var order = document.querySelector('.work-title .order');
               var desc = document.querySelector('.work-title .desc');
 
@@ -514,7 +520,7 @@
                   if (line2) gsap.to(line2, { y:0, ease:'none', scrollTrigger:{ trigger:'#contact', start:'top 80%', end:'top 10%', scrub:1.6 } });
 
               // Desktop header + first image reveal — after preloader
-              var deskTitle = document.querySelector('.frog-title-svg');
+              var deskTitle = document.querySelector('.frog-title-desk');
               var deskOrder = document.querySelector('.work-title .order');
               var deskDesc = document.querySelector('.work-title .desc');
               var deskTags = document.querySelector('.work-tags');
