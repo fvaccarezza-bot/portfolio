@@ -52,6 +52,18 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .home-title { gap: 60px; }
 .home-title,.home-title:hover,.home-title:focus,.home-title .name-line,.home-title:hover .name-line,.home-title:focus .name-line { color:inherit !important; -webkit-text-stroke:0 !important; text-decoration:none !important; }
 #title-hola, #title-works { cursor: default !important; }
+.section-title.hola, .section-title.hola:hover,
+.section-title.noise-fill-hover, .section-title.noise-fill-hover:hover {
+    -webkit-text-stroke: 0 !important;
+    text-stroke: 0 !important;
+    color: inherit !important;
+    background: none !important;
+    -webkit-background-clip: unset !important;
+    background-clip: unset !important;
+    -webkit-text-fill-color: inherit !important;
+    pointer-events: none !important;
+    cursor: default !important;
+}
 #modal-works .modal__dialog { display:flex; flex-direction:column; align-items:center; justify-content:center; }
 #modal-works .content { justify-content:center !important; align-items:center !important; }
 .tt-ol-menu-list > li > a,
@@ -1222,6 +1234,7 @@ document.addEventListener('click', function(e) {
 <script src="./assets/js/modal.js"></script>
 <script>
 (function() {
+    if (window.innerWidth <= 768) return; // no effect on mobile
     const REPEL_RADIUS = 220;
     const REPEL_STRENGTH = 18;
     const PUSH_NEIGHBOR = 0.25;
@@ -1327,7 +1340,7 @@ window.addEventListener('load', () => {
                 }
             });
             obsReveal.observe(preloaderEl, { attributes: true, attributeFilter: ['style', 'class'] });
-            setTimeout(safeReveal, 3500);
+            setTimeout(safeReveal, 2000);
         } else {
             setTimeout(safeReveal, 300);
         }
