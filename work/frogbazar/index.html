@@ -75,15 +75,15 @@
           body.frogbazar .title-work .work-header-inner { padding:100px 0 40px !important; }
           body.frogbazar .work-title { width:340px !important; max-width:92vw !important; margin:0 auto !important; }
 
-          /* title reveal — starts hidden only if JS runs */
+          /* title reveal — fade + leve desplazamiento */
           body.frogbazar .frog-title-svg { width:100% !important; height:auto !important; }
-          body.frogbazar .frog-title-svg.will-reveal { opacity:0; transform:translateY(24px); transition:opacity 0.9s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94); }
+          body.frogbazar .frog-title-svg.will-reveal { opacity:0; transform:translateY(12px); transition:opacity 1.0s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.0s cubic-bezier(0.25,0.46,0.45,0.94); }
           body.frogbazar .frog-title-svg.revealed { opacity:1; transform:translateY(0); }
           body.frogbazar .work-title .order { margin-top:20px !important; font-size:12px !important; letter-spacing:1em !important; }
-          body.frogbazar .work-title .order.will-reveal { opacity:0; transform:translateY(16px); transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.15s, transform 0.8s 0.15s; }
+          body.frogbazar .work-title .order.will-reveal { opacity:0; transform:translateY(8px); transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.2s, transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.2s; }
           body.frogbazar .work-title .order.revealed { opacity:1; transform:translateY(0); }
           body.frogbazar .work-title .desc { width:100% !important; max-width:100% !important; font-size:13px !important; line-height:1.7 !important; }
-          body.frogbazar .work-title .desc.will-reveal { opacity:0; transform:translateY(16px); transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.28s, transform 0.8s 0.28s; }
+          body.frogbazar .work-title .desc.will-reveal { opacity:0; transform:translateY(8px); transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.35s, transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.35s; }
           body.frogbazar .work-title .desc.revealed { opacity:1; transform:translateY(0); }
 
           /* gallery images reveal */
@@ -102,6 +102,7 @@
           body.frogbazar #page-content { padding-bottom:0 !important; margin-bottom:0 !important; }
           body.frogbazar .work-content { padding-bottom:0 !important; margin-bottom:0 !important; }
           body.frogbazar #details { padding-bottom:0 !important; margin-bottom:0 !important; }
+          body.work footer#contact, body.work footer#contact.tt-section { padding:0 !important; padding-top:0 !important; padding-bottom:0 !important; margin:0 !important; }
           html, body { overflow-x:hidden; }
 
           .mob-footer { display:flex !important; flex-direction:column; align-items:center; width:100%; position:relative; overflow:visible; background:transparent; padding:0; box-sizing:border-box; }
@@ -508,6 +509,16 @@
                   var line1 = document.getElementById('lb-line1'), line2 = document.getElementById('lb-line2');
                   if (line1) gsap.to(line1, { y:0, ease:'none', scrollTrigger:{ trigger:'#contact', start:'top 90%', end:'top 20%', scrub:1.0 } });
                   if (line2) gsap.to(line2, { y:0, ease:'none', scrollTrigger:{ trigger:'#contact', start:'top 80%', end:'top 10%', scrub:1.6 } });
+
+                  // Desktop gallery reveal
+                  document.querySelectorAll('.frog-gallery > *').forEach(function(el, i) {
+                      gsap.fromTo(el,
+                          { opacity: 0, y: 40 },
+                          { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', delay: 0,
+                            scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none' }
+                          }
+                      );
+                  });
 
                   document.querySelectorAll('.footer-contact-socials a').forEach(function(a) {
                       a.addEventListener('mousemove', function(e) {
