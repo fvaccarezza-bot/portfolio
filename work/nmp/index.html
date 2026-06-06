@@ -482,16 +482,18 @@
           if (window.innerWidth > 768) {
               if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
                   gsap.registerPlugin(ScrollTrigger);
-                  var deskTitle = document.querySelector('.nmp-title-desk'), deskOrder = document.querySelector('.work-title .order'), deskDesc = document.querySelector('.work-title .desc'), firstImg = document.querySelector('.work-gallery > *');
+                  var deskTitle = document.querySelector('.nmp-title-desk'), deskOrder = document.querySelector('.work-title .order'), deskDesc = document.querySelector('.work-title .desc'), deskTags = document.querySelector('.work-tags'), firstImg = document.querySelector('.work-gallery > *');
                   if (deskTitle) gsap.set(deskTitle, { opacity:0, y:20 });
                   if (deskOrder) gsap.set(deskOrder, { opacity:0, y:14 });
                   if (deskDesc) gsap.set(deskDesc, { opacity:0, y:14 });
+                  if (deskTags) gsap.set(deskTags, { opacity:0, y:10 });
                   if (firstImg) gsap.set(firstImg, { opacity:0, y:30 });
                   function deskReveal() {
                       if (deskTitle) gsap.to(deskTitle, { opacity:1, y:0, duration:1.0, ease:'power3.out', delay:0.0 });
                       if (deskOrder) gsap.to(deskOrder, { opacity:1, y:0, duration:0.9, ease:'power3.out', delay:0.15 });
                       if (deskDesc) gsap.to(deskDesc, { opacity:1, y:0, duration:0.9, ease:'power3.out', delay:0.28 });
-                      if (firstImg) gsap.to(firstImg, { opacity:1, y:0, duration:1.2, ease:'power3.out', delay:0.42 });
+                      if (deskTags) gsap.to(deskTags, { opacity:1, y:0, duration:0.8, ease:'power3.out', delay:0.42 });
+                      if (firstImg) gsap.to(firstImg, { opacity:1, y:0, duration:1.2, ease:'power3.out', delay:0.55 });
                   }
                   var deskRev = false;
                   function safeDeskReveal() { if (!deskRev) { deskRev = true; deskReveal(); } }
