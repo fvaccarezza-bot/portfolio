@@ -80,14 +80,14 @@
           body.frogbazar .work-title { width:340px !important; max-width:92vw !important; margin:0 auto !important; }
 
           /* title reveal — fade + leve desplazamiento */
-          body.frogbazar .frog-title-svg { width:100% !important; height:auto !important; }
-          body.frogbazar .frog-title-svg.will-reveal { opacity:0; transform:translateY(12px); transition:opacity 1.0s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.0s cubic-bezier(0.25,0.46,0.45,0.94); }
+          body.frogbazar .frog-title-svg { width:100% !important; height:auto !important; transition:opacity 1.0s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.0s cubic-bezier(0.25,0.46,0.45,0.94); transform:translateY(12px); }
+          body.frogbazar .frog-title-svg.will-reveal { opacity:0; transform:translateY(12px); }
           body.frogbazar .frog-title-svg.revealed { opacity:1; transform:translateY(0); }
-          body.frogbazar .work-title .order { margin-top:20px !important; font-size:12px !important; letter-spacing:1em !important; }
-          body.frogbazar .work-title .order.will-reveal { opacity:0; transform:translateY(8px); transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.2s, transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.2s; }
+          body.frogbazar .work-title .order { margin-top:20px !important; font-size:12px !important; letter-spacing:1em !important; transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.2s, transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.2s; transform:translateY(8px); }
+          body.frogbazar .work-title .order.will-reveal { opacity:0; transform:translateY(8px); }
           body.frogbazar .work-title .order.revealed { opacity:1; transform:translateY(0); }
-          body.frogbazar .work-title .desc { width:100% !important; max-width:100% !important; font-size:13px !important; line-height:1.7 !important; }
-          body.frogbazar .work-title .desc.will-reveal { opacity:0; transform:translateY(8px); transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.35s, transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.35s; }
+          body.frogbazar .work-title .desc { width:100% !important; max-width:100% !important; font-size:13px !important; line-height:1.7 !important; transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.35s, transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.35s; transform:translateY(8px); }
+          body.frogbazar .work-title .desc.will-reveal { opacity:0; transform:translateY(8px); }
           body.frogbazar .work-title .desc.revealed { opacity:1; transform:translateY(0); }
 
           /* gallery images reveal */
@@ -249,9 +249,9 @@
                   <div class="tt-section title-work no-padding-bottom work-header">
                      <div class="work-header-inner">
                         <div class="work-title">
-                           <img src="content/FROGTITLE.svg" alt="Frog Bazar" class="frog-title-svg" />
-                           <p class="order">(001)</p>
-                           <p class="desc">A home décor store based in Tigre, Buenos Aires, open since 2010. Visual identity built around simplicity and editorial restraint. Neutral palette, organic textures, and confident typography — designed to let the products speak for themselves. Photography and web direction follow the same logic: clean, calm, and considered.</p>
+                           <img src="content/FROGTITLE.svg" alt="Frog Bazar" class="frog-title-svg" style="opacity:0;" />
+                           <p class="order" style="opacity:0;">(001)</p>
+                           <p class="desc" style="opacity:0;">A home décor store based in Tigre, Buenos Aires, open since 2010. Visual identity built around simplicity and editorial restraint. Neutral palette, organic textures, and confident typography — designed to let the products speak for themselves. Photography and web direction follow the same logic: clean, calm, and considered.</p>
                            <div class="work-tags">
                              <span>BRANDING</span>
                              <span>WEBSITE</span>
@@ -416,16 +416,10 @@
               var order = document.querySelector('.work-title .order');
               var desc = document.querySelector('.work-title .desc');
 
-              // Hide immediately now that CSS is loaded
-              if (titleSvg) titleSvg.classList.add('will-reveal');
-              if (order) order.classList.add('will-reveal');
-              if (desc) desc.classList.add('will-reveal');
-
               function revealWorkHeader() {
-                  if (titleSvg) { titleSvg.classList.remove('will-reveal'); titleSvg.classList.add('revealed'); }
-                  setTimeout(function() { if (order) { order.classList.remove('will-reveal'); order.classList.add('revealed'); } }, 150);
-                  setTimeout(function() { if (desc) { desc.classList.remove('will-reveal'); desc.classList.add('revealed'); } }, 300);
-                  // First gallery item reveals with header
+                  if (titleSvg) titleSvg.classList.add('revealed');
+                  setTimeout(function() { if (order) order.classList.add('revealed'); }, 150);
+                  setTimeout(function() { if (desc) desc.classList.add('revealed'); }, 300);
                   var firstGalleryItem = document.querySelector('.frog-gallery > *');
                   if (firstGalleryItem) setTimeout(function() { firstGalleryItem.classList.add('in-view'); }, 450);
               }
