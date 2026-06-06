@@ -52,15 +52,23 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .home-title { gap: 60px; }
 .home-title,.home-title:hover,.home-title:focus,.home-title .name-line,.home-title:hover .name-line,.home-title:focus .name-line { color:inherit !important; -webkit-text-stroke:0 !important; text-decoration:none !important; }
 #title-hola, #title-works { cursor: default !important; }
+.desk-works-phrase { display:flex; flex-direction:column; align-items:flex-start; margin-bottom:48px; }
+.desk-works-clip { overflow:hidden; line-height:0; display:flex; }
+#desk-featured, #desk-work { display:block; width:auto; max-width:100%; transform:translateY(110%); transition:transform 1.1s cubic-bezier(0.76,0,0.24,1); }
+#desk-work { transition-delay:0.18s; }
+#desk-featured.revealed, #desk-work.revealed { transform:translateY(0); }
+@media (min-width: 2560px) {
+    .desk-works-phrase { transform:scale(1.5); transform-origin:left center; margin-bottom:150px; margin-top:50px; }
+}
 .section-title.hola, .section-title.hola:hover,
 .section-title.noise-fill-hover, .section-title.noise-fill-hover:hover {
     -webkit-text-stroke: 0 !important;
     text-stroke: 0 !important;
-    color: inherit !important;
+    color: #3A3A39 !important;
     background: none !important;
     -webkit-background-clip: unset !important;
     background-clip: unset !important;
-    -webkit-text-fill-color: inherit !important;
+    -webkit-text-fill-color: #3A3A39 !important;
     pointer-events: none !important;
     cursor: default !important;
 }
@@ -872,7 +880,10 @@ document.addEventListener('click', function(e) {
             <div id="works" class="tt-section">
                 <div class="bg-vectors" id="bg-vectors-3"><div class="pos top-left"><img src="./assets/img/bg-lines/bg-lines3.svg" /></div></div>
                 <div class="tt-section-inner tt-wrap">
-                    <h2 class="section-title mob-no"><span class="title-clip"><span class="title-clip-inner" id="title-works">featured works</span></span></h2>
+                    <div class="desk-works-phrase mob-no">
+                        <div class="desk-works-clip"><img id="desk-featured" src="./assets/img/desk-featured.svg" alt="featured" /></div>
+                        <div class="desk-works-clip"><img id="desk-work" src="./assets/img/desk-work.svg" alt="works" /></div>
+                    </div>
                     <!-- MOBILE works phrase SVGs -->
                     <div class="mob-works-phrase mob-ok" style="display:none;position:relative;">
                         <div class="mob-phrase-clip"><img src="./assets/img/work-featu.svg" class="mob-phrase-word" alt="" /></div>
@@ -1507,15 +1518,28 @@ window.addEventListener('load', () => {
         });
 
         (function() {
-            [['#title-hola','#about'],['#title-works','#works']].forEach(([id, trigger]) => {
-                const inner = document.querySelector(id);
-                if (!inner) return;
-                gsap.set(inner, { y: '110%' });
-                gsap.to(inner, {
+            // hola reveal
+            const holaInner = document.querySelector('#title-hola');
+            if (holaInner) {
+                gsap.set(holaInner, { y: '110%' });
+                gsap.to(holaInner, {
                     y: 0, ease: 'power3.out', duration: 1.2,
-                    scrollTrigger: { trigger, start: 'top 85%', toggleActions: 'play none none none' }
+                    scrollTrigger: { trigger: '#about', start: 'top 85%', toggleActions: 'play none none none' }
                 });
-            });
+            }
+            // featured/work SVG reveal
+            const deskFeatured = document.getElementById('desk-featured');
+            const deskWork = document.getElementById('desk-work');
+            if (deskFeatured || deskWork) {
+                ScrollTrigger.create({
+                    trigger: '#works',
+                    start: 'top 85%',
+                    onEnter: () => {
+                        if (deskFeatured) deskFeatured.classList.add('revealed');
+                        if (deskWork) deskWork.classList.add('revealed');
+                    }
+                });
+            }
         })();
 
         (function() {
