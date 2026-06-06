@@ -249,9 +249,9 @@
                   <div class="tt-section title-work no-padding-bottom work-header">
                      <div class="work-header-inner">
                         <div class="work-title">
-                           <img src="content/FROGTITLE.svg" alt="Frog Bazar" class="frog-title-svg" style="opacity:0;" />
-                           <p class="order" style="opacity:0;">(001)</p>
-                           <p class="desc" style="opacity:0;">A home décor store based in Tigre, Buenos Aires, open since 2010. Visual identity built around simplicity and editorial restraint. Neutral palette, organic textures, and confident typography — designed to let the products speak for themselves. Photography and web direction follow the same logic: clean, calm, and considered.</p>
+                           <img src="content/FROGTITLE.svg" alt="Frog Bazar" class="frog-title-svg will-reveal" />
+                           <p class="order will-reveal">(001)</p>
+                           <p class="desc will-reveal">A home décor store based in Tigre, Buenos Aires, open since 2010. Visual identity built around simplicity and editorial restraint. Neutral palette, organic textures, and confident typography — designed to let the products speak for themselves. Photography and web direction follow the same logic: clean, calm, and considered.</p>
                            <div class="work-tags">
                              <span>BRANDING</span>
                              <span>WEBSITE</span>
@@ -417,9 +417,9 @@
               var desc = document.querySelector('.work-title .desc');
 
               function revealWorkHeader() {
-                  if (titleSvg) { titleSvg.style.opacity = ''; titleSvg.classList.add('revealed'); }
-                  setTimeout(function() { if (order) { order.style.opacity = ''; order.classList.add('revealed'); } }, 150);
-                  setTimeout(function() { if (desc) { desc.style.opacity = ''; desc.classList.add('revealed'); } }, 300);
+                  if (titleSvg) titleSvg.classList.add('revealed');
+                  setTimeout(function() { if (order) order.classList.add('revealed'); }, 150);
+                  setTimeout(function() { if (desc) desc.classList.add('revealed'); }, 300);
                   var firstGalleryItem = document.querySelector('.frog-gallery > *');
                   if (firstGalleryItem) setTimeout(function() { firstGalleryItem.classList.add('in-view'); }, 450);
               }
