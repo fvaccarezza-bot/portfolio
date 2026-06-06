@@ -412,22 +412,22 @@
               var ticking = false;
 
               window.addEventListener('scroll', function() {
-                  if (!ticking && !swipeHintActive) {
+                  if (!ticking) {
                       requestAnimationFrame(function() {
                           var currentScrollY = window.scrollY;
                           var diff = currentScrollY - lastScrollY;
+                          lastScrollY = currentScrollY; // always update
 
-                          if (diff > 4) {
-                              // scrolling down — hide (slower, more subtle)
-                              if (logoHeader) { logoHeader.style.transition = 'transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94)'; logoHeader.style.transform = 'translateY(-120px)'; }
-                              if (menuBtn) { menuBtn.style.transition = 'transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94)'; menuBtn.style.transform = 'translateY(-120px)'; }
-                          } else if (diff < -4) {
-                              // scrolling up — show
-                              if (logoHeader) { logoHeader.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)'; logoHeader.style.transform = 'translateY(0)'; }
-                              if (menuBtn) { menuBtn.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)'; menuBtn.style.transform = 'translateY(0)'; }
+                          if (!swipeHintActive) {
+                              if (diff > 4) {
+                                  if (logoHeader) { logoHeader.style.transition = 'transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94)'; logoHeader.style.transform = 'translateY(-120px)'; }
+                                  if (menuBtn) { menuBtn.style.transition = 'transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94)'; menuBtn.style.transform = 'translateY(-120px)'; }
+                              } else if (diff < -4) {
+                                  if (logoHeader) { logoHeader.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)'; logoHeader.style.transform = 'translateY(0)'; }
+                                  if (menuBtn) { menuBtn.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)'; menuBtn.style.transform = 'translateY(0)'; }
+                              }
                           }
 
-                          lastScrollY = currentScrollY;
                           ticking = false;
                       });
                       ticking = true;
