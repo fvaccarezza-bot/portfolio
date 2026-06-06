@@ -503,24 +503,25 @@
 
               // ── SWIPE HINT ──
               setTimeout(function() {
+                  var wrapper = document.createElement('div');
+                  wrapper.style.cssText = 'position:fixed;right:12px;top:0;bottom:0;width:20px;display:flex;align-items:center;justify-content:center;z-index:999;pointer-events:none;opacity:0;transition:opacity 0.5s ease;';
                   var hint = document.createElement('div');
                   hint.innerText = 'SWIPE FOR NEXT PROJECT';
-                  hint.style.cssText = 'position:fixed;right:12px;top:50%;transform:translateY(-50%) rotate(90deg);transform-origin:center center;font-family:"PP Telegraf",sans-serif;font-size:12px;letter-spacing:0.4em;text-transform:uppercase;color:#3A3A39;opacity:0;z-index:999;transition:opacity 0.5s ease;pointer-events:none;white-space:nowrap;';
-                  document.body.appendChild(hint);
+                  hint.style.cssText = 'font-family:"PP Telegraf",sans-serif;font-size:12px;letter-spacing:0.4em;text-transform:uppercase;color:#3A3A39;white-space:nowrap;transform:rotate(90deg);';
+                  wrapper.appendChild(hint);
+                  document.body.appendChild(wrapper);
 
                   var content = document.getElementById('scroll-container') || document.getElementById('content-wrap');
 
-                  // Slide content left + fade hint in
                   setTimeout(function() {
                       if (content) { content.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)'; content.style.transform = 'translateX(-30px)'; }
-                      hint.style.opacity = '1';
+                      wrapper.style.opacity = '1';
                   }, 100);
 
-                  // Return content + fade hint out
                   setTimeout(function() {
                       if (content) content.style.transform = 'translateX(0)';
-                      hint.style.opacity = '0';
-                      setTimeout(function() { hint.remove(); }, 500);
+                      wrapper.style.opacity = '0';
+                      setTimeout(function() { wrapper.remove(); }, 500);
                   }, 1700);
 
               }, 3800);
