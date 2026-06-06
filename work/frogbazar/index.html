@@ -503,10 +503,9 @@
 
               // ── SWIPE HINT ──
               setTimeout(function() {
-                  // Create hint text
                   var hint = document.createElement('div');
                   hint.innerText = 'SWIPE FOR NEXT PROJECT';
-                  hint.style.cssText = 'position:fixed;right:-8px;top:50%;transform:translateY(-50%) rotate(90deg);transform-origin:center center;font-family:"PP Telegraf",sans-serif;font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:#3A3A39;opacity:0;z-index:999;transition:opacity 0.4s ease;pointer-events:none;white-space:nowrap;';
+                  hint.style.cssText = 'position:fixed;right:-8px;top:50%;transform:translateY(-50%) rotate(90deg);transform-origin:center center;font-family:"PP Telegraf",sans-serif;font-size:12px;letter-spacing:0.4em;text-transform:uppercase;color:#3A3A39;opacity:0;z-index:999;transition:opacity 0.5s ease;pointer-events:none;white-space:nowrap;';
                   document.body.appendChild(hint);
 
                   var content = document.getElementById('scroll-container') || document.getElementById('content-wrap');
@@ -517,14 +516,14 @@
                       hint.style.opacity = '1';
                   }, 100);
 
-                  // Return + hide hint
+                  // Return + hide hint after 1.5s
                   setTimeout(function() {
                       if (content) content.style.transform = 'translateX(0)';
                       hint.style.opacity = '0';
                       setTimeout(function() { hint.remove(); }, 500);
-                  }, 1400);
+                  }, 1600);
 
-              }, 2200);
+              }, 3800);
               var footerClips = document.querySelectorAll('.mob-footer-clip');
               if (footerClips.length) {
                   var footerTriggered = false;
