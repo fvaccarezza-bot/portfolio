@@ -427,8 +427,9 @@
                   if (titleSvg) titleSvg.classList.add('revealed');
                   setTimeout(function() { if (order) order.classList.add('revealed'); }, 150);
                   setTimeout(function() { if (desc) desc.classList.add('revealed'); }, 300);
-                  var firstGalleryItem = document.querySelector('.frog-gallery > *');
-                  if (firstGalleryItem) setTimeout(function() { firstGalleryItem.classList.add('in-view'); }, 450);
+                  var galleryItems = document.querySelectorAll('.frog-gallery > *');
+                  if (galleryItems[0]) setTimeout(function() { galleryItems[0].classList.add('in-view'); }, 450);
+                  if (galleryItems[1]) setTimeout(function() { galleryItems[1].classList.add('in-view'); }, 650);
               }
 
               // Try preloader observer
@@ -459,7 +460,7 @@
                       });
                   }, { threshold: 0.1 });
                   galleryItems.forEach(function(item, i) {
-                      if (i === 0) return; // handled by header reveal
+                      if (i === 0 || i === 1) return; // handled by header reveal
                       item.style.transitionDelay = '0s';
                       galleryObserver.observe(item);
                   });
