@@ -424,26 +424,31 @@
           // ── INTERACTIVE SWIPE ──
           if (window.innerWidth <= 768) {
               var touchStartX = 0;
+              var touchStartY = 0;
               var currentDragX = 0;
               var isDragging = false;
+              var isHorizontal = null;
               var pageContent = document.getElementById('page-content');
               var threshold = 80;
 
               document.addEventListener('touchstart', function(e) {
                   touchStartX = e.touches[0].clientX;
+                  touchStartY = e.touches[0].clientY;
                   isDragging = true;
+                  isHorizontal = null;
                   if (pageContent) pageContent.style.transition = 'none';
               }, { passive: true });
 
               document.addEventListener('touchmove', function(e) {
                   if (!isDragging) return;
-                  currentDragX = e.touches[0].clientX - touchStartX;
-                  if (currentDragX < 0 && pageContent) {
-                      // swipe left — next (opame)
-                      pageContent.style.transform = 'translateX(' + currentDragX + 'px)';
-                  } else if (currentDragX > 0 && pageContent) {
-                      // swipe right — prev (frogbazar)
-                      pageContent.style.transform = 'translateX(' + currentDragX + 'px)';
+                  var dx = e.touches[0].clientX - touchStartX;
+                  var dy = e.touches[0].clientY - touchStartY;
+                  if (isHorizontal === null && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
+                      isHorizontal = Math.abs(dx) > Math.abs(dy) * 1.5;
+                  }
+                  if (isHorizontal && pageContent) {
+                      currentDragX = dx;
+                      pageContent.style.transform = 'translateX(' + dx + 'px)';
                   }
               }, { passive: true });
 
@@ -452,22 +457,19 @@
                   isDragging = false;
                   var diff = touchStartX - e.changedTouches[0].clientX;
 
-                  if (diff > threshold) {
-                      // Navigate to next (opame)
+                  if (isHorizontal && diff > threshold) {
                       if (pageContent) {
                           pageContent.style.transition = 'transform 0.3s cubic-bezier(0.76,0,0.24,1)';
                           pageContent.style.transform = 'translateX(-100vw)';
                       }
                       setTimeout(function() { window.location.href = '../opame/'; }, 320);
-                  } else if (diff < -threshold) {
-                      // Navigate to prev (frogbazar)
+                  } else if (isHorizontal && diff < -threshold) {
                       if (pageContent) {
                           pageContent.style.transition = 'transform 0.3s cubic-bezier(0.76,0,0.24,1)';
                           pageContent.style.transform = 'translateX(100vw)';
                       }
                       setTimeout(function() { window.location.href = '../frogbazar/'; }, 320);
                   } else {
-                      // Snap back
                       if (pageContent) {
                           pageContent.style.transition = 'transform 0.4s cubic-bezier(0.34,1.2,0.64,1)';
                           pageContent.style.transform = 'translateX(0)';
@@ -543,7 +545,7 @@
                           wrapper.style.opacity = '0';
                           wrapper.style.transform = 'translateX(40px)';
                           setTimeout(function() { wrapper.remove(); }, 600);
-                      }, 2100);
+                      }, 1350);
                   }, 3800);
 
                   // ── SWIPE HINT PREVIOUS ──
@@ -566,8 +568,8 @@
                           wrapperPrev.style.opacity = '0';
                           wrapperPrev.style.transform = 'translateX(-40px)';
                           setTimeout(function() { wrapperPrev.remove(); }, 600);
-                      }, 1600);
-                  }, 6500);
+                      }, 1350);
+                  }, 5950);
               }
 
               // Footer words reveal
