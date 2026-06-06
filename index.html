@@ -1528,13 +1528,13 @@ window.addEventListener('load', () => {
             if (deskFeatured) {
                 gsap.set(deskFeatured, { y: '110%' });
                 gsap.to(deskFeatured, { y: 0, ease: 'none',
-                    scrollTrigger: { trigger: '#works', start: 'top 90%', end: 'center center', scrub: 1.0 }
+                    scrollTrigger: { trigger: '.desk-works-phrase', start: 'top 90%', end: 'top 20%', scrub: 1.0 }
                 });
             }
             if (deskWork) {
                 gsap.set(deskWork, { y: '110%' });
                 gsap.to(deskWork, { y: 0, ease: 'none',
-                    scrollTrigger: { trigger: '#works', start: 'top 80%', end: 'center center', scrub: 2.0 }
+                    scrollTrigger: { trigger: '.desk-works-phrase', start: 'top 80%', end: 'top 10%', scrub: 1.6 }
                 });
             }
         })();
