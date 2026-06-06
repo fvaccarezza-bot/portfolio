@@ -52,7 +52,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .home-title { gap: 60px; }
 .home-title,.home-title:hover,.home-title:focus,.home-title .name-line,.home-title:hover .name-line,.home-title:focus .name-line { color:inherit !important; -webkit-text-stroke:0 !important; text-decoration:none !important; }
 #title-hola, #title-works { cursor: default !important; }
-.desk-works-phrase { display:flex; flex-direction:column; align-items:center; margin-bottom:48px; gap:16px; width:100%; }
+.desk-works-phrase { display:flex; flex-direction:column; align-items:center; margin-bottom:150px; gap:16px; width:100%; }
 .desk-works-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; width:100%; }
 #desk-featured, #desk-work { display:block; width:auto; max-width:100%; }
 @media (min-width: 2560px) {
@@ -417,7 +417,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 
     #works .tt-section-inner > span { margin-bottom: 32px !important; display: block !important; }
     #about { padding-bottom: 0 !important; margin-bottom: 0 !important; }
-    #works { padding-top: 0 !important; margin-top: 0 !important; }
+    #works .tt-section-inner.tt-wrap { padding-top: 0 !important; }
     #works .tt-section-inner { padding-top: 200px !important; }
     #services { padding-top: 0 !important; margin-top: 0 !important; }
     #services .tt-section-inner { padding-top: 0 !important; margin-top: 0 !important; }
@@ -1126,7 +1126,7 @@ document.addEventListener('click', function(e) {
                 .footer-roll-wrap:hover .brace-r { transform:translateX(6px); }
                 .title-clip { overflow:hidden; display:block; }
                 .title-clip-inner { display:block; transform:translateY(110%); }
-                .tt-section-inner.tt-wrap { padding-top:300px; }
+                #contact .tt-section-inner.tt-wrap { padding-top:300px; }
                 .footer-col-center { text-align:center; display:flex; justify-content:center; }
                 .footer-col-right { text-align:right; justify-content:flex-end; }
                 .footer-contact-links a { color:#3A3A39; text-decoration:none; text-transform:uppercase; font-weight:500; }
@@ -1534,7 +1534,7 @@ window.addEventListener('load', () => {
             if (deskWork) {
                 gsap.set(deskWork, { y: '110%' });
                 gsap.to(deskWork, { y: 0, ease: 'none',
-                    scrollTrigger: { trigger: '#works', start: 'top 80%', end: 'top 10%', scrub: 1.6 }
+                    scrollTrigger: { trigger: '#works', start: 'top 80%', end: 'top 5%', scrub: 2.0 }
                 });
             }
         })();
