@@ -528,7 +528,7 @@
                       if (content) content.style.transform = 'translateX(0)';
                       wrapper.style.opacity = '0';
                       wrapper.style.transform = 'translateX(40px)';
-                      setTimeout(function() { wrapper.remove(); swipeHintActive = false; }, 600);
+                      setTimeout(function() { wrapper.remove(); swipeHintActive = false; lastScrollY = window.scrollY; }, 600);
                   }, 2100);
 
               }, 3800);
