@@ -462,12 +462,14 @@
                           pageContent.style.transition = 'transform 0.3s cubic-bezier(0.76,0,0.24,1)';
                           pageContent.style.transform = 'translateX(-100vw)';
                       }
+                      document.body.style.transition = 'none';
                       setTimeout(function() { window.location.href = '../opame/'; }, 320);
                   } else if (isHorizontal && diff < -threshold) {
                       if (pageContent) {
                           pageContent.style.transition = 'transform 0.3s cubic-bezier(0.76,0,0.24,1)';
                           pageContent.style.transform = 'translateX(100vw)';
                       }
+                      document.body.style.transition = 'none';
                       setTimeout(function() { window.location.href = '../frogbazar/'; }, 320);
                   } else {
                       if (pageContent) {
