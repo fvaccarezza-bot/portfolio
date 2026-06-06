@@ -402,6 +402,8 @@
       <script>
       window.addEventListener('load', function() {
 
+          var swipeHintActive = false;
+
           // ── HIDE/SHOW header on scroll direction ──
           if (window.innerWidth <= 768) {
               var lastScrollY = 0;
@@ -410,7 +412,7 @@
               var ticking = false;
 
               window.addEventListener('scroll', function() {
-                  if (!ticking) {
+                  if (!ticking && !swipeHintActive) {
                       requestAnimationFrame(function() {
                           var currentScrollY = window.scrollY;
                           var diff = currentScrollY - lastScrollY;
@@ -515,6 +517,7 @@
 
                   // Slide content left + slide hint in + fade in
                   setTimeout(function() {
+                      swipeHintActive = true;
                       if (content) { content.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)'; content.style.transform = 'translateX(-30px)'; }
                       wrapper.style.opacity = '1';
                       wrapper.style.transform = 'translateX(0)';
@@ -525,7 +528,7 @@
                       if (content) content.style.transform = 'translateX(0)';
                       wrapper.style.opacity = '0';
                       wrapper.style.transform = 'translateX(40px)';
-                      setTimeout(function() { wrapper.remove(); }, 600);
+                      setTimeout(function() { wrapper.remove(); swipeHintActive = false; }, 600);
                   }, 2100);
 
               }, 3800);
