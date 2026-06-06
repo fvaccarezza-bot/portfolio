@@ -98,9 +98,11 @@
           #contact { margin-top:-300px !important; padding:0 !important; overflow:visible !important; }
           #contact .tt-section-inner.tt-wrap { display:none !important; }
           body.frogbazar .tt-section.padding-bottom-xlg-150 { padding-bottom:0 !important; }
-          #content-wrap.work { padding-bottom:0 !important; }
-          #page-content { padding-bottom:0 !important; margin-bottom:0 !important; }
-          main#body-inner { padding-bottom:0 !important; }
+          body.frogbazar #content-wrap.work { padding-bottom:0 !important; margin-bottom:0 !important; }
+          body.frogbazar #page-content { padding-bottom:0 !important; margin-bottom:0 !important; }
+          body.frogbazar .work-content { padding-bottom:0 !important; margin-bottom:0 !important; }
+          body.frogbazar #details { padding-bottom:0 !important; margin-bottom:0 !important; }
+          html, body { overflow-x:hidden; }
 
           .mob-footer { display:flex !important; flex-direction:column; align-items:center; width:100%; position:relative; overflow:visible; background:transparent; padding:0; box-sizing:border-box; }
           .mob-footer-shapes { position:absolute; top:-80px; left:0; right:0; bottom:0; pointer-events:none; z-index:3; overflow:visible; }
@@ -405,15 +407,6 @@
 
           // ── MOBILE reveals ──
           if (window.innerWidth <= 768) {
-              // Header reveal after preloader
-              function revealWorkHeader() {
-                  var titleSvg = document.querySelector('.frog-title-svg');
-                  var order = document.querySelector('.work-title .order');
-                  var desc = document.querySelector('.work-title .desc');
-                  if (titleSvg) titleSvg.classList.add('revealed');
-                  setTimeout(function() { if (order) order.classList.add('revealed'); }, 150);
-                  setTimeout(function() { if (desc) desc.classList.add('revealed'); }, 300);
-              }
               // Add will-reveal immediately to hide elements before animation
               var titleSvg = document.querySelector('.frog-title-svg');
               var order = document.querySelector('.work-title .order');
@@ -422,18 +415,27 @@
               if (order) order.classList.add('will-reveal');
               if (desc) desc.classList.add('will-reveal');
 
+              function revealWorkHeader() {
+                  if (titleSvg) titleSvg.classList.add('revealed');
+                  setTimeout(function() { if (order) order.classList.add('revealed'); }, 150);
+                  setTimeout(function() { if (desc) desc.classList.add('revealed'); }, 300);
+              }
+
+              // Try preloader observer
               var preloader = document.getElementById('preloader');
+              var revealed = false;
+              function safeReveal() { if (!revealed) { revealed = true; revealWorkHeader(); } }
               if (preloader) {
                   var obs = new MutationObserver(function() {
                       var s = window.getComputedStyle(preloader);
                       if (s.opacity === '0' || s.display === 'none' || s.visibility === 'hidden') {
-                          revealWorkHeader();
-                          obs.disconnect();
+                          safeReveal(); obs.disconnect();
                       }
                   });
                   obs.observe(preloader, { attributes: true, attributeFilter: ['style', 'class'] });
               }
-              setTimeout(revealWorkHeader, 1800);
+              // Fallback — always fires
+              setTimeout(safeReveal, 1800);
 
               // Gallery images reveal on scroll
               var galleryItems = document.querySelectorAll('.frog-gallery > *');
