@@ -497,8 +497,9 @@
                   });
               }
 
-              // ── SWIPE HINT ──
-              setTimeout(function() {
+              // ── SWIPE HINT — once per session ──
+              if (!sessionStorage.getItem('swipeHintShown')) {
+                  setTimeout(function() {
                   var wrapper = document.createElement('div');
                   wrapper.style.cssText = 'position:fixed;right:12px;top:0;bottom:0;width:20px;display:flex;align-items:center;justify-content:center;z-index:999;pointer-events:none;opacity:0;transform:translateX(40px);transition:opacity 0.5s ease, transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);';
                   var hint = document.createElement('div');
@@ -522,7 +523,9 @@
                       setTimeout(function() { wrapper.remove(); }, 600);
                   }, 2100);
 
+                  sessionStorage.setItem('swipeHintShown', '1');
               }, 3800);
+              }
               var footerClips = document.querySelectorAll('.mob-footer-clip');
               if (footerClips.length) {
                   var footerTriggered = false;
