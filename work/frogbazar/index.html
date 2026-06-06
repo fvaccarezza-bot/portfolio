@@ -504,7 +504,7 @@
               // ── SWIPE HINT ──
               setTimeout(function() {
                   var wrapper = document.createElement('div');
-                  wrapper.style.cssText = 'position:fixed;right:12px;top:0;bottom:0;width:20px;display:flex;align-items:center;justify-content:center;z-index:999;pointer-events:none;opacity:0;transition:opacity 0.5s ease;';
+                  wrapper.style.cssText = 'position:fixed;right:12px;top:0;bottom:0;width:20px;display:flex;align-items:center;justify-content:center;z-index:999;pointer-events:none;opacity:0;transform:translateX(40px);transition:opacity 0.5s ease, transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);';
                   var hint = document.createElement('div');
                   hint.innerText = 'SWIPE FOR NEXT PROJECT';
                   hint.style.cssText = 'font-family:"PP Telegraf",sans-serif;font-size:12px;letter-spacing:0.4em;text-transform:uppercase;color:#3A3A39;white-space:nowrap;transform:rotate(90deg);';
@@ -513,16 +513,20 @@
 
                   var content = document.getElementById('scroll-container') || document.getElementById('content-wrap');
 
+                  // Slide content left + slide hint in + fade in
                   setTimeout(function() {
                       if (content) { content.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)'; content.style.transform = 'translateX(-30px)'; }
                       wrapper.style.opacity = '1';
+                      wrapper.style.transform = 'translateX(0)';
                   }, 100);
 
+                  // Return after 2s
                   setTimeout(function() {
                       if (content) content.style.transform = 'translateX(0)';
                       wrapper.style.opacity = '0';
-                      setTimeout(function() { wrapper.remove(); }, 500);
-                  }, 1700);
+                      wrapper.style.transform = 'translateX(40px)';
+                      setTimeout(function() { wrapper.remove(); }, 600);
+                  }, 2100);
 
               }, 3800);
               var footerClips = document.querySelectorAll('.mob-footer-clip');
