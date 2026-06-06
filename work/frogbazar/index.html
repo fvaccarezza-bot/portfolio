@@ -505,22 +505,22 @@
               setTimeout(function() {
                   var hint = document.createElement('div');
                   hint.innerText = 'SWIPE FOR NEXT PROJECT';
-                  hint.style.cssText = 'position:fixed;right:0;top:50%;transform:translateY(-50%) translateX(100%) rotate(90deg);transform-origin:center center;font-family:"PP Telegraf",sans-serif;font-size:12px;letter-spacing:0.4em;text-transform:uppercase;color:#3A3A39;opacity:1;z-index:999;transition:transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);pointer-events:none;white-space:nowrap;';
+                  hint.style.cssText = 'position:fixed;right:12px;top:50%;transform:translateY(-50%) rotate(90deg);transform-origin:center center;font-family:"PP Telegraf",sans-serif;font-size:12px;letter-spacing:0.4em;text-transform:uppercase;color:#3A3A39;opacity:0;z-index:999;transition:opacity 0.5s ease;pointer-events:none;white-space:nowrap;';
                   document.body.appendChild(hint);
 
                   var content = document.getElementById('scroll-container') || document.getElementById('content-wrap');
 
-                  // Slide content left + slide hint in from right
+                  // Slide content left + fade hint in
                   setTimeout(function() {
                       if (content) { content.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)'; content.style.transform = 'translateX(-30px)'; }
-                      hint.style.transform = 'translateY(-50%) translateX(0) rotate(90deg)';
+                      hint.style.opacity = '1';
                   }, 100);
 
-                  // Return content + slide hint out
+                  // Return content + fade hint out
                   setTimeout(function() {
                       if (content) content.style.transform = 'translateX(0)';
-                      hint.style.transform = 'translateY(-50%) translateX(100%) rotate(90deg)';
-                      setTimeout(function() { hint.remove(); }, 600);
+                      hint.style.opacity = '0';
+                      setTimeout(function() { hint.remove(); }, 500);
                   }, 1700);
 
               }, 3800);
