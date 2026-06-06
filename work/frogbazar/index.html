@@ -417,8 +417,8 @@
 
                           if (diff > 4) {
                               // scrolling down — hide
-                              if (logoHeader) logoHeader.style.transform = 'translateY(-80px)';
-                              if (menuBtn) menuBtn.style.transform = 'translateY(-80px)';
+                              if (logoHeader) logoHeader.style.transform = 'translateY(-120px)';
+                              if (menuBtn) menuBtn.style.transform = 'translateY(-120px)';
                           } else if (diff < -4) {
                               // scrolling up — show
                               if (logoHeader) logoHeader.style.transform = 'translateY(0)';
@@ -433,8 +433,8 @@
               }, { passive: true });
 
               // Smooth transition
-              if (logoHeader) logoHeader.style.transition = 'transform 0.4s cubic-bezier(0.76,0,0.24,1)';
-              if (menuBtn) menuBtn.style.transition = 'transform 0.4s cubic-bezier(0.76,0,0.24,1)';
+              if (logoHeader) logoHeader.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)';
+              if (menuBtn) menuBtn.style.transition = 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)';
           }
           if (window.innerWidth <= 768) {
               var touchStartX = 0;
