@@ -75,12 +75,15 @@
           body.frogbazar .title-work .work-header-inner { padding:100px 0 40px !important; }
           body.frogbazar .work-title { width:340px !important; max-width:92vw !important; margin:0 auto !important; }
 
-          /* title reveal — starts hidden */
-          body.frogbazar .frog-title-svg { width:100% !important; height:auto !important; opacity:0; transform:translateY(24px); transition:opacity 0.9s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94); }
+          /* title reveal — starts hidden only if JS runs */
+          body.frogbazar .frog-title-svg { width:100% !important; height:auto !important; }
+          body.frogbazar .frog-title-svg.will-reveal { opacity:0; transform:translateY(24px); transition:opacity 0.9s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94); }
           body.frogbazar .frog-title-svg.revealed { opacity:1; transform:translateY(0); }
-          body.frogbazar .work-title .order { margin-top:20px !important; font-size:12px !important; letter-spacing:1em !important; opacity:0; transform:translateY(16px); transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.15s, transform 0.8s 0.15s; }
+          body.frogbazar .work-title .order { margin-top:20px !important; font-size:12px !important; letter-spacing:1em !important; }
+          body.frogbazar .work-title .order.will-reveal { opacity:0; transform:translateY(16px); transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.15s, transform 0.8s 0.15s; }
           body.frogbazar .work-title .order.revealed { opacity:1; transform:translateY(0); }
-          body.frogbazar .work-title .desc { width:100% !important; max-width:100% !important; font-size:13px !important; line-height:1.7 !important; opacity:0; transform:translateY(16px); transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.28s, transform 0.8s 0.28s; }
+          body.frogbazar .work-title .desc { width:100% !important; max-width:100% !important; font-size:13px !important; line-height:1.7 !important; }
+          body.frogbazar .work-title .desc.will-reveal { opacity:0; transform:translateY(16px); transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.28s, transform 0.8s 0.28s; }
           body.frogbazar .work-title .desc.revealed { opacity:1; transform:translateY(0); }
 
           /* gallery images reveal */
@@ -94,6 +97,10 @@
           .footer-copyright { display:none !important; }
           #contact { margin-top:-300px !important; padding:0 !important; overflow:visible !important; }
           #contact .tt-section-inner.tt-wrap { display:none !important; }
+          body.frogbazar .tt-section.padding-bottom-xlg-150 { padding-bottom:0 !important; }
+          #content-wrap.work { padding-bottom:0 !important; }
+          #page-content { padding-bottom:0 !important; margin-bottom:0 !important; }
+          main#body-inner { padding-bottom:0 !important; }
 
           .mob-footer { display:flex !important; flex-direction:column; align-items:center; width:100%; position:relative; overflow:visible; background:transparent; padding:0; box-sizing:border-box; }
           .mob-footer-shapes { position:absolute; top:-80px; left:0; right:0; bottom:0; pointer-events:none; z-index:3; overflow:visible; }
@@ -407,6 +414,14 @@
                   setTimeout(function() { if (order) order.classList.add('revealed'); }, 150);
                   setTimeout(function() { if (desc) desc.classList.add('revealed'); }, 300);
               }
+              // Add will-reveal immediately to hide elements before animation
+              var titleSvg = document.querySelector('.frog-title-svg');
+              var order = document.querySelector('.work-title .order');
+              var desc = document.querySelector('.work-title .desc');
+              if (titleSvg) titleSvg.classList.add('will-reveal');
+              if (order) order.classList.add('will-reveal');
+              if (desc) desc.classList.add('will-reveal');
+
               var preloader = document.getElementById('preloader');
               if (preloader) {
                   var obs = new MutationObserver(function() {
