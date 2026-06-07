@@ -1311,17 +1311,18 @@ window.addEventListener('load', () => {
         // ── HERO STICKY FADE ──
         if (window.innerWidth > 768) {
             const hero = document.getElementById('page-header');
-            const scrollEl = document.getElementById('scroll-container');
-            if (hero && scrollEl) {
-                scrollEl.addEventListener('scroll', function() {
-                    const scrollY = scrollEl.scrollTop;
-                    const heroH = hero.offsetHeight;
-                    const progress = Math.min(scrollY / heroH, 1);
-                    const blur = progress * 12;
-                    const opacity = 1 - progress * 0.5;
-                    hero.style.filter = 'blur(' + blur + 'px)';
-                    hero.style.opacity = opacity;
-                }, { passive: true });
+            if (hero && typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+                gsap.to(hero, {
+                    filter: 'blur(12px)',
+                    opacity: 0.5,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: hero,
+                        start: 'top top',
+                        end: 'bottom top',
+                        scrub: true
+                    }
+                });
             }
         }
     function matchLbHeight() {
