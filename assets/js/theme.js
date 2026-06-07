@@ -166,29 +166,32 @@
          // ── HERO STICKY FADE (solo home, solo desktop) ──
          var $pageHeader = $('#page-header');
          if ($pageHeader.length && $('body').hasClass('home')) {
-            // Mover el hero fuera del scroll-container, directo a body-inner
             $pageHeader.prependTo($('#body-inner'));
-            $pageHeader.css({
-               position: 'fixed',
-               top: 0,
-               left: 0,
-               width: '100%',
-               zIndex: 0
-            });
-            // El content-wrap sube encima
-            $('#content-wrap').css({
-               position: 'relative',
-               zIndex: 1,
-               marginTop: ($pageHeader.outerHeight() * 1.4) + 'px'
-            });
-            // Blur + opacity via scrollbar listener
+            $pageHeader.css({ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 0 });
+            $('#content-wrap').css({ position: 'relative', zIndex: 1, marginTop: ($pageHeader.outerHeight() * 1.4) + 'px' });
             bodyScrollBar.addListener(function(status) {
                var scrollY = status.offset.y;
                var heroH = $pageHeader.outerHeight();
-               var progress = Math.min(scrollY / (heroH * 1.3), 1);
+               var progress = Math.min(scrollY / (heroH * 1.8), 1);
                $pageHeader[0].style.filter = 'blur(' + (progress * 12) + 'px)';
                $pageHeader[0].style.opacity = 1 - progress * 0.75;
             });
+         }
+
+         // ── ABOUT STICKY FADE (solo home, solo desktop) ──
+         if ($('body').hasClass('home')) {
+            var $aboutSection = $('#about');
+            var $holaFoto = $('#hola-foto');
+            if ($aboutSection.length && $holaFoto.length) {
+               bodyScrollBar.addListener(function(status) {
+                  var scrollY = status.offset.y;
+                  var aboutTop = $aboutSection[0].offsetTop;
+                  var aboutH = $aboutSection.outerHeight();
+                  var progress = Math.min(Math.max((scrollY - aboutTop) / (aboutH * 0.8), 0), 1);
+                  $holaFoto[0].style.filter = 'blur(' + (progress * 12) + 'px)';
+                  $holaFoto[0].style.opacity = 1 - progress * 0.75;
+               });
+            }
          }
 
          if ($('#tt-header').hasClass('tt-header-fixed')) { $('#tt-header').prependTo($('#body-inner')); }
