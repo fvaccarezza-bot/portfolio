@@ -179,7 +179,7 @@
             $('#content-wrap').css({
                position: 'relative',
                zIndex: 1,
-               marginTop: $pageHeader.outerHeight() + 'px'
+               marginTop: ($pageHeader.outerHeight() * 1.4) + 'px'
             });
             // Blur + opacity via scrollbar listener
             bodyScrollBar.addListener(function(status) {
