@@ -185,9 +185,9 @@
             bodyScrollBar.addListener(function(status) {
                var scrollY = status.offset.y;
                var heroH = $pageHeader.outerHeight();
-               var progress = Math.min(scrollY / heroH, 1);
+               var progress = Math.min(scrollY / (heroH * 1.3), 1);
                $pageHeader[0].style.filter = 'blur(' + (progress * 12) + 'px)';
-               $pageHeader[0].style.opacity = 1 - progress * 0.5;
+               $pageHeader[0].style.opacity = 1 - progress * 0.75;
             });
          }
 
