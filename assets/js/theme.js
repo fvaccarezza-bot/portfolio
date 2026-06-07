@@ -178,20 +178,40 @@
             });
          }
 
-         // ── ABOUT BLUR FADE (solo home, solo desktop) ──
+         // ── ABOUT STICKY FADE — card stack like hero ──
          if ($('body').hasClass('home')) {
             var $aboutSection = $('#about');
-            var $holaFoto = $('#hola-foto');
-            if ($aboutSection.length && $holaFoto.length) {
+            if ($aboutSection.length) {
+               // Crear placeholder para reservar el espacio
+               var aboutH = $aboutSection.outerHeight();
+               var $aboutPlaceholder = $('<div id="about-placeholder"></div>').css({ height: aboutH + 'px', visibility: 'hidden' });
+               $aboutSection.after($aboutPlaceholder);
+
+               // Sacar el about del scroll-container y ponerlo en body-inner fixed
+               $aboutSection.prependTo($('#body-inner'));
+               $aboutSection.css({ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 0, opacity: 0 });
+
                bodyScrollBar.addListener(function(status) {
                   var scrollY = status.offset.y;
-                  var aboutTop = $aboutSection[0].offsetTop;
-                  var aboutH = $aboutSection.outerHeight();
-                  var triggerY = aboutTop - (window.innerHeight * 0.5);
-                  var duration = aboutH * 2.5;
-                  var progress = Math.min(Math.max((scrollY - triggerY) / duration, 0), 1);
-                  $holaFoto[0].style.filter = 'blur(' + (progress * 12) + 'px)';
-                  $holaFoto[0].style.opacity = 1 - progress * 0.75;
+                  var placeholderTop = $aboutPlaceholder[0].offsetTop;
+                  var heroH = $pageHeader.outerHeight ? $pageHeader.outerHeight() : window.innerHeight;
+
+                  // Antes del placeholder: about invisible
+                  if (scrollY < placeholderTop - window.innerHeight) {
+                     $aboutSection.css({ opacity: 0, filter: 'blur(0px)', zIndex: 0 });
+                  }
+                  // Entrando: fade in limpio
+                  else if (scrollY >= placeholderTop - window.innerHeight && scrollY < placeholderTop) {
+                     var inProgress = (scrollY - (placeholderTop - window.innerHeight)) / window.innerHeight;
+                     $aboutSection.css({ opacity: inProgress, filter: 'blur(0px)', zIndex: 0 });
+                  }
+                  // En viewport: blur out
+                  else {
+                     var outProgress = Math.min((scrollY - placeholderTop) / (aboutH * 2.5), 1);
+                     $aboutSection[0].style.filter = 'blur(' + (outProgress * 12) + 'px)';
+                     $aboutSection[0].style.opacity = 1 - outProgress * 0.75;
+                     $aboutSection.css({ zIndex: 0 });
+                  }
                });
             }
          }
