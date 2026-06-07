@@ -172,13 +172,18 @@
             bodyScrollBar.addListener(function(status) {
                var scrollY = status.offset.y;
                var heroH = $pageHeader.outerHeight();
+               var marginTop = heroH * 1.4;
                var progress = Math.min(scrollY / (heroH * 2.5), 1);
                $pageHeader[0].style.filter = 'blur(' + (progress * 12) + 'px)';
                $pageHeader[0].style.opacity = 1 - progress * 0.75;
-               // content-wrap sube más lento — parallax 0.3x
+               // hero se mueve hacia arriba suavemente — como si lo empujaran
+               if (scrollY < heroH * 3) {
+                  $pageHeader[0].style.transform = 'translateY(' + (scrollY * -0.15) + 'px)';
+               }
+               // content-wrap sube más lento — parallax 0.2x
                var contentWrap = document.getElementById('content-wrap');
-               if (contentWrap && scrollY < heroH * 2) {
-                  contentWrap.style.transform = 'translateY(' + (scrollY * -0.3) + 'px)';
+               if (contentWrap && scrollY < heroH * 3) {
+                  contentWrap.style.transform = 'translateY(' + (scrollY * -0.2) + 'px)';
                } else if (contentWrap) {
                   contentWrap.style.transform = '';
                }
