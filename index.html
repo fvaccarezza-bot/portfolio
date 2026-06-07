@@ -55,7 +55,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .desk-works-phrase { display:flex; flex-direction:column; align-items:center; margin-top:75px; margin-bottom:50px; gap:16px; width:100%; position:relative; }
 .desk-works-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; width:100%; }
 #desk-featured, #desk-work { display:block; width:auto; max-width:100%; }
-.desk-works-afew { position:absolute; right:8%; bottom:-60px; display:flex; flex-direction:column; align-items:flex-start; gap:0; pointer-events:none; }
+.desk-works-afew { position:absolute; right:calc(8% + 200px); bottom:-90px; display:flex; flex-direction:column; align-items:flex-start; gap:0; pointer-events:none; }
 #work-a-few-ok, #work-line, #work-them { display:block; width:auto; height:auto; opacity:0; }
 @media (min-width: 2560px) {
     .desk-works-phrase { transform:scale(1.5); transform-origin:center center; margin-bottom:150px; margin-top:50px; }
@@ -882,8 +882,8 @@ document.addEventListener('click', function(e) {
                     <div class="desk-works-clip"><img id="desk-work" src="./assets/img/desk-work.svg" alt="works" /></div>
                     <div class="desk-works-afew mob-no">
                         <img id="work-a-few-ok" src="./assets/img/work-a-few-ok.svg" alt="a few of" />
-                        <img id="work-line" src="./assets/img/work-line.svg" alt="" />
                         <img id="work-them" src="./assets/img/work-them.svg" alt="them." />
+                        <img id="work-line" src="./assets/img/work-line.svg" alt="" />
                     </div>
                 </div>
                 <div class="tt-section-inner tt-wrap">
