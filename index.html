@@ -1081,6 +1081,15 @@ document.addEventListener('click', function(e) {
                 </div>
                 </div>
             </div>
+        <div id="extra-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#f5f5f3;">
+            <div class="tt-section-inner tt-wrap">
+                <div style="display:flex;flex-direction:column;align-items:center;width:750px;max-width:100%;margin:0 auto;gap:32px;text-align:center;">
+                    <img id="desk-extra" src="./assets/img/desk-extra.svg" alt="" style="display:block;width:auto;height:auto;margin:0 auto;opacity:0;" />
+                    <p id="extra-text" style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.7;margin:0;opacity:0;">IF YOU WANT TO TAKE A DEEPER LOOK AT MY DECKS AND BRAND GUIDELINES, <a href="https://figma.com" target="_blank" style="color:#FF6600;text-decoration:none;">OPEN THIS FIGMA</a></p>
+                    <img id="deck-guidelines" src="./assets/img/deck-guidelines.jpg" alt="" style="display:block;width:100%;height:auto;border-radius:6px;opacity:0;" />
+                </div>
+            </div>
+        </div>
         <footer id="contact" class="tt-section">
             <div id="footer-bg-orange" style="position:absolute;top:100px;left:0;width:100%;z-index:2;pointer-events:none;"><img src="./assets/img/desk-footer-orange-main.svg" style="width:100%;height:auto;display:block;" /></div>
             <!-- MOBILE FOOTER -->
@@ -1692,6 +1701,25 @@ window.addEventListener('load', () => {
                 gsap.to(info, { opacity: 0, y: -30, ease:'none',
                     scrollTrigger: { trigger: aboutSection, start:'center center', end:'bottom top', scrub: 1.2 }
                 });
+            }
+        }
+
+        // ── EXTRA SECTION reveal ──
+        if (window.innerWidth > 768) {
+            var extraTitle = document.getElementById('desk-extra');
+            var extraText = document.getElementById('extra-text');
+            var extraImg = document.getElementById('deck-guidelines');
+            if (extraTitle) {
+                gsap.set(extraTitle, { opacity:0, y:20 });
+                gsap.to(extraTitle, { opacity:1, y:0, ease:'none', scrollTrigger: { trigger:'#extra-section', start:'top bottom', end:'top 60%', scrub:1.2 } });
+            }
+            if (extraText) {
+                gsap.set(extraText, { opacity:0, y:16 });
+                gsap.to(extraText, { opacity:1, y:0, ease:'none', scrollTrigger: { trigger:'#extra-section', start:'top bottom', end:'top 50%', scrub:1.6 } });
+            }
+            if (extraImg) {
+                gsap.set(extraImg, { opacity:0, y:30 });
+                gsap.to(extraImg, { opacity:1, y:0, ease:'none', scrollTrigger: { trigger:'#extra-section', start:'top bottom', end:'top 40%', scrub:2.0 } });
             }
         }
 
