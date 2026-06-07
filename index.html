@@ -1644,6 +1644,25 @@ window.addEventListener('load', () => {
             });
         }
 
+        // ── ABOUT — photo parallax + text fade out ──
+        const aboutSection = document.getElementById('hola-foto');
+        if (aboutSection) {
+            const photo = aboutSection.querySelector('.fede');
+            const info = aboutSection.querySelector('.info');
+            // Photo parallax — moves up slower than scroll
+            if (photo) {
+                gsap.to(photo, { y: -40, ease:'none',
+                    scrollTrigger: { trigger: aboutSection, start:'top bottom', end:'bottom top', scrub: 0.8 }
+                });
+            }
+            // Text fade out + slight upward move as it leaves
+            if (info) {
+                gsap.to(info, { opacity: 0, y: -30, ease:'none',
+                    scrollTrigger: { trigger: aboutSection, start:'center center', end:'bottom top', scrub: 1.2 }
+                });
+            }
+        }
+
         const servicesBig = document.querySelector('.services-big');
         if (servicesBig) {
             [['.sb-line1',-180,0.8],['.sb-line2',-120,0.8],['.sb-line3',-70,0.8],['.sb-tag1',-40,0.25],['.sb-tag2',-20,0.3],['.sb-tag3',-8,0.35]].forEach(([sel,y,scrub]) => {
