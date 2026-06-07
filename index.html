@@ -1646,12 +1646,12 @@ window.addEventListener('load', () => {
                 if (!el) return;
                 gsap.to(el, { y, ease:'none', scrollTrigger: { trigger: testiWrap, start:'top bottom', end:'bottom top', scrub } });
             });
-            // Fade in
-            [['img:nth-child(1)',0],['img:nth-child(2)',0.15],['img:nth-child(3)',0.3]].forEach(function([sel, delay]) {
+            // Fade in — scrub like afew
+            [['img:nth-child(1)',1.2],['img:nth-child(2)',1.6],['img:nth-child(3)',2.0]].forEach(function([sel, scrub]) {
                 const el = testiTag.querySelector(sel);
                 if (!el) return;
-                gsap.fromTo(el, { opacity:0 }, { opacity:1, duration:0.8, ease:'power2.out', delay,
-                    scrollTrigger: { trigger:testiWrap, start:'top 70%', toggleActions:'play none none reverse' }
+                gsap.fromTo(el, { opacity:0 }, { opacity:1, ease:'none',
+                    scrollTrigger: { trigger:testiWrap, start:'top 85%', end:'top 30%', scrub }
                 });
             });
         }
