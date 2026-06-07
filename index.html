@@ -1311,9 +1311,10 @@ window.addEventListener('load', () => {
         // ── HERO STICKY FADE ──
         if (window.innerWidth > 768) {
             const hero = document.getElementById('page-header');
-            if (hero) {
-                window.addEventListener('scroll', function() {
-                    const scrollY = window.scrollY;
+            const scrollEl = document.getElementById('scroll-container');
+            if (hero && scrollEl) {
+                scrollEl.addEventListener('scroll', function() {
+                    const scrollY = scrollEl.scrollTop;
                     const heroH = hero.offsetHeight;
                     const progress = Math.min(scrollY / heroH, 1);
                     const blur = progress * 12;
