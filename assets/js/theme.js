@@ -172,20 +172,17 @@
             bodyScrollBar.addListener(function(status) {
                var scrollY = status.offset.y;
                var heroH = $pageHeader.outerHeight();
-               var marginTop = heroH * 1.4;
                var progress = Math.min(scrollY / (heroH * 2.5), 1);
                $pageHeader[0].style.filter = 'blur(' + (progress * 12) + 'px)';
                $pageHeader[0].style.opacity = 1 - progress * 0.75;
-               // hero se mueve hacia arriba suavemente — como si lo empujaran
-               if (scrollY < heroH * 3) {
-                  $pageHeader[0].style.transform = 'translateY(' + (scrollY * -0.15) + 'px)';
-               }
-               // content-wrap sube más lento — parallax 0.2x
+               // hero se mueve hacia arriba suavemente
+               var heroProgress = Math.min(scrollY / (heroH * 3), 1);
+               $pageHeader[0].style.transform = 'translateY(' + (heroProgress * heroH * -0.15) + 'px)';
+               // content-wrap sube más lento — nunca resetea de golpe
                var contentWrap = document.getElementById('content-wrap');
-               if (contentWrap && scrollY < heroH * 3) {
-                  contentWrap.style.transform = 'translateY(' + (scrollY * -0.2) + 'px)';
-               } else if (contentWrap) {
-                  contentWrap.style.transform = '';
+               if (contentWrap) {
+                  var cwProgress = Math.min(scrollY / (heroH * 3), 1);
+                  contentWrap.style.transform = 'translateY(' + (cwProgress * heroH * -0.2) + 'px)';
                }
             });
          }
