@@ -1113,7 +1113,7 @@ document.addEventListener('click', function(e) {
                 #contact { margin-top:-50px; overflow:visible; padding-bottom:0 !important; }
                 .footer-contact-links { display:grid; grid-template-columns:1fr 1fr 1fr; width:100%; align-items:center; padding-bottom:24px; letter-spacing:0.5em; font-size:14px; position:relative; z-index:10; box-sizing:border-box; }
                 .card a.media, .card .pgi-image-holder { position:relative; overflow:hidden; display:block; border-radius:10px 10px 0 0 !important; isolation:isolate; will-change:transform; }
-                .gallery:has(.card:hover) .card:not(:hover) { filter:blur(6px); opacity:0.5; transition:filter 0.4s ease, opacity 0.4s ease; }
+                .gallery:has(.card:hover) .card:not(:hover) { opacity:0.5; transition:opacity 0.4s ease; }
                 .gallery .card { transition:filter 0.4s ease, opacity 0.4s ease; will-change:transform; }
                 .card { border-radius:10px 10px 0 0; overflow:visible; }
                 .card .meta { padding-top:14px; } .card .meta h3, .card .meta p { transform:none !important; }
@@ -1578,13 +1578,13 @@ window.addEventListener('load', () => {
             if (deskFeatured) {
                 gsap.set(deskFeatured, { y: '110%' });
                 gsap.to(deskFeatured, { y: 0, ease: 'none',
-                    scrollTrigger: { trigger: '.desk-works-phrase', start: 'top 90%', end: 'top 20%', scrub: 1.0 }
+                    scrollTrigger: { trigger: '.desk-works-phrase', start: 'top 110%', end: 'top 40%', scrub: 1.0 }
                 });
             }
             if (deskWork) {
                 gsap.set(deskWork, { y: '110%' });
                 gsap.to(deskWork, { y: 0, ease: 'none',
-                    scrollTrigger: { trigger: '.desk-works-phrase', start: 'top 80%', end: 'top 10%', scrub: 1.6 }
+                    scrollTrigger: { trigger: '.desk-works-phrase', start: 'top 100%', end: 'top 30%', scrub: 1.6 }
                 });
             }
         })();
@@ -1608,6 +1608,16 @@ window.addEventListener('load', () => {
                 scrollTrigger: { trigger: '.desktop-testi-wrap', start: 'top bottom', end: 'center center', scrub: 1.2 }
             });
         })();
+
+        // A Few Of Them — breathe parallax like sb-lines
+        const workAfew = document.querySelector('.desk-works-afew');
+        if (workAfew) {
+            [['#work-a-few-ok',-30,0.25],['#work-them',-18,0.3],['#work-line',-8,0.35]].forEach(function([sel,y,scrub]) {
+                const el = workAfew.querySelector(sel);
+                if (!el) return;
+                gsap.to(el, { y, ease:'none', scrollTrigger: { trigger:'.desk-works-phrase', start:'top bottom', end:'bottom top', scrub } });
+            });
+        }
 
         const servicesBig = document.querySelector('.services-big');
         if (servicesBig) {
