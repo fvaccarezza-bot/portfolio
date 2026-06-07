@@ -239,6 +239,10 @@
                            <img src="../../assets/img/mob-title-opame.svg" alt="Opame Collective" class="opame-title-svg opame-title-mob will-reveal" />
                            <p class="order will-reveal">(003)</p>
                            <p class="desc will-reveal">Opame Collective brings together unique products from independent artists and makers in a thoughtfully curated online shopping experience. The goal was to create a website that feels clean, welcoming, and easy to navigate, while letting the quality of the products speak for itself through strong imagery, elegant typography, and a carefully considered layout.</p>
+                           <div class="work-tags">
+                             <span>BRANDING</span>
+                             <span>WEBSITE</span>
+                           </div>
                         </div>
                      </div>
                   </div>
@@ -367,7 +371,6 @@
       <script>
       window.addEventListener('load', function() {
 
-          // ── HIDE/SHOW header on scroll direction ──
           if (window.innerWidth <= 768) {
               var lastScrollY = 0;
               var logoHeader = document.getElementById('logo-header');
@@ -393,7 +396,6 @@
               }, { passive: true });
           }
 
-          // ── INTERACTIVE SWIPE ──
           if (window.innerWidth <= 768) {
               var touchStartX = 0, touchStartY = 0, currentDragX = 0;
               var isDragging = false, isHorizontal = null;
@@ -431,7 +433,6 @@
               }, { passive: true });
           }
 
-          // ── MOBILE reveals ──
           if (window.innerWidth <= 768) {
               var titleSvg = document.querySelector('.opame-title-mob');
               var order = document.querySelector('.work-title .order');
@@ -462,7 +463,6 @@
               }
               setTimeout(safeReveal, 1800);
 
-              // Gallery scroll reveal
               var galleryItems = document.querySelectorAll('.work-gallery > *');
               if (galleryItems.length) {
                   var galleryObserver = new IntersectionObserver(function(entries) {
@@ -476,7 +476,6 @@
                   });
               }
 
-              // Swipe hints — once per session
               if (!sessionStorage.getItem('swipeHintShown')) {
                   sessionStorage.setItem('swipeHintShown', '1');
                   setTimeout(function() {
@@ -520,7 +519,6 @@
                   }, 5950);
               }
 
-              // Footer words reveal
               var footerClips = document.querySelectorAll('.mob-footer-clip');
               if (footerClips.length) {
                   var footerTriggered = false;
@@ -538,7 +536,6 @@
                   footerClips.forEach(function(clip) { footerObserver.observe(clip); });
               }
 
-              // Footer shapes parallax
               var shapeLeft = document.getElementById('footer-shape-left');
               var shapeRight = document.getElementById('footer-shape-right');
               if (shapeLeft || shapeRight) {
@@ -549,7 +546,6 @@
               }
           }
 
-          // ── DESKTOP ──
           if (window.innerWidth > 768) {
               if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
                   gsap.registerPlugin(ScrollTrigger);
@@ -557,17 +553,20 @@
                   var deskTitle = document.querySelector('.opame-title-desk');
                   var deskOrder = document.querySelector('.work-title .order');
                   var deskDesc = document.querySelector('.work-title .desc');
+                  var deskTags = document.querySelector('.work-tags');
                   var firstImg = document.querySelector('.work-gallery > *');
                   if (deskTitle) gsap.set(deskTitle, { opacity:0, y:20 });
                   if (deskOrder) gsap.set(deskOrder, { opacity:0, y:14 });
                   if (deskDesc) gsap.set(deskDesc, { opacity:0, y:14 });
+                  if (deskTags) gsap.set(deskTags, { opacity:0, y:10 });
                   if (firstImg) gsap.set(firstImg, { opacity:0, y:30 });
 
                   function deskReveal() {
                       if (deskTitle) gsap.to(deskTitle, { opacity:1, y:0, duration:1.0, ease:'power3.out', delay:0.0 });
                       if (deskOrder) gsap.to(deskOrder, { opacity:1, y:0, duration:0.9, ease:'power3.out', delay:0.15 });
                       if (deskDesc) gsap.to(deskDesc, { opacity:1, y:0, duration:0.9, ease:'power3.out', delay:0.28 });
-                      if (firstImg) gsap.to(firstImg, { opacity:1, y:0, duration:1.2, ease:'power3.out', delay:0.42 });
+                      if (deskTags) gsap.to(deskTags, { opacity:1, y:0, duration:0.8, ease:'power3.out', delay:0.42 });
+                      if (firstImg) gsap.to(firstImg, { opacity:1, y:0, duration:1.2, ease:'power3.out', delay:0.55 });
                   }
                   var deskRev = false;
                   function safeDeskReveal() { if (!deskRev) { deskRev = true; deskReveal(); } }
@@ -581,7 +580,6 @@
                   }
                   setTimeout(safeDeskReveal, 2000);
 
-                  // Gallery reveal
                   document.querySelectorAll('.work-gallery > *').forEach(function(el, i) {
                       if (i === 0) return;
                       gsap.fromTo(el, { opacity:0, y:40 }, { opacity:1, y:0, duration:1.2, ease:'power3.out',
@@ -589,7 +587,6 @@
                       });
                   });
 
-                  // Footer LB
                   function matchLbHeight() {
                       var lb1 = document.getElementById('lb-line1'), lb2 = document.getElementById('lb-line2');
                       if (lb1 && lb2) { lb1.style.height = lb2.getBoundingClientRect().height + 'px'; lb1.style.width = 'auto'; }
