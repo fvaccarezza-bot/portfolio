@@ -140,8 +140,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .tt-col-md-6.d-flex-center { overflow: visible !important; }
 .desktop-testi-tag {
     position: absolute;
-    bottom: -100px;
-    left: 1130px;
+    bottom: -105px;
+    left: 1080px;
     width: 21%;
     display: flex;
     flex-direction: column;
@@ -736,7 +736,7 @@ document.addEventListener('click', function(e) {
 }, true);
 </script>
 </head>
-<body id="body" class="tt-transition tt-boxed tt-smooth-scroll">
+<body id="body" class="tt-transition tt-boxed tt-smooth-scroll home">
 <main id="body-inner" class="ui-scale-root">
 <div id="preloader-under" aria-hidden="true"></div>
 <div class="ptr-preloader" style="display:none"></div>
@@ -964,8 +964,8 @@ document.addEventListener('click', function(e) {
                     .sb-tag img { display:block; width:auto; max-width:none; transition:transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); transform:translateY(0); }
                     .trusted-track img { filter:none; }
                     .services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:40px; margin-bottom:40px; }
-                    .services-grid-item h3 { display:flex; align-items:center; gap:10px; font-family:'PP Telegraf',sans-serif; font-size:14px; font-weight:400; color:#3A3A39; letter-spacing:0.5em; text-transform:uppercase; margin-bottom:12px; padding-top:0; cursor:default; transition:color 0.3s ease, transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
-                    .services-grid-item h3 img { width:20px; height:20px; transition:filter 0.3s ease; }
+                    .services-grid-item h3 { display:flex; align-items:center; gap:10px; font-family:'PP Telegraf',sans-serif; font-size:14px; font-weight:400; color:#3A3A39; letter-spacing:0.5em; text-transform:uppercase; margin-bottom:12px; padding-top:0; cursor:default; transition:color 0.3s ease, transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); line-height:1; }
+                    .services-grid-item h3 img { width:20px; height:20px; transition:filter 0.3s ease; flex-shrink:0; position:relative; top:0; }
                     .services-grid-item p { font-family:'PP Telegraf',sans-serif !important; font-size:16px; font-weight:400; color:#979797; letter-spacing:0.03em; line-height:1.6; }
                     .services-grid-item { transition:filter 0.4s ease, opacity 0.4s ease; }
                     .services-grid:has(.services-grid-item:hover) .services-grid-item:not(:hover) { filter:blur(3px); opacity:0.4; }
