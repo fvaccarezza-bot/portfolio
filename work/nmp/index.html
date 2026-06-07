@@ -122,6 +122,8 @@
           .mob-footer-word.in-view { transform:translateY(0); }
         }
         @media (min-width: 769px) {
+          #content-wrap.work { position:relative; z-index:2; }
+          footer#contact { z-index:1; }
           .mob-footer { display:none !important; }
           #contact { margin-top:-300px; overflow:visible; padding-bottom:0 !important; position:relative; }
           #contact .tt-section-inner.tt-wrap { padding-top:300px; }
@@ -414,6 +416,7 @@
                   var gi = document.querySelectorAll('.work-gallery > *');
                   if (gi[0]) setTimeout(function() { gi[0].classList.add('in-view'); }, 450);
                   if (gi[1]) setTimeout(function() { gi[1].classList.add('in-view'); }, 650);
+                  if (gi[1]) setTimeout(function() { gi[1].classList.add('in-view'); }, 650);
               }
 
               var preloader = document.getElementById('preloader'), revealed = false;
@@ -488,12 +491,16 @@
                   if (deskDesc) gsap.set(deskDesc, { opacity:0, y:14 });
                   if (deskTags) gsap.set(deskTags, { opacity:0, y:10 });
                   if (firstImg) gsap.set(firstImg, { opacity:0, y:30 });
+                  var secondImg = document.querySelectorAll('.work-gallery > *')[1];
+                  if (secondImg) gsap.set(secondImg, { opacity:0, y:30 });
                   function deskReveal() {
                       if (deskTitle) gsap.to(deskTitle, { opacity:1, y:0, duration:1.0, ease:'power3.out', delay:0.0 });
                       if (deskOrder) gsap.to(deskOrder, { opacity:1, y:0, duration:0.9, ease:'power3.out', delay:0.15 });
                       if (deskDesc) gsap.to(deskDesc, { opacity:1, y:0, duration:0.9, ease:'power3.out', delay:0.28 });
                       if (deskTags) gsap.to(deskTags, { opacity:1, y:0, duration:0.8, ease:'power3.out', delay:0.42 });
                       if (firstImg) gsap.to(firstImg, { opacity:1, y:0, duration:1.2, ease:'power3.out', delay:0.55 });
+                      var secondImg = document.querySelectorAll('.work-gallery > *')[1];
+                      if (secondImg) gsap.to(secondImg, { opacity:1, y:0, duration:1.2, ease:'power3.out', delay:0.7 });
                   }
                   var deskRev = false;
                   function safeDeskReveal() { if (!deskRev) { deskRev = true; deskReveal(); } }
@@ -501,7 +508,7 @@
                   if (deskPL) { var deskObs = new MutationObserver(function() { var s = window.getComputedStyle(deskPL); if (s.opacity === '0' || s.display === 'none' || s.visibility === 'hidden') { safeDeskReveal(); deskObs.disconnect(); } }); deskObs.observe(deskPL, { attributes: true, attributeFilter: ['style', 'class'] }); }
                   setTimeout(safeDeskReveal, 2000);
                   document.querySelectorAll('.work-gallery > *').forEach(function(el, i) {
-                      if (i === 0) return;
+                      if (i === 0 || i === 1) return;
                       gsap.fromTo(el, { opacity:0, y:40 }, { opacity:1, y:0, duration:1.2, ease:'power3.out', scrollTrigger: { trigger:el, start:'top 90%', toggleActions:'play none none none' } });
                   });
                   function matchLbHeight() { var lb1 = document.getElementById('lb-line1'), lb2 = document.getElementById('lb-line2'); if (lb1 && lb2) { lb1.style.height = lb2.getBoundingClientRect().height + 'px'; lb1.style.width = 'auto'; } }
