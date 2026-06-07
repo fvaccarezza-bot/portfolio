@@ -59,8 +59,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .desk-works-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; width:100%; }
 #desk-featured, #desk-work { display:block; width:auto; max-width:100%; }
 .desk-works-afew { position:absolute; right:-20px; bottom:-75px; display:flex; flex-direction:column; align-items:center; gap:0; pointer-events:none; transform:translateX(70px) scale(0.85); transform-origin:top right; }
-#work-a-few-ok { display:block; width:auto; height:auto; opacity:0; margin-bottom:-10px; }
-#work-them { display:block; width:auto; height:auto; opacity:0; margin-bottom:-10px; }
+#work-a-few-ok { display:block; width:auto; height:auto; opacity:0; margin-bottom:-20px; }
+#work-them { display:block; width:auto; height:auto; opacity:0; margin-bottom:-20px; }
 #work-line { display:block; width:auto; height:auto; opacity:0; margin-bottom:0; }
 @media (min-width: 2560px) {
     .desk-works-phrase { transform:scale(1.5); transform-origin:center bottom; margin-bottom:150px; margin-top:50px; }
@@ -1644,18 +1644,10 @@ window.addEventListener('load', () => {
             });
         }
 
-        // ── ABOUT — photo parallax + text fade out ──
+        // ── ABOUT — scroll blur sticky like hero ──
         const aboutSection = document.getElementById('hola-foto');
         if (aboutSection) {
-            const photo = aboutSection.querySelector('.fede');
             const info = aboutSection.querySelector('.info');
-            // Photo parallax — moves up slower than scroll
-            if (photo) {
-                gsap.to(photo, { y: -40, ease:'none',
-                    scrollTrigger: { trigger: aboutSection, start:'top bottom', end:'bottom top', scrub: 0.8 }
-                });
-            }
-            // Text fade out + slight upward move as it leaves
             if (info) {
                 gsap.to(info, { opacity: 0, y: -30, ease:'none',
                     scrollTrigger: { trigger: aboutSection, start:'center center', end:'bottom top', scrub: 1.2 }
