@@ -162,6 +162,35 @@
          bodyScrollBar.track.xAxis.element.remove();
          ScrollTrigger.scrollerProxy('body', { scrollTop(value) { if (arguments.length) { bodyScrollBar.scrollTop = value; } return bodyScrollBar.scrollTop; } });
          bodyScrollBar.addListener(ScrollTrigger.update);
+
+         // ── HERO STICKY FADE (solo home, solo desktop) ──
+         var $pageHeader = $('#page-header');
+         if ($pageHeader.length && $('body').hasClass('home')) {
+            // Mover el hero fuera del scroll-container, directo a body-inner
+            $pageHeader.prependTo($('#body-inner'));
+            $pageHeader.css({
+               position: 'fixed',
+               top: 0,
+               left: 0,
+               width: '100%',
+               zIndex: 0
+            });
+            // El content-wrap sube encima
+            $('#content-wrap').css({
+               position: 'relative',
+               zIndex: 1,
+               marginTop: $pageHeader.outerHeight() + 'px'
+            });
+            // Blur + opacity via scrollbar listener
+            bodyScrollBar.addListener(function(status) {
+               var scrollY = status.offset.y;
+               var heroH = $pageHeader.outerHeight();
+               var progress = Math.min(scrollY / heroH, 1);
+               $pageHeader[0].style.filter = 'blur(' + (progress * 12) + 'px)';
+               $pageHeader[0].style.opacity = 1 - progress * 0.5;
+            });
+         }
+
          if ($('#tt-header').hasClass('tt-header-fixed')) { $('#tt-header').prependTo($('#body-inner')); }
          if ($('.tt-overflow').length) {
             $.fn.ttIsScrollable = function () { return this[0].scrollWidth > this[0].clientWidth || this[0].scrollHeight > this[0].clientHeight; };
@@ -310,22 +339,15 @@
                   $('html').removeClass('tt-no-scroll');
                   $('body').removeClass('olm-toggle-no-click');
                   $('body').removeClass('tt-ol-menu-open');
-                  // Scroll solo después de que todo terminó
                   if (isMob && $clickedHref && $clickedHref.charAt(0) === '#') {
                      setTimeout(function() {
                         var $target = $($clickedHref);
                         if ($target.length) {
                            var offset = parseInt($clickedOffset) || 0;
                            var topY;
-                           if (offset <= -9000) {
-                              // scroll to very bottom
-                              topY = document.body.scrollHeight;
-                           } else if (offset >= 9000) {
-                              // scroll to very top
-                              topY = 0;
-                           } else {
-                              topY = $target.offset().top - $('body').offset().top - offset;
-                           }
+                           if (offset <= -9000) { topY = document.body.scrollHeight; }
+                           else if (offset >= 9000) { topY = 0; }
+                           else { topY = $target.offset().top - $('body').offset().top - offset; }
                            $('html,body').animate({ scrollTop: topY }, 500);
                         }
                      }, 50);
@@ -340,9 +362,7 @@
                tl_olMenuClick.to('.tt-overlay-menu', { duration: 0.6, autoAlpha: 0, ease: 'power3.in', clearProps: 'all' }, '-=0.2');
             }
             tl_olMenuClick.set('.tt-ol-menu-list > li', { clearProps: 'all' });
-            if (isMob && $clickedHref && $clickedHref.charAt(0) === '#') {
-               return false;
-            }
+            if (isMob && $clickedHref && $clickedHref.charAt(0) === '#') { return false; }
          });
 
          if ($('.tt-sliding-sidebar-wrap').length) { gsap.to('.tt-sliding-sidebar-trigger', { duration: 1, autoAlpha: 0, ease: Expo.easeOut }); }
@@ -390,13 +410,9 @@
             $this.removeClass('tt-ol-submenu-open');
             $link.css('color', '');
             gsap.to($items, { duration: 0.25, y: -10, autoAlpha: 0, stagger: 0.04, ease: 'power2.in',
-               onComplete: function () {
-                  $submenu.slideUp(200);
-                  gsap.set($items, { clearProps: 'all' });
-               }
+               onComplete: function () { $submenu.slideUp(200); gsap.set($items, { clearProps: 'all' }); }
             });
          } else {
-            // Cerrar otros
             $this.parent().parent().find('.tt-ol-submenu').prev().removeClass('tt-ol-submenu-open');
             $this.parent().parent().find('.tt-ol-submenu-trigger > a').css('color', '');
             $this.parent().parent().find('.tt-ol-submenu').each(function () {
@@ -405,7 +421,6 @@
                   onComplete: function () { $s.slideUp(150); gsap.set($si, { clearProps: 'all' }); }
                });
             });
-            // Abrir
             $this.toggleClass('tt-ol-submenu-open');
             $link.css('color', '#FF6600');
             gsap.set($items, { y: 16, autoAlpha: 0 });
@@ -443,7 +458,6 @@
       });
    }
 
-   // (resto del archivo igual — isotope, lightgallery, page header, scrolltrigger, portfolio, gallery, accordion, tabs, pagenav, sidebar, scrolling text, scroll anchors, scroll to top, defer videos, forms, magic cursor, miscellaneous)
    // =======================================================================================
    // Portfolio slider
    // =======================================================================================
