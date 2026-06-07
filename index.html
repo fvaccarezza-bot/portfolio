@@ -58,12 +58,12 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .desk-works-phrase { display:flex; flex-direction:column; align-items:center; margin-top:75px; margin-bottom:100px; gap:16px; width:100%; position:relative; }
 .desk-works-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; width:100%; }
 #desk-featured, #desk-work { display:block; width:auto; max-width:100%; }
-.desk-works-afew { position:absolute; right:calc(8% + 300px); bottom:-60px; display:flex; flex-direction:column; align-items:center; gap:0; pointer-events:none; }
+.desk-works-afew { position:absolute; right:calc(8% + 300px); bottom:-60px; display:flex; flex-direction:column; align-items:center; gap:0; pointer-events:none; transform:scale(0.85); transform-origin:bottom right; }
 #work-a-few-ok { display:block; width:auto; height:auto; opacity:0; margin-bottom:-15px; }
 #work-them { display:block; width:auto; height:auto; opacity:0; margin-bottom:-15px; }
 #work-line { display:block; width:auto; height:auto; opacity:0; margin-bottom:0; }
 @media (min-width: 2560px) {
-    .desk-works-phrase { transform:scale(1.5); transform-origin:center center; margin-bottom:150px; margin-top:50px; }
+    .desk-works-phrase { transform:scale(1.5); transform-origin:center bottom; margin-bottom:150px; margin-top:50px; }
 }
 .section-title.hola, .section-title.hola:hover,
 .section-title.noise-fill-hover, .section-title.noise-fill-hover:hover {
@@ -146,6 +146,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     display: flex;
     flex-direction: column;
     align-items: center;
+    transform: scale(0.85);
+    transform-origin: top left;
     z-index: 10;
 }
 .desktop-testi-tag img {
@@ -872,7 +874,7 @@ document.addEventListener('click', function(e) {
                             </div>
                         </div>
                         <div class="tt-col-md-6">
-                            <div class="info" style="height:400px;display:flex;flex-direction:column;justify-content:center;">
+                            <div class="info" style="max-height:400px;display:flex;flex-direction:column;justify-content:center;overflow:hidden;">
                                 <p style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.8;max-width:100%;">I'm a graphic designer from Tigre, Argentina. I studied at the University of Buenos Aires (UBA), where I started in industrial design but eventually switched to graphic design. I've always been into style, and that naturally pulled me into the creative world.</p>
                                 <p style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.8;margin-top:1.5em;max-width:100%;">Over the past few years, I've been working on branding, web design, and UI/UX. I like creating things that not only look good but are clear and easy to use. Clean visuals, smart layouts, and designs that make sense — that's what I try to bring to every project.</p>
                             </div>
