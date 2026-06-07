@@ -172,7 +172,7 @@
             bodyScrollBar.addListener(function(status) {
                var scrollY = status.offset.y;
                var heroH = $pageHeader.outerHeight();
-               var progress = Math.min(scrollY / (heroH * 1.8), 1);
+               var progress = Math.min(scrollY / (heroH * 2.5), 1);
                $pageHeader[0].style.filter = 'blur(' + (progress * 12) + 'px)';
                $pageHeader[0].style.opacity = 1 - progress * 0.75;
             });
@@ -187,7 +187,9 @@
                   var scrollY = status.offset.y;
                   var aboutTop = $aboutSection[0].offsetTop;
                   var aboutH = $aboutSection.outerHeight();
-                  var progress = Math.min(Math.max((scrollY - aboutTop) / (aboutH * 0.8), 0), 1);
+                  var triggerY = aboutTop - (window.innerHeight * 0.5);
+                  var duration = aboutH * 2.5;
+                  var progress = Math.min(Math.max((scrollY - triggerY) / duration, 0), 1);
                   $holaFoto[0].style.filter = 'blur(' + (progress * 12) + 'px)';
                   $holaFoto[0].style.opacity = 1 - progress * 0.75;
                });
