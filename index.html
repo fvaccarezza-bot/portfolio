@@ -55,7 +55,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .desk-works-phrase { display:flex; flex-direction:column; align-items:center; margin-top:75px; margin-bottom:50px; gap:16px; width:100%; position:relative; }
 .desk-works-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; width:100%; }
 #desk-featured, #desk-work { display:block; width:auto; max-width:100%; }
-.desk-works-afew { position:absolute; right:calc(8% + 400px); bottom:-90px; display:flex; flex-direction:column; align-items:center; gap:0; pointer-events:none; }
+.desk-works-afew { position:absolute; right:calc(8% + 300px); bottom:-90px; display:flex; flex-direction:column; align-items:center; gap:4px; pointer-events:none; }
 #work-a-few-ok, #work-line, #work-them { display:block; width:auto; height:auto; opacity:0; }
 @media (min-width: 2560px) {
     .desk-works-phrase { transform:scale(1.5); transform-origin:center center; margin-bottom:150px; margin-top:50px; }
@@ -1113,7 +1113,7 @@ document.addEventListener('click', function(e) {
                 #contact { margin-top:-50px; overflow:visible; padding-bottom:0 !important; }
                 .footer-contact-links { display:grid; grid-template-columns:1fr 1fr 1fr; width:100%; align-items:center; padding-bottom:24px; letter-spacing:0.5em; font-size:14px; position:relative; z-index:10; box-sizing:border-box; }
                 .card a.media, .card .pgi-image-holder { position:relative; overflow:hidden; display:block; border-radius:10px 10px 0 0 !important; isolation:isolate; will-change:transform; }
-                .gallery:has(.card:hover) .card:not(:hover) { opacity:0.5; transition:opacity 0.4s ease; }
+                .gallery:has(.card:hover) .card:not(:hover) { transition:none; }
                 .gallery .card { transition:filter 0.4s ease, opacity 0.4s ease; will-change:transform; }
                 .card { border-radius:10px 10px 0 0; overflow:visible; }
                 .card .meta { padding-top:14px; } .card .meta h3, .card .meta p { transform:none !important; }
@@ -1562,16 +1562,16 @@ window.addEventListener('load', () => {
             const workLine = document.getElementById('work-line');
             const workThem = document.getElementById('work-them');
             if (workAFewOk) {
-                gsap.set(workAFewOk, { opacity:0, y:20 });
-                gsap.to(workAFewOk, { opacity:1, y:0, ease:'none', scrollTrigger: { trigger:'.desk-works-phrase', start:'top 85%', end:'top 30%', scrub:1.2 } });
+                gsap.set(workAFewOk, { opacity:0 });
+                gsap.to(workAFewOk, { opacity:1, ease:'none', scrollTrigger: { trigger:'.desk-works-phrase', start:'top 85%', end:'top 30%', scrub:1.2 } });
             }
             if (workLine) {
-                gsap.set(workLine, { opacity:0, y:20 });
-                gsap.to(workLine, { opacity:1, y:0, ease:'none', scrollTrigger: { trigger:'.desk-works-phrase', start:'top 80%', end:'top 25%', scrub:1.6 } });
+                gsap.set(workLine, { opacity:0 });
+                gsap.to(workLine, { opacity:1, ease:'none', scrollTrigger: { trigger:'.desk-works-phrase', start:'top 80%', end:'top 25%', scrub:1.6 } });
             }
             if (workThem) {
-                gsap.set(workThem, { opacity:0, y:20 });
-                gsap.to(workThem, { opacity:1, y:0, ease:'none', scrollTrigger: { trigger:'.desk-works-phrase', start:'top 75%', end:'top 20%', scrub:2.0 } });
+                gsap.set(workThem, { opacity:0 });
+                gsap.to(workThem, { opacity:1, ease:'none', scrollTrigger: { trigger:'.desk-works-phrase', start:'top 75%', end:'top 20%', scrub:2.0 } });
             }
             const deskFeatured = document.getElementById('desk-featured');
             const deskWork = document.getElementById('desk-work');
