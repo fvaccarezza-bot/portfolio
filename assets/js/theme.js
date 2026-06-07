@@ -178,31 +178,20 @@
             });
          }
 
-         // ── ABOUT STICKY FADE (solo home, solo desktop) ──
+         // ── ABOUT BLUR FADE (solo home, solo desktop) ──
          if ($('body').hasClass('home')) {
             var $aboutSection = $('#about');
             var $holaFoto = $('#hola-foto');
             if ($aboutSection.length && $holaFoto.length) {
-               // Cuando el about llega al viewport, lo fijamos y blurreamos
-               var aboutFixed = false;
-               var aboutOriginalTop = 0;
                bodyScrollBar.addListener(function(status) {
                   var scrollY = status.offset.y;
-                  if (!aboutFixed) {
-                     aboutOriginalTop = $aboutSection[0].offsetTop;
-                  }
-                  var triggerY = aboutOriginalTop - (window.innerHeight * 0.1);
-                  if (scrollY >= triggerY && !aboutFixed) {
-                     aboutFixed = true;
-                     $aboutSection.css({ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 0 });
-                     // spacer para que el contenido siguiente no salte
-                     $aboutSection.after('<div id="about-spacer" style="height:' + $aboutSection.outerHeight() + 'px;"></div>');
-                  }
-                  if (aboutFixed) {
-                     var progress = Math.min(Math.max((scrollY - triggerY) / ($aboutSection.outerHeight() * 2.5), 0), 1);
-                     $aboutSection[0].style.filter = 'blur(' + (progress * 12) + 'px)';
-                     $aboutSection[0].style.opacity = 1 - progress * 0.75;
-                  }
+                  var aboutTop = $aboutSection[0].offsetTop;
+                  var aboutH = $aboutSection.outerHeight();
+                  var triggerY = aboutTop - (window.innerHeight * 0.5);
+                  var duration = aboutH * 2.5;
+                  var progress = Math.min(Math.max((scrollY - triggerY) / duration, 0), 1);
+                  $holaFoto[0].style.filter = 'blur(' + (progress * 12) + 'px)';
+                  $holaFoto[0].style.opacity = 1 - progress * 0.75;
                });
             }
          }
