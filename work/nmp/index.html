@@ -50,7 +50,10 @@
         .work-gallery { display:flex; flex-direction:column; align-items:center; gap:50px; width:100%; padding:0; }
         .work-gallery img { width:1320px; max-width:100%; height:auto!important; max-height:none!important; display:block; border-radius:6px; }
 
-        .nav-work .is-prev { display:none !important; }
+        /* ── HIDE prev button mobile only ── */
+        @media (max-width: 768px) {
+          .nav-work .is-prev { display:none !important; }
+        }
         body.nmp .nmp-title-mob { display:none; }
 
         .footer-contact-links { display:grid; grid-template-columns:1fr 1fr 1fr; width:100%; align-items:center; padding-bottom:24px; letter-spacing:0.5em; font-size:14px; position:relative; z-index:10; box-sizing:border-box; }
