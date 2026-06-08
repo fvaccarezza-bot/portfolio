@@ -872,7 +872,7 @@ document.addEventListener('click', function(e) {
                 <div class="tt-section-inner tt-wrap">
 
                     <div id="hola-foto" style="display:flex;flex-direction:column;align-items:center;width:700px;max-width:100%;margin:0 auto;gap:32px;">
-                        <img id="desk-about-me" src="./assets/img/desk-about-me.svg" alt="About Me" class="mob-no" style="display:block;width:auto;height:auto;margin:0 auto;opacity:0;" />
+                        <img id="desk-about-me" src="./assets/img/desk-about-me.svg" alt="About Me" class="mob-no" style="display:block;width:auto;height:auto;margin:0 auto;opacity:0;border-radius:0 !important;" />
                         <div class="fede" style="flex-shrink:0;position:relative;width:400px;height:400px;border-radius:4px;overflow:hidden;cursor:default;transition:transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);" id="fede-photo-wrap">
                            <img src="./assets/img/fede.jpg" style="width:400px;height:400px;object-fit:cover;display:block;border-radius:4px;" />
                            <div id="fede-orange-mask" style="position:absolute;inset:0;background:#FF6600;mix-blend-mode:multiply;border-radius:4px;pointer-events:none;transition:opacity 0.6s cubic-bezier(0.25,0.46,0.45,0.94);opacity:1;"></div>
@@ -1082,7 +1082,7 @@ document.addEventListener('click', function(e) {
                 </div>
                 </div>
             </div>
-        <div id="extra-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#f5f5f3;">
+        <div id="extra-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#f5f5f3;padding-bottom:0 !important;">
             <div class="tt-section-inner tt-wrap">
                 <div style="display:flex;flex-direction:column;align-items:center;width:750px;max-width:100%;margin:0 auto;gap:32px;text-align:center;">
                     <img id="desk-extra" src="./assets/img/desk-extra.svg" alt="" style="display:block;width:auto;height:auto;margin:0 auto;opacity:0;" />
@@ -2077,13 +2077,30 @@ if (window.innerWidth > 768) {
     document.head.appendChild(desktopStyle);
 
     var desktopCards = document.querySelectorAll('.gallery .card');
+    var triggered = new Set();
     var desktopCardObs = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-                var idx = Array.from(desktopCards).indexOf(entry.target);
-                var pairDelay = (idx % 2) * 0.18; // 0 for first in pair, 0.18s for second
-                entry.target.style.transitionDelay = pairDelay + 's';
+            if (entry.isIntersecting && !triggered.has(entry.target)) {
+                triggered.add(entry.target);
+                var allCards = Array.from(desktopCards);
+                var idx = allCards.indexOf(entry.target);
+                var pairIdx = idx % 2; // 0 = left, 1 = right
+                entry.target.style.transitionDelay = (pairIdx * 0.2) + 's';
                 entry.target.classList.add('in-view');
+                // Also trigger the pair partner if visible
+                var partnerId = pairIdx === 0 ? idx + 1 : idx - 1;
+                if (partnerId >= 0 && partnerId < allCards.length) {
+                    var partner = allCards[partnerId];
+                    if (!triggered.has(partner)) {
+                        var partnerRect = partner.getBoundingClientRect();
+                        if (partnerRect.top < window.innerHeight) {
+                            triggered.add(partner);
+                            partner.style.transitionDelay = (pairIdx === 0 ? 0.2 : 0) + 's';
+                            partner.classList.add('in-view');
+                            desktopCardObs.unobserve(partner);
+                        }
+                    }
+                }
                 desktopCardObs.unobserve(entry.target);
             }
         });
