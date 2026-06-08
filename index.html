@@ -73,8 +73,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #deck-guidelines-frame { width: 1980px !important; max-width: 1980px !important; }
     #desk-extra { transform-origin:center center; zoom: 1.5; }
 
-    #hero-portfolio-label { transform:translateY(-120px); }
-    .hero-subtitle { transform:translateY(120px); }
+    #hero-portfolio-label { }
+    .hero-subtitle { }
 }
 .section-title.hola, .section-title.hola:hover,
 .section-title.noise-fill-hover, .section-title.noise-fill-hover:hover {
@@ -1398,7 +1398,7 @@ window.addEventListener('load', () => {
         const lineFed = document.querySelector('#line-federico');
         const lineVac = document.querySelector('#line-vaccarezza');
         const heroSubtitle = document.querySelector('.hero-subtitle');
-        const isUW = window.innerWidth >= 2560;
+        const isUW = window.screen.width >= 2560;
         const labelTarget = isUW ? -120 : 0;
         const subtitleTarget = isUW ? 120 : 0;
         gsap.set(minTitlesReveal, { y: '100%' });
