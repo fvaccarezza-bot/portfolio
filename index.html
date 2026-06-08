@@ -1086,6 +1086,8 @@ document.addEventListener('click', function(e) {
                 <div style="display:flex;flex-direction:column;align-items:center;width:750px;max-width:100%;margin:0 auto;gap:32px;text-align:center;">
                     <img id="desk-extra" src="./assets/img/desk-extra.svg" alt="" style="display:block;width:auto;height:auto;margin:0 auto;opacity:0;" />
                     <p id="extra-text" style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.7;margin:0;opacity:0;">IF YOU WANT TO TAKE A DEEPER LOOK AT MY DECKS AND BRAND GUIDELINES, <a href="https://figma.com" target="_blank" style="color:#FF6600;text-decoration:none;font-style:normal;">OPEN THIS FIGMA</a></p>
+                </div>
+                <div style="display:flex;justify-content:center;width:100%;margin-top:0;">
                     <img id="deck-guidelines" src="./assets/img/deck-guidelines.jpg" alt="" style="display:block;width:1320px;max-width:100%;height:auto;border-radius:6px;opacity:0;" />
                 </div>
             </div>
@@ -1671,8 +1673,6 @@ window.addEventListener('load', () => {
                 gsap.to(fedePhoto, { y:-18, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'bottom top', scrub:0.2 } });
             }
             if (fedeText) {
-                gsap.set(fedeText, { opacity:0 });
-                gsap.to(fedeText, { opacity:1, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'top 30%', scrub:2.0 } });
                 gsap.to(fedeText, { y:10, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'bottom top', scrub:0.15 } });
             }
         }
@@ -1700,8 +1700,8 @@ window.addEventListener('load', () => {
                 gsap.to(extraText, { opacity:1, y:0, ease:'none', scrollTrigger: { trigger:'#extra-section', start:'top bottom', end:'top 50%', scrub:1.6 } });
             }
             if (extraImg) {
-                gsap.set(extraImg, { opacity:0, y:30 });
-                gsap.to(extraImg, { opacity:1, y:0, ease:'none', scrollTrigger: { trigger:'#extra-section', start:'top bottom', end:'top 40%', scrub:2.0 } });
+                gsap.set(extraImg, { opacity:0, y:40 });
+                gsap.to(extraImg, { opacity:1, y:0, ease:'none', scrollTrigger: { trigger:'#extra-section', start:'top 80%', end:'top 20%', scrub:1.2 } });
             }
         }
 
