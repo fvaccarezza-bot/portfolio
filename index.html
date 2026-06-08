@@ -67,6 +67,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 #work-line { display:block; width:auto; height:auto; opacity:0; margin-bottom:0; }
 @media (min-width: 2560px) {
     .desk-works-phrase { transform:scale(1.5); transform-origin:center bottom; margin-bottom:150px; margin-top:50px; }
+    #deck-guidelines { width: calc(1320px * 1.5) !important; }
 }
 .section-title.hola, .section-title.hola:hover,
 .section-title.noise-fill-hover, .section-title.noise-fill-hover:hover {
@@ -1676,32 +1677,22 @@ window.addEventListener('load', () => {
                 gsap.to(fedeText, { y:10, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'bottom top', scrub:0.15 } });
             }
         }
-        const aboutSection = document.getElementById('hola-foto');
-        if (aboutSection) {
-            const info = aboutSection.querySelector('.info');
-            if (info) {
-                gsap.to(info, { opacity: 0, y: -30, ease:'none',
-                    scrollTrigger: { trigger: aboutSection, start:'center center', end:'bottom top', scrub: 1.2 }
-                });
-            }
-        }
-
-        // ── EXTRA SECTION reveal ──
+        // ── EXTRA SECTION reveal — fade in only ──
         if (window.innerWidth > 768) {
             var extraTitle = document.getElementById('desk-extra');
             var extraText = document.getElementById('extra-text');
             var extraImg = document.getElementById('deck-guidelines');
             if (extraTitle) {
-                gsap.set(extraTitle, { opacity:0, y:20 });
-                gsap.to(extraTitle, { opacity:1, y:0, ease:'none', scrollTrigger: { trigger:'#extra-section', start:'top bottom', end:'top 60%', scrub:1.2 } });
+                gsap.set(extraTitle, { opacity:0 });
+                gsap.to(extraTitle, { opacity:1, ease:'none', scrollTrigger: { trigger:'#extra-section', start:'top bottom', end:'top 60%', scrub:1.2 } });
             }
             if (extraText) {
-                gsap.set(extraText, { opacity:0, y:16 });
-                gsap.to(extraText, { opacity:1, y:0, ease:'none', scrollTrigger: { trigger:'#extra-section', start:'top bottom', end:'top 50%', scrub:1.6 } });
+                gsap.set(extraText, { opacity:0 });
+                gsap.to(extraText, { opacity:1, ease:'none', scrollTrigger: { trigger:'#extra-section', start:'top bottom', end:'top 50%', scrub:1.6 } });
             }
             if (extraImg) {
-                gsap.set(extraImg, { opacity:0, y:40 });
-                gsap.to(extraImg, { opacity:1, y:0, ease:'none', scrollTrigger: { trigger:'#extra-section', start:'top 80%', end:'top 20%', scrub:1.2 } });
+                gsap.set(extraImg, { opacity:0 });
+                gsap.to(extraImg, { opacity:1, ease:'none', scrollTrigger: { trigger:'#extra-section', start:'top 80%', end:'top 20%', scrub:1.2 } });
             }
         }
 
