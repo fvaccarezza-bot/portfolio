@@ -2069,42 +2069,32 @@ if (window.innerWidth <= 768) {
 if (window.innerWidth > 768) {
     var desktopStyle = document.createElement('style');
     desktopStyle.textContent = [
-        '.gallery .card { opacity:0; transform:translateY(30px); transition:opacity 1.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.8s cubic-bezier(0.25,0.46,0.45,0.94); }',
+        '.gallery .card { opacity:0; transform:translateY(40px); transition:opacity 2.2s cubic-bezier(0.16,1,0.3,1), transform 2.2s cubic-bezier(0.16,1,0.3,1); }',
         '.gallery .card.in-view { opacity:1; transform:translateY(0); }',
         '.services-grid-item { opacity:0; transform:translateY(16px); transition:opacity 1.6s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.6s cubic-bezier(0.25,0.46,0.45,0.94); }',
         '.services-grid-item.in-view { opacity:1; transform:translateY(0); }'
     ].join('');
     document.head.appendChild(desktopStyle);
 
-    var desktopCards = document.querySelectorAll('.gallery .card');
-    var triggered = new Set();
+    var desktopCards = Array.from(document.querySelectorAll('.gallery .card'));
+    var cardTriggered = new Set();
     var desktopCardObs = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
-            if (entry.isIntersecting && !triggered.has(entry.target)) {
-                triggered.add(entry.target);
-                var allCards = Array.from(desktopCards);
-                var idx = allCards.indexOf(entry.target);
-                var pairIdx = idx % 2; // 0 = left, 1 = right
-                entry.target.style.transitionDelay = (pairIdx * 0.2) + 's';
-                entry.target.classList.add('in-view');
-                // Also trigger the pair partner if visible
-                var partnerId = pairIdx === 0 ? idx + 1 : idx - 1;
-                if (partnerId >= 0 && partnerId < allCards.length) {
-                    var partner = allCards[partnerId];
-                    if (!triggered.has(partner)) {
-                        var partnerRect = partner.getBoundingClientRect();
-                        if (partnerRect.top < window.innerHeight) {
-                            triggered.add(partner);
-                            partner.style.transitionDelay = (pairIdx === 0 ? 0.2 : 0) + 's';
-                            partner.classList.add('in-view');
-                            desktopCardObs.unobserve(partner);
-                        }
-                    }
-                }
-                desktopCardObs.unobserve(entry.target);
-            }
+            if (!entry.isIntersecting || cardTriggered.has(entry.target)) return;
+            // Find all cards in the same row (same offsetTop ±10px)
+            var targetTop = entry.target.offsetTop;
+            var rowCards = desktopCards.filter(function(c) {
+                return Math.abs(c.offsetTop - targetTop) < 10;
+            });
+            rowCards.forEach(function(card, i) {
+                if (cardTriggered.has(card)) return;
+                cardTriggered.add(card);
+                card.style.transitionDelay = (i * 0.2) + 's';
+                card.classList.add('in-view');
+                desktopCardObs.unobserve(card);
+            });
         });
-    }, { threshold: 0.05 });
+    }, { threshold: 0.08 });
     desktopCards.forEach(function(card) { desktopCardObs.observe(card); });
 
     var desktopServices = document.querySelectorAll('.services-grid-item');
