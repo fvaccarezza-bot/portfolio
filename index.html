@@ -70,6 +70,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 @media (min-width: 2560px) {
     .desk-works-phrase { transform:scale(1.5); transform-origin:center bottom; margin-bottom:150px; margin-top:50px; }
     #deck-guidelines { width: 1980px !important; max-width: 1980px !important; }
+    #deck-guidelines-frame { width: 1980px !important; max-width: 1980px !important; }
     #desk-extra { transform-origin:center center; zoom: 1.5; }
 
     #hero-portfolio-label { transform:translateY(-120px); }
@@ -1090,7 +1091,9 @@ document.addEventListener('click', function(e) {
                     <p id="extra-text" style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.7;margin:0;opacity:0;">IF YOU WANT TO TAKE A DEEPER LOOK AT MY DECKS AND BRAND GUIDELINES, OPEN THIS FIGMA</p>
                 </div>
                 <div style="display:flex;justify-content:center;margin-top:32px;">
-                    <img id="deck-guidelines" src="./assets/img/deck-guidelines.jpg" alt="" style="display:block;width:1320px;max-width:100%;height:auto;border-radius:6px;opacity:0;" />
+                    <div id="deck-guidelines-frame" style="width:1320px;max-width:100%;overflow:hidden;border-radius:6px;aspect-ratio:1320/550;position:relative;">
+                        <img id="deck-guidelines" src="./assets/img/deck-guidelines.jpg" alt="" style="display:block;width:100%;height:115%;object-fit:cover;object-position:center top;will-change:transform;transform:translateY(0px);opacity:0;" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -1641,8 +1644,9 @@ window.addEventListener('load', () => {
                 gsap.to(extraText, { opacity:1, y:0, duration:2.0, ease:'power3.out', delay:0.3, scrollTrigger: { trigger:'#extra-section', start:'top 80%', toggleActions:'play none none none' } });
             }
             if (extraImg) {
-                gsap.set(extraImg, { opacity:0, y:30 });
-                gsap.to(extraImg, { opacity:1, y:0, duration:2.0, ease:'power3.out', delay:0.6, scrollTrigger: { trigger:'#extra-section', start:'top 80%', toggleActions:'play none none none' } });
+                gsap.set(extraImg, { opacity:0, y:0 });
+                gsap.to(extraImg, { opacity:1, duration:2.0, ease:'power3.out', delay:0.6, scrollTrigger: { trigger:'#extra-section', start:'top 80%', toggleActions:'play none none none' } });
+                gsap.fromTo(extraImg, { y:'-7%' }, { y:'7%', ease:'none', scrollTrigger: { trigger:'#deck-guidelines-frame', start:'top bottom', end:'bottom top', scrub:true } });
             }
         }
         if (window.innerWidth > 768) {
