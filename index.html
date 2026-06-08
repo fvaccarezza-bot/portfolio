@@ -1663,11 +1663,6 @@ window.addEventListener('load', () => {
         }
         const servicesBig = document.querySelector('.services-big');
         if (servicesBig) {
-            [['.sb-line1',-180,0.8],['.sb-line2',-120,0.8],['.sb-line3',-70,0.8],['.sb-tag1',-40,0.25],['.sb-tag2',-20,0.3],['.sb-tag3',-8,0.35]].forEach(([sel,y,scrub]) => {
-                const el = servicesBig.querySelector(sel);
-                if (!el) return;
-                gsap.to(el, { y, ease:'none', scrollTrigger: { trigger:servicesBig, start:'top bottom', end:'bottom top', scrub } });
-            });
             ['.sb-tag1','.sb-tag2','.sb-tag3'].forEach(function(sel, i) {
                 const el = servicesBig.querySelector(sel);
                 if (!el) return;
