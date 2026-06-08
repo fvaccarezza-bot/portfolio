@@ -1192,7 +1192,7 @@ document.addEventListener('click', function(e) {
                 </div>
             </div>
             <style>
-                #contact { margin-top:-150px; overflow:visible; }
+                #contact { margin-top:-50px; overflow:visible; }
                 .footer-contact-links { display:grid; grid-template-columns:1fr 1fr 1fr; width:100%; align-items:center; padding-bottom:24px; letter-spacing:0.5em; font-size:14px; position:relative; z-index:10; box-sizing:border-box; }
                 .card a.media, .card .pgi-image-holder { position:relative; overflow:hidden; display:block; border-radius:10px 10px 0 0 !important; isolation:isolate; will-change:transform; }
                 .gallery:has(.card:hover) .card:not(:hover) { transition:none; }
@@ -1739,8 +1739,8 @@ window.addEventListener('load', () => {
             var extraText = document.getElementById('extra-text');
             var extraImg = document.getElementById('deck-guidelines');
             if (extraTitle) {
-                gsap.set(extraTitle, { opacity:0, y:20 });
-                gsap.to(extraTitle, { opacity:1, y:0, duration:2.0, ease:'power3.out', delay:0,
+                gsap.set(extraTitle, { opacity:0, y:20, scale:1 });
+                gsap.to(extraTitle, { opacity:1, y:0, scale:1, duration:2.0, ease:'power3.out', delay:0,
                     scrollTrigger: { trigger:'#extra-section', start:'top 80%', toggleActions:'play none none none' }
                 });
             }
