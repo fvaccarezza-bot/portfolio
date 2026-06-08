@@ -65,8 +65,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 #work-a-few-ok { display:block; width:auto; height:auto; opacity:0; margin-bottom:-20px; }
 #work-them { display:block; width:auto; height:auto; opacity:0; margin-bottom:-20px; }
 #work-line { display:block; width:auto; height:auto; opacity:0; margin-bottom:0; }
-/* desk-extra: estado inicial para reveal (igual que testi-phrase-img) */
-#desk-extra { transform:translateY(100%); transform-origin:center center; }
+/* desk-extra: tamaño nativo por defecto */
+#desk-extra { display:block; width:auto; height:auto; }
 @media (min-width: 2560px) {
     .desk-works-phrase { transform:scale(1.5); transform-origin:center bottom; margin-bottom:150px; margin-top:50px; }
     #deck-guidelines { width: 1980px !important; max-width: 1980px !important; }
@@ -1089,9 +1089,7 @@ document.addEventListener('click', function(e) {
             <div class="tt-section-inner tt-wrap">
                 <div style="display:flex;flex-direction:column;align-items:center;width:750px;max-width:100%;margin:0 auto;gap:32px;text-align:center;">
                     <div style="position:relative;display:inline-block;">
-                        <div style="overflow:hidden;line-height:0;display:flex;justify-content:center;">
-                            <img id="desk-extra" src="./assets/img/desk-extra.svg" alt="" style="display:block;width:auto;height:auto;margin:0 auto;" />
-                        </div>
+                        <img id="desk-extra" src="./assets/img/desk-extra.svg" alt="" style="display:block;width:auto;height:auto;margin:0 auto;" />
                     </div>
                     <p id="extra-text" style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.7;margin:0;opacity:0;">IF YOU WANT TO TAKE A DEEPER LOOK AT MY DECKS AND BRAND GUIDELINES, OPEN THIS FIGMA</p>
                 </div>
@@ -1638,8 +1636,8 @@ window.addEventListener('load', () => {
             var extraText = document.getElementById('extra-text');
             var extraImg = document.getElementById('deck-guidelines');
             if (extraTitle) {
-                gsap.to(extraTitle, { y: 0, ease: 'none',
-                    scrollTrigger: { trigger: '#extra-section', start: 'top bottom', end: 'top 70%', scrub: 1.2 }
+                gsap.fromTo(extraTitle, { y: 60 }, { y: 0, ease: 'none',
+                    scrollTrigger: { trigger: '#extra-section', start: 'top bottom', end: 'top 30%', scrub: 1.2 }
                 });
             }
             if (extraText) {
