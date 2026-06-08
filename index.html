@@ -67,7 +67,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 #work-line { display:block; width:auto; height:auto; opacity:0; margin-bottom:0; }
 @media (min-width: 2560px) {
     .desk-works-phrase { transform:scale(1.5); transform-origin:center bottom; margin-bottom:150px; margin-top:50px; }
-    #deck-guidelines { width: calc(1320px * 1.5) !important; }
+    #deck-guidelines { width: 1980px !important; max-width: 1980px !important; }
 }
 .section-title.hola, .section-title.hola:hover,
 .section-title.noise-fill-hover, .section-title.noise-fill-hover:hover {
@@ -1088,7 +1088,7 @@ document.addEventListener('click', function(e) {
                     <img id="desk-extra" src="./assets/img/desk-extra.svg" alt="" style="display:block;width:auto;height:auto;margin:0 auto;opacity:0;" />
                     <p id="extra-text" style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.7;margin:0;opacity:0;">IF YOU WANT TO TAKE A DEEPER LOOK AT MY DECKS AND BRAND GUIDELINES, <a href="https://figma.com" target="_blank" style="color:#FF6600;text-decoration:none;font-style:normal;">OPEN THIS FIGMA</a></p>
                 </div>
-                <div style="display:flex;justify-content:center;width:100%;margin-top:0;">
+                <div style="display:flex;justify-content:center;margin-top:32px;">
                     <img id="deck-guidelines" src="./assets/img/deck-guidelines.jpg" alt="" style="display:block;width:1320px;max-width:100%;height:auto;border-radius:6px;opacity:0;" />
                 </div>
             </div>
@@ -1677,22 +1677,28 @@ window.addEventListener('load', () => {
                 gsap.to(fedeText, { y:10, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'bottom top', scrub:0.15 } });
             }
         }
-        // ── EXTRA SECTION reveal — fade in only ──
+        // ── EXTRA SECTION reveal — fade in + parallax, once ──
         if (window.innerWidth > 768) {
             var extraTitle = document.getElementById('desk-extra');
             var extraText = document.getElementById('extra-text');
             var extraImg = document.getElementById('deck-guidelines');
             if (extraTitle) {
-                gsap.set(extraTitle, { opacity:0 });
-                gsap.to(extraTitle, { opacity:1, ease:'none', scrollTrigger: { trigger:'#extra-section', start:'top bottom', end:'top 60%', scrub:1.2 } });
+                gsap.set(extraTitle, { opacity:0, y:20 });
+                gsap.to(extraTitle, { opacity:1, y:0, duration:1.0, ease:'power3.out',
+                    scrollTrigger: { trigger:'#extra-section', start:'top 80%', toggleActions:'play none none none' }
+                });
             }
             if (extraText) {
-                gsap.set(extraText, { opacity:0 });
-                gsap.to(extraText, { opacity:1, ease:'none', scrollTrigger: { trigger:'#extra-section', start:'top bottom', end:'top 50%', scrub:1.6 } });
+                gsap.set(extraText, { opacity:0, y:16 });
+                gsap.to(extraText, { opacity:1, y:0, duration:1.0, ease:'power3.out', delay:0.15,
+                    scrollTrigger: { trigger:'#extra-section', start:'top 80%', toggleActions:'play none none none' }
+                });
             }
             if (extraImg) {
-                gsap.set(extraImg, { opacity:0 });
-                gsap.to(extraImg, { opacity:1, ease:'none', scrollTrigger: { trigger:'#extra-section', start:'top 80%', end:'top 20%', scrub:1.2 } });
+                gsap.set(extraImg, { opacity:0, y:30 });
+                gsap.to(extraImg, { opacity:1, y:0, duration:1.2, ease:'power3.out', delay:0.3,
+                    scrollTrigger: { trigger:'#extra-section', start:'top 80%', toggleActions:'play none none none' }
+                });
             }
         }
 
@@ -2063,7 +2069,7 @@ if (window.innerWidth <= 768) {
 if (window.innerWidth > 768) {
     var desktopStyle = document.createElement('style');
     desktopStyle.textContent = [
-        '.gallery .card { opacity:0; transform:translateY(20px); transition:opacity 1.6s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.6s cubic-bezier(0.25,0.46,0.45,0.94); }',
+        '.gallery .card { opacity:0; transform:translateY(30px); transition:opacity 1.8s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.8s cubic-bezier(0.25,0.46,0.45,0.94); }',
         '.gallery .card.in-view { opacity:1; transform:translateY(0); }',
         '.services-grid-item { opacity:0; transform:translateY(16px); transition:opacity 1.6s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.6s cubic-bezier(0.25,0.46,0.45,0.94); }',
         '.services-grid-item.in-view { opacity:1; transform:translateY(0); }'
@@ -2075,12 +2081,13 @@ if (window.innerWidth > 768) {
         entries.forEach(function(entry) {
             if (entry.isIntersecting) {
                 var idx = Array.from(desktopCards).indexOf(entry.target);
-                entry.target.style.transitionDelay = (idx * 0.06) + 's';
+                var pairDelay = (idx % 2) * 0.18; // 0 for first in pair, 0.18s for second
+                entry.target.style.transitionDelay = pairDelay + 's';
                 entry.target.classList.add('in-view');
                 desktopCardObs.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.05 });
     desktopCards.forEach(function(card) { desktopCardObs.observe(card); });
 
     var desktopServices = document.querySelectorAll('.services-grid-item');
