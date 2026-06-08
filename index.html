@@ -1684,19 +1684,19 @@ window.addEventListener('load', () => {
             var extraImg = document.getElementById('deck-guidelines');
             if (extraTitle) {
                 gsap.set(extraTitle, { opacity:0, y:20 });
-                gsap.to(extraTitle, { opacity:1, y:0, duration:1.0, ease:'power3.out',
+                gsap.to(extraTitle, { opacity:1, y:0, duration:2.0, ease:'power3.out', delay:0,
                     scrollTrigger: { trigger:'#extra-section', start:'top 80%', toggleActions:'play none none none' }
                 });
             }
             if (extraText) {
                 gsap.set(extraText, { opacity:0, y:16 });
-                gsap.to(extraText, { opacity:1, y:0, duration:1.0, ease:'power3.out', delay:0.15,
+                gsap.to(extraText, { opacity:1, y:0, duration:2.0, ease:'power3.out', delay:0.3,
                     scrollTrigger: { trigger:'#extra-section', start:'top 80%', toggleActions:'play none none none' }
                 });
             }
             if (extraImg) {
                 gsap.set(extraImg, { opacity:0, y:30 });
-                gsap.to(extraImg, { opacity:1, y:0, duration:1.2, ease:'power3.out', delay:0.3,
+                gsap.to(extraImg, { opacity:1, y:0, duration:2.0, ease:'power3.out', delay:0.6,
                     scrollTrigger: { trigger:'#extra-section', start:'top 80%', toggleActions:'play none none none' }
                 });
             }
@@ -2069,7 +2069,7 @@ if (window.innerWidth <= 768) {
 if (window.innerWidth > 768) {
     var desktopStyle = document.createElement('style');
     desktopStyle.textContent = [
-        '.gallery .card { opacity:0; transform:translateY(40px); transition:opacity 2.2s cubic-bezier(0.16,1,0.3,1), transform 2.2s cubic-bezier(0.16,1,0.3,1); }',
+        '.gallery .card { opacity:0; transform:translateY(40px); transition:opacity 2.0s cubic-bezier(0.16,1,0.3,1), transform 2.0s cubic-bezier(0.16,1,0.3,1); }',
         '.gallery .card.in-view { opacity:1; transform:translateY(0); }',
         '.services-grid-item { opacity:0; transform:translateY(16px); transition:opacity 1.6s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.6s cubic-bezier(0.25,0.46,0.45,0.94); }',
         '.services-grid-item.in-view { opacity:1; transform:translateY(0); }'
