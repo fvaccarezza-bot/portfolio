@@ -66,11 +66,11 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 #work-them { display:block; width:auto; height:auto; opacity:0; margin-bottom:-20px; }
 #work-line { display:block; width:auto; height:auto; opacity:0; margin-bottom:0; }
 /* desk-extra: tamaño nativo por defecto */
-#desk-extra { display:block; width:auto; height:auto; }
+#desk-extra { display:block; width:auto; height:auto; transform:translateY(100%); }
 @media (min-width: 2560px) {
     .desk-works-phrase { transform:scale(1.5); transform-origin:center bottom; margin-bottom:150px; margin-top:50px; }
     #deck-guidelines { width: 1980px !important; max-width: 1980px !important; }
-    #desk-extra { transform:scale(1.5) translateY(0); transform-origin:center center; }
+    #desk-extra { transform-origin:center center; zoom: 1.5; }
 
     #hero-portfolio-label { transform:translateY(-50px); }
     .hero-subtitle { transform:translateY(50px); }
@@ -1030,10 +1030,6 @@ document.addEventListener('click', function(e) {
                     <div class="services-grid-item"><h3><img src="./assets/img/services-item4.svg" alt="" /> Graphic Design</h3><p>Bold, creative visuals that tell your story. From logos to social posts, I'll make it pop.</p></div>
                 </div>
                 <div class="services-btns">
-                    <div class="services-btns-row">
-                        <a href="#" data-modal-open="#modal-faqs"><span style="position:relative;z-index:1;">Faqs</span></a>
-                        <a href="#" data-modal-open="#modal-process"><span style="position:relative;z-index:1;">Process</span></a>
-                    </div>
                     <a href="#contact" data-offset="14" class="services-btns-connect"><span>Connect</span></a>
                 </div>
                 <div class="tt-row" style="margin-top:80px;" id="trusted-by-row">
@@ -1087,9 +1083,9 @@ document.addEventListener('click', function(e) {
             </div>
         <div id="extra-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#f5f5f3;padding-top:150px !important;padding-bottom:150px !important;margin-top:150px;">
             <div class="tt-section-inner tt-wrap">
-                <div style="display:flex;flex-direction:column;align-items:center;width:750px;max-width:100%;margin:0 auto;gap:32px;text-align:center;">
-                    <div style="position:relative;display:inline-block;">
-                        <img id="desk-extra" src="./assets/img/desk-extra.svg" alt="" style="display:block;width:auto;height:auto;margin:0 auto;" />
+                <div style="display:flex;flex-direction:column;align-items:center;width:100%;margin:0 auto;gap:32px;text-align:center;">
+                    <div style="overflow:hidden;line-height:0;display:flex;justify-content:center;width:100%;">
+                        <img id="desk-extra" src="./assets/img/desk-extra.svg" alt="" style="display:block;width:auto;height:auto;" />
                     </div>
                     <p id="extra-text" style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.7;margin:0;opacity:0;">IF YOU WANT TO TAKE A DEEPER LOOK AT MY DECKS AND BRAND GUIDELINES, OPEN THIS FIGMA</p>
                 </div>
@@ -1636,8 +1632,8 @@ window.addEventListener('load', () => {
             var extraText = document.getElementById('extra-text');
             var extraImg = document.getElementById('deck-guidelines');
             if (extraTitle) {
-                gsap.fromTo(extraTitle, { y: 60 }, { y: 0, ease: 'none',
-                    scrollTrigger: { trigger: '#extra-section', start: 'top bottom', end: 'top 30%', scrub: 1.2 }
+                gsap.to(extraTitle, { y: 0, ease: 'none',
+                    scrollTrigger: { trigger: '#extra-section', start: 'top bottom', end: 'top 70%', scrub: 1.2 }
                 });
             }
             if (extraText) {
