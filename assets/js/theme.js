@@ -168,7 +168,7 @@
          if ($pageHeader.length && $('body').hasClass('home')) {
             $pageHeader.prependTo($('#body-inner'));
             $pageHeader.css({ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 0 });
-            $('#content-wrap').css({ position: 'relative', zIndex: 1, marginTop: ($pageHeader.outerHeight() * 1.4) + 'px' });
+            $('#content-wrap').css({ position: 'relative', zIndex: 1, marginTop: $pageHeader.outerHeight() + 'px' });
             bodyScrollBar.addListener(function(status) {
                var scrollY = status.offset.y;
                var heroH = $pageHeader.outerHeight();
