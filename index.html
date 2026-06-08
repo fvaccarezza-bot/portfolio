@@ -73,8 +73,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #deck-guidelines-frame { width: 1980px !important; max-width: 1980px !important; }
     #desk-extra { transform-origin:center center; zoom: 1.5; }
 
-    #hero-portfolio-label { }
-    .hero-subtitle { }
+    #hero-portfolio-label { transform:translateY(-50px); }
+    .hero-subtitle { transform:translateY(50px); }
 }
 .section-title.hola, .section-title.hola:hover,
 .section-title.noise-fill-hover, .section-title.noise-fill-hover:hover {
@@ -1398,15 +1398,12 @@ window.addEventListener('load', () => {
         const lineFed = document.querySelector('#line-federico');
         const lineVac = document.querySelector('#line-vaccarezza');
         const heroSubtitle = document.querySelector('.hero-subtitle');
-        const isUW = window.screen.width >= 2560;
-        const labelTarget = isUW ? -120 : 0;
-        const subtitleTarget = isUW ? 120 : 0;
         gsap.set(minTitlesReveal, { y: '100%' });
         gsap.set(lineFed, { y: '100%' });
         gsap.set(lineVac, { y: '100%' });
         gsap.set(heroSubtitle, { y: '100%' });
         const doReveal = () => {
-            gsap.to(minTitlesReveal, { y: labelTarget, duration: 1.2, ease: 'power4.out', delay: 0 });
+            gsap.to(minTitlesReveal, { y: 0, duration: 1.2, ease: 'power4.out', delay: 0 });
             gsap.to(lineFed, { y: 0, duration: 1.4, ease: 'power4.out', delay: 0.18,
                 onComplete: () => {
                     document.querySelectorAll('.name-reveal-mask').forEach(m => m.style.overflow = 'visible');
@@ -1416,7 +1413,7 @@ window.addEventListener('load', () => {
                 }
             });
             gsap.to(lineVac, { y: 0, duration: 1.4, ease: 'power4.out', delay: 0.32 });
-            gsap.to(heroSubtitle, { y: subtitleTarget, duration: 1.2, ease: 'power4.out', delay: 0.46 });
+            gsap.to(heroSubtitle, { y: 0, duration: 1.2, ease: 'power4.out', delay: 0.46 });
         };
         let revealed = false;
         const safeReveal = () => { if (!revealed) { revealed = true; doReveal(); } };
