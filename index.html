@@ -1085,7 +1085,10 @@ document.addEventListener('click', function(e) {
         <div id="extra-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#f5f5f3;padding-top:150px !important;padding-bottom:150px !important;">
             <div class="tt-section-inner tt-wrap">
                 <div style="display:flex;flex-direction:column;align-items:center;width:750px;max-width:100%;margin:0 auto;gap:32px;text-align:center;">
-                    <img id="desk-extra" src="./assets/img/desk-extra.svg" alt="" style="display:block;width:auto;height:auto;margin:0 auto;opacity:0;" />
+                    <div style="position:relative;display:inline-block;">
+                        <img id="desk-extra" src="./assets/img/desk-extra.svg" alt="" style="display:block;width:auto;height:auto;margin:0 auto;opacity:0;" />
+                        <img id="figma-logo" src="./assets/img/figma-logo.png" alt="Figma" style="position:absolute;bottom:0;right:0;transform:translate(50%,50%);width:40px;height:auto;display:block;opacity:0;" />
+                    </div>
                     <p id="extra-text" style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.7;margin:0;opacity:0;">IF YOU WANT TO TAKE A DEEPER LOOK AT MY DECKS AND BRAND GUIDELINES, <a href="https://figma.com" target="_blank" style="color:#FF6600;text-decoration:none;font-style:normal;">OPEN THIS FIGMA</a></p>
                 </div>
                 <div style="display:flex;justify-content:center;margin-top:32px;">
@@ -1740,6 +1743,13 @@ window.addEventListener('load', () => {
             if (extraTitle) {
                 gsap.set(extraTitle, { opacity:0, y:20 });
                 gsap.to(extraTitle, { opacity:1, y:0, duration:2.0, ease:'power3.out', delay:0,
+                    scrollTrigger: { trigger:'#extra-section', start:'top 80%', toggleActions:'play none none none' }
+                });
+            }
+            var figmaLogo = document.getElementById('figma-logo');
+            if (figmaLogo) {
+                gsap.set(figmaLogo, { opacity:0 });
+                gsap.to(figmaLogo, { opacity:1, duration:2.0, ease:'power3.out', delay:0.15,
                     scrollTrigger: { trigger:'#extra-section', start:'top 80%', toggleActions:'play none none none' }
                 });
             }
