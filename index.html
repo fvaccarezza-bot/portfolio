@@ -1722,11 +1722,11 @@ window.addEventListener('load', () => {
                 gsap.to(el, { y, ease:'none', scrollTrigger: { trigger: testiWrap, start:'top bottom', end:'bottom top', scrub } });
             });
             // Fade in — scrub like afew
-            [['img:nth-child(1)',1.2],['img:nth-child(2)',1.6],['img:nth-child(3)',2.0]].forEach(function([sel, scrub]) {
+            [['img:nth-child(1)',1.2,'top bottom','top 50%'],['img:nth-child(2)',1.6,'top bottom','top 45%'],['img:nth-child(3)',2.0,'top bottom','top 40%']].forEach(function([sel, scrub, start, end]) {
                 const el = testiTag.querySelector(sel);
                 if (!el) return;
                 gsap.fromTo(el, { opacity:0 }, { opacity:1, ease:'none',
-                    scrollTrigger: { trigger:testiWrap, start:'top 85%', end:'top 30%', scrub }
+                    scrollTrigger: { trigger:testiWrap, start:start, end:end, scrub }
                 });
             });
         }
