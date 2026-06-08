@@ -1085,8 +1085,8 @@ document.addEventListener('click', function(e) {
             <div class="tt-section-inner tt-wrap">
                 <div style="display:flex;flex-direction:column;align-items:center;width:750px;max-width:100%;margin:0 auto;gap:32px;text-align:center;">
                     <img id="desk-extra" src="./assets/img/desk-extra.svg" alt="" style="display:block;width:auto;height:auto;margin:0 auto;opacity:0;" />
-                    <p id="extra-text" style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.7;margin:0;opacity:0;">IF YOU WANT TO TAKE A DEEPER LOOK AT MY DECKS AND BRAND GUIDELINES, <a href="https://figma.com" target="_blank" style="color:#FF6600;text-decoration:none;">OPEN THIS FIGMA</a></p>
-                    <img id="deck-guidelines" src="./assets/img/deck-guidelines.jpg" alt="" style="display:block;width:100%;height:auto;border-radius:6px;opacity:0;" />
+                    <p id="extra-text" style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.7;margin:0;opacity:0;">IF YOU WANT TO TAKE A DEEPER LOOK AT MY DECKS AND BRAND GUIDELINES, <a href="https://figma.com" target="_blank" style="color:#FF6600;text-decoration:none;font-style:normal;">OPEN THIS FIGMA</a></p>
+                    <img id="deck-guidelines" src="./assets/img/deck-guidelines.jpg" alt="" style="display:block;width:1320px;max-width:100%;height:auto;border-radius:6px;opacity:0;" />
                 </div>
             </div>
         </div>
@@ -1612,13 +1612,13 @@ window.addEventListener('load', () => {
             if (deskFeatured) {
                 gsap.set(deskFeatured, { y: '110%' });
                 gsap.to(deskFeatured, { y: 0, ease: 'none',
-                    scrollTrigger: { trigger: '#works', start: 'top bottom', end: 'top 50%', scrub: 1.2 }
+                    scrollTrigger: { trigger: '#works', start: 'top bottom', end: 'top 60%', scrub: 1.2 }
                 });
             }
             if (deskWork) {
                 gsap.set(deskWork, { y: '110%' });
                 gsap.to(deskWork, { y: 0, ease: 'none',
-                    scrollTrigger: { trigger: '#works', start: 'top bottom', end: 'top 60%', scrub: 1.2 }
+                    scrollTrigger: { trigger: '#works', start: 'top bottom', end: 'top 50%', scrub: 1.2 }
                 });
             }
         })();
@@ -1653,15 +1653,13 @@ window.addEventListener('load', () => {
             });
         }
 
-        // ── ABOUT breathe parallax + hover repel ──
+        // ── ABOUT breathe parallax ──
         if (window.innerWidth > 768) {
-            var fedeWrap = document.getElementById('hola-foto');
             var fedeAboutMe = document.getElementById('desk-about-me');
             var fedePhoto = document.getElementById('fede-photo-wrap');
             var fedeText = document.getElementById('fede-text-wrap');
             var fedeMask = document.getElementById('fede-orange-mask');
 
-            // Breathe parallax — foto sube, texto baja, SVG independiente
             if (fedeAboutMe) {
                 gsap.set(fedeAboutMe, { opacity:0 });
                 gsap.to(fedeAboutMe, { opacity:1, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'top 50%', scrub:1.2 } });
@@ -1676,22 +1674,6 @@ window.addEventListener('load', () => {
                 gsap.set(fedeText, { opacity:0 });
                 gsap.to(fedeText, { opacity:1, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'top 30%', scrub:2.0 } });
                 gsap.to(fedeText, { y:10, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'bottom top', scrub:0.15 } });
-            }
-
-            // Hover repel
-            if (fedeWrap && fedePhoto && fedeText) {
-                fedeWrap.addEventListener('mouseenter', function() {
-                    if (fedeAboutMe) fedeAboutMe.style.transform = 'translateY(-12px)';
-                    fedePhoto.style.transform = 'translateY(-12px)';
-                    fedeText.style.transform = 'translateY(12px)';
-                    if (fedeMask) fedeMask.style.opacity = '0';
-                });
-                fedeWrap.addEventListener('mouseleave', function() {
-                    if (fedeAboutMe) fedeAboutMe.style.transform = 'translateY(0)';
-                    fedePhoto.style.transform = 'translateY(0)';
-                    fedeText.style.transform = 'translateY(0)';
-                    if (fedeMask) fedeMask.style.opacity = '1';
-                });
             }
         }
         const aboutSection = document.getElementById('hola-foto');
