@@ -1663,10 +1663,10 @@ window.addEventListener('load', () => {
         }
         const servicesBig = document.querySelector('.services-big');
         if (servicesBig) {
-            ['.sb-tag1','.sb-tag2','.sb-tag3'].forEach(function(sel, i) {
+            [['.sb-line1',-180,0.8],['.sb-line2',-120,0.8],['.sb-line3',-70,0.8],['.sb-tag1',-40,0.25],['.sb-tag2',-20,0.3],['.sb-tag3',-8,0.35]].forEach(([sel,y,scrub]) => {
                 const el = servicesBig.querySelector(sel);
                 if (!el) return;
-                gsap.fromTo(el, { opacity:0 }, { opacity:1, duration:0.8, ease:'power2.out', scrollTrigger: { trigger:servicesBig, start:'top 70%', toggleActions:'play none none reverse' }, delay: i * 0.15 });
+                gsap.to(el, { y, ease:'none', scrollTrigger: { trigger:servicesBig, start:'top bottom', end:'bottom top', scrub } });
             });
         }
         const testiTag = document.querySelector('.desktop-testi-tag');
