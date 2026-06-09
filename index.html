@@ -1628,28 +1628,45 @@ window.addEventListener('load', () => {
             // ── ABOUT pin + blur+fade ──
             const aboutEl = document.getElementById('about');
             if (aboutEl) {
-                aboutEl.style.position = '';
-                aboutEl.style.top = '';
-                ScrollTrigger.create({
-                    trigger: '#about',
-                    start: 'center center',
-                    end: '+=600',
-                    pin: true,
-                    pinSpacing: false,
-                    onUpdate: function(self) {
-                        const p = self.progress;
-                        aboutEl.style.filter = 'blur(' + (p * 15) + 'px)';
-                        aboutEl.style.opacity = 1 - p;
-                    },
-                    onLeave: function() {
-                        aboutEl.style.filter = 'blur(15px)';
-                        aboutEl.style.opacity = '0';
-                    },
-                    onEnterBack: function() {
-                        aboutEl.style.filter = 'blur(0px)';
-                        aboutEl.style.opacity = '1';
+                setTimeout(function() {
+                    const sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
+                    if (sb) {
+                        ScrollTrigger.scrollerProxy('#scroll-container', {
+                            scrollTop(value) {
+                                if (arguments.length) { sb.scrollTop = value; }
+                                return sb.scrollTop;
+                            },
+                            getBoundingClientRect() {
+                                return { top:0, left:0, width:window.innerWidth, height:window.innerHeight };
+                            },
+                            pinType: document.querySelector('#scroll-container').style.transform ? 'transform' : 'fixed'
+                        });
+                        sb.addListener(ScrollTrigger.update);
+                        ScrollTrigger.defaults({ scroller: '#scroll-container' });
+
+                        ScrollTrigger.create({
+                            trigger: '#about',
+                            scroller: '#scroll-container',
+                            start: 'center center',
+                            end: '+=600',
+                            pin: true,
+                            pinSpacing: false,
+                            onUpdate: function(self) {
+                                const p = self.progress;
+                                aboutEl.style.filter = 'blur(' + (p * 15) + 'px)';
+                                aboutEl.style.opacity = 1 - p;
+                            },
+                            onLeave: function() {
+                                aboutEl.style.filter = 'blur(15px)';
+                                aboutEl.style.opacity = '0';
+                            },
+                            onEnterBack: function() {
+                                aboutEl.style.filter = 'blur(0px)';
+                                aboutEl.style.opacity = '1';
+                            }
+                        });
                     }
-                });
+                }, 600);
             }
         }
         if (window.innerWidth > 768) {
