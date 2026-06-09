@@ -983,7 +983,7 @@ window.addEventListener('load', () => {
 
         if (window.innerWidth > 768) {
             var extraTitle = document.getElementById('desk-extra'), extraText = document.getElementById('extra-text'), extraImg = document.getElementById('deck-guidelines');
-            if (extraTitle) { gsap.to(extraTitle, { y: 0, ease: 'none', scrollTrigger: { trigger: '#extra-section', start: 'top bottom', end: 'top 70%', scrub: 1.2 } }); }
+            if (extraTitle) { gsap.to(extraTitle, { y: 0, ease: 'none', scrollTrigger: { trigger: '#desk-extra-wrap', start: 'top bottom', end: 'top 70%', scrub: 1.2 } }); }
             if (extraText) { gsap.set(extraText, { opacity:0, y:16 }); gsap.to(extraText, { opacity:1, y:0, duration:2.0, ease:'power3.out', delay:0.3, scrollTrigger: { trigger:'#extra-section', start:'top 80%', toggleActions:'play none none none' } }); }
             if (extraImg) {
                 gsap.set(extraImg, { opacity:0, y:0 });
