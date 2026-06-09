@@ -81,11 +81,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .hero-subtitle { transform:translateY(50px); }
     #hero-portfolio-label,
     .hero-subtitle { font-size: 24px !important; font-weight: 800 !important; letter-spacing: 8px !important; }
-    /* Force position after GSAP reveal in UW */
-    #hero-portfolio-label { animation: uw-label-pos 0.01s 2.5s forwards; }
-    .hero-subtitle { animation: uw-subtitle-pos 0.01s 2.5s forwards; }
-    @keyframes uw-label-pos { to { transform: translateY(-50px); } }
-    @keyframes uw-subtitle-pos { to { transform: translateY(50px); } }
 }
 .section-title.hola, .section-title.hola:hover,
 .section-title.noise-fill-hover, .section-title.noise-fill-hover:hover {
@@ -1428,7 +1423,16 @@ window.addEventListener('load', () => {
                 }
             });
             gsap.to(lineVac, { y: 0, duration: 1.4, ease: 'power4.out', delay: 0.32 });
-            gsap.to(heroSubtitle, { y: 0, duration: 1.2, ease: 'power4.out', delay: 0.46 });
+            gsap.to(heroSubtitle, { y: 0, duration: 1.2, ease: 'power4.out', delay: 0.46,
+                onComplete: () => {
+                    if (window.screen.width >= 2560) {
+                        const lbl = document.getElementById('hero-portfolio-label');
+                        const sub = document.querySelector('.hero-subtitle');
+                        if (lbl) gsap.set(lbl, { y: -50 });
+                        if (sub) gsap.set(sub, { y: 50 });
+                    }
+                }
+            });
         };
         let revealed = false;
         const safeReveal = () => { if (!revealed) { revealed = true; doReveal(); } };
