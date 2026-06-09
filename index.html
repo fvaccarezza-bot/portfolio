@@ -1624,6 +1624,47 @@ window.addEventListener('load', () => {
         if (window.innerWidth > 768) {
             var fedeText = document.getElementById('fede-text-wrap');
             if (fedeText) { gsap.to(fedeText, { y:-25, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'bottom top', scrub:0.25 } }); }
+
+            // ── ABOUT second fixed layer — después de que theme.js corre ──
+            setTimeout(function() {
+                const aboutEl = document.getElementById('about');
+                const bodyInner = document.getElementById('body-inner');
+                const contentWrap = document.getElementById('content-wrap');
+                if (!aboutEl || !bodyInner || !contentWrap) return;
+
+                const aboutH = aboutEl.offsetHeight;
+                const currentMargin = parseFloat(contentWrap.style.marginTop) || 0;
+
+                // Mover about a body-inner como fixed, entre hero y content-wrap
+                bodyInner.appendChild(aboutEl);
+                aboutEl.style.position = 'fixed';
+                aboutEl.style.top = '50%';
+                aboutEl.style.left = '0';
+                aboutEl.style.width = '100%';
+                aboutEl.style.zIndex = '1';
+                aboutEl.style.transform = 'translateY(-50%)';
+                aboutEl.style.background = '#f5f5f3';
+
+                // content-wrap sube su z-index y suma el alto del about al margin
+                contentWrap.style.zIndex = '2';
+                contentWrap.style.marginTop = (currentMargin + aboutH) + 'px';
+
+                // blur+fade listener
+                const sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
+                if (!sb) return;
+                sb.addListener(function({ offset }) {
+                    const startFade = currentMargin; // cuando el content-wrap empieza a tapar el about
+                    const endFade = startFade + aboutH * 1.5;
+                    if (offset.y <= startFade) {
+                        aboutEl.style.filter = 'blur(0px)';
+                        aboutEl.style.opacity = '1';
+                    } else {
+                        const progress = Math.min((offset.y - startFade) / (endFade - startFade), 1);
+                        aboutEl.style.filter = 'blur(' + (progress * 15) + 'px)';
+                        aboutEl.style.opacity = String(1 - progress);
+                    }
+                });
+            }, 900);
         }
         if (window.innerWidth > 768) {
             var extraTitle = document.getElementById('desk-extra');
