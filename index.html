@@ -81,6 +81,11 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .hero-subtitle { transform:translateY(50px); }
     #hero-portfolio-label,
     .hero-subtitle { font-size: 24px !important; font-weight: 800 !important; letter-spacing: 8px !important; }
+    /* Force position after GSAP reveal in UW */
+    #hero-portfolio-label { animation: uw-label-pos 0.01s 2.5s forwards; }
+    .hero-subtitle { animation: uw-subtitle-pos 0.01s 2.5s forwards; }
+    @keyframes uw-label-pos { to { transform: translateY(-50px); } }
+    @keyframes uw-subtitle-pos { to { transform: translateY(50px); } }
 }
 .section-title.hola, .section-title.hola:hover,
 .section-title.noise-fill-hover, .section-title.noise-fill-hover:hover {
@@ -885,14 +890,14 @@ document.addEventListener('click', function(e) {
                 <div class="tt-section-inner tt-wrap">
                     <div id="hola-foto" style="display:flex;flex-direction:column;align-items:center;width:700px;max-width:100%;margin:0 auto;gap:32px;">
                         <img id="desk-about-me" src="./assets/img/desk-about-me.svg" alt="About Me" class="mob-no" style="display:block;width:auto;height:auto;margin:0 auto;opacity:0;border-radius:0 !important;" />
-                        <div style="flex-shrink:0;position:relative;width:450px;height:450px;border-radius:4px;overflow:hidden;cursor:default;" id="fede-photo-wrap">
+                        <div style="flex-shrink:0;position:relative;width:475px;height:475px;border-radius:4px;overflow:hidden;cursor:default;" id="fede-photo-wrap">
                            <img id="fede-blur-img" src="./assets/img/fede-blur.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:4px;will-change:filter,transform;transition:none;" />
                            <img id="fede-solo-img" src="./assets/img/fede-solo.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:4px;" />
                            <div id="fede-orange-mask" style="position:absolute;inset:0;background:#FF6600;mix-blend-mode:multiply;border-radius:4px;pointer-events:none;transition:opacity 0.6s cubic-bezier(0.25,0.46,0.45,0.94);opacity:1;"></div>
                         </div>
                         <div class="info" style="width:100%;display:flex;flex-direction:column;gap:16px;text-align:center;" id="fede-text-wrap">
-                            <p style="font-family:'PP Telegraf',sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.7;margin:0;">Educated at the University of Buenos Aires (UBA), I began in Industrial Design before transitioning to Graphic Design.</p>
-                            <p style="font-family:'PP Telegraf',sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.7;margin:0;">Over the years, my work has spanned branding, web design, and UI/UX, collaborating with startups and established companies to create brands, websites, and digital experiences that are clear, effective, and thoughtfully designed.</p>
+                            <p style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.7;margin:0;">Educated at the University of Buenos Aires (UBA), I began in Industrial Design before transitioning to Graphic Design.</p>
+                            <p style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.7;margin:0;">Over the years, my work has spanned branding, web design, and UI/UX, collaborating with startups and established companies to create brands, websites, and digital experiences that are clear, effective, and thoughtfully designed.</p>
                         </div>
                     </div>
                 </div>
@@ -1663,9 +1668,6 @@ window.addEventListener('load', () => {
                             const progress = Math.max(0, Math.min(1, (vh - wrapTop) / (vh + fedeWrap.offsetHeight)));
                             fedeBlur.style.filter = 'blur(' + (progress * 6) + 'px)';
                             fedeBlur.style.transform = 'scale(' + (1 + progress * 0.15) + ')';
-                            var size = 450 + (progress * 50);
-                            fedeWrap.style.width = size + 'px';
-                            fedeWrap.style.height = size + 'px';
                         });
                         obs.disconnect();
                     });
