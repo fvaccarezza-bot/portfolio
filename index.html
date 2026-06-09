@@ -1625,48 +1625,29 @@ window.addEventListener('load', () => {
             var fedeText = document.getElementById('fede-text-wrap');
             if (fedeText) { gsap.to(fedeText, { y:-25, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'bottom top', scrub:0.25 } }); }
 
-            // ── ABOUT pin + blur+fade ──
+            // ── ABOUT manual sticky + blur+fade via bodyScrollBar ──
             const aboutEl = document.getElementById('about');
             if (aboutEl) {
                 setTimeout(function() {
                     const sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
-                    if (sb) {
-                        ScrollTrigger.scrollerProxy('#scroll-container', {
-                            scrollTop(value) {
-                                if (arguments.length) { sb.scrollTop = value; }
-                                return sb.scrollTop;
-                            },
-                            getBoundingClientRect() {
-                                return { top:0, left:0, width:window.innerWidth, height:window.innerHeight };
-                            },
-                            pinType: document.querySelector('#scroll-container').style.transform ? 'transform' : 'fixed'
-                        });
-                        sb.addListener(ScrollTrigger.update);
-                        ScrollTrigger.defaults({ scroller: '#scroll-container' });
-
-                        ScrollTrigger.create({
-                            trigger: '#about',
-                            scroller: '#scroll-container',
-                            start: 'center center',
-                            end: '+=600',
-                            pin: true,
-                            pinSpacing: false,
-                            onUpdate: function(self) {
-                                const p = self.progress;
-                                aboutEl.style.filter = 'blur(' + (p * 15) + 'px)';
-                                aboutEl.style.opacity = 1 - p;
-                            },
-                            onLeave: function() {
-                                aboutEl.style.filter = 'blur(15px)';
-                                aboutEl.style.opacity = '0';
-                            },
-                            onEnterBack: function() {
-                                aboutEl.style.filter = 'blur(0px)';
-                                aboutEl.style.opacity = '1';
-                            }
-                        });
-                    }
-                }, 600);
+                    if (!sb) return;
+                    sb.addListener(function({ offset }) {
+                        const aboutTop = aboutEl.offsetTop;
+                        const aboutH = aboutEl.offsetHeight;
+                        const stickyStart = aboutTop + aboutH / 2 - window.innerHeight / 2;
+                        if (offset.y <= stickyStart) {
+                            aboutEl.style.transform = 'translateY(0)';
+                            aboutEl.style.filter = 'blur(0px)';
+                            aboutEl.style.opacity = '1';
+                        } else {
+                            const dy = offset.y - stickyStart;
+                            aboutEl.style.transform = 'translateY(' + dy + 'px)';
+                            const progress = Math.min(dy / 600, 1);
+                            aboutEl.style.filter = 'blur(' + (progress * 15) + 'px)';
+                            aboutEl.style.opacity = String(1 - progress);
+                        }
+                    });
+                }, 800);
             }
         }
         if (window.innerWidth > 768) {
