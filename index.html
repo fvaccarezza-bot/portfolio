@@ -1624,43 +1624,6 @@ window.addEventListener('load', () => {
         if (window.innerWidth > 768) {
             var fedeText = document.getElementById('fede-text-wrap');
             if (fedeText) { gsap.to(fedeText, { y:-25, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'bottom top', scrub:0.25 } }); }
-
-            // ── ABOUT fixed + blur+fade — mismo sistema que hero ──
-            const aboutEl = document.getElementById('about');
-            const bodyInner = document.getElementById('body-inner');
-            const contentWrap = document.getElementById('content-wrap');
-            if (aboutEl && bodyInner && contentWrap) {
-                const aboutH = aboutEl.offsetHeight;
-                // Sacar del scroll container, poner fixed centrado verticalmente
-                bodyInner.appendChild(aboutEl);
-                aboutEl.style.position = 'fixed';
-                aboutEl.style.top = '50%';
-                aboutEl.style.left = '0';
-                aboutEl.style.width = '100%';
-                aboutEl.style.transform = 'translateY(-50%)';
-                aboutEl.style.zIndex = '0';
-                // Compensar el espacio que ocupaba en el flujo
-                contentWrap.style.marginTop = (parseFloat(contentWrap.style.marginTop) + aboutH) + 'px';
-
-                setTimeout(function() {
-                    const sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
-                    if (!sb) return;
-                    // El about empieza a hacer blur cuando el content-wrap lo empieza a tapar
-                    sb.addListener(function({ offset }) {
-                        const heroH = document.getElementById('page-header') ? document.getElementById('page-header').offsetHeight : 0;
-                        const startFade = heroH * 1.4; // donde termina el margen del hero
-                        const endFade = startFade + aboutH * 1.8;
-                        if (offset.y <= startFade) {
-                            aboutEl.style.filter = 'blur(0px)';
-                            aboutEl.style.opacity = '1';
-                        } else {
-                            const progress = Math.min((offset.y - startFade) / (endFade - startFade), 1);
-                            aboutEl.style.filter = 'blur(' + (progress * 15) + 'px)';
-                            aboutEl.style.opacity = String(1 - progress);
-                        }
-                    });
-                }, 800);
-            }
         }
         if (window.innerWidth > 768) {
             var extraTitle = document.getElementById('desk-extra');
