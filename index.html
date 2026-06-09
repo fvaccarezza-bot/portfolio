@@ -1625,30 +1625,31 @@ window.addEventListener('load', () => {
             var fedeText = document.getElementById('fede-text-wrap');
             if (fedeText) { gsap.to(fedeText, { y:-25, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'bottom top', scrub:0.25 } }); }
 
-            // ── ABOUT sticky blur+fade ──
+            // ── ABOUT pin + blur+fade ──
             const aboutEl = document.getElementById('about');
             if (aboutEl) {
-                aboutEl.style.position = 'sticky';
-                aboutEl.style.top = '0';
-                setTimeout(function() {
-                    const sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
-                    if (sb) {
-                        sb.addListener(function({ offset }) {
-                            const aboutTop = aboutEl.offsetTop;
-                            const aboutH = aboutEl.offsetHeight;
-                            const startFade = aboutTop + aboutH * 0.5;
-                            const endFade = aboutTop + aboutH * 1.8;
-                            if (offset.y < startFade) {
-                                aboutEl.style.filter = 'blur(0px)';
-                                aboutEl.style.opacity = '1';
-                            } else {
-                                const progress = Math.min((offset.y - startFade) / (endFade - startFade), 1);
-                                aboutEl.style.filter = 'blur(' + (progress * 15) + 'px)';
-                                aboutEl.style.opacity = 1 - progress;
-                            }
-                        });
+                aboutEl.style.position = '';
+                aboutEl.style.top = '';
+                ScrollTrigger.create({
+                    trigger: '#about',
+                    start: 'center center',
+                    end: '+=600',
+                    pin: true,
+                    pinSpacing: false,
+                    onUpdate: function(self) {
+                        const p = self.progress;
+                        aboutEl.style.filter = 'blur(' + (p * 15) + 'px)';
+                        aboutEl.style.opacity = 1 - p;
+                    },
+                    onLeave: function() {
+                        aboutEl.style.filter = 'blur(15px)';
+                        aboutEl.style.opacity = '0';
+                    },
+                    onEnterBack: function() {
+                        aboutEl.style.filter = 'blur(0px)';
+                        aboutEl.style.opacity = '1';
                     }
-                }, 500);
+                });
             }
         }
         if (window.innerWidth > 768) {
