@@ -44,7 +44,7 @@
       body.web .work-title .desc { max-width:650px!important; width:650px!important; margin-left:auto!important; margin-right:auto!important; box-sizing:border-box!important; text-align:center!important; }
       body.web .tt-section.padding-bottom-xlg-150 { padding-top:0!important; padding-bottom:300px!important; }
       body.web .work-title .order { margin-top:50px; }
-      .nav-work .is-prev { display:none !important; }
+      .nav-work .is-next { display:none !important; }
 
       @media (max-width: 768px) {
          #content-wrap.work { position: relative; z-index: 2; }
@@ -428,7 +428,7 @@ window.addEventListener('load', function() {
             var diff = touchStartX - e.changedTouches[0].clientX;
             if (isHorizontal && diff > 80) {
                 if (pageContent) { pageContent.style.transition = 'transform 0.3s cubic-bezier(0.76,0,0.24,1)'; pageContent.style.transform = 'translateX(-100vw)'; }
-                setTimeout(function() { window.location.href = '../logofolio/'; }, 320);
+                setTimeout(function() { window.location.href = '../ui-ux/'; }, 320);
             } else {
                 if (pageContent) { pageContent.style.transition = 'transform 0.4s cubic-bezier(0.34,1.2,0.64,1)'; pageContent.style.transform = 'translateX(0)'; }
             }
@@ -473,7 +473,7 @@ window.addEventListener('load', function() {
             var wrapper = document.createElement('div');
             wrapper.style.cssText = 'position:fixed;right:12px;top:0;bottom:0;width:20px;display:flex;align-items:center;justify-content:center;z-index:999;pointer-events:none;opacity:0;transform:translateX(40px);transition:opacity 0.5s ease, transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94);';
             var hint = document.createElement('div');
-            hint.innerText = 'SWIPE FOR NEXT PROJECT';
+            hint.innerText = 'SWIPE FOR PREV PROJECT';
             hint.style.cssText = 'font-family:"PP Telegraf",sans-serif;font-size:12px;letter-spacing:0.4em;text-transform:uppercase;color:#3A3A39;white-space:nowrap;transform:rotate(90deg);';
             wrapper.appendChild(hint); document.body.appendChild(wrapper);
             var content = document.getElementById('page-content');
