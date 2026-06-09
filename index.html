@@ -79,8 +79,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 
     #hero-portfolio-label { transform:translateY(-50px); }
     .hero-subtitle { transform:translateY(50px); }
-    #hero-portfolio-label,
-    .hero-subtitle { font-size: 24px !important; font-weight: 800 !important; letter-spacing: 8px !important; }
 }
 .section-title.hola, .section-title.hola:hover,
 .section-title.noise-fill-hover, .section-title.noise-fill-hover:hover {
@@ -1423,16 +1421,7 @@ window.addEventListener('load', () => {
                 }
             });
             gsap.to(lineVac, { y: 0, duration: 1.4, ease: 'power4.out', delay: 0.32 });
-            gsap.to(heroSubtitle, { y: 0, duration: 1.2, ease: 'power4.out', delay: 0.46,
-                onComplete: () => {
-                    if (window.screen.width >= 2560) {
-                        const lbl = document.getElementById('hero-portfolio-label');
-                        const sub = document.querySelector('.hero-subtitle');
-                        if (lbl) gsap.set(lbl, { y: -50 });
-                        if (sub) gsap.set(sub, { y: 50 });
-                    }
-                }
-            });
+            gsap.to(heroSubtitle, { y: 0, duration: 1.2, ease: 'power4.out', delay: 0.46 });
         };
         let revealed = false;
         const safeReveal = () => { if (!revealed) { revealed = true; doReveal(); } };
@@ -1672,6 +1661,12 @@ window.addEventListener('load', () => {
                             const progress = Math.max(0, Math.min(1, (vh - wrapTop) / (vh + fedeWrap.offsetHeight)));
                             fedeBlur.style.filter = 'blur(' + (progress * 6) + 'px)';
                             fedeBlur.style.transform = 'scale(' + (1 + progress * 0.15) + ')';
+                            var fedeSolo = document.getElementById('fede-solo-img');
+                            if (fedeSolo) {
+                                var scale = 1 - (progress * 0.1);
+                                fedeSolo.style.transformOrigin = 'center bottom';
+                                fedeSolo.style.transform = 'scale(' + scale + ')';
+                            }
                         });
                         obs.disconnect();
                     });
