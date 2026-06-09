@@ -55,7 +55,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 #content-wrap { background:#f5f5f3; }
 #about { background:#f5f5f3; }
 @media (min-width: 769px) {
-    #about { padding-top: 225px !important; }
+    #about { padding-top: 150px !important; }
 }
 #page-header { background:#f5f5f3 !important; }
 #body-inner { overflow-x:hidden; }
@@ -69,13 +69,12 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 #work-them { display:block; width:auto; height:auto; opacity:0; margin-bottom:-20px; }
 #work-line { display:block; width:auto; height:auto; opacity:0; margin-bottom:0; }
 /* desk-extra: tamaño nativo por defecto */
-#desk-extra { display:block; width:auto; height:auto; }
+#desk-extra { display:block; width:auto; height:auto; transform:translateY(100%); }
 @media (min-width: 2560px) {
     .desk-works-phrase { transform:scale(1.5); transform-origin:center bottom; margin-bottom:150px; margin-top:50px; }
     #deck-guidelines { width: 1980px !important; max-width: 1980px !important; }
     #deck-guidelines-frame { width: 1980px !important; max-width: 1980px !important; }
-    #desk-extra { transform-origin:center center; }
-    #desk-extra-wrap { transform:scale(1.5); transform-origin:center center; display:inline-block; }
+    #desk-extra { transform-origin:center center; zoom: 1.5; }
     #figma-logo { zoom: 1.5; }
 
     #hero-portfolio-label { transform:translateY(-50px); }
@@ -826,7 +825,7 @@ document.addEventListener('click', function(e) {
         </div>
     </header>
     <div id="content-wrap">
-        <div id="page-header" class="ph-full ph-cap-sm ph-image-cropped ph-image-cover-3" style="background-image:url('./assets/img/bgtest.jpg');background-size:cover;background-position:center;background-repeat:no-repeat;">
+        <div id="page-header" class="ph-full ph-cap-sm ph-image-cropped ph-image-cover-3">
             <div class="page-header-inner tt-wrap">
                 <div class="bg-vectors" id="bg-vectors-1"><div class="pos top-left"><img src="./assets/img/bg-lines/bg-lines1.svg" /></div></div>
                 <div class="ph-caption text-uppercase ph-caption-hover">
@@ -883,15 +882,14 @@ document.addEventListener('click', function(e) {
                 <div class="bg-vectors" id="bg-vectors-2"><div class="pos bottom-right"><img src="./assets/img/bg-lines/bg-lines2.svg" /></div></div>
                 <div class="tt-section-inner tt-wrap">
                     <div id="hola-foto" style="display:flex;flex-direction:column;align-items:center;width:700px;max-width:100%;margin:0 auto;gap:32px;">
-                        <img id="desk-about-me" src="./assets/img/desk-about-me.svg" alt="About Me" class="mob-no" style="display:block;width:auto;height:auto;margin:0 auto;opacity:0;border-radius:0 !important;" />
-                        <div style="flex-shrink:0;position:relative;width:475px;height:475px;border-radius:4px;overflow:hidden;cursor:default;" id="fede-photo-wrap">
-                           <img id="fede-blur-img" src="./assets/img/fede-blur.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:4px;will-change:filter,transform;transition:none;" />
-                           <img id="fede-solo-img" src="./assets/img/fede-solo.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:4px;" />
-                           <div id="fede-orange-mask" style="position:absolute;inset:0;background:#FF6600;mix-blend-mode:multiply;border-radius:4px;pointer-events:none;transition:opacity 0.6s cubic-bezier(0.25,0.46,0.45,0.94);opacity:1;"></div>
-                        </div>
+                        <img id="desk-about-me" src="./assets/img/desk-about-me.svg" alt="About Me" class="mob-no" style="display:block;width:auto;height:auto;margin:0 auto;border-radius:0 !important;" />
+                           <div id="fede-photo-wrap" class="fede" style="flex-shrink:0;position:relative;width:400px;height:400px;border-radius:4px;overflow:hidden;cursor:default;">
+                               <img src="./assets/img/fede.jpg" style="width:400px;height:400px;object-fit:cover;display:block;border-radius:4px;" />
+                               <div id="fede-orange-mask" style="position:absolute;inset:0;background:#FF6600;mix-blend-mode:multiply;border-radius:4px;pointer-events:none;transition:opacity 0.6s cubic-bezier(0.25,0.46,0.45,0.94);opacity:1;"></div>
+                           </div>
                         <div class="info" style="width:100%;display:flex;flex-direction:column;gap:16px;text-align:center;" id="fede-text-wrap">
-                            <p style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.7;margin:0;">Educated at the University of Buenos Aires (UBA), I began in Industrial Design before transitioning to Graphic Design.</p>
-                            <p style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.7;margin:0;">Over the years, my work has spanned branding, web design, and UI/UX, collaborating with startups and established companies to create brands, websites, and digital experiences that are clear, effective, and thoughtfully designed.</p>
+                            <p style="font-family:'PP Telegraf',sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.7;margin:0;">Educated at the University of Buenos Aires (UBA), I began in Industrial Design before transitioning to Graphic Design.</p>
+                            <p style="font-family:'PP Telegraf',sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.7;margin:0;">Over the years, my work has spanned branding, web design, and UI/UX, collaborating with startups and established companies to create brands, websites, and digital experiences that are clear, effective, and thoughtfully designed.</p>
                         </div>
                     </div>
                 </div>
@@ -1092,7 +1090,7 @@ document.addEventListener('click', function(e) {
             <div class="tt-section-inner tt-wrap">
                 <div style="display:flex;flex-direction:column;align-items:center;width:100%;margin:0 auto;gap:32px;text-align:center;">
                     <div style="position:relative;display:inline-block;">
-                        <div id="desk-extra-wrap" class="testi-phrase-clip" style="display:flex;justify-content:center;">
+                        <div style="overflow:hidden;line-height:0;display:flex;justify-content:center;">
                             <img id="desk-extra" src="./assets/img/desk-extra.svg" alt="" style="display:block;width:auto;height:auto;" />
                         </div>
                         <img id="figma-logo" src="./assets/img/figma-logo.png" alt="Figma" style="position:absolute;bottom:-60px;right:-100px;width:auto;height:auto;display:block;pointer-events:none;" />
@@ -1375,11 +1373,6 @@ document.addEventListener('click', (e) => {
 <script src="./assets/js/transition.js" defer></script>
 <script>
 window.addEventListener('load', () => {
-        // Refresh ScrollTrigger after Smooth Scrollbar initializes
-        setTimeout(function() {
-            if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
-        }, 1000);
-
         if (window.innerWidth > 768) {
             const hero = document.getElementById('page-header');
             if (hero) {
@@ -1445,28 +1438,6 @@ window.addEventListener('load', () => {
         } else {
             setTimeout(safeReveal, 300);
         }
-
-        // ── HERO internal breathe parallax ──
-        if (window.innerWidth > 768) {
-            setTimeout(function() {
-                const sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
-                if (!sb) return;
-                const heroLabel = document.getElementById('hero-portfolio-label');
-                const lineFedEl = document.getElementById('line-federico');
-                const lineVacEl = document.getElementById('line-vaccarezza');
-                const heroSub   = document.querySelector('.hero-subtitle');
-                const hero      = document.getElementById('page-header');
-                sb.addListener(function({ offset }) {
-                    const heroH = hero ? hero.offsetHeight : window.innerHeight;
-                    const p = Math.min(offset.y / (heroH * 2), 1);
-                    if (heroLabel) heroLabel.style.transform = 'translateY(' + (p * -40) + 'px)';
-                    if (lineFedEl) lineFedEl.style.transform = 'translateY(' + (p * -60) + 'px)';
-                    if (lineVacEl) lineVacEl.style.transform = 'translateY(' + (p * -80) + 'px)';
-                    if (heroSub)   heroSub.style.transform   = 'translateY(' + (p * -100) + 'px)';
-                });
-            }, 600);
-        }
-
         if (window.innerWidth <= 768) {
             var lastScrollY = 0;
             var menuBtn = document.getElementById('tt-ol-menu-toggle-btn-wrap');
@@ -1650,52 +1621,36 @@ window.addEventListener('load', () => {
                 gsap.to(el, { y, ease:'none', scrollTrigger: { trigger:'.desk-works-phrase', start:'top bottom', end:'bottom top', scrub } });
             });
         }
-        // ── FEDE BLUR+ZOOM on scroll ──
         if (window.innerWidth > 768) {
-            const fedeBlur = document.getElementById('fede-blur-img');
-            const fedeWrap = document.getElementById('fede-photo-wrap');
-            if (fedeBlur && fedeWrap) {
-                const obs = new IntersectionObserver(function(entries) {
-                    entries.forEach(function(entry) {
-                        if (!entry.isIntersecting) return;
-                        const sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
-                        if (!sb) return;
-                        sb.addListener(function({ offset }) {
-                            const wrapTop = fedeWrap.getBoundingClientRect().top;
-                            const vh = window.innerHeight;
-                            // empieza cuando entra al viewport, progresa hasta que sale
-                            const progress = Math.max(0, Math.min(1, (vh - wrapTop) / (vh + fedeWrap.offsetHeight)));
-                            fedeBlur.style.filter = 'blur(' + (progress * 6) + 'px)';
-                            fedeBlur.style.transform = 'scale(' + (1 + progress * 0.15) + ')';
-                            var fedeSolo = document.getElementById('fede-solo-img');
-                            if (fedeSolo) {
-                                var scale = 1 - (progress * 0.1);
-                                fedeSolo.style.transformOrigin = 'center bottom';
-                                fedeSolo.style.transform = 'scale(' + scale + ')';
-                            }
-                        });
-                        obs.disconnect();
-                    });
-                }, { threshold: 0.1 });
-                obs.observe(fedeWrap);
-            }
-        }
-
-        if (window.innerWidth > 768) {
-            var fedeAboutMe = document.getElementById('desk-about-me');
-            var fedePhoto = document.getElementById('fede-photo-wrap');
             var fedeText = document.getElementById('fede-text-wrap');
-            if (fedeAboutMe) {
-                gsap.set(fedeAboutMe, { opacity:0 });
-                gsap.to(fedeAboutMe, { opacity:1, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'top 50%', scrub:1.2 } });
-                gsap.to(fedeAboutMe, { y:-160, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'bottom top', scrub:0.6 } });
+            if (fedeText) { gsap.to(fedeText, { y:-25, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'bottom top', scrub:0.25 } }); }
+
+            // ── ABOUT pin + blur+fade ──
+            const aboutEl = document.getElementById('about');
+            if (aboutEl) {
+                aboutEl.style.position = '';
+                aboutEl.style.top = '';
+                ScrollTrigger.create({
+                    trigger: '#about',
+                    start: 'center center',
+                    end: '+=600',
+                    pin: true,
+                    pinSpacing: false,
+                    onUpdate: function(self) {
+                        const p = self.progress;
+                        aboutEl.style.filter = 'blur(' + (p * 15) + 'px)';
+                        aboutEl.style.opacity = 1 - p;
+                    },
+                    onLeave: function() {
+                        aboutEl.style.filter = 'blur(15px)';
+                        aboutEl.style.opacity = '0';
+                    },
+                    onEnterBack: function() {
+                        aboutEl.style.filter = 'blur(0px)';
+                        aboutEl.style.opacity = '1';
+                    }
+                });
             }
-            if (fedePhoto) {
-                gsap.set(fedePhoto, { opacity:0 });
-                gsap.to(fedePhoto, { opacity:1, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'top 40%', scrub:1.6 } });
-                gsap.to(fedePhoto, { y:-100, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'bottom top', scrub:0.4 } });
-            }
-            if (fedeText) { gsap.to(fedeText, { y:-60, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'bottom top', scrub:0.2 } }); }
         }
         if (window.innerWidth > 768) {
             var extraTitle = document.getElementById('desk-extra');
