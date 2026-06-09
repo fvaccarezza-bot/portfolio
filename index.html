@@ -639,7 +639,7 @@ document.addEventListener('click', function(e) {
                 </div>
             </div>
             <style>
-                #contact { margin-top:-300px; overflow:visible; padding-bottom:0 !important; }
+                #contact { overflow:visible; padding-bottom:0 !important; }
                 .footer-letsbuild { padding-bottom: 0; margin-bottom: 0; }
                 #scroll-container > .scroll-content { padding-bottom: 0 !important; }
                 #body-inner, #scroll-container, #content-wrap { padding-bottom: 0 !important; margin-bottom: 0 !important; }
@@ -801,7 +801,7 @@ window.addEventListener('load', () => {
         var footer = document.getElementById('contact');
         if (cw && footer) {
             var mt = parseFloat(cw.style.marginTop) || 0;
-            footer.style.marginBottom = (-mt) + 'px';
+            footer.style.marginTop = (-mt - 300) + 'px';
         }
     }, 500);
 
