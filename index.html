@@ -79,6 +79,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 
     #hero-portfolio-label { transform:translateY(-50px); }
     .hero-subtitle { transform:translateY(50px); }
+    #hero-portfolio-label,
+    .hero-subtitle { font-size: 24px !important; font-weight: 800 !important; letter-spacing: 8px !important; }
 }
 .section-title.hola, .section-title.hola:hover,
 .section-title.noise-fill-hover, .section-title.noise-fill-hover:hover {
@@ -1659,7 +1661,7 @@ window.addEventListener('load', () => {
                             const vh = window.innerHeight;
                             // empieza cuando entra al viewport, progresa hasta que sale
                             const progress = Math.max(0, Math.min(1, (vh - wrapTop) / (vh + fedeWrap.offsetHeight)));
-                            fedeBlur.style.filter = 'blur(' + (progress * 8) + 'px)';
+                            fedeBlur.style.filter = 'blur(' + (progress * 6) + 'px)';
                             fedeBlur.style.transform = 'scale(' + (1 + progress * 0.15) + ')';
                             var size = 450 + (progress * 50);
                             fedeWrap.style.width = size + 'px';
