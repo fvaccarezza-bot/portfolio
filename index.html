@@ -639,7 +639,7 @@ document.addEventListener('click', function(e) {
                 </div>
             </div>
             <style>
-                #contact { overflow:visible; padding-bottom:0 !important; }
+                #contact { margin-top:-300px; overflow:visible; padding-bottom:0 !important; }
                 .footer-letsbuild { padding-bottom: 0; margin-bottom: 0; }
                 #scroll-container > .scroll-content { padding-bottom: 0 !important; }
                 #body-inner, #scroll-container, #content-wrap { padding-bottom: 0 !important; margin-bottom: 0 !important; }
@@ -795,13 +795,12 @@ document.addEventListener('click', function(e) {
 window.addEventListener('load', () => {
     setTimeout(function() { if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh(); }, 1000);
 
-    // ── FIX FOOTER GAP — compensate content-wrap margin-top added by theme.js ──
+    // ── FIX FOOTER GAP — reduce content-wrap total height ──
     setTimeout(function() {
         var cw = document.getElementById('content-wrap');
-        var footer = document.getElementById('contact');
-        if (cw && footer) {
+        if (cw) {
             var mt = parseFloat(cw.style.marginTop) || 0;
-            footer.style.marginTop = (-mt - 300) + 'px';
+            cw.style.marginBottom = (-mt) + 'px';
         }
     }, 500);
 
