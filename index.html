@@ -1452,10 +1452,10 @@ window.addEventListener('load', () => {
                 sb.addListener(function({ offset }) {
                     const heroH = hero ? hero.offsetHeight : window.innerHeight;
                     const p = Math.min(offset.y / (heroH * 2), 1);
-                    if (heroLabel) heroLabel.style.transform = 'translateY(' + (p * -120) + 'px)';
-                    if (lineFedEl) lineFedEl.style.transform = 'translateY(' + (p * -60) + 'px)';
-                    if (lineVacEl) lineVacEl.style.transform = 'translateY(' + (p * -80) + 'px)';
-                    if (heroSub)   heroSub.style.transform   = 'translateY(' + (p * -140) + 'px)';
+                    if (heroLabel) heroLabel.style.transform = 'translateY(' + (p * -40) + 'px)';
+                    if (lineFedEl) lineFedEl.style.transform = 'translateY(' + (p * -80) + 'px)';
+                    if (lineVacEl) lineVacEl.style.transform = 'translateY(' + (p * -120) + 'px)';
+                    if (heroSub)   heroSub.style.transform   = 'translateY(' + (p * -160) + 'px)';
                 });
             }, 600);
         }
