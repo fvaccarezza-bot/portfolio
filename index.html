@@ -1375,6 +1375,11 @@ document.addEventListener('click', (e) => {
 <script src="./assets/js/transition.js" defer></script>
 <script>
 window.addEventListener('load', () => {
+        // Refresh ScrollTrigger after Smooth Scrollbar initializes
+        setTimeout(function() {
+            if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+        }, 1000);
+
         if (window.innerWidth > 768) {
             const hero = document.getElementById('page-header');
             if (hero) {
