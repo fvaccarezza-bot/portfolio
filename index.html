@@ -1381,9 +1381,9 @@ window.addEventListener('load', () => {
                     if (sb) {
                         sb.addListener(function({ offset }) {
                             const heroH = hero.offsetHeight;
-                            const progress = Math.min(offset.y / heroH, 1);
-                            hero.style.filter = 'blur(' + (progress * 12) + 'px)';
-                            hero.style.opacity = 1 - progress * 0.5;
+                            const progress = Math.min(offset.y / (heroH * 1.8), 1);
+                            hero.style.filter = 'blur(' + (progress * 15) + 'px)';
+                            hero.style.opacity = 1 - progress * 1.0;
                         });
                     }
                 }, 500);
