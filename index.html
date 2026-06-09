@@ -70,6 +70,11 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 #work-line { display:block; width:auto; height:auto; opacity:0; margin-bottom:0; }
 /* desk-extra: tamaño nativo por defecto */
 #desk-extra { display:block; width:auto; height:auto; transform:translateY(100%); }
+/* Hero text color override */
+#page-header .color-fv,
+#page-header .min-titles,
+#page-header .hero-subtitle { color: #F8F8F8 !important; -webkit-text-fill-color: #F8F8F8 !important; }
+#page-header .name-letter { filter: brightness(0) invert(1); }
 @media (min-width: 2560px) {
     .desk-works-phrase { transform:scale(1.5); transform-origin:center bottom; margin-bottom:150px; margin-top:50px; }
     #deck-guidelines { width: 1980px !important; max-width: 1980px !important; }
@@ -1438,6 +1443,28 @@ window.addEventListener('load', () => {
         } else {
             setTimeout(safeReveal, 300);
         }
+
+        // ── HERO internal breathe parallax ──
+        if (window.innerWidth > 768) {
+            setTimeout(function() {
+                const sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
+                if (!sb) return;
+                const heroLabel = document.getElementById('hero-portfolio-label');
+                const lineFedEl = document.getElementById('line-federico');
+                const lineVacEl = document.getElementById('line-vaccarezza');
+                const heroSub   = document.querySelector('.hero-subtitle');
+                const hero      = document.getElementById('page-header');
+                sb.addListener(function({ offset }) {
+                    const heroH = hero ? hero.offsetHeight : window.innerHeight;
+                    const p = Math.min(offset.y / (heroH * 2), 1);
+                    if (heroLabel) heroLabel.style.transform = 'translateY(' + (p * -120) + 'px)';
+                    if (lineFedEl) lineFedEl.style.transform = 'translateY(' + (p * -60) + 'px)';
+                    if (lineVacEl) lineVacEl.style.transform = 'translateY(' + (p * -80) + 'px)';
+                    if (heroSub)   heroSub.style.transform   = 'translateY(' + (p * -140) + 'px)';
+                });
+            }, 600);
+        }
+
         if (window.innerWidth <= 768) {
             var lastScrollY = 0;
             var menuBtn = document.getElementById('tt-ol-menu-toggle-btn-wrap');
