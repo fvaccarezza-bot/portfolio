@@ -69,7 +69,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 #work-them { display:block; width:auto; height:auto; opacity:0; margin-bottom:-20px; }
 #work-line { display:block; width:auto; height:auto; opacity:0; margin-bottom:0; }
 /* desk-extra: tamaño nativo por defecto */
-#desk-extra { display:block; width:auto; height:auto; transform:translateY(100%); }
+#desk-extra { display:block; width:auto; height:auto; }
 @media (min-width: 2560px) {
     .desk-works-phrase { transform:scale(1.5); transform-origin:center bottom; margin-bottom:150px; margin-top:50px; }
     #deck-guidelines { width: 1980px !important; max-width: 1980px !important; }
@@ -1634,6 +1634,7 @@ window.addEventListener('load', () => {
         (function() {
             const testiPhrase = document.getElementById('testi-phrase-img');
             if (!testiPhrase) return;
+            gsap.set(testiPhrase, { y: '100%' });
             gsap.to(testiPhrase, { y: 0, ease: 'none', scrollTrigger: { trigger: '.desktop-testi-wrap', start: 'top bottom', end: 'top 70%', scrub: 1.2 } });
         })();
         const workAfew = document.querySelector('.desk-works-afew');
@@ -1696,6 +1697,7 @@ window.addEventListener('load', () => {
             var extraText = document.getElementById('extra-text');
             var extraImg = document.getElementById('deck-guidelines');
             if (extraTitle) {
+                gsap.set(extraTitle, { y: '100%' });
                 gsap.to(extraTitle, { y: 0, ease: 'none',
                     scrollTrigger: { trigger: '#extra-section', start: 'top bottom', end: 'top 70%', scrub: 1.2 }
                 });
