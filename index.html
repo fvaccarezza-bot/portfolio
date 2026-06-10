@@ -822,6 +822,10 @@ window.addEventListener('load', () => {
         extraImg.src = window.innerWidth >= 2560
             ? './assets/img/desk-extra-uw.svg'
             : './assets/img/desk-extra.svg';
+        // Re-set GSAP position after swap
+        if (typeof gsap !== 'undefined') {
+            extraImg.onload = function() { gsap.set(extraImg, { y: '100%' }); };
+        }
     }
     swapExtraSVG();
     window.addEventListener('resize', swapExtraSVG);
@@ -1022,7 +1026,7 @@ window.addEventListener('load', () => {
 
         if (window.innerWidth > 768) {
             var extraTitle = document.getElementById('desk-extra'), extraText = document.getElementById('extra-text'), extraImg = document.getElementById('deck-guidelines');
-            if (extraTitle) { gsap.to(extraTitle, { y: 0, ease: 'none', scrollTrigger: { trigger: '#desk-extra-wrap', start: 'top 120%', end: 'top 85%', scrub: 1.2 } }); }
+            if (extraTitle) { gsap.to(extraTitle, { y: 0, ease: 'none', scrollTrigger: { trigger: '#desk-extra-wrap', start: 'top bottom', end: 'top 85%', scrub: 1.2 } }); }
             if (extraText) { gsap.set(extraText, { opacity:0, y:16 }); gsap.to(extraText, { opacity:1, y:0, duration:2.0, ease:'power3.out', delay:0.3, scrollTrigger: { trigger:'#extra-section', start:'top 80%', toggleActions:'play none none none' } }); }
             if (extraImg) {
                 gsap.set(extraImg, { opacity:0, y:0 });
