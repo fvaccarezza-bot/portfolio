@@ -168,18 +168,15 @@
          if ($pageHeader.length && $('body').hasClass('home')) {
             $pageHeader.prependTo($('#body-inner'));
             $pageHeader.css({ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 0 });
-            $('#content-wrap').css({ position: 'relative', zIndex: 1, marginTop: ($pageHeader.outerHeight() * 1.4) + 'px' });
+            $('#content-wrap').css({ position: 'relative', zIndex: 1, marginTop: ($pageHeader.outerHeight() * 1.0) + 'px' });
             bodyScrollBar.addListener(function(status) {
                var scrollY = status.offset.y;
                var heroH = $pageHeader.outerHeight();
-               // Blur más largo — 3.5x altura del hero
                var progress = Math.min(scrollY / (heroH * 3.5), 1);
                $pageHeader[0].style.filter = 'blur(' + (progress * 12) + 'px)';
                $pageHeader[0].style.opacity = 1 - progress * 0.75;
-               // Hero sube más lento — breathe escalonado
                var heroProgress = Math.min(scrollY / (heroH * 4), 1);
                $pageHeader[0].style.transform = 'translateY(' + (heroProgress * heroH * -0.25) + 'px)';
-               // content-wrap sube más rápido que el hero — crea el breathe
                var contentWrap = document.getElementById('content-wrap');
                if (contentWrap) {
                   var cwProgress = Math.min(scrollY / (heroH * 3), 1);
