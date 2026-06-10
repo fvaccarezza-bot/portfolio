@@ -640,7 +640,7 @@ document.addEventListener('click', function(e) {
             </div>
             <style>
                 @media (min-width: 769px) {
-                #contact { overflow:visible; padding-bottom:0 !important; background:transparent !important; position:relative; }
+                #contact { overflow:visible; padding-bottom:0 !important; background:transparent !important; position:relative; min-height:100vh; }
                 #contact .tt-section-inner.tt-wrap { padding-top:300px; }
                 }
                 .footer-letsbuild { padding-bottom: 0; margin-bottom: 0; }
@@ -814,8 +814,9 @@ window.addEventListener('load', () => {
         if (footer && scrollContent && cw) {
             cw.style.marginBottom = '0px';
             scrollContent.appendChild(footer);
-            // After moving, set margin-top to pull footer up over last section
             footer.style.marginTop = '-300px';
+            footer.style.background = 'transparent';
+            footer.style.backgroundColor = 'transparent';
         }
     }, 100);
 
