@@ -640,8 +640,8 @@ document.addEventListener('click', function(e) {
             </div>
             <style>
                 @media (min-width: 769px) {
-                #contact { overflow:visible; padding-bottom:0 !important; background:#f5f5f3 !important; position:relative; min-height:100vh; }
-                #contact .tt-section-inner.tt-wrap { padding-top:500px; }
+                #contact { margin-top:-300px; overflow:visible; padding-bottom:0 !important; background:transparent !important; position:relative; }
+                #contact .tt-section-inner.tt-wrap { padding-top:300px; }
                 .footer-letsbuild { position:absolute !important; bottom:0 !important; left:0 !important; width:100% !important; margin-top:0 !important; }
                 }
                 .footer-letsbuild { padding-bottom: 0; margin-bottom: 0; }
@@ -807,25 +807,14 @@ window.addEventListener('load', () => {
         if (vacImg) vacImg.src = './assets/img/desk-vaccarezza-uw.svg';
     }
 
-    // ── FIX FOOTER GAP — footer moved outside content-wrap via JS ──
+    // ── FIX FOOTER GAP ──
     setTimeout(function() {
-        var footer = document.getElementById('contact');
-        var scrollContent = document.querySelector('#scroll-container .scroll-content');
         var cw = document.getElementById('content-wrap');
-        if (footer && scrollContent && cw) {
-            cw.style.marginBottom = '0px';
-            scrollContent.appendChild(footer);
-            footer.style.marginTop = '-300px';
-            footer.style.background = '#f5f5f3';
-            footer.style.backgroundColor = '#f5f5f3';
-            footer.style.zIndex = '0';
+        if (cw) {
+            var mt = parseFloat(cw.style.marginTop) || 0;
+            cw.style.marginBottom = (-mt) + 'px';
         }
-        // Make sure header stays on top
-        var pageHeader = document.getElementById('page-header');
-        if (pageHeader) pageHeader.style.zIndex = '2';
-        var ttHeader = document.getElementById('tt-header');
-        if (ttHeader) ttHeader.style.zIndex = '99999';
-    }, 100);
+    }, 500);
 
     if (window.innerWidth > 768) {
         const hero = document.getElementById('page-header');
