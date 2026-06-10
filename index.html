@@ -641,8 +641,8 @@ document.addEventListener('click', function(e) {
             </div>
             <style>
                 @media (min-width: 769px) {
-                #contact { margin-top:-300px; overflow:visible; padding-bottom:0 !important; background:transparent !important; position:relative; }
-                #contact .tt-section-inner.tt-wrap { padding-top:500px; }
+                #contact { overflow:visible; padding-bottom:0 !important; background:transparent !important; position:relative; }
+                #contact .tt-section-inner.tt-wrap { padding-top:300px; }
                 }
                 .footer-letsbuild { padding-bottom: 0; margin-bottom: 0; }
                 #scroll-container > .scroll-content { padding-bottom: 0 !important; }
@@ -805,10 +805,10 @@ window.addEventListener('load', () => {
         var scrollContent = document.querySelector('#scroll-container .scroll-content');
         var cw = document.getElementById('content-wrap');
         if (footer && scrollContent && cw) {
-            // Remove negative margin-bottom hack
             cw.style.marginBottom = '0px';
-            // Move footer outside content-wrap, directly into scroll-content
             scrollContent.appendChild(footer);
+            // After moving, set margin-top to pull footer up over last section
+            footer.style.marginTop = '-300px';
         }
     }, 100);
 
