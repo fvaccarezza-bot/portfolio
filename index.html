@@ -814,6 +814,17 @@ window.addEventListener('load', () => {
     swapHeroSVGs();
     window.addEventListener('resize', swapHeroSVGs);
 
+    // ── UW SVG swap — desk-extra ──
+    function swapExtraSVG() {
+        var extraImg = document.getElementById('desk-extra');
+        if (!extraImg) return;
+        extraImg.src = window.innerWidth >= 2560
+            ? './assets/img/desk-extra-uw.svg'
+            : './assets/img/desk-extra.svg';
+    }
+    swapExtraSVG();
+    window.addEventListener('resize', swapExtraSVG);
+
     // footer gap handled in theme.js
 
     if (window.innerWidth > 768) {
