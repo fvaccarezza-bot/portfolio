@@ -799,12 +799,20 @@ window.addEventListener('load', () => {
     setTimeout(function() { if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh(); }, 1000);
 
     // ── UW SVG swap — load larger versions at 2560px+ ──
-    if (window.innerWidth >= 2560) {
+    function swapHeroSVGs() {
         var fedImg = document.querySelector('#line-federico img');
         var vacImg = document.querySelector('#line-vaccarezza img');
-        if (fedImg) fedImg.src = './assets/img/desk-federico-uw.svg';
-        if (vacImg) vacImg.src = './assets/img/desk-vaccarezza-uw.svg';
+        if (!fedImg || !vacImg) return;
+        if (window.innerWidth >= 2560) {
+            fedImg.src = './assets/img/desk-federico-uw.svg';
+            vacImg.src = './assets/img/desk-vaccarezza-uw.svg';
+        } else {
+            fedImg.src = './assets/img/desk-federico.svg';
+            vacImg.src = './assets/img/desk-vaccarezza.svg';
+        }
     }
+    swapHeroSVGs();
+    window.addEventListener('resize', swapHeroSVGs);
 
     // footer gap handled in theme.js
 
