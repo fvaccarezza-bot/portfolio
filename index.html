@@ -807,16 +807,7 @@ window.addEventListener('load', () => {
         if (vacImg) vacImg.src = './assets/img/desk-vaccarezza-uw.svg';
     }
 
-    // ── FIX FOOTER GAP ──
-    setTimeout(function() {
-        var cw = document.getElementById('content-wrap');
-        var footer = document.getElementById('contact');
-        if (cw && footer) {
-            var mt = parseFloat(cw.style.marginTop) || 0;
-            var fh = footer.offsetHeight;
-            cw.style.marginBottom = (-mt + fh) + 'px';
-        }
-    }, 600);
+    // footer gap handled in theme.js
 
     if (window.innerWidth > 768) {
         const hero = document.getElementById('page-header');
