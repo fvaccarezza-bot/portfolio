@@ -810,11 +810,13 @@ window.addEventListener('load', () => {
     // ── FIX FOOTER GAP ──
     setTimeout(function() {
         var cw = document.getElementById('content-wrap');
-        if (cw) {
+        var footer = document.getElementById('contact');
+        if (cw && footer) {
             var mt = parseFloat(cw.style.marginTop) || 0;
-            cw.style.marginBottom = (-mt) + 'px';
+            var fh = footer.offsetHeight;
+            cw.style.marginBottom = (-mt + fh) + 'px';
         }
-    }, 500);
+    }, 600);
 
     if (window.innerWidth > 768) {
         const hero = document.getElementById('page-header');
