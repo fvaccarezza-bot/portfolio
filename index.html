@@ -639,7 +639,7 @@ document.addEventListener('click', function(e) {
                 </div>
             </div>
             <style>
-                #contact { margin-top:-300px; overflow:visible; padding-bottom:0 !important; }
+                #contact { margin-top:-300px; overflow:visible; padding-bottom:0 !important; margin-bottom:-200px !important; }
                 .footer-letsbuild { padding-bottom: 0; margin-bottom: 0; }
                 #scroll-container > .scroll-content { padding-bottom: 0 !important; }
                 #body-inner, #scroll-container, #content-wrap { padding-bottom: 0 !important; margin-bottom: 0 !important; }
@@ -803,22 +803,6 @@ window.addEventListener('load', () => {
             cw.style.marginBottom = (-mt) + 'px';
         }
     }, 500);
-
-    // ── FOOTER FIXED at bottom like hero ──
-    if (window.innerWidth > 768) {
-        setTimeout(function() {
-            var footer = document.getElementById('contact');
-            var bodyInner = document.getElementById('body-inner');
-            if (footer && bodyInner) {
-                bodyInner.appendChild(footer);
-                footer.style.position = 'fixed';
-                footer.style.bottom = '0';
-                footer.style.left = '0';
-                footer.style.width = '100%';
-                footer.style.zIndex = '0';
-            }
-        }, 100);
-    }
 
     if (window.innerWidth > 768) {
         const hero = document.getElementById('page-header');
