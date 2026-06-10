@@ -804,6 +804,22 @@ window.addEventListener('load', () => {
         }
     }, 500);
 
+    // ── FOOTER FIXED at bottom like hero ──
+    if (window.innerWidth > 768) {
+        setTimeout(function() {
+            var footer = document.getElementById('contact');
+            var bodyInner = document.getElementById('body-inner');
+            if (footer && bodyInner) {
+                bodyInner.appendChild(footer);
+                footer.style.position = 'fixed';
+                footer.style.bottom = '0';
+                footer.style.left = '0';
+                footer.style.width = '100%';
+                footer.style.zIndex = '0';
+            }
+        }, 100);
+    }
+
     if (window.innerWidth > 768) {
         const hero = document.getElementById('page-header');
         if (hero) {
