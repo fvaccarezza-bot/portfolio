@@ -640,8 +640,9 @@ document.addEventListener('click', function(e) {
             </div>
             <style>
                 @media (min-width: 769px) {
-                #contact { overflow:visible; padding-bottom:0 !important; background:transparent !important; position:relative; min-height:100vh; }
+                #contact { overflow:visible; padding-bottom:0 !important; background:#f5f5f3 !important; position:relative; min-height:100vh; }
                 #contact .tt-section-inner.tt-wrap { padding-top:300px; }
+                .footer-letsbuild { position:absolute !important; bottom:0 !important; left:0 !important; width:100% !important; margin-top:0 !important; }
                 }
                 .footer-letsbuild { padding-bottom: 0; margin-bottom: 0; }
                 #scroll-container > .scroll-content { padding-bottom: 0 !important; }
@@ -815,8 +816,8 @@ window.addEventListener('load', () => {
             cw.style.marginBottom = '0px';
             scrollContent.appendChild(footer);
             footer.style.marginTop = '-300px';
-            footer.style.background = 'transparent';
-            footer.style.backgroundColor = 'transparent';
+            footer.style.background = '#f5f5f3';
+            footer.style.backgroundColor = '#f5f5f3';
         }
     }, 100);
 
