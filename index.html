@@ -236,7 +236,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .tt-ol-menu-list > li > a, .tt-ol-submenu-trigger, .tt-ol-submenu-trigger > a, .tt-ol-menu-toggle-btn, #tt-ol-menu-toggle-btn-wrap { -webkit-tap-highlight-color: transparent !important; }
 }
 @media (max-width: 768px) {
-    #contact, #contact.tt-section, footer#contact, footer#contact.tt-section { padding-top: 0 !important; padding-bottom: 0 !important; padding: 0 !important; margin-top: 0 !important; margin-bottom: 0 !important; min-height: 0 !important; }
+    #contact, #contact.tt-section, footer#contact, footer#contact.tt-section { padding-top: 0 !important; padding-bottom: 0 !important; padding: 0 !important; margin-bottom: 0 !important; min-height: 0 !important; }
     #services { margin-bottom: 0 !important; padding-bottom: 0 !important; }
     #page-content > *:last-child { margin-bottom: 0 !important; padding-bottom: 0 !important; }
 }
@@ -639,7 +639,10 @@ document.addEventListener('click', function(e) {
                 </div>
             </div>
             <style>
-                #contact { margin-top:-300px; overflow:visible; padding-bottom:0 !important; margin-bottom:-200px !important; background:transparent !important; }
+                @media (min-width: 769px) {
+                #contact { margin-top:-600px; overflow:visible; padding-bottom:0 !important; background:transparent !important; position:relative; }
+                #contact .tt-section-inner.tt-wrap { padding-top:300px; }
+                }
                 .footer-letsbuild { padding-bottom: 0; margin-bottom: 0; }
                 #scroll-container > .scroll-content { padding-bottom: 0 !important; }
                 #body-inner, #scroll-container, #content-wrap { padding-bottom: 0 !important; }
