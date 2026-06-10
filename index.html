@@ -799,16 +799,18 @@ document.addEventListener('click', function(e) {
 window.addEventListener('load', () => {
     setTimeout(function() { if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh(); }, 1000);
 
-    // ── FIX FOOTER GAP — reduce content-wrap total height ──
+    // ── FIX FOOTER GAP — footer moved outside content-wrap via JS ──
     setTimeout(function() {
+        var footer = document.getElementById('contact');
+        var scrollContent = document.querySelector('#scroll-container .scroll-content');
         var cw = document.getElementById('content-wrap');
-        if (cw) {
-            var mt = parseFloat(cw.style.marginTop) || 0;
-            var footer = document.getElementById('contact');
-            var footerH = footer ? footer.offsetHeight : 0;
-            cw.style.marginBottom = (-mt + footerH) + 'px';
+        if (footer && scrollContent && cw) {
+            // Remove negative margin-bottom hack
+            cw.style.marginBottom = '0px';
+            // Move footer outside content-wrap, directly into scroll-content
+            scrollContent.appendChild(footer);
         }
-    }, 500);
+    }, 100);
 
     if (window.innerWidth > 768) {
         const hero = document.getElementById('page-header');
