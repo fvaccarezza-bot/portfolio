@@ -43,6 +43,11 @@
         .work-gallery img { width:1320px; max-width:100%; height:auto!important; max-height:none!important; display:block; border-radius:6px; }
         .work-gallery img.broke-wide { width:1535px !important; max-width:1535px !important; }
         @media (max-width: 768px) {
+          .tt-ol-menu-list { display:flex !important; flex-direction:column !important; gap:2px !important; padding:0 !important; margin-top:48px !important; margin-bottom:0 !important; list-style:none !important; }
+          .tt-ol-menu-list > li > a { font-size:14px !important; letter-spacing:0.5em !important; text-transform:uppercase !important; color:#3A3A39 !important; -webkit-tap-highlight-color:transparent; }
+          .tt-ol-menu-list > li > a.active { color:#FF6600 !important; pointer-events:none !important; cursor:default !important; }
+        }
+        @media (max-width: 768px) {
           .nav-work .is-prev { display:none !important; }
         }
         body.broke .broke-title-mob { display:none; }
@@ -186,10 +191,16 @@
                            </a>
                         </div>
                         <ul class="tt-ol-menu-list">
-                           <li class="common-li"><a href="../../#about" data-vt-mode="fade">About</a></li>
-                           <li class="common-li"><a href="../../#works" data-vt-mode="fade">Works</a></li>
-                           <li class="common-li"><a href="../../#services" data-vt-mode="fade">Services</a></li>
-                           <li class="common-li"><a href="../../#contact" data-vt-mode="fade">Contact</a></li>
+                           <li class="common-li"><a href="../frogbazar/" data-vt-mode="slide" data-vt-dir="prev">Frog Bazar</a></li>
+                           <li class="common-li"><a href="../estudio32/" data-vt-mode="slide" data-vt-dir="prev">Estudio 32</a></li>
+                           <li class="common-li"><a href="../opame/" data-vt-mode="slide" data-vt-dir="prev">Opame</a></li>
+                           <li class="common-li"><a href="../nmp/" data-vt-mode="slide" data-vt-dir="prev">N.M, P</a></li>
+                           <li class="common-li"><a href="../cleo/" data-vt-mode="slide" data-vt-dir="prev">Cleo</a></li>
+                           <li class="common-li"><a href="../michi/" data-vt-mode="slide" data-vt-dir="prev">Michi Bistro</a></li>
+                           <li class="common-li"><a href="../broke/" class="active">Broke</a></li>
+                           <li class="common-li"><a href="../big-mother-energy/" data-vt-mode="slide" data-vt-dir="next">Big Mother Energy</a></li>
+                           <li class="common-li"><a href="../ui-ux/" data-vt-mode="slide" data-vt-dir="next">Product</a></li>
+                           <li class="common-li"><a href="../web/" data-vt-mode="slide" data-vt-dir="next">Web</a></li>
                         </ul>
                         </div></div></div>
                      </nav>
