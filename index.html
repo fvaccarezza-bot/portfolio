@@ -95,7 +95,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .desktop-testi-phrase { display: flex; justify-content: center; margin-bottom: 48px; }
 .desktop-testi-phrase img { display: block; width: auto; max-width: 100%; }
 @media (max-width: 768px) { .desktop-testi-phrase { display: none !important; } }
-@media (min-width: 2560px) { .desktop-testi-phrase img { transform: scale(1.5); transform-origin: center center; } .desktop-testi-phrase { margin-bottom: 150px; margin-top: 50px; } }
+@media (min-width: 2560px) { .desktop-testi-phrase img { transform: none; transform-origin: center center; } .desktop-testi-phrase { margin-bottom: 150px; margin-top: 50px; } }
 .desktop-testi-wrap { position: relative; margin-top: 0; margin-bottom: 48px; cursor: default; text-align: center; overflow: visible; }
 .desktop-testi-wrap > img { display: block; width: auto; max-width: 100%; margin: 0 auto; clip-path: inset(0); }
 .testi-phrase-clip { overflow: hidden; line-height: 0; display: flex; justify-content: center; height: auto; }
@@ -114,7 +114,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .services-big .sb-tag { bottom:-80px; right:-4%; width:28%; }
     #works .tt-wrap { max-width:min(1980px, 91.67vw) !important; }
     #works .gallery { gap: 67px 102px; }
-    .desktop-testi-wrap { transform: scale(1.5); transform-origin: center center; margin-bottom: 150px; margin-top: 200px; }
+    .desktop-testi-wrap { transform: none; margin-bottom: 150px; margin-top: 200px; }
 }
 @media (max-width:768px) { .name-letter { height:29px !important; } .home-title { gap:16px; } .name-line { gap:2px !important; } }
 @media (max-width: 768px) {
@@ -826,6 +826,17 @@ window.addEventListener('load', () => {
     }
     swapExtraSVG();
     window.addEventListener('resize', swapExtraSVG);
+
+    // ── UW SVG swap — testi phrase ──
+    function swapTestiSVG() {
+        var testiImg = document.getElementById('testi-phrase-img');
+        if (!testiImg) return;
+        testiImg.src = window.innerWidth >= 2560
+            ? './assets/img/testimonials-phrase-uw.svg'
+            : './assets/img/testimonials-phrase.svg';
+    }
+    swapTestiSVG();
+    window.addEventListener('resize', swapTestiSVG);
 
     // footer gap handled in theme.js
 
