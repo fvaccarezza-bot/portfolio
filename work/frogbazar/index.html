@@ -167,9 +167,9 @@
         .footer-lb-clip:first-child { display:flex; justify-content:center; align-items:center; }
         .footer-lb-clip:first-child #lb-line1 { width:auto; max-width:91.67vw; height:auto; }
         @media (max-width: 768px) {
-          .tt-ol-menu-list { display:flex !important; flex-direction:column !important; gap:8px !important; padding:0 !important; margin:0 !important; list-style:none !important; }
+          .tt-ol-menu-list { display:flex !important; flex-direction:column !important; gap:2px !important; padding:0 !important; margin:0 !important; list-style:none !important; }
           .tt-ol-menu-list > li > a { font-size:14px !important; letter-spacing:0.5em !important; text-transform:uppercase !important; color:#3A3A39 !important; -webkit-tap-highlight-color:transparent; }
-          .tt-ol-menu-list > li > a.active { color:#FF6600 !important; }
+          .tt-ol-menu-list > li > a.active { color:#FF6600 !important; pointer-events:none !important; cursor:default !important; }
         }
       </style>
    </head>
@@ -687,6 +687,36 @@
               }
           }
       });
+
+      // ── MOBILE: logo fade in/out independent del overlay slide ──
+      if (window.innerWidth <= 768) {
+          var insideLogo = document.querySelector('.tt-logo.inside-menu');
+          if (insideLogo) {
+              insideLogo.style.opacity = '0';
+              insideLogo.style.transition = 'none';
+          }
+          var burgerBtn = document.querySelector('.tt-ol-menu-toggle-btn');
+          if (burgerBtn) {
+              burgerBtn.addEventListener('click', function() {
+                  var isOpen = document.body.classList.contains('tt-ol-menu-open');
+                  if (!isOpen) {
+                      // va a abrir — fade in logo con delay
+                      if (insideLogo) {
+                          insideLogo.style.transition = 'opacity 0.4s ease';
+                          insideLogo.style.transitionDelay = '0.5s';
+                          insideLogo.style.opacity = '1';
+                      }
+                  } else {
+                      // va a cerrar — fade out logo rápido
+                      if (insideLogo) {
+                          insideLogo.style.transitionDelay = '0s';
+                          insideLogo.style.transition = 'opacity 0.2s ease';
+                          insideLogo.style.opacity = '0';
+                      }
+                  }
+              });
+          }
+      }
       </script>
    </body>
 </html>
