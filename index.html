@@ -117,7 +117,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .desktop-testi-wrap { transform: scale(1.5); transform-origin: center center; margin-bottom: 150px; margin-top: 200px; }
     .desktop-testi-wrap .testi-phrase-clip { transform: scale(0.6667); transform-origin: center center; }
     #testi-phrase-img { max-width: none !important; }
-    .desktop-testi-tag { left: 1200px !important; bottom: -60px !important; }
+    .desktop-testi-tag { left: 1350px !important; bottom: -60px !important; }
 }
 @media (max-width:768px) { .name-letter { height:29px !important; } .home-title { gap:16px; } .name-line { gap:2px !important; } }
 @media (max-width: 768px) {
@@ -968,9 +968,9 @@ window.addEventListener('load', () => {
             const holaInner = document.querySelector('#title-hola');
             if (holaInner) { gsap.set(holaInner, { y: '110%' }); gsap.to(holaInner, { y: 0, ease: 'none', scrollTrigger: { trigger: '#about', start: 'top bottom', end: 'center center', scrub: 1.2 } }); }
             const workAFewOk = document.getElementById('work-a-few-ok'), workLine = document.getElementById('work-line'), workThem = document.getElementById('work-them');
-            if (workAFewOk) { gsap.set(workAFewOk, { opacity:0 }); gsap.to(workAFewOk, { opacity:1, ease:'none', scrollTrigger: { trigger:'.desk-works-phrase', start:'top 85%', end:'top 30%', scrub:1.2 } }); }
-            if (workLine) { gsap.set(workLine, { opacity:0 }); gsap.to(workLine, { opacity:1, ease:'none', scrollTrigger: { trigger:'.desk-works-phrase', start:'top 80%', end:'top 25%', scrub:1.6 } }); }
-            if (workThem) { gsap.set(workThem, { opacity:0 }); gsap.to(workThem, { opacity:1, ease:'none', scrollTrigger: { trigger:'.desk-works-phrase', start:'top 75%', end:'top 20%', scrub:2.0 } }); }
+            if (workAFewOk) { gsap.set(workAFewOk, { opacity:0 }); gsap.to(workAFewOk, { opacity:1, ease:'none', scrollTrigger: { trigger:'.desk-works-phrase', start:'top 95%', end:'top 50%', scrub:1.2 } }); }
+            if (workLine) { gsap.set(workLine, { opacity:0 }); gsap.to(workLine, { opacity:1, ease:'none', scrollTrigger: { trigger:'.desk-works-phrase', start:'top 95%', end:'top 45%', scrub:1.6 } }); }
+            if (workThem) { gsap.set(workThem, { opacity:0 }); gsap.to(workThem, { opacity:1, ease:'none', scrollTrigger: { trigger:'.desk-works-phrase', start:'top 95%', end:'top 40%', scrub:2.0 } }); }
             const deskFeatured = document.getElementById('desk-featured'), deskWork = document.getElementById('desk-work');
             if (deskFeatured) { gsap.set(deskFeatured, { y: '110%' }); gsap.to(deskFeatured, { y: 0, ease: 'none', scrollTrigger: { trigger: '#works', start: 'top bottom', end: 'top 60%', scrub: 1.2 } }); }
             if (deskWork) { gsap.set(deskWork, { y: '110%' }); gsap.to(deskWork, { y: 0, ease: 'none', scrollTrigger: { trigger: '#works', start: 'top bottom', end: 'top 50%', scrub: 1.2 } }); }
@@ -1040,7 +1040,7 @@ window.addEventListener('load', () => {
             if (extraTitle) { gsap.to(extraTitle, { y: 0, ease: 'none', scrollTrigger: { trigger: '#extra-section', start: 'top bottom', end: 'top 85%', scrub: 1.2 } }); }
             if (extraText) { gsap.set(extraText, { opacity:0, y:16 }); gsap.to(extraText, { opacity:1, y:0, duration:2.0, ease:'power3.out', delay:0.3, scrollTrigger: { trigger:'#extra-section', start:'top 80%', toggleActions:'play none none none' } }); }
             var figmaLogo = document.getElementById('figma-logo');
-            if (figmaLogo) { gsap.to(figmaLogo, { opacity:1, duration:1.5, ease:'power3.out', delay:0.5, scrollTrigger: { trigger:'#extra-section', start:'top 80%', toggleActions:'play none none none' } }); }
+            if (figmaLogo) { gsap.to(figmaLogo, { opacity:1, ease:'none', scrollTrigger: { trigger:'#extra-section', start:'top 90%', end:'top 50%', scrub:1.2 } }); }
             if (extraImg) {
                 gsap.set(extraImg, { opacity:0, y:0 });
                 gsap.to(extraImg, { opacity:1, duration:1.2, ease:'power3.out', delay:0, scrollTrigger: { trigger:'#extra-section', start:'top 95%', toggleActions:'play none none none' } });
