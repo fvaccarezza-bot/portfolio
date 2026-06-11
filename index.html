@@ -115,6 +115,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #works .tt-wrap { max-width:min(1980px, 91.67vw) !important; }
     #works .gallery { gap: 67px 102px; }
     .desktop-testi-wrap { transform: none; margin-bottom: 150px; margin-top: 200px; }
+    .desktop-testi-wrap .testi-phrase-clip { transform: none; }
+    .desktop-testi-tag { transform: scale(1.5) !important; transform-origin: top left !important; }
 }
 @media (max-width:768px) { .name-letter { height:29px !important; } .home-title { gap:16px; } .name-line { gap:2px !important; } }
 @media (max-width: 768px) {
@@ -581,7 +583,6 @@ document.addEventListener('click', function(e) {
                 <div style="display:flex;justify-content:center;margin-top:32px;">
                     <a href="https://www.figma.com/design/MzElBS0sIsLs6uYz3BlaRj/Decks-and-Guidelines?node-id=0-1&t=OMYz78S2X2hq22Iq-1" target="_blank" id="deck-guidelines-frame" style="width:1320px;max-width:100%;overflow:hidden;border-radius:6px;aspect-ratio:1320/550;position:relative;display:block;">
                         <img id="deck-guidelines" src="./assets/img/deck-guidelines.jpg" alt="" style="display:block;width:100%;height:115%;object-fit:cover;object-position:center top;will-change:transform;transform:translateY(0px);opacity:0;" />
-                        <div style="position:absolute;inset:0;background:#FF6600;mix-blend-mode:multiply;pointer-events:none;opacity:1;"></div>
                     </a>
                 </div>
             </div>
