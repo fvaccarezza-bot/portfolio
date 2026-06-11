@@ -41,8 +41,7 @@
         body.broke .tt-section.padding-bottom-xlg-150 { padding-top:0!important; padding-bottom:300px!important; }
         .work-gallery { display:flex; flex-direction:column; align-items:center; gap:50px; width:100%; padding:0; }
         .work-gallery img { width:1320px; max-width:100%; height:auto!important; max-height:none!important; display:block; border-radius:6px; }
-        .work-gallery img.broke-wide { width:1535px !important; }
-        /* ── HIDE prev button mobile only ── */
+        .work-gallery img.broke-wide { width:1535px !important; max-width:1535px !important; }
         @media (max-width: 768px) {
           .nav-work .is-prev { display:none !important; }
         }
@@ -91,6 +90,8 @@
           body.broke .work-title .desc.revealed { opacity:1; transform:translateY(0); }
           .work-gallery > * { opacity:0; transform:translateY(40px); transition:opacity 1.0s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.0s cubic-bezier(0.25,0.46,0.45,0.94); }
           .work-gallery > *.in-view { opacity:1; transform:translateY(0); }
+          /* broke-wide falls back to full width on mobile */
+          .work-gallery img.broke-wide { width:100% !important; }
           #footer-bg-orange { display:none !important; }
           .footer-letsbuild { display:none !important; }
           .footer-contact-links { display:none !important; }
@@ -219,13 +220,16 @@
                   <div class="tt-section padding-bottom-xlg-150 padding-left-sm-3-p padding-right-sm-3-p no-padding-bottom work-content">
                      <div class="tt-section-inner tt-wrap center">
                         <div class="work-gallery" id="details">
-                           <img src="content/broke-0.png" alt="Broke" class="broke-wide" />
-                           <img src="content/broke-1.png" alt="Broke" />
+                           <img src="content/broke-1.png" alt="Broke" class="broke-wide" />
                            <img src="content/broke-2.png" alt="Broke" />
                            <img src="content/broke-3.png" alt="Broke" />
                            <img src="content/broke-4.jpg" alt="Broke" />
+                           <img src="content/broke-4.png" alt="Broke" />
                            <img src="content/broke-5.png" alt="Broke" />
                            <img src="content/broke-6.jpg" alt="Broke" />
+                           <img src="content/broke-7.png" alt="Broke" />
+                           <img src="content/broke-8.jpg" alt="Broke" />
+                           <img src="content/broke-9.png" alt="Broke" />
                         </div>
                      </div>
                   </div>
