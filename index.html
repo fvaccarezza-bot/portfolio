@@ -117,7 +117,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .desktop-testi-wrap { transform: scale(1.5); transform-origin: center center; margin-bottom: 150px; margin-top: 200px; }
     .desktop-testi-wrap .testi-phrase-clip { transform: scale(0.6667); transform-origin: center center; }
     #testi-phrase-img { max-width: none !important; }
-    .desktop-testi-tag { left: 0px !important; bottom: -60px !important; }
+    .desktop-testi-tag { left: 1200px !important; bottom: -60px !important; }
 }
 @media (max-width:768px) { .name-letter { height:29px !important; } .home-title { gap:16px; } .name-line { gap:2px !important; } }
 @media (max-width: 768px) {
@@ -577,7 +577,7 @@ document.addEventListener('click', function(e) {
                         <div id="desk-extra-wrap" class="testi-phrase-clip" style="display:flex;justify-content:center;">
                             <img id="desk-extra" src="./assets/img/desk-extra.svg" alt="" style="display:block;width:auto;height:auto;" />
                         </div>
-                        <img id="figma-logo" src="./assets/img/figma-logo.png" alt="Figma" style="position:absolute;bottom:-60px;right:-100px;width:auto;height:auto;display:block;pointer-events:none;" />
+                        <img id="figma-logo" src="./assets/img/figma-logo.png" alt="Figma" style="position:absolute;bottom:-60px;right:-100px;width:auto;height:auto;display:block;pointer-events:none;opacity:0;" />
                     </div>
                     <p id="extra-text" style="font-family:'PP Telegraf',sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.7;margin:0;opacity:0;">IF YOU WANT TO TAKE A DEEPER LOOK AT MY DECKS<br>AND BRAND GUIDELINES, OPEN THIS FIGMA</p>
                 </div>
@@ -1039,6 +1039,8 @@ window.addEventListener('load', () => {
             var extraTitle = document.getElementById('desk-extra'), extraText = document.getElementById('extra-text'), extraImg = document.getElementById('deck-guidelines');
             if (extraTitle) { gsap.to(extraTitle, { y: 0, ease: 'none', scrollTrigger: { trigger: '#extra-section', start: 'top bottom', end: 'top 85%', scrub: 1.2 } }); }
             if (extraText) { gsap.set(extraText, { opacity:0, y:16 }); gsap.to(extraText, { opacity:1, y:0, duration:2.0, ease:'power3.out', delay:0.3, scrollTrigger: { trigger:'#extra-section', start:'top 80%', toggleActions:'play none none none' } }); }
+            var figmaLogo = document.getElementById('figma-logo');
+            if (figmaLogo) { gsap.to(figmaLogo, { opacity:1, duration:1.5, ease:'power3.out', delay:0.5, scrollTrigger: { trigger:'#extra-section', start:'top 80%', toggleActions:'play none none none' } }); }
             if (extraImg) {
                 gsap.set(extraImg, { opacity:0, y:0 });
                 gsap.to(extraImg, { opacity:1, duration:1.2, ease:'power3.out', delay:0, scrollTrigger: { trigger:'#extra-section', start:'top 95%', toggleActions:'play none none none' } });
