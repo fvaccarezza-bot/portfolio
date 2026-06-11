@@ -170,7 +170,6 @@
           .tt-ol-menu-list { display:flex !important; flex-direction:column !important; gap:2px !important; padding:0 !important; margin-top:24px !important; margin-bottom:0 !important; list-style:none !important; }
           .tt-ol-menu-list > li > a { font-size:14px !important; letter-spacing:0.5em !important; text-transform:uppercase !important; color:#3A3A39 !important; -webkit-tap-highlight-color:transparent; }
           .tt-ol-menu-list > li > a.active { color:#FF6600 !important; pointer-events:none !important; cursor:default !important; }
-          .tt-logo.inside-menu { position:fixed !important; top:20px !important; left:20px !important; z-index:10000 !important; opacity:0 !important; transition:none !important; will-change:opacity; pointer-events:none; }
         }
       </style>
    </head>
@@ -233,12 +232,6 @@
                      </div>
                      <nav class="mob-ok tt-overlay-menu tt-ol-menu-center tt-ol-menu-count">
                         <div class="tt-ol-menu-holder"><div class="tt-ol-menu-inner tt-wrap"><div class="tt-ol-menu-content">
-                        <div class="tt-logo logo-home inside-menu">
-                           <a href="../.." id="main-logo" data-offset="0">
-                              <img src="../../assets/img/fv-logo-vector.svg" alt="" />
-                              <img src="../../assets/img/fv-logo.svg" alt="" />
-                           </a>
-                        </div>
                         <ul class="tt-ol-menu-list">
                            <li class="common-li"><a href="../frogbazar/" class="active">Frog Bazar.</a></li>
                            <li class="common-li"><a href="../estudio32/" data-vt-mode="slide" data-vt-dir="next">Estudio 32.</a></li>
@@ -691,21 +684,32 @@
 
       // ── MOBILE: logo fade in/out independent del overlay slide ──
       if (window.innerWidth <= 768) {
-          var insideLogo = document.querySelector('.tt-logo.inside-menu');
+          // Crear logo fijo para el overlay
+          var overlayLogo = document.createElement('div');
+          overlayLogo.id = 'overlay-logo-fixed';
+          overlayLogo.style.cssText = 'position:fixed;top:20px;left:20px;z-index:10001;opacity:0;pointer-events:none;transition:none;';
+          overlayLogo.innerHTML = '<a href="../.." data-offset="0" data-vt-mode="fade" style="display:flex;align-items:center;">' +
+              '<img src="../../assets/img/fv-logo-vector.svg" alt="" style="display:block;" />' +
+              '<img src="../../assets/img/fv-logo.svg" alt="" style="display:block;" />' +
+              '</a>';
+          document.body.appendChild(overlayLogo);
+
           var burgerBtn = document.querySelector('.tt-ol-menu-toggle-btn');
-          if (burgerBtn && insideLogo) {
+          if (burgerBtn) {
               burgerBtn.addEventListener('click', function() {
                   var isOpen = document.body.classList.contains('tt-ol-menu-open');
                   if (!isOpen) {
-                      // va a abrir — fade in logo
-                      insideLogo.style.transition = 'opacity 0.4s ease 0.5s';
-                      insideLogo.style.opacity = '1';
-                      insideLogo.style.pointerEvents = 'auto';
+                      // va a abrir — fade in con delay
+                      setTimeout(function() {
+                          overlayLogo.style.transition = 'opacity 0.4s ease';
+                          overlayLogo.style.opacity = '1';
+                          overlayLogo.style.pointerEvents = 'auto';
+                      }, 500);
                   } else {
-                      // va a cerrar — fade out logo
-                      insideLogo.style.transition = 'opacity 0.2s ease';
-                      insideLogo.style.opacity = '0';
-                      insideLogo.style.pointerEvents = 'none';
+                      // va a cerrar — fade out inmediato
+                      overlayLogo.style.transition = 'opacity 0.2s ease';
+                      overlayLogo.style.opacity = '0';
+                      overlayLogo.style.pointerEvents = 'none';
                   }
               });
           }
