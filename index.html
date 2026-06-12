@@ -844,6 +844,19 @@ window.addEventListener('load', () => {
 
     // footer gap handled in theme.js
 
+    // ── Fix: neutralize content-wrap upward shift that leaves a gap at the bottom ──
+    if (window.innerWidth > 768) {
+        setTimeout(function() {
+            const sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
+            const contentWrap = document.getElementById('content-wrap');
+            if (sb && contentWrap) {
+                sb.addListener(function() {
+                    contentWrap.style.transform = 'translateY(0px)';
+                });
+            }
+        }, 550);
+    }
+
     if (window.innerWidth > 768) {
         const hero = document.getElementById('page-header');
         if (hero) {
