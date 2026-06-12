@@ -590,7 +590,7 @@ document.addEventListener('click', function(e) {
             </div>
         </div>
 
-        <div id="qa-flow-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#f5f5f3;padding-top:100px !important;padding-bottom:150px !important;">
+        <div id="qa-flow-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#f5f5f3;padding-top:100px !important;padding-bottom:250px !important;">
             <div class="tt-section-inner tt-wrap">
                 <div style="display:flex;gap:120px;width:1320px;max-width:100%;margin:0 auto;align-items:flex-start;">
                     <div id="qa-col" style="width:600px;flex-shrink:0;opacity:0;">
@@ -616,7 +616,7 @@ document.addEventListener('click', function(e) {
         </div>
 
         <footer id="contact" class="tt-section">
-            <div id="footer-bg-orange" style="position:absolute;top:0px;left:0;width:100%;z-index:2;pointer-events:none;"><img src="./assets/img/desk-footer-orange-main.svg" style="width:100%;height:auto;display:block;" /></div>
+            <div id="footer-bg-orange" style="position:absolute;top:-200px;left:0;width:100%;z-index:2;pointer-events:none;opacity:0;"><img src="./assets/img/desk-footer-orange-main.svg" style="width:100%;height:auto;display:block;" /></div>
             <div class="mob-footer">
                 <div class="mob-footer-shapes" style="z-index:1;"><img class="mob-footer-shape-orange" src="./assets/img/mobile-footer-orange-shape.svg" alt="" /></div>
                 <div class="mob-footer-content" style="display:flex !important;flex-direction:column;align-items:center;gap:0;width:100%;padding:60px 0 0;position:relative;z-index:10;">
@@ -1066,6 +1066,11 @@ window.addEventListener('load', () => {
             var qaCol = document.getElementById('qa-col'), flowCol = document.getElementById('flow-col');
             if (qaCol) { gsap.set(qaCol, { opacity:0, y:30 }); gsap.to(qaCol, { opacity:1, y:0, duration:1.4, ease:'power3.out', delay:0, scrollTrigger: { trigger:'#qa-flow-section', start:'top 95%', toggleActions:'play none none none' } }); }
             if (flowCol) { gsap.set(flowCol, { opacity:0, y:30 }); gsap.to(flowCol, { opacity:1, y:0, duration:1.4, ease:'power3.out', delay:0.2, scrollTrigger: { trigger:'#qa-flow-section', start:'top 95%', toggleActions:'play none none none' } }); }
+
+            var footerOrangeBg = document.getElementById('footer-bg-orange');
+            if (footerOrangeBg) {
+                gsap.to(footerOrangeBg, { opacity:1, ease:'none', scrollTrigger: { trigger:'#contact', start:'top bottom', end:'bottom bottom', scrub:1.2 } });
+            }
         }
 
         const servicesBig = document.querySelector('.services-big');
