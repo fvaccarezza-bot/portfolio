@@ -168,8 +168,8 @@
         .footer-lb-clip:first-child #lb-line1 { width:auto; max-width:91.67vw; height:auto; }
         @media (max-width: 768px) {
           .tt-ol-menu-list { display:flex !important; flex-direction:column !important; gap:2px !important; padding:0 !important; margin-top:48px !important; margin-bottom:0 !important; list-style:none !important; }
-          .tt-ol-menu-list > li > a { font-size:14px !important; letter-spacing:0.5em !important; text-transform:uppercase !important; color:#3A3A39 !important; -webkit-tap-highlight-color:transparent; }
-          .tt-ol-menu-list > li > a.active { color:#FF6600 !important; pointer-events:none !important; cursor:default !important; }
+          .tt-ol-menu-list > li > a { font-size:14px !important; letter-spacing:0.5em !important; text-transform:uppercase !important; color:#3A3A39 !important; -webkit-tap-highlight-color:rgba(0,0,0,0.08); }
+          .tt-ol-menu-list > li > a.active { color:#FF6600 !important; pointer-events:none !important; cursor:default !important; -webkit-tap-highlight-color:transparent; }
         }
       </style>
    </head>
@@ -673,6 +673,13 @@
                           }
                       );
                   });
+
+                  // Footer orange bg fade in scrub
+                  var footerOrangeBg = document.getElementById('footer-bg-orange');
+                  if (footerOrangeBg) {
+                      gsap.set(footerOrangeBg, { opacity:0 });
+                      gsap.to(footerOrangeBg, { opacity:1, ease:'none', scrollTrigger: { trigger:'#contact', start:'top bottom', end:'bottom bottom', scrub:1.2 } });
+                  }
 
                   document.querySelectorAll('.footer-contact-socials a').forEach(function(a) {
                       a.addEventListener('mousemove', function(e) {
