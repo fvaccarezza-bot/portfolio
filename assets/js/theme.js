@@ -46,13 +46,22 @@
    let firefoxAgent = navigator.userAgent.indexOf('Firefox') > -1;
    if (firefoxAgent) { $('body').addClass('is-firefox'); }
 
+   // ── Detect mobile device ──
+   // NOTE: navigator.maxTouchPoints alone is unreliable on desktop machines —
+   // many laptops/desktops (especially Macs and Windows touchpads) report
+   // maxTouchPoints > 0 even though they are not touch/mobile devices.
+   // We now combine it with (pointer: coarse) and viewport width so that
+   // desktop trackpads/retina displays are not misclassified as mobile.
    var isMobile = false;
-   if ('maxTouchPoints' in navigator) { isMobile = navigator.maxTouchPoints > 0; }
-   else if ('msMaxTouchPoints' in navigator) { isMobile = navigator.msMaxTouchPoints > 0; }
-   else {
+   const coarsePointer = !!matchMedia?.('(pointer:coarse)')?.matches;
+   if ('maxTouchPoints' in navigator && navigator.maxTouchPoints > 0) {
+      isMobile = coarsePointer && window.innerWidth <= 1024;
+   } else if ('msMaxTouchPoints' in navigator && navigator.msMaxTouchPoints > 0) {
+      isMobile = coarsePointer && window.innerWidth <= 1024;
+   } else {
       const mQ = matchMedia?.('(pointer:coarse)');
-      if (mQ?.media === '(pointer:coarse)') { isMobile = !!mQ.matches; }
-      else if ('orientation' in window) { isMobile = true; }
+      if (mQ?.media === '(pointer:coarse)') { isMobile = !!mQ.matches && window.innerWidth <= 1024; }
+      else if ('orientation' in window) { isMobile = window.innerWidth <= 1024; }
       else { isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Nokia|Opera Mini|Tablet|Mobile/i.test(navigator.userAgent); }
    }
    if (isMobile) { $('body').addClass('is-mobile'); }
@@ -172,15 +181,15 @@
             bodyScrollBar.addListener(function(status) {
                var scrollY = status.offset.y;
                var heroH = $pageHeader.outerHeight();
-               var progress = Math.min(scrollY / (heroH * 3.5), 1);
-               $pageHeader[0].style.filter = 'blur(' + (progress * 12) + 'px)';
-               $pageHeader[0].style.opacity = 1 - progress * 0.75;
-               var heroProgress = Math.min(scrollY / (heroH * 4), 1);
-               $pageHeader[0].style.transform = 'translateY(' + (heroProgress * heroH * -0.25) + 'px)';
+               var progress = Math.min(scrollY / (heroH * 11), 1);
+               $pageHeader[0].style.filter = 'blur(' + (progress * 20) + 'px)';
+               $pageHeader[0].style.opacity = 1 - progress * 0.9;
+               var heroProgress = Math.min(scrollY / (heroH * 12), 1);
+               $pageHeader[0].style.transform = 'translateY(' + (heroProgress * heroH * -0.45) + 'px)';
                var contentWrap = document.getElementById('content-wrap');
                if (contentWrap) {
-                  var cwProgress = Math.min(scrollY / (heroH * 3), 1);
-                  contentWrap.style.transform = 'translateY(' + (cwProgress * heroH * -0.35) + 'px)';
+                  var cwProgress = Math.min(scrollY / (heroH * 11), 1);
+                  contentWrap.style.transform = 'translateY(' + (cwProgress * heroH * -0.6) + 'px)';
                }
             });
          }
