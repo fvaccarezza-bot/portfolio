@@ -181,15 +181,15 @@
             bodyScrollBar.addListener(function(status) {
                var scrollY = status.offset.y;
                var heroH = $pageHeader.outerHeight();
-               var progress = Math.min(scrollY / (heroH * 11), 1);
-               $pageHeader[0].style.filter = 'blur(' + (progress * 20) + 'px)';
-               $pageHeader[0].style.opacity = 1 - progress * 0.9;
-               var heroProgress = Math.min(scrollY / (heroH * 12), 1);
-               $pageHeader[0].style.transform = 'translateY(' + (heroProgress * heroH * -0.45) + 'px)';
+               var progress = Math.min(scrollY / (heroH * 18), 1);
+               $pageHeader[0].style.filter = 'blur(' + (progress * 28) + 'px)';
+               $pageHeader[0].style.opacity = 1 - progress * 1.0;
+               var heroProgress = Math.min(scrollY / (heroH * 20), 1);
+               $pageHeader[0].style.transform = 'translateY(' + (heroProgress * heroH * -0.5) + 'px)';
                var contentWrap = document.getElementById('content-wrap');
                if (contentWrap) {
-                  var cwProgress = Math.min(scrollY / (heroH * 11), 1);
-                  contentWrap.style.transform = 'translateY(' + (cwProgress * heroH * -0.6) + 'px)';
+                  var cwProgress = Math.min(scrollY / (heroH * 18), 1);
+                  contentWrap.style.transform = 'translateY(' + (cwProgress * heroH * -0.7) + 'px)';
                }
             });
          }
