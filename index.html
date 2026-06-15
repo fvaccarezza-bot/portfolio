@@ -33,7 +33,10 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 <link rel="stylesheet" href="./assets/css/ui-scale.css" />
 <style>
 .name-reveal-mask { display:flex; justify-content:center; overflow:hidden; }
-.name-reveal-mask + .name-reveal-mask { margin-top: 10px; }
+.name-reveal-mask + .name-reveal-mask { margin-top: -40px; }
+.name-reveal-mask:has(#line-federico) { margin-bottom: -10px; }
+.name-reveal-mask:has(#line-vaccarezza) { margin-top: -30px; }
+.faq-question { opacity:0; transform:translateY(20px); }
 .name-line { display:block; }
 .name-letter { display:block; width:auto; height:auto; }
 .home-title { display:flex; flex-direction:column; align-items:center; gap:0; text-decoration:none; transition:none !important; }
@@ -654,19 +657,19 @@ document.addEventListener('click', function(e) {
                         <div style="overflow:hidden;"><div class="faq-title-line" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:120px;line-height:94.9%;letter-spacing:0%;color:#3A3A39;-webkit-text-stroke:2px #3A3A39;white-space:nowrap;transform:translateX(-110%);">QUESTIONS</div></div>
                     </div>
                     <div style="display:flex;flex-direction:column;gap:32px;max-width:480px;padding-top:8px;">
-                        <div>
+                        <div class="faq-question">
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#FF6600;">(01)</span> What kind of clients do you work with?</p>
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">I've worked with startups, growing businesses, and established companies across a wide range of industries.</p>
                         </div>
-                        <div>
+                        <div class="faq-question">
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#FF6600;">(02)</span> What kind of projects do I take on?</p>
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">From brand identities and websites to UI/UX systems and digital products.</p>
                         </div>
-                        <div>
+                        <div class="faq-question">
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#FF6600;">(03)</span> What's it like working with me?</p>
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">I keep the process collaborative and straightforward. Clear communication, honest feedback, and execution.</p>
                         </div>
-                        <div>
+                        <div class="faq-question">
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#FF6600;">(04)</span> How long does a project take?</p>
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">Every project is different, but once I understand the scope, I'll provide a realistic timeline and keep things moving.</p>
                         </div>
@@ -679,19 +682,19 @@ document.addEventListener('click', function(e) {
             <div class="tt-section-inner tt-wrap">
                 <div style="max-width:1320px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:60px;">
                     <div style="display:flex;flex-direction:column;gap:32px;max-width:480px;padding-top:8px;">
-                        <div>
+                        <div class="faq-question">
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#FF6600;">(01)</span> What's your design process like?</p>
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">It starts with research and discovery, then moves into concepts, refinement, and final delivery.</p>
                         </div>
-                        <div>
+                        <div class="faq-question">
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#FF6600;">(02)</span> Do you offer ongoing support?</p>
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">Yes, I'm happy to help with updates, iterations, and new features after launch.</p>
                         </div>
-                        <div>
+                        <div class="faq-question">
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#FF6600;">(03)</span> Can you work with my existing brand?</p>
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">Of course. I can build on what you already have or help refine it as we go.</p>
                         </div>
-                        <div>
+                        <div class="faq-question">
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#FF6600;">(04)</span> How do we get started?</p>
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">Just reach out through the contact section below and let's talk about your project.</p>
                         </div>
@@ -1220,15 +1223,34 @@ window.addEventListener('load', () => {
             [['img:nth-child(1)',1.2,'top bottom','top 50%'],['img:nth-child(2)',1.6,'top bottom','top 45%'],['img:nth-child(3)',2.0,'top bottom','top 40%']].forEach(function([sel, scrub, start, end]) { const el = testiTag.querySelector(sel); if (!el) return; gsap.fromTo(el, { opacity:0 }, { opacity:1, ease:'none', scrollTrigger: { trigger:testiWrap, start:start, end:end, scrub } }); });
         }
 
-        // ── FAQ title: staggered left-to-right reveal ──
+        // ── FAQ title: one-time parallax reveal, then staggered questions ──
         if (window.innerWidth > 768) {
             const faqLines = document.querySelectorAll('.faq-title-line');
+            const faqQuestions = document.querySelectorAll('#faq-section .faq-question');
             faqLines.forEach((el, i) => {
-                gsap.to(el, { x: '0%', ease: 'none', scrollTrigger: { trigger: '#faq-section', start: 'top 85%', end: 'top 35%', scrub: 0.6 + i * 0.3 } });
+                gsap.to(el, {
+                    x: '0%', duration: 1.1, ease: 'power3.out', delay: i * 0.12,
+                    scrollTrigger: { trigger: '#faq-section', start: 'top 80%', toggleActions: 'play none none none' },
+                    onComplete: i === faqLines.length - 1 ? () => {
+                        faqQuestions.forEach((q, j) => {
+                            gsap.to(q, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: j * 0.12 });
+                        });
+                    } : undefined
+                });
             });
+
             const faqLines2 = document.querySelectorAll('.faq-title-line-2');
+            const faqQuestions2 = document.querySelectorAll('#faq-section-2 .faq-question');
             faqLines2.forEach((el, i) => {
-                gsap.to(el, { x: '0%', ease: 'none', scrollTrigger: { trigger: '#faq-section-2', start: 'top 85%', end: 'top 35%', scrub: 0.6 + i * 0.3 } });
+                gsap.to(el, {
+                    x: '0%', duration: 1.1, ease: 'power3.out', delay: i * 0.12,
+                    scrollTrigger: { trigger: '#faq-section-2', start: 'top 80%', toggleActions: 'play none none none' },
+                    onComplete: i === faqLines2.length - 1 ? () => {
+                        faqQuestions2.forEach((q, j) => {
+                            gsap.to(q, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: j * 0.12 });
+                        });
+                    } : undefined
+                });
             });
         }
     }
