@@ -86,7 +86,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #hero-portfolio-label { transform:translateY(-50px); }
     .hero-subtitle { transform:translateY(50px); }
     .faq-title-line, .faq-title-line-2 { font-size: 270px !important; -webkit-text-stroke: 4px #3A3A39 !important; }
-    .faq-block-wrap { max-width: 1800px !important; }
+    .faq-block-wrap { max-width: 1800px !important; width: 1800px !important; margin-left: auto !important; margin-right: auto !important; }
     .faq-questions-wrap { max-width: 654px !important; }
 }
 .section-title.hola, .section-title.hola:hover, .section-title.noise-fill-hover, .section-title.noise-fill-hover:hover { -webkit-text-stroke: 0 !important; text-stroke: 0 !important; color: #3A3A39 !important; background: none !important; -webkit-background-clip: unset !important; background-clip: unset !important; -webkit-text-fill-color: #3A3A39 !important; pointer-events: none !important; cursor: default !important; }
@@ -1057,7 +1057,7 @@ window.addEventListener('load', () => {
         viewCursor.id = 'view-cursor';
         viewCursor.style.cssText = 'position:fixed;pointer-events:none;z-index:999998;opacity:1;display:flex;align-items:center;justify-content:center;width:10px;height:10px;border-radius:50%;background:#FF6600;mix-blend-mode:multiply;overflow:hidden;will-change:left,top;transition:width 0.5s cubic-bezier(0.34,1.2,0.64,1), height 0.5s cubic-bezier(0.34,1.2,0.64,1), opacity 0.3s ease;';
         viewCursor.innerHTML = '<span style="position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1;letter-spacing:0.2em;text-align:center;text-transform:uppercase;font-family:&quot;PP Telegraf&quot;,sans-serif;font-size:0px;font-weight:400;color:white;transition:font-size 0.3s ease;"><span style="margin-left:0.2em;">VIEW</span><span style="margin-left:0.2em;">MORE</span></span>';
-        if (window.innerWidth > 768) document.body.appendChild(viewCursor);
+    if (window.innerWidth > 768) document.body.appendChild(viewCursor);
         const viewCursorText = viewCursor.querySelector('span');
 
         // ── Menu reveal on logo hover ──
