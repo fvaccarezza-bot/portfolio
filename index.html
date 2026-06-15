@@ -1229,7 +1229,7 @@ window.addEventListener('load', () => {
             const faqQuestions = document.querySelectorAll('#faq-section .faq-question');
             faqLines.forEach((el, i) => {
                 gsap.to(el, {
-                    x: '0%', duration: 1.1, ease: 'power3.out', delay: i * 0.12,
+                    x: '0%', duration: 2.0, ease: 'power3.out', delay: i * 0.18,
                     scrollTrigger: { trigger: '#faq-section', start: 'top 80%', toggleActions: 'play none none none' },
                     onComplete: i === faqLines.length - 1 ? () => {
                         faqQuestions.forEach((q, j) => {
@@ -1243,7 +1243,7 @@ window.addEventListener('load', () => {
             const faqQuestions2 = document.querySelectorAll('#faq-section-2 .faq-question');
             faqLines2.forEach((el, i) => {
                 gsap.to(el, {
-                    x: '0%', duration: 1.1, ease: 'power3.out', delay: i * 0.12,
+                    x: '0%', duration: 2.0, ease: 'power3.out', delay: i * 0.18,
                     scrollTrigger: { trigger: '#faq-section-2', start: 'top 80%', toggleActions: 'play none none none' },
                     onComplete: i === faqLines2.length - 1 ? () => {
                         faqQuestions2.forEach((q, j) => {
