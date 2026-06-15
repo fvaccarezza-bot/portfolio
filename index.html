@@ -649,9 +649,9 @@ document.addEventListener('click', function(e) {
             <div class="tt-section-inner tt-wrap">
                 <div style="max-width:1320px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:60px;">
                     <div style="overflow:visible;flex-shrink:0;">
-                        <div style="overflow:hidden;"><div class="faq-title-line" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:120px;line-height:94.9%;letter-spacing:0%;color:#3A3A39;white-space:nowrap;transform:translateX(-110%);">FREQUENTLY</div></div>
-                        <div style="overflow:hidden;"><div class="faq-title-line" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:120px;line-height:94.9%;letter-spacing:0%;color:#3A3A39;white-space:nowrap;transform:translateX(-110%);">ASKED</div></div>
-                        <div style="overflow:hidden;"><div class="faq-title-line" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:120px;line-height:94.9%;letter-spacing:0%;color:#3A3A39;white-space:nowrap;transform:translateX(-110%);">QUESTIONS</div></div>
+                        <div style="overflow:hidden;"><div class="faq-title-line" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:120px;line-height:94.9%;letter-spacing:0%;color:#3A3A39;-webkit-text-stroke:2px #3A3A39;white-space:nowrap;transform:translateX(-110%);">FREQUENTLY</div></div>
+                        <div style="overflow:hidden;"><div class="faq-title-line" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:120px;line-height:94.9%;letter-spacing:0%;color:#3A3A39;-webkit-text-stroke:2px #3A3A39;white-space:nowrap;transform:translateX(-110%);">ASKED</div></div>
+                        <div style="overflow:hidden;"><div class="faq-title-line" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:120px;line-height:94.9%;letter-spacing:0%;color:#3A3A39;-webkit-text-stroke:2px #3A3A39;white-space:nowrap;transform:translateX(-110%);">QUESTIONS</div></div>
                     </div>
                     <div style="display:flex;flex-direction:column;gap:32px;max-width:480px;padding-top:8px;">
                         <div>
@@ -1194,7 +1194,7 @@ window.addEventListener('load', () => {
         if (window.innerWidth > 768) {
             const faqLines = document.querySelectorAll('.faq-title-line');
             faqLines.forEach((el, i) => {
-                gsap.to(el, { x: '0%', ease: 'none', scrollTrigger: { trigger: '#faq-section', start: 'top 85%', end: 'top 35%', scrub: 1.2 + i * 0.4 } });
+                gsap.to(el, { x: '0%', ease: 'none', scrollTrigger: { trigger: '#faq-section', start: 'top 85%', end: 'top 35%', scrub: 0.6 + i * 0.3 } });
             });
         }
     }
