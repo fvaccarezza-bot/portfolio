@@ -86,6 +86,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .hero-subtitle { transform:translateY(50px); }
     .faq-title-line, .faq-title-line-2 { font-size: 180px !important; -webkit-text-stroke: 4px #3A3A39 !important; }
     .faq-block-wrap { max-width: 1800px !important; }
+    .faq-questions-wrap { max-width: 654px !important; }
 }
 .section-title.hola, .section-title.hola:hover, .section-title.noise-fill-hover, .section-title.noise-fill-hover:hover { -webkit-text-stroke: 0 !important; text-stroke: 0 !important; color: #3A3A39 !important; background: none !important; -webkit-background-clip: unset !important; background-clip: unset !important; -webkit-text-fill-color: #3A3A39 !important; pointer-events: none !important; cursor: default !important; }
 #modal-works .modal__dialog { display:flex; flex-direction:column; align-items:center; justify-content:center; }
@@ -655,7 +656,7 @@ document.addEventListener('click', function(e) {
                         <div style="overflow:hidden;"><div class="faq-title-line" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:120px;line-height:94.9%;letter-spacing:0%;color:#3A3A39;-webkit-text-stroke:2px #3A3A39;white-space:nowrap;transform:translateX(-110%);">ASKED</div></div>
                         <div style="overflow:hidden;"><div class="faq-title-line" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:120px;line-height:94.9%;letter-spacing:0%;color:#3A3A39;-webkit-text-stroke:2px #3A3A39;white-space:nowrap;transform:translateX(-110%);">QUESTIONS</div></div>
                     </div>
-                    <div style="display:flex;flex-direction:column;gap:32px;max-width:480px;padding-top:8px;">
+                    <div class="faq-questions-wrap" style="display:flex;flex-direction:column;gap:32px;max-width:480px;padding-top:8px;">
                         <div class="faq-question">
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(01)</span> What kind of clients do you work with?</p>
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">I've worked with startups, growing businesses, and established companies across a wide range of industries.</p>
@@ -680,7 +681,7 @@ document.addEventListener('click', function(e) {
         <div id="faq-section-2" class="tt-section mob-no" style="position:relative;z-index:2;background:#F8F8F8;padding-top:100px;padding-bottom:100px;">
             <div class="tt-section-inner tt-wrap">
                 <div class="faq-block-wrap" style="max-width:1320px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:60px;">
-                    <div style="display:flex;flex-direction:column;gap:32px;max-width:480px;padding-top:8px;">
+                    <div class="faq-questions-wrap" style="display:flex;flex-direction:column;gap:32px;max-width:480px;padding-top:8px;">
                         <div class="faq-question">
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(01)</span> What's your design process like?</p>
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">It starts with research and discovery, then moves into concepts, refinement, and final delivery.</p>
