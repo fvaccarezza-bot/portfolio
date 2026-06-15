@@ -85,7 +85,11 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #figma-logo { zoom: 1.5; }
     #hero-portfolio-label { transform:translateY(-50px); }
     .hero-subtitle { transform:translateY(50px); }
-    .faq-title-line, .faq-title-line-2 { font-size: 270px !important; line-height: 0.85 !important; -webkit-text-stroke: 6px #3A3A39 !important; padding: 0 6px !important; }
+    .faq-title-line, .faq-title-line-2 { font-size: 270px !important; line-height: 0.95 !important; -webkit-text-stroke: 6px #3A3A39 !important; padding: 0 6px !important; }
+    .faq-title-wrap > div { padding-top: 12px !important; padding-bottom: 12px !important; margin-top: -12px !important; margin-bottom: -12px !important; }
+    #faq-section .faq-title-wrap { display: flex !important; flex-direction: column !important; gap: 16px !important; }
+    #faq-section .faq-title-line { display: none !important; }
+    #faq-section .faq-title-img { display: block !important; }
     .faq-block-wrap { max-width: 1800px !important; width: 1800px !important; margin-left: auto !important; margin-right: auto !important; align-items: center !important; }
     .faq-questions-wrap { max-width: 654px !important; }
     #faq-section .tt-wrap, #faq-section-2 .tt-wrap { max-width: 1800px !important; }
@@ -656,9 +660,9 @@ document.addEventListener('click', function(e) {
             <div class="tt-section-inner tt-wrap">
                 <div class="faq-block-wrap" style="margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:60px;">
                     <div class="faq-title-wrap" style="overflow:visible;flex-shrink:0;">
-                        <div style="overflow:hidden;"><div class="faq-title-line" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:180px;line-height:80%;letter-spacing:0%;color:#3A3A39;-webkit-text-stroke:2px #3A3A39;white-space:nowrap;transform:translateX(-110%);">THINGS</div></div>
-                        <div style="overflow:hidden;"><div class="faq-title-line" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:180px;line-height:80%;letter-spacing:0%;color:#3A3A39;-webkit-text-stroke:2px #3A3A39;white-space:nowrap;transform:translateX(-110%);">I GET</div></div>
-                        <div style="overflow:hidden;"><div class="faq-title-line" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:180px;line-height:80%;letter-spacing:0%;color:#3A3A39;-webkit-text-stroke:2px #3A3A39;white-space:nowrap;transform:translateX(-110%);">ASKED</div></div>
+                        <div style="overflow:hidden;"><div class="faq-title-line" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:180px;line-height:80%;letter-spacing:0%;color:#3A3A39;-webkit-text-stroke:2px #3A3A39;white-space:nowrap;transform:translateX(-110%);">THINGS</div><img src="./assets/img/desk-things-uw.svg" alt="THINGS" class="faq-title-img" style="display:none;height:auto;width:auto;transform:translateX(-110%);" /></div>
+                        <div style="overflow:hidden;"><div class="faq-title-line" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:180px;line-height:80%;letter-spacing:0%;color:#3A3A39;-webkit-text-stroke:2px #3A3A39;white-space:nowrap;transform:translateX(-110%);">I GET</div><img src="./assets/img/desk-iget-uw.svg" alt="I GET" class="faq-title-img" style="display:none;height:auto;width:auto;transform:translateX(-110%);" /></div>
+                        <div style="overflow:hidden;"><div class="faq-title-line" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:180px;line-height:80%;letter-spacing:0%;color:#3A3A39;-webkit-text-stroke:2px #3A3A39;white-space:nowrap;transform:translateX(-110%);">ASKED</div><img src="./assets/img/desk-asked-uw.svg" alt="ASKED" class="faq-title-img" style="display:none;height:auto;width:auto;transform:translateX(-110%);" /></div>
                     </div>
                     <div class="faq-questions-wrap" style="display:flex;flex-direction:column;gap:32px;max-width:480px;padding-top:8px;">
                         <div class="faq-question">
@@ -1240,7 +1244,8 @@ window.addEventListener('load', () => {
             const faqLines = document.querySelectorAll('.faq-title-line');
             const faqQuestions = document.querySelectorAll('#faq-section .faq-question');
             faqLines.forEach((el, i) => {
-                gsap.to(el, {
+                const img = el.parentElement ? el.parentElement.querySelector('.faq-title-img') : null;
+                gsap.to(img ? [el, img] : el, {
                     x: '0%', duration: 2.0, ease: 'power3.out', delay: i * 0.18,
                     scrollTrigger: { trigger: '#faq-section', start: 'top 80%', toggleActions: 'play none none none' },
                     onComplete: i === faqLines.length - 1 ? () => {
