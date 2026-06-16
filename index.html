@@ -36,7 +36,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .name-reveal-mask:has(#line-federico) { margin-bottom: 0px; }
 .name-reveal-mask:has(#line-vaccarezza) { margin-top: 0px; }
 .faq-title-wrap { display: flex; flex-direction: column; gap: 8px; }
-.faq-question { opacity:0; transform:translateY(20px); }
+.faq-question { opacity:0; transform:translateY(20px); border-bottom: 1px solid #D4D4D4; padding-bottom: 32px; }
+.faq-question:last-child { border-bottom: none; padding-bottom: 0; }
 .faq-block-wrap { max-width: 1320px; }
 .name-line { display:block; }
 .name-letter { display:block; width:auto; height:auto; }
@@ -154,6 +155,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #works .gallery { gap: 67px 102px; }
     .desktop-testi-wrap { zoom: 1.5; margin-bottom: 150px; margin-top: 200px; }
     .desktop-testi-wrap .testi-phrase-clip { transform: scale(0.6667); transform-origin: center center; }
+    #testimonials-section .tt-col-md-6 { overflow: visible !important; }
+    .words-container, .stage { overflow: visible !important; }
     #testi-phrase-img { max-width: none !important; }
     .desktop-testi-tag { bottom: -30px !important; }
 }
@@ -348,11 +351,12 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .footer-contact-socials img { width: 25.5px !important; height: 25.5px !important; }
     /* FAQ title SVGs - retina */
     #faq-section .faq-title-img, #faq-section-2 .faq-title-img { height: 110px !important; width: auto !important; }
-    /* FAQ pills - retina */
-    #faq-pill-1, #faq-pill-2 { height: 40px !important; width: auto !important; }
     /* FAQ questions + process text - retina */
     .faq-question p { font-size: 12px !important; }
     .process-step p { font-size: 12px !important; }
+    /* Testi cards - retina fix overflow */
+    .words-container, .carousel, .stage { overflow: visible !important; }
+    .verbatim { overflow: visible !important; }
 }
 </style>
 <link rel="preload" href="./assets/fonts/PPTelegraf-Regular.woff2" as="font" type="font/woff2" crossorigin />
