@@ -657,11 +657,11 @@ document.addEventListener('click', function(e) {
             </div>
         </div>
 
-        <div id="faq-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#F8F8F8;padding-top:100px;padding-bottom:100px;">
+        <div id="faq-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#F8F8F8;padding-top:100px;padding-bottom:100px;overflow:hidden;">
+            <div style="position:absolute;top:40px;left:0;right:0;overflow:hidden;padding:0;">
+                <span class="faq-pill-inner" id="faq-pill-1" style="display:inline-block;background:#FF6600;color:#3A3A39;font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;padding:6px 16px;border-radius:5px;transform:translateX(-110%);margin-left:0;">PEOPLE NEED TO KNOW</span>
+            </div>
             <div class="tt-section-inner tt-wrap">
-                <div class="faq-pill faq-pill-left" style="display:flex;justify-content:flex-start;margin-bottom:32px;overflow:hidden;">
-                    <span class="faq-pill-inner" style="display:inline-block;background:#FF6600;color:#3A3A39;font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;padding:6px 16px;border-radius:5px;transform:translateX(-110%);">PEOPLE NEED TO KNOW</span>
-                </div>
                 <div class="faq-block-wrap" style="margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:60px;">
                     <div class="faq-title-wrap" style="overflow:visible;flex-shrink:0;">
                         <div style="overflow:hidden;"><div class="faq-title-line" style="display:none;"></div><img src="./assets/img/desk-things.svg" alt="THINGS" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-110%);" /></div>
@@ -717,11 +717,13 @@ document.addEventListener('click', function(e) {
                         <div style="overflow:hidden;"><div class="faq-title-line-2" style="display:none;"></div><img src="./assets/img/desk-flow.svg" alt="FLOW" class="faq-title-img faq-title-img-2" style="display:block;height:auto;width:auto;transform:translateX(110%);margin-left:auto;" /></div>
                     </div>
                 </div>
-                <div class="faq-pill faq-pill-right" style="display:flex;justify-content:flex-end;margin-top:32px;overflow:hidden;">
-                    <span class="faq-pill-inner" style="display:inline-block;background:#FF6600;color:#3A3A39;font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;padding:6px 16px;border-radius:5px;transform:translateX(110%);">AND THEY ALSO NEED TO KNOW ABOUT THIS</span>
-                </div>
             </div>
-        </div> class="tt-section mob-no" style="position:relative;z-index:2;background:#F8F8F8;">
+            <div style="position:absolute;bottom:40px;left:0;right:0;overflow:hidden;padding:0;display:flex;justify-content:flex-end;">
+                <span class="faq-pill-inner" id="faq-pill-2" style="display:inline-block;background:#FF6600;color:#3A3A39;font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;padding:6px 16px;border-radius:5px;transform:translateX(110%);margin-right:0;">AND THEY ALSO NEED TO KNOW ABOUT THIS</span>
+            </div>
+        </div>
+
+        <div id="trusted-by-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#F8F8F8;">
             <div class="tt-section-inner tt-wrap">
                 <div class="tt-row" style="display:flex;flex-direction:column;align-items:center;" id="trusted-by-row">
                     <img id="trusted-logos-img" src="./assets/img/desk-logos-trusted.svg" alt="Trusted by" style="display:block;width:auto;height:auto;" />
@@ -1263,7 +1265,7 @@ window.addEventListener('load', () => {
         if (window.innerWidth > 768) {
             const faqLines = document.querySelectorAll('.faq-title-line');
             const faqQuestions = document.querySelectorAll('#faq-section .faq-question');
-            const faqPill1 = document.querySelector('#faq-section .faq-pill-inner');
+            const faqPill1 = document.getElementById('faq-pill-1');
             if (faqPill1) gsap.to(faqPill1, { x: '0%', duration: 2.0, ease: 'power3.out', delay: 0, scrollTrigger: { trigger: '#faq-section', start: 'top 80%', toggleActions: 'play none none none' } });
             faqLines.forEach((el, i) => {
                 const img = el.parentElement ? el.parentElement.querySelector('.faq-title-img') : null;
@@ -1280,7 +1282,7 @@ window.addEventListener('load', () => {
 
             const faqLines2 = document.querySelectorAll('.faq-title-line-2');
             const faqQuestions2 = document.querySelectorAll('#faq-section-2 .faq-question');
-            const faqPill2 = document.querySelector('#faq-section-2 .faq-pill-inner');
+            const faqPill2 = document.getElementById('faq-pill-2');
             if (faqPill2) gsap.to(faqPill2, { x: '0%', duration: 2.0, ease: 'power3.out', delay: 0, scrollTrigger: { trigger: '#faq-section-2', start: 'top 80%', toggleActions: 'play none none none' } });
             faqLines2.forEach((el, i) => {
                 const img = el.parentElement ? el.parentElement.querySelector('.faq-title-img') : null;
