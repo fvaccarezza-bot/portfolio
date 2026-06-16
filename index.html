@@ -670,11 +670,11 @@ document.addEventListener('click', function(e) {
             </div>
         </div>
 
-        <div id="faq-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#F8F8F8;padding-top:100px;padding-bottom:100px;overflow:hidden;">
-            <div style="position:absolute;top:40px;left:0;right:0;overflow:hidden;padding:0;">
-                <img src="./assets/img/people-need.svg" id="faq-pill-1" style="display:block;height:auto;width:auto;transform:translateX(-100vw);" alt="People Need To Know" />
-            </div>
+        <div id="faq-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#F8F8F8;padding-top:100px;padding-bottom:100px;">
             <div class="tt-section-inner tt-wrap">
+                <div style="overflow:hidden;margin-bottom:32px;">
+                    <img src="./assets/img/people-need.svg" id="faq-pill-1" style="display:block;height:auto;width:auto;transform:translateX(-110%);" alt="People Need To Know" />
+                </div>
                 <div class="faq-block-wrap" style="margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:60px;">
                     <div class="faq-title-wrap" style="overflow:visible;flex-shrink:0;">
                         <div style="overflow:hidden;"><div class="faq-title-line" style="display:none;"></div><img src="./assets/img/desk-things.svg" alt="THINGS" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-110%);" /></div>
@@ -731,8 +731,10 @@ document.addEventListener('click', function(e) {
                     </div>
                 </div>
             </div>
-            <div style="position:absolute;bottom:40px;left:0;right:0;overflow:hidden;padding:0;display:flex;justify-content:flex-end;">
-                <img src="./assets/img/and-they.svg" id="faq-pill-2" style="display:block;height:auto;width:auto;transform:translateX(100vw);" alt="And They Also Need To Know About This" />
+            <div class="tt-section-inner tt-wrap" style="padding-top:0;">
+                <div style="overflow:hidden;margin-top:32px;display:flex;justify-content:flex-end;">
+                    <img src="./assets/img/and-they.svg" id="faq-pill-2" style="display:block;height:auto;width:auto;transform:translateX(110%);" alt="And They Also Need To Know About This" />
+                </div>
             </div>
         </div>
 
@@ -1279,7 +1281,7 @@ window.addEventListener('load', () => {
             const faqLines = document.querySelectorAll('.faq-title-line');
             const faqQuestions = document.querySelectorAll('#faq-section .faq-question');
             const faqPill1 = document.getElementById('faq-pill-1');
-            if (faqPill1) { gsap.set(faqPill1, { x: -window.innerWidth }); gsap.to(faqPill1, { x: 0, duration: 2.0, ease: 'power3.out', delay: 0, scrollTrigger: { trigger: '#faq-section', start: 'top 80%', toggleActions: 'play none none none' } }); }
+            if (faqPill1) { gsap.set(faqPill1, { x: '-110%' }); gsap.to(faqPill1, { x: 0, duration: 2.0, ease: 'power3.out', delay: 0, scrollTrigger: { trigger: '#faq-section', start: 'top 80%', toggleActions: 'play none none none' } }); }
             faqLines.forEach((el, i) => {
                 const img = el.parentElement ? el.parentElement.querySelector('.faq-title-img') : null;
                 gsap.to(img ? [el, img] : el, {
@@ -1296,7 +1298,7 @@ window.addEventListener('load', () => {
             const faqLines2 = document.querySelectorAll('.faq-title-line-2');
             const faqQuestions2 = document.querySelectorAll('#faq-section-2 .faq-question');
             const faqPill2 = document.getElementById('faq-pill-2');
-            if (faqPill2) { gsap.set(faqPill2, { x: window.innerWidth }); gsap.to(faqPill2, { x: 0, duration: 2.0, ease: 'power3.out', delay: 0, scrollTrigger: { trigger: '#faq-section-2', start: 'top 80%', toggleActions: 'play none none none' } }); }
+            if (faqPill2) { gsap.set(faqPill2, { x: '110%' }); gsap.to(faqPill2, { x: 0, duration: 2.0, ease: 'power3.out', delay: 0, scrollTrigger: { trigger: '#faq-section-2', start: 'top 80%', toggleActions: 'play none none none' } }); }
             faqLines2.forEach((el, i) => {
                 const img = el.parentElement ? el.parentElement.querySelector('.faq-title-img') : null;
                 gsap.to(img ? [el, img] : el, {
