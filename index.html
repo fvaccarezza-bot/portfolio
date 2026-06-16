@@ -34,8 +34,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 <style>
 .name-reveal-mask { display:flex; justify-content:center; overflow:hidden; }
 .name-reveal-mask + .name-reveal-mask { margin-top: -40px; }
-.name-reveal-mask:has(#line-federico) { margin-bottom: -30px; }
+.name-reveal-mask:has(#line-federico) { margin-bottom: 0px; }
 .name-reveal-mask:has(#line-vaccarezza) { margin-top: 0px; }
+.faq-title-wrap { display: flex; flex-direction: column; gap: 8px; }
 .faq-question { opacity:0; transform:translateY(20px); }
 .faq-block-wrap { max-width: 1320px; }
 .name-line { display:block; }
@@ -88,8 +89,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .faq-title-line, .faq-title-line-2 { font-size: 270px !important; line-height: 0.95 !important; -webkit-text-stroke: 6px #3A3A39 !important; padding: 0 6px !important; }
     .faq-title-wrap > div { padding-top: 12px !important; padding-bottom: 12px !important; margin-top: -12px !important; margin-bottom: -12px !important; }
     #faq-section .faq-title-wrap, #faq-section-2 .faq-title-wrap { display: flex !important; flex-direction: column !important; gap: 16px !important; }
-    #faq-section .faq-title-line, #faq-section-2 .faq-title-line-2 { display: none !important; }
-    #faq-section .faq-title-img, #faq-section-2 .faq-title-img { display: block !important; }
     .faq-block-wrap { max-width: 1800px !important; width: 1800px !important; margin-left: auto !important; margin-right: auto !important; align-items: center !important; }
     .faq-questions-wrap { max-width: 654px !important; }
     #faq-section .tt-wrap, #faq-section-2 .tt-wrap { max-width: 1800px !important; }
@@ -662,9 +661,9 @@ document.addEventListener('click', function(e) {
             <div class="tt-section-inner tt-wrap">
                 <div class="faq-block-wrap" style="margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:60px;">
                     <div class="faq-title-wrap" style="overflow:visible;flex-shrink:0;">
-                        <div style="overflow:hidden;"><div class="faq-title-line" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:180px;line-height:80%;letter-spacing:0%;color:#3A3A39;-webkit-text-stroke:2px #3A3A39;white-space:nowrap;transform:translateX(-110%);">THINGS</div><img src="./assets/img/desk-things-uw.svg" alt="THINGS" class="faq-title-img" style="display:none;height:auto;width:auto;transform:translateX(-110%);" /></div>
-                        <div style="overflow:hidden;"><div class="faq-title-line" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:180px;line-height:80%;letter-spacing:0%;color:#3A3A39;-webkit-text-stroke:2px #3A3A39;white-space:nowrap;transform:translateX(-110%);">I GET</div><img src="./assets/img/desk-iget-uw.svg" alt="I GET" class="faq-title-img" style="display:none;height:auto;width:auto;transform:translateX(-110%);" /></div>
-                        <div style="overflow:hidden;"><div class="faq-title-line" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:180px;line-height:80%;letter-spacing:0%;color:#3A3A39;-webkit-text-stroke:2px #3A3A39;white-space:nowrap;transform:translateX(-110%);">ASKED</div><img src="./assets/img/desk-asked-uw.svg" alt="ASKED" class="faq-title-img" style="display:none;height:auto;width:auto;transform:translateX(-110%);" /></div>
+                        <div style="overflow:hidden;"><div class="faq-title-line" style="display:none;"></div><img src="./assets/img/desk-things.svg" alt="THINGS" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-110%);" /></div>
+                        <div style="overflow:hidden;"><div class="faq-title-line" style="display:none;"></div><img src="./assets/img/desk-iget.svg" alt="I GET" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-110%);" /></div>
+                        <div style="overflow:hidden;"><div class="faq-title-line" style="display:none;"></div><img src="./assets/img/desk-asked.svg" alt="ASKED" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-110%);" /></div>
                     </div>
                     <div class="faq-questions-wrap" style="display:flex;flex-direction:column;gap:32px;max-width:480px;padding-top:8px;">
                         <div class="faq-question">
@@ -710,9 +709,9 @@ document.addEventListener('click', function(e) {
                         </div>
                     </div>
                     <div class="faq-title-wrap" style="overflow:visible;flex-shrink:0;text-align:right;">
-                        <div style="overflow:hidden;"><div class="faq-title-line-2" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:180px;line-height:80%;letter-spacing:0%;color:#3A3A39;-webkit-text-stroke:2px #3A3A39;white-space:nowrap;transform:translateX(110%);">HOW</div><img src="./assets/img/desk-how-uw.svg" alt="HOW" class="faq-title-img" style="display:none;height:auto;width:auto;transform:translateX(110%);margin-left:auto;" /></div>
-                        <div style="overflow:hidden;"><div class="faq-title-line-2" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:180px;line-height:80%;letter-spacing:0%;color:#3A3A39;-webkit-text-stroke:2px #3A3A39;white-space:nowrap;transform:translateX(110%);">THINGS</div><img src="./assets/img/desk-things-uw.svg" alt="THINGS" class="faq-title-img" style="display:none;height:auto;width:auto;transform:translateX(110%);margin-left:auto;" /></div>
-                        <div style="overflow:hidden;"><div class="faq-title-line-2" style="font-family:'PP Telegraf',sans-serif;font-weight:800;font-size:180px;line-height:80%;letter-spacing:0%;color:#3A3A39;-webkit-text-stroke:2px #3A3A39;white-space:nowrap;transform:translateX(110%);">FLOW</div><img src="./assets/img/desk-flow-uw.svg" alt="FLOW" class="faq-title-img" style="display:none;height:auto;width:auto;transform:translateX(110%);margin-left:auto;" /></div>
+                        <div style="overflow:hidden;"><div class="faq-title-line-2" style="display:none;"></div><img src="./assets/img/desk-how.svg" alt="HOW" class="faq-title-img faq-title-img-2" style="display:block;height:auto;width:auto;transform:translateX(110%);margin-left:auto;" /></div>
+                        <div style="overflow:hidden;"><div class="faq-title-line-2" style="display:none;"></div><img src="./assets/img/desk-things.svg" alt="THINGS" class="faq-title-img faq-title-img-2" style="display:block;height:auto;width:auto;transform:translateX(110%);margin-left:auto;" /></div>
+                        <div style="overflow:hidden;"><div class="faq-title-line-2" style="display:none;"></div><img src="./assets/img/desk-flow.svg" alt="FLOW" class="faq-title-img faq-title-img-2" style="display:block;height:auto;width:auto;transform:translateX(110%);margin-left:auto;" /></div>
                     </div>
                 </div>
             </div>
@@ -954,7 +953,22 @@ window.addEventListener('load', () => {
     swapTestiSVG();
     window.addEventListener('resize', swapTestiSVG);
 
-    // ── UW SVG swap — trusted logos (bounces back on resize) ──
+    // ── UW SVG swap — FAQ titles ──
+    function swapFaqSVGs() {
+        var isUW = window.innerWidth >= 2560;
+        var map = [
+            { id: null, sel: '#faq-section .faq-title-img', srcs: ['./assets/img/desk-things.svg','./assets/img/desk-iget.svg','./assets/img/desk-asked.svg'], uwSrcs: ['./assets/img/desk-things-uw.svg','./assets/img/desk-iget-uw.svg','./assets/img/desk-asked-uw.svg'] },
+            { id: null, sel: '#faq-section-2 .faq-title-img', srcs: ['./assets/img/desk-how.svg','./assets/img/desk-things.svg','./assets/img/desk-flow.svg'], uwSrcs: ['./assets/img/desk-how-uw.svg','./assets/img/desk-things-uw.svg','./assets/img/desk-flow-uw.svg'] },
+        ];
+        map.forEach(function(group) {
+            var imgs = document.querySelectorAll(group.sel);
+            imgs.forEach(function(img, i) {
+                img.src = isUW ? group.uwSrcs[i] : group.srcs[i];
+            });
+        });
+    }
+    swapFaqSVGs();
+    window.addEventListener('resize', swapFaqSVGs);
     function swapTrustedLogosSVG() {
         var img = document.getElementById('trusted-logos-img');
         if (!img) return;
