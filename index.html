@@ -100,11 +100,12 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .services-grid-item h3 { font-size: 14px !important; }
     .services-grid-item p { font-size: 14px !important; }
     /* Connect button - outside scale(1.5) */
-    .services-btns-connect { font-size: 14px !important; font-family: 'PP Telegraf', sans-serif !important; letter-spacing: 0.5em !important; text-transform: uppercase !important; }
+    .services-btns-connect { font-size: 14px !important; font-family: 'PP Telegraf', sans-serif !important; letter-spacing: 0.5em !important; text-transform: uppercase !important; padding-left: 0.5em !important; }
     /* Extra section subtitle - no scale */
     #extra-text { font-size: 14px !important; }
-    /* FAQ questions text - no scale */
-    .faq-question p { font-size: 14px !important; }
+    /* Process steps text - no scale */
+    .process-step p { font-size: 14px !important; }
+    .process-step > div:first-child { font-size: 28px !important; }
     #trusted-by-section .tt-wrap { max-width: 1800px !important; }
     #trusted-logos-img { max-width: none !important; width: auto !important; height: auto !important; }
 }
@@ -681,7 +682,7 @@ document.addEventListener('click', function(e) {
                         <div style="overflow:hidden;"><div class="faq-title-line" style="display:none;"></div><img src="./assets/img/desk-iget.svg" alt="I GET" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-110%);" /></div>
                         <div style="overflow:hidden;"><div class="faq-title-line" style="display:none;"></div><img src="./assets/img/desk-asked.svg" alt="ASKED" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-110%);" /></div>
                     </div>
-                    <div class="faq-questions-wrap" style="display:flex;flex-direction:column;gap:32px;max-width:480px;padding-top:8px;">
+                    <div class="faq-questions-wrap" style="display:flex;flex-direction:column;gap:32px;max-width:480px;padding-top:8px;align-self:stretch;justify-content:space-between;">
                         <div class="faq-question">
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(01)</span> What kind of clients do you work with?</p>
                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">I've worked with startups, growing businesses, and established companies across a wide range of industries.</p>
