@@ -103,9 +103,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .services-btns-connect { font-size: 14px !important; font-family: 'PP Telegraf', sans-serif !important; letter-spacing: 0.5em !important; text-transform: uppercase !important; padding-left: 0.5em !important; }
     /* Extra section subtitle - no scale */
     #extra-text { font-size: 14px !important; }
-    /* Process steps text - no scale */
-    .process-step p { font-size: 14px !important; }
-    .process-step > div:first-child { font-size: 28px !important; }
+    /* Process steps - force 16px against external CSS override */
+    .process-step p { font-size: 16px !important; }
+    
     #trusted-by-section .tt-wrap { max-width: 1800px !important; }
     #trusted-logos-img { max-width: none !important; width: auto !important; height: auto !important; }
 }
@@ -708,14 +708,15 @@ document.addEventListener('click', function(e) {
             <div class="tt-section-inner tt-wrap">
                 <div class="faq-block-wrap" style="margin:0 auto;display:flex;justify-content:space-between;align-items:flex-start;gap:60px;">
                     <div class="faq-questions-wrap" style="display:flex;flex-direction:column;width:480px;padding-top:8px;position:relative;justify-content:space-between;align-self:stretch;">
-                        <!-- vertical line: left = 80(num) + 24(gap) + 16(gap2)/2 + 12(circle)/2 = 118px, center of circle -->
-                        <div style="position:absolute;left:118px;top:0;bottom:0;width:1px;background:#FF6600;transform-origin:top;transform:scaleY(0);" id="process-line"></div>
                         <!-- step 01 -->
                         <div class="process-step" style="display:flex;align-items:flex-start;gap:24px;opacity:0;transform:translateY(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:32px;font-weight:800;color:#3A3A39;line-height:1;white-space:nowrap;width:80px;flex-shrink:0;">(01)</div>
-                            <div style="display:flex;align-items:flex-start;gap:16px;padding-top:6px;min-width:0;">
-                                <div style="width:12px;height:12px;border-radius:50%;background:#FF6600;flex-shrink:0;margin-top:2px;position:relative;z-index:1;"></div>
-                                <div style="min-width:0;">
+                            <div style="display:flex;align-items:flex-start;gap:16px;padding-top:6px;min-width:0;position:relative;">
+                                <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+                                    <div style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div>
+                                    <div class="process-line-seg" style="width:1px;flex:1;background:#FF6600;transform:scaleY(0);transform-origin:top;"></div>
+                                </div>
+                                <div style="min-width:0;padding-bottom:24px;">
                                     <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Understand</p>
                                     <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">Learning about your business, goals, and challenges.</p>
                                 </div>
@@ -725,8 +726,11 @@ document.addEventListener('click', function(e) {
                         <div class="process-step" style="display:flex;align-items:flex-start;gap:24px;opacity:0;transform:translateY(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:32px;font-weight:800;color:#3A3A39;line-height:1;white-space:nowrap;width:80px;flex-shrink:0;">(02)</div>
                             <div style="display:flex;align-items:flex-start;gap:16px;padding-top:6px;min-width:0;">
-                                <div style="width:12px;height:12px;border-radius:50%;background:#FF6600;flex-shrink:0;margin-top:2px;position:relative;z-index:1;"></div>
-                                <div style="min-width:0;">
+                                <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+                                    <div style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div>
+                                    <div class="process-line-seg" style="width:1px;flex:1;background:#FF6600;transform:scaleY(0);transform-origin:top;"></div>
+                                </div>
+                                <div style="min-width:0;padding-bottom:24px;">
                                     <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Explore</p>
                                     <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">Developing ideas, directions, and solutions.</p>
                                 </div>
@@ -736,18 +740,23 @@ document.addEventListener('click', function(e) {
                         <div class="process-step" style="display:flex;align-items:flex-start;gap:24px;opacity:0;transform:translateY(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:32px;font-weight:800;color:#3A3A39;line-height:1;white-space:nowrap;width:80px;flex-shrink:0;">(03)</div>
                             <div style="display:flex;align-items:flex-start;gap:16px;padding-top:6px;min-width:0;">
-                                <div style="width:12px;height:12px;border-radius:50%;background:#FF6600;flex-shrink:0;margin-top:2px;position:relative;z-index:1;"></div>
-                                <div style="min-width:0;">
+                                <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+                                    <div style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div>
+                                    <div class="process-line-seg" style="width:1px;flex:1;background:#FF6600;transform:scaleY(0);transform-origin:top;"></div>
+                                </div>
+                                <div style="min-width:0;padding-bottom:24px;">
                                     <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Create</p>
                                     <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">Designing, refining, and bringing everything together.</p>
                                 </div>
                             </div>
                         </div>
-                        <!-- step 04 -->
+                        <!-- step 04 - no line segment after last -->
                         <div class="process-step" style="display:flex;align-items:flex-start;gap:24px;opacity:0;transform:translateY(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:32px;font-weight:800;color:#3A3A39;line-height:1;white-space:nowrap;width:80px;flex-shrink:0;">(04)</div>
                             <div style="display:flex;align-items:flex-start;gap:16px;padding-top:6px;min-width:0;">
-                                <div style="width:12px;height:12px;border-radius:50%;background:#FF6600;flex-shrink:0;margin-top:2px;position:relative;z-index:1;"></div>
+                                <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+                                    <div style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div>
+                                </div>
                                 <div style="min-width:0;">
                                     <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Deliver</p>
                                     <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">Launching the final work and supporting what comes next.</p>
@@ -1338,6 +1347,8 @@ window.addEventListener('load', () => {
                         if (processLine) gsap.to(processLine, { scaleY: 1, duration: 1.2, ease: 'power3.out', delay: 0.1 });
                         processSteps.forEach((step, j) => {
                             gsap.to(step, { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', delay: 0.1 + j * 0.18 });
+                            const seg = step.querySelector('.process-line-seg');
+                            if (seg) gsap.to(seg, { scaleY: 1, duration: 0.6, ease: 'power3.out', delay: 0.3 + j * 0.18 });
                         });
                     } : undefined
                 });
