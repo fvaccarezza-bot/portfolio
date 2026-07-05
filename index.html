@@ -344,10 +344,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 @media (min-width: 2560px) {
     .stickers-scene { width:1500px !important; height:660px !important; }
     .stk-wrap[data-bolsita] .stk { width:1500px !important; }
-    .stk-wrap:not([data-bolsita]) .stk { zoom:1.3; }
     #stickers-outer { padding-bottom: 160px !important; }
     #fede-photo-wrap { width:425px !important; height:425px !important; }
-    #trusted-phrase-wrap { margin-bottom: 20px !important; }
+    #trusted-phrase-wrap { margin-bottom: -40px !important; }
     #trusted-phrase-span { font-size: 16px !important; }
     #footer-copyright { font-size: 16px !important; }
 }
@@ -400,8 +399,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #testimonials-section { margin-bottom: 100px !important; }
     .words-container { margin-top: 50px !important; }
     #stickers-outer { padding-bottom: 10px !important; }
-    .stk-wrap:not([data-bolsita]) .stk { zoom: 0.85; }
-    .stk-wrap[data-bolsita] .stk { zoom: 0.85; }
 }
 </style>
 <link rel="preload" href="./assets/fonts/PPTelegraf-Regular.woff2" as="font" type="font/woff2" crossorigin />
@@ -792,19 +789,19 @@ document.addEventListener('click', function(e) {
 
         <div id="stickers-outer" class="mob-no" style="position:relative;z-index:2;background:#F8F8F8;display:flex;justify-content:center;padding:0 0 60px;">
             <div class="stickers-scene" style="width:900px;max-width:100%;margin-top:-30px;">
-                <div class="stk-wrap" data-x="-280" data-y="-65" data-rot="-10" style="transform:translate(0px,0px) rotate(-10deg);"><img class="stk" src="./assets/img/sticker2.png" style="width:118px;" /></div>
-                <div class="stk-wrap" data-x="-280" data-y="12" data-rot="-8" style="transform:translate(0px,0px) rotate(-8deg);"><img class="stk" src="./assets/img/sticker1.png" style="width:227px;" /></div>
-                <div class="stk-wrap" data-x="-222" data-y="65" data-rot="7" style="transform:translate(0px,0px) rotate(7deg);"><img class="stk" src="./assets/img/sticker3.png" style="width:235px;" /></div>
-                <div class="stk-wrap" data-x="-180" data-y="-38" data-rot="-3" style="transform:translate(0px,0px) rotate(-3deg);"><img class="stk" src="./assets/img/sticker4.png" style="width:231px;" /></div>
-                <div class="stk-wrap" data-x="12" data-y="-80" data-rot="1" style="transform:translate(0px,0px) rotate(1deg);"><img class="stk" src="./assets/img/sticker7.png" style="width:396px;" /></div>
-                <div class="stk-wrap" data-x="45" data-y="-25" data-rot="-3" style="transform:translate(0px,0px) rotate(-3deg);"><img class="stk" src="./assets/img/sticker6.png" style="width:323px;" /></div>
-                <div class="stk-wrap" data-x="-58" data-y="65" data-rot="5" style="transform:translate(0px,0px) rotate(5deg);"><img class="stk" src="./assets/img/sticker5.png" style="width:173px;" /></div>
-                <div class="stk-wrap" data-x="-148" data-y="78" data-rot="-8" style="transform:translate(0px,0px) rotate(-8deg);"><img class="stk" src="./assets/img/sticker9.png" style="width:46px;" /></div>
-                <div class="stk-wrap" data-x="102" data-y="25" data-rot="12" style="transform:translate(0px,0px) rotate(12deg);"><img class="stk" src="./assets/img/sticker8.png" style="width:48px;" /></div>
-                <div class="stk-wrap" data-x="163" data-y="42" data-rot="-6" style="transform:translate(0px,0px) rotate(-6deg);"><img class="stk" src="./assets/img/sticker10.png" style="width:127px;" /></div>
-                <div class="stk-wrap" data-x="222" data-y="-48" data-rot="-5" style="transform:translate(0px,0px) rotate(-5deg);"><img class="stk" src="./assets/img/sticker12.png" style="width:210px;" /></div>
-                <div class="stk-wrap" data-x="262" data-y="44" data-rot="8" style="transform:translate(0px,0px) rotate(8deg);"><img class="stk" src="./assets/img/sticker11.png" style="width:141px;" /></div>
-                <div class="stk-wrap" data-x="288" data-y="-65" data-rot="10" style="transform:translate(0px,0px) rotate(10deg);"><img class="stk" src="./assets/img/sticker14.png" style="width:49px;" /></div>
+                <div class="stk-wrap" data-x="-280" data-y="-65" data-rot="-10" style="transform:translate(0px,0px) rotate(-10deg);"><img class="stk" src="./assets/img/sticker2.png" /></div>
+                <div class="stk-wrap" data-x="-280" data-y="12" data-rot="-8" style="transform:translate(0px,0px) rotate(-8deg);"><img class="stk" src="./assets/img/sticker1.png" /></div>
+                <div class="stk-wrap" data-x="-222" data-y="65" data-rot="7" style="transform:translate(0px,0px) rotate(7deg);"><img class="stk" src="./assets/img/sticker3.png" /></div>
+                <div class="stk-wrap" data-x="-150" data-y="-18" data-rot="-3" style="transform:translate(0px,0px) rotate(-3deg);"><img class="stk" src="./assets/img/sticker4.png" /></div>
+                <div class="stk-wrap" data-x="12" data-y="-80" data-rot="1" style="transform:translate(0px,0px) rotate(1deg);"><img class="stk" src="./assets/img/sticker7.png" /></div>
+                <div class="stk-wrap" data-x="45" data-y="-25" data-rot="-3" style="transform:translate(0px,0px) rotate(-3deg);"><img class="stk" src="./assets/img/sticker6.png" /></div>
+                <div class="stk-wrap" data-x="-58" data-y="65" data-rot="5" style="transform:translate(0px,0px) rotate(5deg);"><img class="stk" src="./assets/img/sticker5.png" /></div>
+                <div class="stk-wrap" data-x="-148" data-y="78" data-rot="-8" style="transform:translate(0px,0px) rotate(-8deg);"><img class="stk" src="./assets/img/sticker9.png" /></div>
+                <div class="stk-wrap" data-x="102" data-y="25" data-rot="12" style="transform:translate(0px,0px) rotate(12deg);"><img class="stk" src="./assets/img/sticker8.png" /></div>
+                <div class="stk-wrap" data-x="163" data-y="42" data-rot="-6" style="transform:translate(0px,0px) rotate(-6deg);"><img class="stk" src="./assets/img/sticker10.png" /></div>
+                <div class="stk-wrap" data-x="222" data-y="-48" data-rot="-5" style="transform:translate(0px,0px) rotate(-5deg);"><img class="stk" src="./assets/img/sticker12.png" /></div>
+                <div class="stk-wrap" data-x="262" data-y="44" data-rot="8" style="transform:translate(0px,0px) rotate(8deg);"><img class="stk" src="./assets/img/sticker11.png" /></div>
+                <div class="stk-wrap" data-x="288" data-y="-65" data-rot="10" style="transform:translate(0px,0px) rotate(10deg);"><img class="stk" src="./assets/img/sticker14.png" /></div>
                 <div class="stk-wrap" data-x="0" data-y="0" data-rot="-5" data-bolsita="1" style="z-index:999;transform:translate(0px,0px) rotate(-5deg);pointer-events:none;"><img class="stk" src="./assets/img/bag.png" style="pointer-events:none;" /></div>
             </div>
         </div>
@@ -1126,6 +1123,26 @@ window.addEventListener('load', () => {
     }
     swapFooterOrangeSVG();
     window.addEventListener('resize', swapFooterOrangeSVG);
+    function applyUWTrustedGap() {
+        var wrap = document.getElementById('trusted-phrase-wrap');
+        if (!wrap) return;
+        wrap.style.marginBottom = window.innerWidth >= 2560 ? '-40px' : '80px';
+    }
+    applyUWTrustedGap();
+    window.addEventListener('resize', applyUWTrustedGap);
+    function swapStickerImages() {
+        var isUW = window.innerWidth >= 2560;
+        document.querySelectorAll('.stk-wrap:not([data-bolsita]) .stk').forEach(function(img) {
+            var src = img.getAttribute('src');
+            if (isUW) {
+                img.setAttribute('src', src.replace(/sticker(\d+)\.png/, 'sticker$1uw.png'));
+            } else {
+                img.setAttribute('src', src.replace(/sticker(\d+)uw\.png/, 'sticker$1.png'));
+            }
+        });
+    }
+    swapStickerImages();
+    window.addEventListener('resize', swapStickerImages);
 
     // footer gap handled in theme.js
 
