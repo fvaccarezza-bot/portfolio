@@ -344,6 +344,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .stk { display:block; height:auto; transition:transform 0.55s cubic-bezier(0.34,1.4,0.64,1), filter 0.3s ease; pointer-events:visiblePainted; cursor:grab; }
 .stk:hover { filter:brightness(1.06); transform:scale(1.1); }
 .stk:active { cursor:grabbing; }
+.stk.is-grabbed { filter:brightness(1.08) drop-shadow(0 16px 22px rgba(0,0,0,.35)); transform:scale(1.14); }
 @media (min-width: 2560px) {
     .stickers-scene { width:1500px !important; height:660px !important; }
     .stk-wrap[data-bolsita] .stk { width:1500px !important; }
@@ -402,6 +403,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #testimonials-section { margin-bottom: 100px !important; }
     .words-container { margin-top: 50px !important; }
     #stickers-outer { padding-bottom: 10px !important; }
+    #trusted-by-section { padding-top: 50px !important; }
+    #trusted-phrase-wrap { margin-bottom: 40px !important; }
+    #trusted-by-row { transform: translateY(-50px) !important; }
 }
 </style>
 <link rel="preload" href="./assets/fonts/PPTelegraf-Regular.woff2" as="font" type="font/woff2" crossorigin />
@@ -1112,9 +1116,11 @@ window.addEventListener('load', () => {
     function swapTrustedLogosSVG() {
         var img = document.getElementById('trusted-logos-img');
         if (!img) return;
-        img.src = window.innerWidth >= 2560
+        var isUW = window.innerWidth >= 2560;
+        var isRetina = window.matchMedia('(min-resolution: 2dppx)').matches;
+        img.src = isUW
             ? './assets/img/desk-logos-trusted-uw.svg'
-            : './assets/img/desk-logos-trusted.svg';
+            : (isRetina ? './assets/img/desk-logos-trusted-rt.svg' : './assets/img/desk-logos-trusted.svg');
     }
     swapTrustedLogosSVG();
     window.addEventListener('resize', swapTrustedLogosSVG);
@@ -1134,14 +1140,23 @@ window.addEventListener('load', () => {
     }
     applyUWTrustedGap();
     window.addEventListener('resize', applyUWTrustedGap);
+    var stickerRtMissing = []; // sticker12rt.png uploaded
     function swapStickerImages() {
         var isUW = window.innerWidth >= 2560;
         document.querySelectorAll('.stk-wrap:not([data-bolsita]) .stk').forEach(function(img) {
             var src = img.getAttribute('src');
             if (isUW) {
-                img.setAttribute('src', src.replace(/sticker(\d+)\.png/, 'sticker$1uw.png'));
+                img.setAttribute('src', src.replace(/sticker(\d+)(rt)?\.png/, 'sticker$1uw.png'));
+                img.removeAttribute('srcset');
             } else {
-                img.setAttribute('src', src.replace(/sticker(\d+)uw\.png/, 'sticker$1.png'));
+                var base = src.replace(/sticker(\d+)uw\.png/, 'sticker$1.png');
+                img.setAttribute('src', base);
+                var m = base.match(/sticker(\d+)\.png/);
+                if (m && stickerRtMissing.indexOf(parseInt(m[1], 10)) === -1) {
+                    img.setAttribute('srcset', base + ' 1x, ' + base.replace(/sticker(\d+)\.png/, 'sticker$1rt.png') + ' 3x');
+                } else {
+                    img.removeAttribute('srcset');
+                }
             }
         });
     }
@@ -1759,8 +1774,8 @@ if (window.innerWidth > 768) {
                 stkHalfH = (stkEl.offsetHeight * zf) / 2;
                 wrap.style.zIndex = ++topZ;
                 if (bolsitaWrap) bolsitaWrap.style.zIndex = topZ + 1;
+                stkEl.classList.add('is-grabbed');
                 wrap.style.transition = 'none';
-                stkEl.style.transition = 'none';
                 e.preventDefault();
             });
             document.addEventListener('mousemove', function(e) {
@@ -1785,7 +1800,7 @@ if (window.innerWidth > 768) {
                 wrap._baseX = tx; wrap._baseY = ty;
                 wrap.style.transition = 'transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1)';
                 setTransform(wrap, tx, ty);
-                stkEl.style.transition = '';
+                stkEl.classList.remove('is-grabbed');
                 setTimeout(function() { wrap.style.transition = ''; }, 450);
             });
         });
