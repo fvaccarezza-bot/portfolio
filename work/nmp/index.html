@@ -180,7 +180,7 @@
                            <li><a href="../../#about" data-offset="60" data-vt-mode="fade">About</a></li>
                            <li><a href="#" data-modal-open="#modal-works">Works</a></li>
                            <li><a href="../../#services" data-offset="40" data-vt-mode="fade">Services</a></li>
-                           <li><a href="../../#contact" data-offset="14" data-vt-mode="fade">Contact</a></li>
+                           <li><a href="#contact" data-offset="14">Contact</a></li>
                         </ul>
                         </div></div></div>
                      </nav>
@@ -535,12 +535,6 @@
                   if (line1) gsap.to(line1, { y:0, ease:'none', scrollTrigger: { trigger:'#contact', start:'top 90%', end:'top 20%', scrub:1.0 } });
                   if (line2) gsap.to(line2, { y:0, ease:'none', scrollTrigger: { trigger:'#contact', start:'top 80%', end:'top 10%', scrub:1.6 } });
 
-                  // Footer orange bg fade in scrub
-                  var footerOrangeBg = document.getElementById('footer-bg-orange');
-                  if (footerOrangeBg) {
-                      gsap.set(footerOrangeBg, { opacity:0 });
-                      gsap.to(footerOrangeBg, { opacity:1, ease:'none', scrollTrigger: { trigger:'#contact', start:'top bottom', end:'bottom bottom', scrub:1.2 } });
-                  }
 
                   document.querySelectorAll('.footer-contact-socials a').forEach(function(a) {
                       a.addEventListener('mousemove', function(e) { var rect = a.getBoundingClientRect(); var dx = (e.clientX-(rect.left+rect.width/2))/(rect.width/2); var dy = (e.clientY-(rect.top+rect.height/2))/(rect.height/2); a.style.transform = 'translateY(-4px) scale(1.15) translate('+(dx*4)+'px,'+(dy*4)+'px)'; a.style.transition = 'transform 0.15s ease'; });

@@ -512,7 +512,7 @@
       if ($('#tt-header').hasClass('tt-header-fixed')) { var $offset = $('#tt-header').height(); } else { var $offset = 0; }
       if ($(this).data('offset') != undefined) $offset = $(this).data('offset');
       if (!isMobile) {
-         if ($('body').hasClass('tt-smooth-scroll')) { var topY = $(target).offset().top - $('#scroll-container > .scroll-content').offset().top - $offset; var $scrollbar = Scrollbar.init(document.getElementById('scroll-container')); gsap.to($scrollbar, { duration: 1.5, scrollTo: { y: topY, autoKill: true }, ease: Expo.easeInOut }); }
+         if ($('body').hasClass('tt-smooth-scroll')) { var topY = $(target).offset().top - $('#scroll-container > .scroll-content').offset().top - $offset; var $scrollbar = Scrollbar.init(document.getElementById('scroll-container')); gsap.to($scrollbar, { duration: 2.2, scrollTo: { y: topY, autoKill: true }, ease: Expo.easeInOut }); }
          else { var topY = $(target).offset().top - $('body').offset().top - $offset; $('html,body').animate({ scrollTop: topY }, 800); }
       } else { var topY = $(target).offset().top - $('body').offset().top - $offset; $('html,body').animate({ scrollTop: topY }, 800); }
       return false;

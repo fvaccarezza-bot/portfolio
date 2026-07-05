@@ -42,6 +42,9 @@
         .work-gallery { display:flex; flex-direction:column; align-items:center; gap:50px; width:100%; padding:0; }
         .work-gallery img { width:1320px; max-width:100%; height:auto!important; max-height:none!important; display:block; border-radius:6px; }
         .work-gallery img.broke-wide { width:1535px !important; max-width:1535px !important; }
+        @media (min-width: 2560px) {
+          .work-gallery img.broke-wide { width:1550px !important; max-width:1550px !important; }
+        }
         @media (max-width: 768px) {
           .tt-ol-menu-list { display:flex !important; flex-direction:column !important; gap:2px !important; padding:0 !important; margin-top:48px !important; margin-bottom:0 !important; list-style:none !important; }
           .tt-ol-menu-list > li > a { font-size:14px !important; letter-spacing:0.5em !important; text-transform:uppercase !important; color:#3A3A39 !important; -webkit-tap-highlight-color:rgba(0,0,0,0.08); }
@@ -167,7 +170,7 @@
                            <li><a href="../../#about" data-offset="60" data-vt-mode="fade">About</a></li>
                            <li><a href="#" data-modal-open="#modal-works">Works</a></li>
                            <li><a href="../../#services" data-offset="40" data-vt-mode="fade">Services</a></li>
-                           <li><a href="../../#contact" data-offset="14" data-vt-mode="fade">Contact</a></li>
+                           <li><a href="#contact" data-offset="14">Contact</a></li>
                         </ul>
                         </div></div></div>
                      </nav>

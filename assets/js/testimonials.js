@@ -5,6 +5,7 @@
 
   // Parámetros visuales
   const CARD_W = 540;
+  const SIDE_OVERLAP = 53; // px de solape con la card activa (standard)
   const SIDE_SCALE = 0.82; // prev/next más chicos
   const SIDE_BLUR = 4; // blur alto constante
   const HOVER_SCALE = 0.88; // hover leve (siempre < 1)
@@ -13,10 +14,17 @@
   const HIDDEN_MARGIN = 12; // cuánto fuera de escena queda el hidden
 
   const MOBILE_MQ = window.matchMedia("(max-width: 960px)");
+  const UW_MQ = window.matchMedia("(min-width: 2560px)");
   let isMobile = MOBILE_MQ.matches;
+  function uwSideScale() { return UW_MQ.matches ? 1 : SIDE_SCALE; }
+  function uwHoverScale() { return UW_MQ.matches ? 1 : HOVER_SCALE; }
 
   MOBILE_MQ.addEventListener("change", (e) => {
     isMobile = e.matches;
+    applyLayout();
+    bindSideInteractions();
+  });
+  UW_MQ.addEventListener("change", () => {
     applyLayout();
     bindSideInteractions();
   });
@@ -136,12 +144,15 @@
     // DESKTOP: tu comportamiento actual (3 visibles)
     function placeSide(el, isLeft) {
       const hovering = el.classList.contains("hovering");
-      const scale = hovering ? HOVER_SCALE : SIDE_SCALE;
+      const scale = hovering ? uwHoverScale() : uwSideScale();
       const ty = hovering ? HOVER_LIFT_Y : 0;
 
-      const sideW = cardW * scale;
-      const shift = Math.max(0, halfStage - sideW / 2);
-      const x = isLeft ? -shift : +shift;
+      const sideW = UW_MQ.matches ? CARD_W : cardW * scale;
+      const shift = UW_MQ.matches
+        ? Math.max(0, halfStage - sideW / 2)
+        : cardW / 2 + sideW / 2 - SIDE_OVERLAP;
+      const uwGap = UW_MQ.matches ? 30 : 0;
+      const x = isLeft ? -(shift + uwGap) : +(shift + uwGap);
 
       el.style.transform = `translate(-50%, -50%) translate(${x}px, ${ty}px) scale(${scale})`;
       el.style.filter = `blur(${HOVER_BLUR}px)`;
@@ -157,7 +168,8 @@
 
     items.forEach((el, i) => {
       if (el.classList.contains("active")) {
-        el.style.transform = `translate(-50%, -50%) translate(0px, 0px) scale(1)`;
+        const activeScale = UW_MQ.matches ? 1.2 : 1;
+        el.style.transform = `translate(-50%, -50%) translate(0px, 0px) scale(${activeScale})`;
         el.style.filter = "blur(0px)";
         el.style.boxShadow = "0 0 39.7px rgba(0,0,0,0.1)";
         el.style.opacity = "1";
@@ -179,7 +191,7 @@
           side = forward <= backward ? "right" : "left";
         }
 
-        const scale = SIDE_SCALE;
+        const scale = uwSideScale();
         const sideW = cardW * scale;
         const x =
           side === "left"

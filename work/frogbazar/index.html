@@ -215,7 +215,7 @@
                            <li><a href="../../#about" data-offset="60" data-vt-mode="fade">About</a></li>
                            <li><a href="#" data-modal-open="#modal-works">Works</a></li>
                            <li><a href="../../#services" data-offset="40" data-vt-mode="fade">Services</a></li>
-                           <li><a href="../../#contact" data-offset="14" data-vt-mode="fade">Contact</a></li>
+                           <li><a href="#contact" data-offset="14">Contact</a></li>
                         </ul>
                         </div></div></div>
                      </nav>
@@ -289,6 +289,9 @@
                            <img src="content/frog-2.jpg" alt="Frog Bazar" />
                            <img src="content/frog-3.jpg" alt="Frog Bazar" />
                            <img src="content/frog-4.png" alt="Frog Bazar" />
+                           <div style="width:650px;max-width:100%;box-sizing:border-box;">
+                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;line-height:1.6;color:#3A3A39;margin:0;text-align:center;">Photography became just as important as the design itself. Every product is presented with natural light, clean compositions, and breathing room, creating a catalog that feels honest, warm, and carefully curated.</p>
+                           </div>
                            <img src="content/frog-5.jpg" alt="Frog Bazar" />
                            <div class="parallax-frame parallax-frame-2">
                              <img src="content/frog-3-full.jpg" alt="Frog Bazar" class="parallax-img-2" />
@@ -300,6 +303,10 @@
                            <div class="parallax-frame parallax-frame-3">
                              <img src="content/frog-6-full.jpg" alt="Frog Bazar" class="parallax-img-3" />
                            </div>
+                           <div style="width:650px;max-width:100%;box-sizing:border-box;">
+                             <p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;line-height:1.6;color:#3A3A39;margin:0;text-align:center;">I wanted the experience to feel simple from the very first click. Clean layouts, thoughtful spacing, and a minimal approach help visitors focus on the products instead of the interface.</p>
+                           </div>
+                           <img src="content/frog-11.jpg" alt="Frog Bazar" />
                            <img src="content/frog-12.jpg" alt="Frog Bazar" />
                            <img src="content/frog-13.jpg" alt="Frog Bazar" />
                         </div>
@@ -674,12 +681,6 @@
                       );
                   });
 
-                  // Footer orange bg fade in scrub
-                  var footerOrangeBg = document.getElementById('footer-bg-orange');
-                  if (footerOrangeBg) {
-                      gsap.set(footerOrangeBg, { opacity:0 });
-                      gsap.to(footerOrangeBg, { opacity:1, ease:'none', scrollTrigger: { trigger:'#contact', start:'top bottom', end:'bottom bottom', scrub:1.2 } });
-                  }
 
                   document.querySelectorAll('.footer-contact-socials a').forEach(function(a) {
                       a.addEventListener('mousemove', function(e) {

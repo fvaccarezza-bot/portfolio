@@ -35,11 +35,9 @@
 .card .media {
   position: relative;
   overflow: hidden;
-  box-shadow: 0 0 0 #dedede;
-  transition: all 0.2s ease-in-out;
+  transition: box-shadow 0.45s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 .card .media img:hover {
-  box-shadow: 0 0 30px #dedede;
   cursor: pointer;
 }
 .card .media img {
@@ -51,13 +49,17 @@
   display: block;
   -webkit-filter: saturate(1.05) contrast(1.02);
   filter: saturate(1.05) contrast(1.02);
-  transition: all 0.2s ease-in-out;
+  transition: filter 0.2s ease-in-out, transform 0.65s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 .card .media .img-hover {
   position: absolute;
   inset: 0;
   opacity: 0;
   pointer-events: none;
+  transition: opacity 0.45s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.65s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.card .media:hover {
+  box-shadow: 0 12px 40px rgba(0,0,0,0.10);
 }
 .card .media:hover .img-hover {
   opacity: 1;
