@@ -549,13 +549,13 @@ body.tt-boxed.work.ui-ux .tt-wrap .tt-col-md-12 .mobs-details {
 }
 body.tt-boxed.work.ui-ux .tt-wrap .tt-col-md-6 .mobs.iphone {
   margin-left: -60px;
-  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 body.tt-boxed.work.ui-ux .tt-wrap .tt-col-md-6 .mobs.iphone:hover {
   margin-left: -120px;
 }
 body.tt-boxed.work.ui-ux .tt-wrap .tt-col-md-6 .mobs.iphone img {
-  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 body.tt-boxed.work.ui-ux .tt-wrap .tt-col-md-6 .mobs.iphone:hover img:nth-child(1) {
   width: 565px;
@@ -570,14 +570,14 @@ body.tt-boxed.work.ui-ux .tt-wrap .tt-col-md-6 .mobs.iphone:hover img:nth-child(
 body.tt-boxed.work.ui-ux .tt-wrap .tt-col-md-12 .mobs.ipad {
   margin-left: 0;
   height: 874px;
-  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 body.tt-boxed.work.ui-ux .tt-wrap .tt-col-md-12 .mobs.ipad img {
   width: 811px;
   position: absolute;
   padding-left: 0;
   padding-right: 0;
-  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 body.tt-boxed.work.ui-ux .tt-wrap .tt-col-md-12 .mobs.ipad img:nth-child(1) { margin-left: -7%; margin-top: -3%; }
 body.tt-boxed.work.ui-ux .tt-wrap .tt-col-md-12 .mobs.ipad img:nth-child(2) { margin-left: 36%; margin-top: 9%; }

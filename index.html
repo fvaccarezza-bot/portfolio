@@ -162,7 +162,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .tt-col-md-6.d-flex-center { overflow: visible !important; }
 .desktop-testi-tag { position: absolute; bottom: -50px; left: 0; right: 0; width: auto; display: flex; flex-direction: column; align-items: center; transform: none; z-index: 10; }
 .desktop-testi-tag img { display: block; width: auto; max-width: none; height: 31px; margin-bottom: 0; transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
-@media (max-width: 768px) { .desktop-testi-wrap { display: none !important; } #mob-testi-tag { width: auto !important; height: auto !important; transform-origin: center center !important; } }
+@media (max-width: 768px) { .desktop-testi-wrap { display: none !important; } }
 @media (min-width: 769px) { .mob-somekind-phrase { display: none !important; } }
 @media (min-width: 2560px) {
     .home-title { transform:none; }
@@ -263,8 +263,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .mob-phrase-word.in-view { transform: translateY(0); }
     .mob-phrase-tags-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 92vw; max-width: 340px; pointer-events: none; z-index: 2; }
     .mob-tag-complete { display: block; width: 100%; height: auto; opacity: 0; will-change: opacity; transition: opacity 1.2s cubic-bezier(0.25,0.46,0.45,0.94); transform: translateZ(0); -webkit-transform: translateZ(0); }
-    #mob-testi-tag { width: auto !important; height: auto !important; }
     .mob-tag-complete.in-view { opacity: 1; }
+    .mob-pill { display: block; height: 28px; width: auto; margin-bottom: 16px; opacity: 0; transform: translateY(16px); transition: opacity 1.1s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.1s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .mob-pill.in-view { opacity: 1; transform: translateY(0); }
     .services-btns-row { display: none !important; }
     #services .tt-row:first-of-type { display: none !important; }
     .words-container { overflow: visible !important; }
@@ -591,10 +592,10 @@ document.addEventListener('click', function(e) {
                 </div>
                 <div class="tt-section-inner tt-wrap">
                     <div class="mob-works-phrase mob-ok" style="display:none;position:relative;">
+                        <img src="./assets/img/a-few-of.svg" alt="A Few of Them" class="mob-pill" id="mob-works-pill" />
                         <div class="mob-phrase-clip"><img src="./assets/img/work-featu.svg" class="mob-phrase-word" alt="" /></div>
                         <div class="mob-phrase-clip" id="mob-works-red-clip"><img src="./assets/img/work-red.svg" class="mob-phrase-word" alt="" /></div>
                         <div class="mob-phrase-clip"><img src="./assets/img/work-work.svg" class="mob-phrase-word" alt="" /></div>
-                        <img src="./assets/img/work-tag-complete.svg" id="mob-works-tag" class="mob-tag-complete" alt="" style="position:absolute;left:50%;transform:translateX(-50%);width:auto;height:auto;pointer-events:none;z-index:2;" />
                     </div>
                     <div class="gallery">
                         <div class="card" id="frog-bazar"><a href="https://www.behance.net/gallery/157959551/Frog-Bazar-2023" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a><a class="media" href="work/frogbazar/" alt="frog-bazar" data-vt-mode="slide"><img class="img-base" src="./assets/home/frogbazar-b.jpg" alt="Frog Bazar" /><img class="img-hover" src="./assets/home/frogbazar.jpg" alt="" aria-hidden="true" /></a><div class="meta"><h3>Frog Bazar</h3><p>branding + website + photo</p><p>(001)</p><span class="meta-name">Frog Bazar</span><span class="meta-num">(001)</span></div></div>
@@ -696,7 +697,7 @@ document.addEventListener('click', function(e) {
                 </div>
             </div>
             <div class="mob-stickers-wrap" style="display:flex;justify-content:center;padding:40px 0;">
-                <img src="./assets/img/mob-stickers.png" alt="" style="display:block;width:340px;max-width:92vw;height:auto;" />
+                <img id="mob-stickers-img" src="./assets/img/mob-stickers.png" alt="" style="display:block;width:360px;max-width:92vw;height:auto;" />
             </div>
 
         <div id="extra-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#F8F8F8;padding-top:50px !important;padding-bottom:150px !important;margin-top:0;">
@@ -734,10 +735,10 @@ document.addEventListener('click', function(e) {
                             </div>
                         </div>
                         <div class="mob-somekind-phrase" style="position:relative;display:flex;flex-direction:column;align-items:center;width:100%;gap:8px;margin-bottom:8px;">
+                            <img src="./assets/img/some-kind.svg" alt="Some Kind Words" class="mob-pill" id="mob-testi-pill" />
                             <div class="mob-phrase-clip"><img src="./assets/img/testimonials-they.svg" class="mob-phrase-word" alt="" /></div>
                             <div class="mob-phrase-clip"><img src="./assets/img/testimonials-said.svg" class="mob-phrase-word" alt="" /></div>
                             <div class="mob-phrase-clip"><img src="./assets/img/testimonials-it.svg" class="mob-phrase-word" alt="" /></div>
-                            <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;z-index:2;"><img src="./assets/img/testimonials-tag-complete.svg" id="mob-testi-tag" class="mob-tag-complete" alt="" style="width:auto;height:auto;" /></div>
                         </div>
                         <div class="words-container"><div class="carousel" role="region"><div class="stage" id="stage">
                             <article class="verbatim prev" tabindex="0"><img src="./assets/img/word2.jpg" alt="" /><div><p><span>Dana Johonson</span> (Dotted 8)</p><p>"As a US-based agency, it can be tricky to find reliable international talent that aligns with our time constraints and quality expectations. Fede has been an incredible resource and a valued member of our team for many years!"</p></div></article>
@@ -1333,6 +1334,12 @@ window.addEventListener('load', () => {
             const isRetina = window.matchMedia('(min-resolution: 2dppx)').matches;
             if (deskFeatured) { gsap.set(deskFeatured, { y: '160%' }); gsap.to(deskFeatured, { y: 0, ease: 'power3.out', duration: 1.4, scrollTrigger: { trigger: '#works', start: 'top 85%', toggleActions: 'play none none none' } }); }
             if (deskWork) { gsap.set(deskWork, { y: '160%' }); gsap.to(deskWork, { y: 0, ease: 'power3.out', duration: 1.4, delay: 0.08, scrollTrigger: { trigger: '#works', start: 'top 85%', toggleActions: 'play none none none' } }); }
+            if (window.innerWidth <= 768) {
+                var mobStickersImg = document.getElementById('mob-stickers-img');
+                if (mobStickersImg) {
+                    gsap.fromTo(mobStickersImg, { y: -12, rotation: -2 }, { y: 12, rotation: 2, ease: 'none', scrollTrigger: { trigger: mobStickersImg, start: 'top bottom', end: 'bottom top', scrub: 1.2 } });
+                }
+            }
             if (isRetina) {
                 var extraSec = document.getElementById('extra-section');
                 if (extraSec) { extraSec.style.setProperty('padding-top', '0px', 'important'); extraSec.style.setProperty('margin-top', '-75px', 'important'); }
@@ -1627,19 +1634,12 @@ if (window.innerWidth <= 768) {
     if (serviceItems.length) { var servicesObserver = new IntersectionObserver(function(entries) { entries.forEach(function(entry) { if (entry.isIntersecting) { var idx = Array.from(serviceItems).indexOf(entry.target); setTimeout(function() { entry.target.classList.add('in-view'); }, idx * 80); servicesObserver.unobserve(entry.target); } }); }, { threshold: 0.1 }); serviceItems.forEach(function(item) { servicesObserver.observe(item); }); }
     var connectBtn = document.querySelector('.services-btns-connect');
     if (connectBtn) { new IntersectionObserver(function(entries) { entries.forEach(function(entry) { if (entry.isIntersecting) { entry.target.classList.add('in-view'); } }); }, { threshold: 0.3 }).observe(connectBtn); }
-    var testiTag = document.getElementById('mob-testi-tag');
-    if (testiTag) { var testiTagObserver = new IntersectionObserver(function(entries) { entries.forEach(function(entry) { if (entry.isIntersecting) { testiTag.classList.add('in-view'); testiTagObserver.disconnect(); } }); }, { threshold: 0.3 }); testiTagObserver.observe(testiTag); window.addEventListener('scroll', function() { var rect = testiTag.getBoundingClientRect(); testiTag.style.transform = 'scale(1.2) translateY(' + ((rect.top + rect.height / 2 - window.innerHeight / 2) * 0.06) + 'px)'; }, { passive: true }); }
     var someKindClips = document.querySelectorAll('.mob-somekind-phrase .mob-phrase-clip');
     if (someKindClips.length) { var someKindObserver = new IntersectionObserver(function(entries) { entries.forEach(function(entry) { if (entry.isIntersecting) { var word = entry.target.querySelector('.mob-phrase-word'); if (word) word.classList.add('in-view'); someKindObserver.unobserve(entry.target); } }); }, { threshold: 0.0 }); someKindClips.forEach(function(clip) { someKindObserver.observe(clip); }); }
     var worksClips = document.querySelectorAll('.mob-works-phrase .mob-phrase-clip');
     if (worksClips.length) { var worksObserver = new IntersectionObserver(function(entries) { entries.forEach(function(entry) { if (entry.isIntersecting) { var word = entry.target.querySelector('.mob-phrase-word'); if (word) word.classList.add('in-view'); worksObserver.unobserve(entry.target); } }); }, { threshold: 0.0 }); worksClips.forEach(function(clip) { worksObserver.observe(clip); }); }
-    var worksTag = document.getElementById('mob-works-tag');
-    if (worksTag) {
-        function positionWorksTag() { var redClip = document.getElementById('mob-works-red-clip'), phrase = document.querySelector('.mob-works-phrase'); if (!redClip || !phrase) return; var phraseTop = phrase.getBoundingClientRect().top + window.scrollY, redTop = redClip.getBoundingClientRect().top + window.scrollY; worksTag.style.top = (redTop + redClip.offsetHeight / 2 - phraseTop - worksTag.offsetHeight / 2) + 'px'; }
-        setTimeout(positionWorksTag, 200); window.addEventListener('resize', positionWorksTag);
-        var worksTagObserver = new IntersectionObserver(function(entries) { entries.forEach(function(entry) { if (entry.isIntersecting) { worksTag.classList.add('in-view'); worksTagObserver.disconnect(); } }); }, { threshold: 0.3 }); worksTagObserver.observe(worksTag);
-        window.addEventListener('scroll', function() { var rect = worksTag.getBoundingClientRect(); worksTag.style.transform = 'translateX(-50%) translateY(' + ((rect.top + rect.height / 2 - window.innerHeight / 2) * 0.06) + 'px)'; }, { passive: true });
-    }
+    var mobPills = document.querySelectorAll('.mob-pill');
+    if (mobPills.length) { var mobPillObserver = new IntersectionObserver(function(entries) { entries.forEach(function(entry) { if (entry.isIntersecting) { entry.target.classList.add('in-view'); mobPillObserver.unobserve(entry.target); } }); }, { threshold: 0.3 }); mobPills.forEach(function(pill) { mobPillObserver.observe(pill); }); }
     var testiImgs = document.querySelectorAll('.mobile-testimonials img');
     if (testiImgs.length) { var testiObserver = new IntersectionObserver(function(entries) { entries.forEach(function(entry) { if (entry.isIntersecting) { var idx = Array.from(testiImgs).indexOf(entry.target); setTimeout(function() { entry.target.classList.add('in-view'); }, idx * 100); testiObserver.unobserve(entry.target); } }); }, { threshold: 0.1 }); testiImgs.forEach(function(img) { testiObserver.observe(img); }); }
     var footerClips = document.querySelectorAll('.mob-footer-clip');
