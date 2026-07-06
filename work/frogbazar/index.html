@@ -154,6 +154,20 @@
         .footer-roll-wrap:hover .brace-l { transform:translateX(-6px); }
         .footer-roll-wrap:hover .brace-r { transform:translateX(6px); }
         .footer-col-center { text-align:center; display:flex; justify-content:center; }
+        /* ── WORKS modal: center content + bring title closer + roll hover like CALL ME/WRITE ME ── */
+        #modal-works .content { justify-content: center !important; }
+        #modal-works .modal__dialog { gap: 40px !important; }
+        #modal-works .works-items a { background-color: transparent !important; color: #181818 !important; display: inline-flex !important; align-items: center; gap: 6px; }
+        #modal-works .works-items a:hover { background-color: transparent !important; color: #181818 !important; }
+        #modal-works .works-items a.active { color: #FF6600 !important; }
+        #modal-works .works-items a .wm-brace { display:inline-block; transition:transform 0.4s cubic-bezier(0.34,1.5,0.9,1); }
+        #modal-works .works-items a:hover .wm-brace-l { transform:translateX(-6px); }
+        #modal-works .works-items a:hover .wm-brace-r { transform:translateX(6px); }
+        #modal-works .works-items a .wm-roll-text { display:inline-block; overflow:hidden; vertical-align:bottom; position:relative; }
+        #modal-works .works-items a .wm-roll-text span { display:block; transition:transform 0.4s cubic-bezier(0.76,0,0.24,1); }
+        #modal-works .works-items a .wm-roll-text span:last-child { position:absolute; top:0; left:0; transform:translateY(100%); }
+        #modal-works .works-items a:hover .wm-roll-text span:first-child { transform:translateY(-100%); }
+        #modal-works .works-items a:hover .wm-roll-text span:last-child { transform:translateY(0%); }
         .footer-col-right { text-align:right; justify-content:flex-end; }
         .footer-contact-links a { color:#3A3A39; text-decoration:none; text-transform:uppercase; font-weight:500; }
         .footer-contact-socials { display:flex; gap:20px; align-items:center; justify-content:flex-end; }
@@ -192,7 +206,20 @@
           .footer-contact-socials img { width: 25.5px !important; height: 25.5px !important; }
           #footer-bg-orange { width: 100vw !important; left: 50% !important; margin-left: -50vw !important; }
           #contact .tt-section-inner.tt-wrap { transform: translateY(24px) !important; }
+          body.frogbazar .work-tags span { font-size: 11.2px !important; }
+          .nav-work button.is-prev { left: calc(11.5% - 100px) !important; }
+          .nav-work button.is-next { right: calc(11.5% - 100px) !important; }
         }
+        /* ── nav-work arrows: no gray backdrop, smaller icon, smooth directional hover ── */
+        .nav-work button { background: transparent !important; background-color: transparent !important; }
+        .nav-work button:hover { background-color: transparent !important; }
+        .nav-work button:hover img { filter: none !important; -webkit-filter: none !important; }
+        .nav-work button img { width: 9px !important; height: 13px !important; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); }
+        .nav-work button.is-prev:hover img { transform: translateX(-5px); }
+        .nav-work button.is-next:hover img { transform: translateX(5px); }
+        .nav-work button::after { transition: opacity 0.35s ease-in-out, transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94) 0.08s; }
+        .nav-work button.is-prev:hover::after { transform: translate(calc(-50% - 5px), 0); }
+        .nav-work button.is-next:hover::after { transform: translate(calc(-50% + 5px), 0); }
         @media (max-width: 768px) {
           .tt-ol-menu-list { display:flex !important; flex-direction:column !important; gap:2px !important; padding:0 !important; margin-top:48px !important; margin-bottom:0 !important; list-style:none !important; }
           .tt-ol-menu-list > li > a { font-size:14px !important; letter-spacing:0.5em !important; text-transform:uppercase !important; color:#3A3A39 !important; -webkit-tap-highlight-color:rgba(0,0,0,0.08); }
@@ -407,25 +434,24 @@
                <div class="pos top-right"><img src="../../assets/img/bg-lines/modal-bg2.svg" /></div>
             </div>
             <header>
-               <h3 class="section-title">WORKS</h3>
                <a href="#" data-modal-close class="submodal-close"><img src="../../assets/img/icon-close.svg" alt=""></a>
             </header>
             <div class="content">
                <div class="works-items">
-                  <a href="../frogbazar/" class="active">FROG BAZAR.</a>
-                  <a href="../estudio32/" data-vt-mode="slide" data-vt-dir="next">ESTUDIO 32.</a>
-                  <a href="../opame/" data-vt-mode="slide" data-vt-dir="next">OPAME.</a>
-                  <a href="../nmp/" data-vt-mode="slide" data-vt-dir="next">N.M, P.</a>
+                  <a href="../frogbazar/" class="active">FROG BAZAR</a>
+                  <a href="../estudio32/" data-vt-mode="slide" data-vt-dir="next"><span class="wm-brace wm-brace-l">[</span><span class="wm-roll-text"><span>ESTUDIO 32</span><span>ESTUDIO 32</span></span><span class="wm-brace wm-brace-r">]</span></a>
+                  <a href="../opame/" data-vt-mode="slide" data-vt-dir="next"><span class="wm-brace wm-brace-l">[</span><span class="wm-roll-text"><span>OPAME</span><span>OPAME</span></span><span class="wm-brace wm-brace-r">]</span></a>
+                  <a href="../nmp/" data-vt-mode="slide" data-vt-dir="next"><span class="wm-brace wm-brace-l">[</span><span class="wm-roll-text"><span>N.M, P</span><span>N.M, P</span></span><span class="wm-brace wm-brace-r">]</span></a>
                </div>
                <div class="works-items">
-                  <a href="../cleo/" data-vt-mode="slide" data-vt-dir="next">CLEO.</a>
-                  <a href="../michi/" data-vt-mode="slide" data-vt-dir="next">MICHI BISTRO.</a>
-                  <a href="../broke/" data-vt-mode="slide" data-vt-dir="next">BROKE.</a>
-                  <a href="../big-mother-energy/" data-vt-mode="slide" data-vt-dir="next">BIG MOTHER ENERGY.</a>
+                  <a href="../cleo/" data-vt-mode="slide" data-vt-dir="next"><span class="wm-brace wm-brace-l">[</span><span class="wm-roll-text"><span>CLEO</span><span>CLEO</span></span><span class="wm-brace wm-brace-r">]</span></a>
+                  <a href="../michi/" data-vt-mode="slide" data-vt-dir="next"><span class="wm-brace wm-brace-l">[</span><span class="wm-roll-text"><span>MICHI BISTRO</span><span>MICHI BISTRO</span></span><span class="wm-brace wm-brace-r">]</span></a>
+                  <a href="../broke/" data-vt-mode="slide" data-vt-dir="next"><span class="wm-brace wm-brace-l">[</span><span class="wm-roll-text"><span>BROKE</span><span>BROKE</span></span><span class="wm-brace wm-brace-r">]</span></a>
+                  <a href="../big-mother-energy/" data-vt-mode="slide" data-vt-dir="next"><span class="wm-brace wm-brace-l">[</span><span class="wm-roll-text"><span>BIG MOTHER ENERGY</span><span>BIG MOTHER ENERGY</span></span><span class="wm-brace wm-brace-r">]</span></a>
                </div>
                <div class="works-items">
-                  <a href="../ui-ux/" data-vt-mode="slide" data-vt-dir="next">UI / UX.</a>
-                  <a href="../web/" data-vt-mode="slide" data-vt-dir="next">WEB.</a>
+                  <a href="../ui-ux/" data-vt-mode="slide" data-vt-dir="next"><span class="wm-brace wm-brace-l">[</span><span class="wm-roll-text"><span>UI / UX</span><span>UI / UX</span></span><span class="wm-brace wm-brace-r">]</span></a>
+                  <a href="../web/" data-vt-mode="slide" data-vt-dir="next"><span class="wm-brace wm-brace-l">[</span><span class="wm-roll-text"><span>WEB</span><span>WEB</span></span><span class="wm-brace wm-brace-r">]</span></a>
                </div>
             </div>
          </div>
@@ -695,7 +721,7 @@
                   }
                   var navWorkButtons = document.querySelectorAll('.nav-work button');
                   if (navWorkButtons.length) {
-                      gsap.to(navWorkButtons, { top: '18%', ease:'none', scrollTrigger: { trigger:'#contact', start:'top bottom', end:'top center', scrub:true } });
+                      gsap.to(navWorkButtons, { top: '18%', ease:'none', scrollTrigger: { trigger:'#contact', start:'top bottom', end:'bottom bottom', scrub:true } });
                   }
 
                   function swapFooterOrangeSVG() {

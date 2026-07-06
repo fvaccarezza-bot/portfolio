@@ -41,6 +41,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .name-reveal-mask:has(#line-vaccarezza) { margin-top: 0px; }
 .faq-title-wrap { display: flex; flex-direction: column; gap: 8px; }
 #faq-pill-1, #faq-pill-2 { height: 31px; width: auto; }
+#trusted-phrase-wrap::before { content:''; position:absolute; inset:-6px -28px -22px -28px; }
 .faq-question { opacity:0; transform:translateY(20px); padding-top:16px; padding-bottom: 16px; }
 .faq-question:first-child { padding-top: 0; }
 .faq-question-inner { transition: transform 0.75s cubic-bezier(0.16,1,0.3,1); }
@@ -865,7 +866,7 @@ document.addEventListener('click', function(e) {
         <div id="trusted-by-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#F8F8F8;padding-top:120px !important;">
             <div class="tt-section-inner tt-wrap">
                 <div class="tt-row" style="display:flex;flex-direction:column;align-items:center;" id="trusted-by-row">
-                    <div id="trusted-phrase-wrap" style="display:flex;align-items:center;justify-content:center;margin-bottom:80px;cursor:default;">
+                    <div id="trusted-phrase-wrap" style="display:flex;align-items:center;justify-content:center;margin-bottom:80px;cursor:default;position:relative;">
                         <span id="trusted-phrase-span" style="font-family:'PP Telegraf',sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#181818;white-space:nowrap;display:inline-block;">SOME OF THE TEAMS I'VE COLLABORATED WITH</span>
                     </div>
                     <img id="trusted-logos-img" src="./assets/img/desk-logos-trusted.svg" alt="Trusted by" style="display:block;width:auto;height:auto;" />
@@ -1240,7 +1241,7 @@ window.addEventListener('load', () => {
                     var breatheProxy = { val: 0 };
                     var h1El = heroPortLabelWrap ? heroPortLabelWrap.nextElementSibling : null;
                     gsap.to(breatheProxy, {
-                        val: 10, duration: 3.2, ease: 'sine.inOut', repeat: -1, yoyo: true,
+                        val: 10, duration: 3.2, ease: 'sine.inOut', repeat: 1, yoyo: true,
                         onUpdate: function() {
                             var up = -breatheProxy.val, dn = breatheProxy.val;
                             if (heroPortLabelWrap) heroPortLabelWrap.style.transform = 'translateY(' + up + 'px)';
@@ -1290,9 +1291,10 @@ window.addEventListener('load', () => {
                 let hideTimeout;
                 const show = () => { clearTimeout(hideTimeout); navEl.classList.add('menu-revealed'); };
                 const hide = () => { hideTimeout = setTimeout(() => navEl.classList.remove('menu-revealed'), 80); };
+                const keepOpen = () => { if (navEl.classList.contains('menu-revealed')) clearTimeout(hideTimeout); };
                 logoEl.addEventListener('mouseenter', show);
                 logoEl.addEventListener('mouseleave', hide);
-                navEl.addEventListener('mouseenter', show);
+                navEl.addEventListener('mouseenter', keepOpen);
                 navEl.addEventListener('mouseleave', hide);
             }
         }

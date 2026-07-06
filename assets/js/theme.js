@@ -140,8 +140,8 @@
             static pluginName = 'anchor';
             onHashChange = () => { this.jumpToHash(window.location.hash); };
             onClick = (event) => {
-               const { target } = event;
-               if (target.tagName !== 'A') { return; }
+               const target = event.target.closest('a');
+               if (!target) { return; }
                const hash = target.getAttribute('href');
                if (!hash || hash.charAt(0) !== '#') { return; }
                this.jumpToHash(hash);
@@ -171,6 +171,19 @@
          bodyScrollBar.track.xAxis.element.remove();
          ScrollTrigger.scrollerProxy('body', { scrollTop(value) { if (arguments.length) { bodyScrollBar.scrollTop = value; } return bodyScrollBar.scrollTop; } });
          bodyScrollBar.addListener(ScrollTrigger.update);
+
+         // ── Arrow/Page/Home/End keys should scroll even if focus drifted off #scroll-container ──
+         document.addEventListener('keydown', function (e) {
+            var navKeyCodes = [33, 34, 35, 36, 38, 40];
+            if (navKeyCodes.indexOf(e.keyCode) === -1) { return; }
+            var active = document.activeElement;
+            var isEditable = active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.tagName === 'SELECT' || active.isContentEditable);
+            if (isEditable) { return; }
+            var container = document.getElementById('scroll-container');
+            if (container && active !== container && !container.contains(active)) {
+               container.focus();
+            }
+         }, true);
 
          // ── HERO STICKY FADE (solo home, solo desktop) ──
          var $pageHeader = $('#page-header');

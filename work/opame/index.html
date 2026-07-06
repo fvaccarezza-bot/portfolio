@@ -113,7 +113,36 @@
         .ol-roll-wrap:hover .ol-roll-text span:last-child { transform:translateY(0%); }
         @media (min-resolution: 2dppx) {
           .footer-contact-socials img { width: 25.5px !important; height: 25.5px !important; }
+          #footer-bg-orange { width: 100vw !important; left: 50% !important; margin-left: -50vw !important; }
+          #contact .tt-section-inner.tt-wrap { transform: translateY(24px) !important; }
+          body.opame .work-tags span { font-size: 11.2px !important; }
+          .nav-work button.is-prev { left: calc(11.5% - 100px) !important; }
+          .nav-work button.is-next { right: calc(11.5% - 100px) !important; }
         }
+        /* ── nav-work arrows: no gray backdrop, smaller icon, smooth directional hover ── */
+        .nav-work button { background: transparent !important; background-color: transparent !important; }
+        .nav-work button:hover { background-color: transparent !important; }
+        .nav-work button:hover img { filter: none !important; -webkit-filter: none !important; }
+        .nav-work button img { width: 9px !important; height: 13px !important; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); }
+        .nav-work button.is-prev:hover img { transform: translateX(-5px); }
+        .nav-work button.is-next:hover img { transform: translateX(5px); }
+        .nav-work button::after { transition: opacity 0.35s ease-in-out, transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94) 0.08s; }
+        .nav-work button.is-prev:hover::after { transform: translate(calc(-50% - 5px), 0); }
+        .nav-work button.is-next:hover::after { transform: translate(calc(-50% + 5px), 0); }
+        /* ── WORKS modal: center content + bring title closer + roll hover like CALL ME/WRITE ME ── */
+        #modal-works .content { justify-content: center !important; }
+        #modal-works .modal__dialog { gap: 40px !important; }
+        #modal-works .works-items a { background-color: transparent !important; color: #181818 !important; display: inline-flex !important; align-items: center; gap: 6px; }
+        #modal-works .works-items a:hover { background-color: transparent !important; color: #181818 !important; }
+        #modal-works .works-items a.active { color: #FF6600 !important; }
+        #modal-works .works-items a .wm-brace { display:inline-block; transition:transform 0.4s cubic-bezier(0.34,1.5,0.9,1); }
+        #modal-works .works-items a:hover .wm-brace-l { transform:translateX(-6px); }
+        #modal-works .works-items a:hover .wm-brace-r { transform:translateX(6px); }
+        #modal-works .works-items a .wm-roll-text { display:inline-block; overflow:hidden; vertical-align:bottom; position:relative; }
+        #modal-works .works-items a .wm-roll-text span { display:block; transition:transform 0.4s cubic-bezier(0.76,0,0.24,1); }
+        #modal-works .works-items a .wm-roll-text span:last-child { position:absolute; top:0; left:0; transform:translateY(100%); }
+        #modal-works .works-items a:hover .wm-roll-text span:first-child { transform:translateY(-100%); }
+        #modal-works .works-items a:hover .wm-roll-text span:last-child { transform:translateY(0%); }
 
         /* ── MOBILE ── */
         @media (max-width: 768px) {
@@ -304,7 +333,7 @@
                   </div>
                   <footer id="contact" class="tt-section">
                      <div id="footer-bg-orange" style="position:absolute;bottom:0;left:0;width:100%;z-index:2;pointer-events:none;">
-                        <img src="../../assets/img/desk-footer-orange-main.svg" style="width:100%;height:auto;display:block;" />
+                        <img id="footer-orange-img" src="../../assets/img/desk-footer-orange-main-retina.svg" style="width:100%;height:auto;display:block;" />
                      </div>
                      <!-- MOBILE FOOTER -->
                      <div class="mob-footer">
@@ -370,25 +399,24 @@
                <div class="pos top-right"><img src="../../assets/img/bg-lines/modal-bg2.svg" /></div>
             </div>
             <header>
-               <h3 class="section-title">WORKS</h3>
                <a href="#" data-modal-close class="submodal-close"><img src="../../assets/img/icon-close.svg" alt=""></a>
             </header>
             <div class="content">
                <div class="works-items">
-                  <a href="../frogbazar/" data-vt-mode="slide" data-vt-dir="prev">FROG BAZAR.</a>
-                  <a href="../estudio32/" data-vt-mode="slide" data-vt-dir="prev">ESTUDIO 32.</a>
-                  <a href="../opame/" class="active">OPAME.</a>
-                  <a href="../nmp/" data-vt-mode="slide" data-vt-dir="next">N.M, P.</a>
+                  <a href="../frogbazar/" data-vt-mode="slide" data-vt-dir="prev"><span class="wm-brace wm-brace-l">[</span><span class="wm-roll-text"><span>FROG BAZAR</span><span>FROG BAZAR</span></span><span class="wm-brace wm-brace-r">]</span></a>
+                  <a href="../estudio32/" data-vt-mode="slide" data-vt-dir="prev"><span class="wm-brace wm-brace-l">[</span><span class="wm-roll-text"><span>ESTUDIO 32</span><span>ESTUDIO 32</span></span><span class="wm-brace wm-brace-r">]</span></a>
+                  <a href="../opame/" class="active">OPAME</a>
+                  <a href="../nmp/" data-vt-mode="slide" data-vt-dir="next"><span class="wm-brace wm-brace-l">[</span><span class="wm-roll-text"><span>N.M, P</span><span>N.M, P</span></span><span class="wm-brace wm-brace-r">]</span></a>
                </div>
                <div class="works-items">
-                  <a href="../cleo/" data-vt-mode="slide" data-vt-dir="next">CLEO.</a>
-                  <a href="../michi/" data-vt-mode="slide" data-vt-dir="next">MICHI BISTRO.</a>
-                  <a href="../broke/" data-vt-mode="slide" data-vt-dir="next">BROKE.</a>
-                  <a href="../big-mother-energy/" data-vt-mode="slide" data-vt-dir="next">BIG MOTHER ENERGY.</a>
+                  <a href="../cleo/" data-vt-mode="slide" data-vt-dir="next"><span class="wm-brace wm-brace-l">[</span><span class="wm-roll-text"><span>CLEO</span><span>CLEO</span></span><span class="wm-brace wm-brace-r">]</span></a>
+                  <a href="../michi/" data-vt-mode="slide" data-vt-dir="next"><span class="wm-brace wm-brace-l">[</span><span class="wm-roll-text"><span>MICHI BISTRO</span><span>MICHI BISTRO</span></span><span class="wm-brace wm-brace-r">]</span></a>
+                  <a href="../broke/" data-vt-mode="slide" data-vt-dir="next"><span class="wm-brace wm-brace-l">[</span><span class="wm-roll-text"><span>BROKE</span><span>BROKE</span></span><span class="wm-brace wm-brace-r">]</span></a>
+                  <a href="../big-mother-energy/" data-vt-mode="slide" data-vt-dir="next"><span class="wm-brace wm-brace-l">[</span><span class="wm-roll-text"><span>BIG MOTHER ENERGY</span><span>BIG MOTHER ENERGY</span></span><span class="wm-brace wm-brace-r">]</span></a>
                </div>
                <div class="works-items">
-                  <a href="../ui-ux/" data-vt-mode="slide" data-vt-dir="next">UI / UX.</a>
-                  <a href="../web/" data-vt-mode="slide" data-vt-dir="next">WEB.</a>
+                  <a href="../ui-ux/" data-vt-mode="slide" data-vt-dir="next"><span class="wm-brace wm-brace-l">[</span><span class="wm-roll-text"><span>UI / UX</span><span>UI / UX</span></span><span class="wm-brace wm-brace-r">]</span></a>
+                  <a href="../web/" data-vt-mode="slide" data-vt-dir="next"><span class="wm-brace wm-brace-l">[</span><span class="wm-roll-text"><span>WEB</span><span>WEB</span></span><span class="wm-brace wm-brace-r">]</span></a>
                </div>
             </div>
          </div>
@@ -424,9 +452,10 @@
                   var hideTimeout;
                   var show = function() { clearTimeout(hideTimeout); navEl.classList.add('menu-revealed'); };
                   var hide = function() { hideTimeout = setTimeout(function() { navEl.classList.remove('menu-revealed'); }, 80); };
+                  var keepOpen = function() { if (navEl.classList.contains('menu-revealed')) clearTimeout(hideTimeout); };
                   logoEl.addEventListener('mouseenter', show);
                   logoEl.addEventListener('mouseleave', hide);
-                  navEl.addEventListener('mouseenter', show);
+                  navEl.addEventListener('mouseenter', keepOpen);
                   navEl.addEventListener('mouseleave', hide);
               }
               document.querySelectorAll('.tt-ol-menu-list > li.common-li > a, .tt-ol-submenu-list > li > a, .tt-main-menu-list > li > a').forEach(function(a) {
@@ -669,6 +698,20 @@
                   if (footerOrangeBg) {
                       gsap.set(footerOrangeBg, { y: 120 });
                       gsap.to(footerOrangeBg, { y: 0, ease:'none', scrollTrigger: { trigger:'#contact', start:'top bottom', end:'bottom bottom', scrub:1.2 } });
+                  }
+                  function swapFooterOrangeSVG() {
+                      var img = document.getElementById('footer-orange-img');
+                      if (!img) return;
+                      img.src = window.innerWidth >= 2560
+                          ? '../../assets/img/desk-footer-orange-main.svg'
+                          : '../../assets/img/desk-footer-orange-main-retina.svg';
+                  }
+                  swapFooterOrangeSVG();
+                  window.addEventListener('resize', swapFooterOrangeSVG);
+
+                  var navWorkButtons = document.querySelectorAll('.nav-work button');
+                  if (navWorkButtons.length) {
+                      gsap.to(navWorkButtons, { top: '18%', ease:'none', scrollTrigger: { trigger:'#contact', start:'top bottom', end:'bottom bottom', scrub:true } });
                   }
 
 
