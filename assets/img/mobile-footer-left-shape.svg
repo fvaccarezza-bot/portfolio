@@ -1,26 +1,8 @@
 <svg width="393" height="427" viewBox="0 0 393 427" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g filter="url(#filter0_n_7957_3926)">
 <g clip-path="url(#clip0_7957_3926)">
 <path d="M92.4542 33.9437C64.6178 -17.1294 -21.433 5.03174 -49.7602 12.3381C-71.6234 17.9435 -125.018 32.5996 -173.214 87.6465C-237.105 160.535 -212.353 213.677 -277.298 297.412C-328.783 363.784 -369.756 363.232 -384.492 420.678C-394.309 458.905 -388.72 507.942 -366.064 526.393C-326.206 558.81 -247.203 485.555 -234.943 474.124C-178.614 421.868 -201.829 380.78 -140.576 373.334C-107.612 370.647 -73.3918 418.628 -70.6758 467.986C-67.6525 523.036 -105.781 542.958 -110.078 608.547C-113.634 662.94 -92.4801 726.987 -60.2923 734.917C-15.5164 745.952 57.6047 650.046 76.8128 551.516C96.688 449.524 43.0861 425.787 47.4951 296.857C52.3892 154.143 121.319 86.9296 92.4542 33.9437Z" fill="#FF4D00"/>
 </g>
-</g>
 <defs>
-<filter id="filter0_n_7957_3926" x="0" y="0" width="393" height="427" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-<feFlood flood-opacity="0" result="BackgroundImageFix"/>
-<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
-<feTurbulence type="fractalNoise" baseFrequency="1 1" stitchTiles="stitch" numOctaves="3" result="noise" seed="1954" />
-<feColorMatrix in="noise" type="luminanceToAlpha" result="alphaNoise" />
-<feComponentTransfer in="alphaNoise" result="coloredNoise1">
-<feFuncA type="discrete" tableValues="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "/>
-</feComponentTransfer>
-<feComposite operator="in" in2="shape" in="coloredNoise1" result="noise1Clipped" />
-<feFlood flood-color="rgba(255, 255, 255, 0.25)" result="color1Flood" />
-<feComposite operator="in" in2="noise1Clipped" in="color1Flood" result="color1" />
-<feMerge result="effect1_noise_7957_3926">
-<feMergeNode in="shape" />
-<feMergeNode in="color1" />
-</feMerge>
-</filter>
 <clipPath id="clip0_7957_3926">
 <rect width="393" height="427" fill="white"/>
 </clipPath>
