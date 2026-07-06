@@ -200,6 +200,27 @@
             $('.tt-overflow').each(function () { var $this = $(this); if ($this.ttIsScrollable()) { $this.on('wheel', function (e) { e.stopPropagation(); }); } });
          }
          $('input[type=number]').on('focus', function () { $(this).on('wheel', function (e) { e.stopPropagation(); }); });
+      } else {
+         // ── Mobile: no Scrollbar/AnchorPlugin — do native anchor scroll honoring data-offset ──
+         var mobileJumpToHash = function (hash) {
+            if (!hash) { return; }
+            var target = document.querySelector(hash);
+            if (!target) { return; }
+            var offset = parseFloat(target.getAttribute('data-offset')) || 0;
+            var y = target.getBoundingClientRect().top + window.pageYOffset - offset;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+         };
+         document.addEventListener('click', function (e) {
+            var link = e.target.closest('a');
+            if (!link) { return; }
+            if (link.closest('.tt-overlay-menu') || link.closest('.tt-logo')) { return; } // handled separately above
+            var hash = link.getAttribute('href');
+            if (!hash || hash.charAt(0) !== '#') { return; }
+            e.preventDefault();
+            mobileJumpToHash(hash);
+         });
+         window.addEventListener('hashchange', function () { mobileJumpToHash(window.location.hash); });
+         if (window.location.hash) { setTimeout(function () { mobileJumpToHash(window.location.hash); }, 300); }
       }
    }
 

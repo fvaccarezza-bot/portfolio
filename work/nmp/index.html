@@ -80,6 +80,32 @@
         .footer-lb-clip:first-child { display:flex; justify-content:center; align-items:center; }
         .footer-lb-clip:first-child #lb-line1 { width:auto; max-width:91.67vw; height:auto; }
 
+        .tt-main-menu-list > li { opacity:0; transform:translateY(-10px); transition:opacity 0.4s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); pointer-events:none; }
+        .tt-main-menu-list > li:nth-child(1) { transition-delay:0.21s; }
+        .tt-main-menu-list > li:nth-child(2) { transition-delay:0.14s; }
+        .tt-main-menu-list > li:nth-child(3) { transition-delay:0.07s; }
+        .tt-main-menu-list > li:nth-child(4) { transition-delay:0s; }
+        .tt-main-menu.menu-revealed .tt-main-menu-list > li { opacity:1; transform:translateY(0); pointer-events:auto; }
+        .tt-main-menu.menu-revealed .tt-main-menu-list > li:nth-child(1) { transition-delay:0s; }
+        .tt-main-menu.menu-revealed .tt-main-menu-list > li:nth-child(2) { transition-delay:0.07s; }
+        .tt-main-menu.menu-revealed .tt-main-menu-list > li:nth-child(3) { transition-delay:0.14s; }
+        .tt-main-menu.menu-revealed .tt-main-menu-list > li:nth-child(4) { transition-delay:0.21s; }
+        .tt-ol-menu-list > li > a, .tt-ol-submenu-list > li > a, .tt-main-menu-list > li > a { background-color: transparent !important; color: #181818 !important; border: none !important; outline: none !important; box-shadow: none !important; user-select: none; -webkit-user-select: none; }
+        .tt-ol-menu-list > li > a:hover, .tt-ol-menu-list > li > a:focus, .tt-ol-menu-list > li > a:active, .tt-ol-menu-list > li > a:focus-visible, .tt-ol-submenu-list > li > a:hover, .tt-ol-submenu-list > li > a:focus, .tt-ol-submenu-list > li > a:active, .tt-main-menu-list > li > a:hover, .tt-main-menu-list > li > a:focus, .tt-main-menu-list > li > a:active { background-color: transparent !important; color: #181818 !important; border: none !important; box-shadow: none !important; outline: none !important; }
+        .tt-ol-menu-list > li > a.ol-roll-wrap, .tt-ol-submenu-list > li > a.ol-roll-wrap, .tt-main-menu-list > li > a.ol-roll-wrap { display:inline-flex !important; align-items:center !important; gap:5px !important; }
+        .ol-roll-wrap { display:inline-flex; align-items:center; gap:5px; }
+        .ol-roll-wrap .ol-brace { display:inline-block; transition:transform 0.4s cubic-bezier(0.34,1.5,0.9,1); opacity:1; }
+        .ol-roll-wrap:hover .ol-brace-l { transform:translateX(-5px); }
+        .ol-roll-wrap:hover .ol-brace-r { transform:translateX(5px); }
+        .ol-roll-text { display:inline-block; overflow:hidden; position:relative; vertical-align:bottom; }
+        .ol-roll-text span { display:block; transition:transform 0.4s cubic-bezier(0.76,0,0.24,1); }
+        .ol-roll-text span:last-child { position:absolute; top:0; left:0; transform:translateY(100%); }
+        .ol-roll-wrap:hover .ol-roll-text span:first-child { transform:translateY(-100%); }
+        .ol-roll-wrap:hover .ol-roll-text span:last-child { transform:translateY(0%); }
+        @media (min-resolution: 2dppx) {
+          .footer-contact-socials img { width: 25.5px !important; height: 25.5px !important; }
+        }
+
         @media (max-width: 768px) {
           .nav-work { display:none !important; }
           .work-tags { display:none !important; }
@@ -305,6 +331,9 @@
                         <div class="footer-lb-clip"><img id="lb-line1" src="../../assets/img/LETSBUILD.svg" alt="LETS BUILD" /></div>
                         <div class="footer-lb-clip" style="margin-top:0px;"><img id="lb-line2" src="../../assets/img/SOMETHING.svg" alt="SOMETHING" /></div>
                      </div>
+                     <div class="footer-copyright" id="footer-copyright-wrap" style="text-align:center;padding:24px 0 32px;position:relative;z-index:10;">
+                        <p id="footer-copyright" style="font-family:'PP Telegraf',sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#181818;margin:0;">©2026 All Rights Reserved — Federico Vaccarezza</p>
+                     </div>
                   </footer>
                </div>
             </div>
@@ -365,6 +394,25 @@
       <script src="../../assets/js/transition.js" defer></script>
       <script>
       window.addEventListener('load', function() {
+
+          if (window.innerWidth > 768) {
+              var logoEl = document.querySelector('.tt-logo.mob-no');
+              var navEl = document.querySelector('nav.tt-main-menu');
+              if (logoEl && navEl) {
+                  var hideTimeout;
+                  var show = function() { clearTimeout(hideTimeout); navEl.classList.add('menu-revealed'); };
+                  var hide = function() { hideTimeout = setTimeout(function() { navEl.classList.remove('menu-revealed'); }, 80); };
+                  logoEl.addEventListener('mouseenter', show);
+                  logoEl.addEventListener('mouseleave', hide);
+                  navEl.addEventListener('mouseenter', show);
+                  navEl.addEventListener('mouseleave', hide);
+              }
+              document.querySelectorAll('.tt-ol-menu-list > li.common-li > a, .tt-ol-submenu-list > li > a, .tt-main-menu-list > li > a').forEach(function(a) {
+                  var text = a.textContent.trim();
+                  a.classList.add('ol-roll-wrap');
+                  a.innerHTML = '<span class="ol-brace ol-brace-l">[</span><span class="ol-roll-text"><span>' + text + '</span><span>' + text + '</span></span><span class="ol-brace ol-brace-r">]</span>';
+              });
+          }
 
           // ── HIDE/SHOW header ──
           if (window.innerWidth <= 768) {
@@ -534,6 +582,12 @@
                   var line1 = document.getElementById('lb-line1'), line2 = document.getElementById('lb-line2');
                   if (line1) gsap.to(line1, { y:0, ease:'none', scrollTrigger: { trigger:'#contact', start:'top 90%', end:'top 20%', scrub:1.0 } });
                   if (line2) gsap.to(line2, { y:0, ease:'none', scrollTrigger: { trigger:'#contact', start:'top 80%', end:'top 10%', scrub:1.6 } });
+
+                  var footerOrangeBg = document.getElementById('footer-bg-orange');
+                  if (footerOrangeBg) {
+                      gsap.set(footerOrangeBg, { y: 120 });
+                      gsap.to(footerOrangeBg, { y: 0, ease:'none', scrollTrigger: { trigger:'#contact', start:'top bottom', end:'bottom bottom', scrub:1.2 } });
+                  }
 
 
                   document.querySelectorAll('.footer-contact-socials a').forEach(function(a) {

@@ -256,7 +256,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .services-grid-item p { text-align: center !important; font-size: 15px !important; line-height: 1.6 !important; }
     .uiux-label { display: none !important; }
     .services-big { display: none !important; visibility: hidden !important; height: 0 !important; max-height: 0 !important; overflow: hidden !important; margin: 0 !important; padding: 0 !important; position: absolute !important; pointer-events: none !important; }
-    .mob-services-phrase { position: relative; display: flex; flex-direction: column; align-items: center; width: 100%; gap: 8px; margin-top: 75px !important; margin-bottom: 75px !important; }
+    .mob-services-phrase { position: relative; display: flex; flex-direction: column; align-items: center; width: 100%; gap: 8px; margin-top: 75px !important; margin-bottom: 125px !important; }
     .mob-phrase-clip { overflow: hidden; display: flex; justify-content: center; width: 92vw; max-width: 340px; height: 80px; }
     .mob-phrase-word { display: block; width: auto; height: 80px; max-width: 340px; transform: translateY(110%); transition: transform 1.1s cubic-bezier(0.76,0,0.24,1); }
     .mob-phrase-word.in-view { transform: translateY(0); }
@@ -275,6 +275,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .mobile-testimonials img:last-child { margin-bottom: 0 !important; }
     .card { border-radius: 1px !important; }
     .card a.media, .card .pgi-image-holder { border-radius: 1px !important; }
+    .card .media img { border-radius: 1px !important; }
+    #footer-copyright-wrap { display: none !important; }
     .card:hover .img-hover { opacity: 0 !important; }
     .card:hover .img-base { transform: none !important; }
     .card .img-hover { transition: none !important; }
@@ -301,6 +303,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 @media (min-width: 769px) {
     .card .meta .meta-name, .card .meta .meta-num { display: none !important; }
     .mob-services-phrase { display: none !important; }
+    .mob-stickers-wrap { display: none !important; }
     .mob-footer, .mob-footer-text { display: none !important; }
     .card .meta p:last-of-type { font-family: 'PP Telegraf', sans-serif !important; font-weight: 700 !important; }
     #title-hola.noise-fill-hover, #title-hola.noise-fill-hover:hover, #title-works.noise-fill-hover, #title-works.noise-fill-hover:hover, .noise-fill-hover, .noise-fill-hover:hover { -webkit-text-stroke: 0 !important; text-stroke: 0 !important; color: inherit !important; background: none !important; -webkit-background-clip: unset !important; background-clip: unset !important; -webkit-text-fill-color: inherit !important; }
@@ -691,6 +694,9 @@ document.addEventListener('click', function(e) {
                 </div>
                 </div>
             </div>
+            <div class="mob-stickers-wrap" style="display:flex;justify-content:center;padding:40px 0;">
+                <img src="./assets/img/mob-stickers.png" alt="" style="display:block;width:340px;max-width:92vw;height:auto;" />
+            </div>
 
         <div id="extra-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#F8F8F8;padding-top:50px !important;padding-bottom:150px !important;margin-top:0;">
             <div class="tt-section-inner tt-wrap">
@@ -972,7 +978,7 @@ document.addEventListener('click', function(e) {
                 <div class="footer-lb-clip"><img id="lb-line1" src="./assets/img/LETSBUILD.svg" alt="LET'S BUILD" /></div>
                 <div class="footer-lb-clip"><img id="lb-line2" src="./assets/img/SOMETHING.svg" alt="SOMETHING" /></div>
             </div>
-            <div style="text-align:center;padding:24px 0 32px;position:relative;z-index:10;">
+            <div id="footer-copyright-wrap" style="text-align:center;padding:24px 0 32px;position:relative;z-index:10;">
                 <p id="footer-copyright" style="font-family:'PP Telegraf',sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#181818;margin:0;">©2026 All Rights Reserved — Federico Vaccarezza</p>
             </div>
         </footer>
