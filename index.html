@@ -195,8 +195,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 @media (max-width: 768px) {
     #trusted-by-row { display: none !important; }
     .mob-somekind-phrase { margin-bottom: 58px !important; }
-    .services-btns { width: 320px !important; max-width: 320px !important; padding: 0 0 40px !important; margin-left: auto !important; margin-right: auto !important; margin-bottom: -37px !important; }
-    .services-btns-connect { height: 40px !important; width: 320px !important; max-width: 320px !important; }
+    .services-btns { width: 340px !important; max-width: 340px !important; padding: 0 0 40px !important; margin-left: auto !important; margin-right: auto !important; margin-bottom: -37px !important; }
+    .services-btns-connect { height: 40px !important; width: 340px !important; max-width: 340px !important; }
     .mobile-testimonials { margin-top: 8px !important; }
     #services .words-container { margin-top: 0 !important; padding-top: 0 !important; }
     #services .tt-row:last-of-type { margin-top: 40px !important; }
@@ -250,8 +250,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #title-works .title-clip { overflow: visible !important; }
     #title-works .title-clip-inner { transform: none !important; }
     #works .tt-section-inner > span p { font-size: 16px !important; font-weight: 400 !important; color: #979797 !important; letter-spacing: 0.03em !important; line-height: 1.6 !important; text-transform: none !important; }
-    .services-grid { grid-template-columns: 1fr !important; gap: 12px !important; max-width: 340px !important; margin-left: auto !important; margin-right: auto !important; margin-top: 60px !important; }
+    .services-grid { grid-template-columns: 1fr !important; gap: 0 !important; max-width: 340px !important; margin-left: auto !important; margin-right: auto !important; margin-top: 60px !important; margin-bottom: 50px !important; }
     .services-grid-item { text-align: center !important; }
+    .services-grid-item:not(:last-child)::after { content: ''; display: block; width: 50px; height: 1px; background: #979797; margin: 24px auto 24px; }
     .services-grid-item h3 { font-family: 'PP Telegraf', sans-serif !important; font-size: 14px !important; font-weight: 400 !important; text-transform: uppercase !important; letter-spacing: 0.4em !important; line-height: 1.5 !important; justify-content: center !important; }
     .services-grid-item h3 img { display: none !important; }
     .services-grid-item p { text-align: center !important; font-size: 15px !important; line-height: 1.6 !important; }
@@ -592,10 +593,10 @@ document.addEventListener('click', function(e) {
                 </div>
                 <div class="tt-section-inner tt-wrap">
                     <div class="mob-works-phrase mob-ok" style="display:none;position:relative;">
-                        <img src="./assets/img/a-few-of.svg" alt="A Few of Them" class="mob-pill" id="mob-works-pill" />
                         <div class="mob-phrase-clip"><img src="./assets/img/work-featu.svg" class="mob-phrase-word" alt="" /></div>
                         <div class="mob-phrase-clip" id="mob-works-red-clip"><img src="./assets/img/work-red.svg" class="mob-phrase-word" alt="" /></div>
                         <div class="mob-phrase-clip"><img src="./assets/img/work-work.svg" class="mob-phrase-word" alt="" /></div>
+                        <img src="./assets/img/a-few-of.svg" alt="A Few of Them" class="mob-pill" id="mob-works-pill" />
                     </div>
                     <div class="gallery">
                         <div class="card" id="frog-bazar"><a href="https://www.behance.net/gallery/157959551/Frog-Bazar-2023" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a><a class="media" href="work/frogbazar/" alt="frog-bazar" data-vt-mode="slide"><img class="img-base" src="./assets/home/frogbazar-b.jpg" alt="Frog Bazar" /><img class="img-hover" src="./assets/home/frogbazar.jpg" alt="" aria-hidden="true" /></a><div class="meta"><h3>Frog Bazar</h3><p>branding + website + photo</p><p>(001)</p><span class="meta-name">Frog Bazar</span><span class="meta-num">(001)</span></div></div>
@@ -735,10 +736,10 @@ document.addEventListener('click', function(e) {
                             </div>
                         </div>
                         <div class="mob-somekind-phrase" style="position:relative;display:flex;flex-direction:column;align-items:center;width:100%;gap:8px;margin-bottom:8px;">
-                            <img src="./assets/img/some-kind.svg" alt="Some Kind Words" class="mob-pill" id="mob-testi-pill" />
                             <div class="mob-phrase-clip"><img src="./assets/img/testimonials-they.svg" class="mob-phrase-word" alt="" /></div>
                             <div class="mob-phrase-clip"><img src="./assets/img/testimonials-said.svg" class="mob-phrase-word" alt="" /></div>
                             <div class="mob-phrase-clip"><img src="./assets/img/testimonials-it.svg" class="mob-phrase-word" alt="" /></div>
+                            <img src="./assets/img/some-kind.svg" alt="Some Kind Words" class="mob-pill" id="mob-testi-pill" />
                         </div>
                         <div class="words-container"><div class="carousel" role="region"><div class="stage" id="stage">
                             <article class="verbatim prev" tabindex="0"><img src="./assets/img/word2.jpg" alt="" /><div><p><span>Dana Johonson</span> (Dotted 8)</p><p>"As a US-based agency, it can be tricky to find reliable international talent that aligns with our time constraints and quality expectations. Fede has been an incredible resource and a valued member of our team for many years!"</p></div></article>

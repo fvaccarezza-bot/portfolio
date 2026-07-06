@@ -378,14 +378,14 @@
                   $('body').removeClass('tt-ol-menu-open');
                   if (isMob && $clickedHref && $clickedHref.charAt(0) === '#') {
                      setTimeout(function() {
-                        var $target = $($clickedHref);
-                        if ($target.length) {
+                        var target = document.querySelector($clickedHref);
+                        if (target) {
                            var offset = parseInt($clickedOffset) || 0;
                            var topY;
                            if (offset <= -9000) { topY = document.body.scrollHeight; }
                            else if (offset >= 9000) { topY = 0; }
-                           else { topY = $target.offset().top - $('body').offset().top - offset; }
-                           $('html,body').animate({ scrollTop: topY }, 500);
+                           else { topY = target.getBoundingClientRect().top + window.pageYOffset - offset; }
+                           window.scrollTo({ top: topY, behavior: 'smooth' });
                         }
                      }, 50);
                   }
