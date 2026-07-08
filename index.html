@@ -417,7 +417,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #desk-about-me { height: 55px !important; width: auto !important; }
     #desk-work { height: 110px !important; width: auto !important; max-width: 1320px !important; }
     #testi-phrase-img { height: 110px !important; width: auto !important; max-width: 1320px !important; }
-    #line-federico .name-letter, #line-vaccarezza .name-letter { height: 110px !important; width: auto !important; max-width: none !important; }
     .hover-fv { transform: translateY(10px); }
     .sb-tag-parallax { transform: translateY(-20px) scale(0.8) !important; }
     .services-grid, .services-btns { transform: translateY(-125px) !important; }
@@ -576,6 +575,7 @@ document.addEventListener('click', function(e) {
         <div id="page-header" data-offset="0" class="ph-full ph-cap-sm ph-image-cropped ph-image-cover-3">
             <div aria-hidden="true" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:0;">
                 <img id="hero-bg-img" src="./assets/img/herobg.png" alt="" style="display:block;position:absolute;top:0;left:0;width:100%;height:auto;" />
+                <img id="hero-bg-img-2" src="./assets/img/herobg.png" alt="" style="display:block;position:absolute;bottom:0;right:0;width:100%;height:auto;transform:rotate(180deg);" />
             </div>
             <div id="about-enter-shadow" aria-hidden="true" style="position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to top, rgba(0,0,0,0.16), rgba(0,0,0,0));pointer-events:none;z-index:1;opacity:0;"></div>
             <div class="page-header-inner tt-wrap">
@@ -1198,9 +1198,13 @@ window.addEventListener('load', () => {
         var fedImg = document.querySelector('#line-federico img');
         var vacImg = document.querySelector('#line-vaccarezza img');
         if (!fedImg || !vacImg) return;
+        var isRetinaHero = window.matchMedia('(min-resolution: 2dppx)').matches;
         if (window.innerWidth >= 2560) {
             fedImg.src = './assets/img/desk-federico-uw.svg';
             vacImg.src = './assets/img/desk-vaccarezza-uw.svg';
+        } else if (isRetinaHero) {
+            fedImg.src = './assets/img/desk-federico-retina.svg';
+            vacImg.src = './assets/img/desk-vaccarezza-retina.svg';
         } else {
             fedImg.src = './assets/img/desk-federico.svg';
             vacImg.src = './assets/img/desk-vaccarezza.svg';
@@ -1321,6 +1325,7 @@ window.addEventListener('load', () => {
             const hero      = document.getElementById('page-header');
             const hoverFv   = document.querySelector('.hover-fv');
             const aboutShadow = document.getElementById('about-enter-shadow');
+            const heroMetaRowScroll = document.getElementById('hero-meta-row');
             sb.addListener(function({ offset }) {
                 if (!window._heroParallaxReady) return;
                 const heroH = hero ? hero.offsetHeight : window.innerHeight;
@@ -1330,6 +1335,7 @@ window.addEventListener('load', () => {
                 if (lineVacEl) lineVacEl.style.transform = 'translateY(' + (p * -140) + 'px)';
                 if (heroSub)   heroSub.style.transform   = 'translateY(' + (p * -140) + 'px)';
                 if (hoverFv) { hoverFv.style.filter = 'blur(' + (p * 24) + 'px)'; hoverFv.style.opacity = 1 - p; }
+                if (heroMetaRowScroll) { heroMetaRowScroll.style.filter = 'blur(' + (p * 24) + 'px)'; heroMetaRowScroll.style.opacity = 1 - p; }
                 if (aboutShadow) aboutShadow.style.opacity = p;
             });
         }, 600);
@@ -1349,6 +1355,7 @@ window.addEventListener('load', () => {
         const heroSubtitle = document.querySelector('.hero-subtitle');
         const heroMetaRow = document.getElementById('hero-meta-row');
         const heroBgImg = document.getElementById('hero-bg-img');
+        const heroBgImg2 = document.getElementById('hero-bg-img-2');
         window._heroParallaxReady = false;
         document.querySelectorAll('.name-reveal-mask').forEach(m => m.style.overflow = 'hidden');
         document.querySelectorAll('.ph-caption .min-titles').forEach(m => { if (m.parentNode) m.parentNode.style.overflow = 'hidden'; });
@@ -1357,9 +1364,16 @@ window.addEventListener('load', () => {
         gsap.set(lineVac, { y: '100%' });
         gsap.set(heroSubtitle, { y: '100%' });
         if (heroMetaRow) gsap.set(heroMetaRow, { opacity: 0, y: 16 });
-        if (heroBgImg) gsap.set(heroBgImg, { x: -36, y: -28, opacity: 0.85 });
+        if (heroBgImg) gsap.set(heroBgImg, { yPercent: -100 });
+        if (heroBgImg2) gsap.set(heroBgImg2, { yPercent: 100 });
         const doReveal = () => {
-            if (heroBgImg) gsap.to(heroBgImg, { x: 0, y: 0, opacity: 1, duration: 1.8, ease: 'power3.out', delay: 0 });
+            if (heroBgImg) {
+                gsap.to(heroBgImg, { yPercent: 0, duration: 1.9, ease: 'power3.out', delay: 0, onComplete: function() {
+                    var heroBgExit = heroBgImg.offsetHeight || window.innerHeight;
+                    gsap.to(heroBgImg, { y: -heroBgExit, duration: 20, ease: 'none' });
+                    if (heroBgImg2) gsap.to(heroBgImg2, { yPercent: 20, duration: 20, ease: 'none', delay: 0.15 });
+                } });
+            }
             gsap.to(minTitlesReveal, { y: 0, duration: 1.2, ease: 'power4.out', delay: 0 });
             gsap.to(lineFed, { y: 0, duration: 1.4, ease: 'power4.out', delay: 0.18, onComplete: () => { document.querySelectorAll('.name-reveal-mask').forEach(m => m.style.overflow = 'visible'); document.querySelectorAll('.ph-caption .min-titles').forEach(m => { if (m.parentNode) m.parentNode.style.overflow = 'visible'; }); } });
             gsap.to(lineVac, { y: 0, duration: 1.4, ease: 'power4.out', delay: 0.32 });
