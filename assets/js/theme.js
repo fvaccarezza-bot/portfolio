@@ -164,6 +164,24 @@
             }
          }
          Scrollbar.use(AnchorPlugin);
+         class EdgeBrakePlugin extends Scrollbar.ScrollbarPlugin {
+            static pluginName = 'edgeBrake';
+            static defaultOptions = { zone: 400, minFactor: 0.12 };
+            transformDelta(delta, fromEvent) {
+               const { limit, offset } = this.scrollbar;
+               const { zone, minFactor } = this.options;
+               if (delta.y > 0 && limit.y > 0) {
+                  const remaining = Math.max(limit.y - offset.y, 0);
+                  if (remaining < zone) {
+                     const t = remaining / zone;
+                     const factor = minFactor + (1 - minFactor) * t;
+                     return { ...delta, y: delta.y * factor };
+                  }
+               }
+               return delta;
+            }
+         }
+         Scrollbar.use(EdgeBrakePlugin);
          Scrollbar.init(document.querySelector('#scroll-container'), { damping: 0.06, renderByPixel: true, continuousScrolling: true, alwaysShowTracks: true });
          let scrollPositionX = 0, scrollPositionY = 0, bodyScrollBar = Scrollbar.init(document.getElementById('scroll-container'));
          bodyScrollBar.addListener(({ offset }) => { scrollPositionX = offset.x; scrollPositionY = offset.y; });

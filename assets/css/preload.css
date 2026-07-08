@@ -29,7 +29,7 @@ body.no-scroll {
   display: grid;
   place-items: center;
   background: #f8f8f8;
-  color: #181818;
+  color: #222222;
   overflow: hidden;
   transform: translateY(0);
   will-change: transform;

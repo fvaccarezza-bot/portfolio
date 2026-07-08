@@ -115,9 +115,9 @@
           el.style.filter = "blur(0px)";
           el.style.boxShadow = "0 0 39.7px rgba(0,0,0,0.1)";
           el.style.opacity = "1";
-          el.style.zIndex = "3";
+          el.style.zIndex = "6";
           el.style.pointerEvents = "auto";
-          el.style.cursor = "default";
+          el.style.cursor = "grab";
           el.removeAttribute("data-hidden-side");
         } else if (el.classList.contains("prev")) {
           parkOff(el, "left");
@@ -169,12 +169,14 @@
     items.forEach((el, i) => {
       if (el.classList.contains("active")) {
         const activeScale = UW_MQ.matches ? 1.2 : 1;
-        el.style.transform = `translate(-50%, -50%) translate(0px, 0px) scale(${activeScale})`;
+        const hovering = el.classList.contains("hovering");
+        const liftY = hovering ? -6 : 0;
+        el.style.transform = `translate(-50%, -50%) translate(0px, ${liftY}px) scale(${activeScale})`;
         el.style.filter = "blur(0px)";
-        el.style.boxShadow = "0 0 39.7px rgba(0,0,0,0.1)";
+        el.style.boxShadow = hovering ? "0 30px 55px rgba(0,0,0,0.18)" : "0 0 39.7px rgba(0,0,0,0.1)";
         el.style.opacity = "1";
-        el.style.zIndex = "3";
-        el.style.cursor = "default";
+        el.style.zIndex = "6";
+        el.style.cursor = "grab";
         el.style.pointerEvents = "auto";
         el.removeAttribute("data-hidden-side");
       } else if (el.classList.contains("prev")) {
@@ -233,15 +235,103 @@
     void stage.offsetWidth;
   }
 
+  // Grab & swipe — drag the active card, release past the threshold to advance
+  const DRAG_SOFT = 110; // px antes de que empiece la resistencia
+  const DRAG_LIMIT = 160; // tope duro de recorrido (claramente limitado)
+  const DRAG_THRESHOLD = 80; // px para soltar y cambiar de card
+  const DRAG_MAX_ROTATE = 5; // grados — para que no sea un recorrido 100% recto
+  const DRAG_SHADOW = "0 30px 55px rgba(0,0,0,0.18)"; // misma sombra que ya pone el hover, sin salto
+
+  // El navegador dispara un "click" nativo después del mouseup/pointerup, incluso
+  // tras un drag. Si el mouse quedó sobre un .hit o la prev/next, ese click dispara
+  // goNext/goPrev otra vez y pisa lo que el drag ya resolvió. Lo comemos una sola vez.
+  function suppressNextClick() {
+    const killClick = (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+    };
+    document.addEventListener("click", killClick, { capture: true, once: true });
+  }
+
+  function bindDrag(activeEl) {
+    if (!activeEl) return;
+    activeEl.style.cursor = "grab";
+
+    let dragging = false;
+    let dx = 0;
+    let startX = 0;
+
+    function rubberBand(raw) {
+      if (Math.abs(raw) <= DRAG_SOFT) return raw;
+      const over = Math.abs(raw) - DRAG_SOFT;
+      const capped = Math.min(DRAG_SOFT + over * 0.35, DRAG_LIMIT);
+      return raw < 0 ? -capped : capped;
+    }
+
+    function renderDrag() {
+      const baseScale = UW_MQ.matches ? 1.2 : 1;
+      const rot = (dx / DRAG_LIMIT) * DRAG_MAX_ROTATE;
+      // -6px fijo: es el mismo lift que ya puso el hover, así no hay salto al empezar a arrastrar
+      activeEl.style.transform = `translate(-50%, -50%) translate(${dx}px, -6px) scale(${baseScale}) rotate(${rot}deg)`;
+    }
+
+    activeEl.onpointerdown = function (e) {
+      if (e.button) return;
+      e.preventDefault(); // evita que el navegador arranque un drag nativo si el click cae sobre la <img>
+      dragging = true;
+      dx = 0;
+      startX = e.clientX;
+      if (activeEl.setPointerCapture) activeEl.setPointerCapture(e.pointerId);
+      activeEl.style.transition = "none";
+      activeEl.style.cursor = "grabbing";
+      activeEl.style.boxShadow = DRAG_SHADOW;
+      renderDrag();
+    };
+
+    activeEl.onpointermove = function (e) {
+      if (!dragging) return;
+      dx = rubberBand(e.clientX - startX);
+      renderDrag();
+    };
+
+    function endDrag() {
+      if (!dragging) return;
+      dragging = false;
+      activeEl.style.cursor = "grab";
+      activeEl.style.transition = "";
+      // el mouse puede soltarse arriba de un .hit (prev/next) — sin esto, el click
+      // nativo que sigue al mouseup navega otra vez y pisa lo que acaba de hacer el drag
+      if (Math.abs(dx) > 5) suppressNextClick();
+      if (Math.abs(dx) > DRAG_THRESHOLD) {
+        dx < 0 ? goNext() : goPrev();
+      } else {
+        applyLayout();
+      }
+      dx = 0;
+    }
+
+    activeEl.onpointerup = endDrag;
+    activeEl.onpointercancel = endDrag;
+    activeEl.onpointerleave = function () {
+      if (dragging) endDrag();
+    };
+  }
+
   function bindSideInteractions() {
     items.forEach((v) => {
       v.onclick = null;
       v.onmouseenter = null;
       v.onmouseleave = null;
+      v.onpointerdown = null;
+      v.onpointermove = null;
+      v.onpointerup = null;
+      v.onpointercancel = null;
+      v.onpointerleave = null;
     });
 
     const prevEl = items.find((el) => el.classList.contains("prev"));
     const nextEl = items.find((el) => el.classList.contains("next"));
+    const activeEl = items.find((el) => el.classList.contains("active"));
 
     if (prevEl) {
       prevEl.onclick = goPrev;
@@ -265,6 +355,16 @@
         applyLayout();
       };
     }
+    if (activeEl) {
+      activeEl.onmouseenter = () => {
+        activeEl.classList.add("hovering");
+        applyLayout();
+      };
+      activeEl.onmouseleave = () => {
+        activeEl.classList.remove("hovering");
+        applyLayout();
+      };
+    }
 
     // Hotzones reflejan hover/click del lateral correspondiente
     hitLeft.onclick = goPrev;
@@ -285,6 +385,8 @@
       nextEl?.classList.remove("hovering");
       applyLayout();
     };
+
+    bindDrag(activeEl);
   }
 
   function goNext() {
@@ -316,17 +418,12 @@
     bindSideInteractions();
   }
 
-  // Swipe básico (opcional)
-  let startX = null;
-  stage.addEventListener("pointerdown", (e) => {
-    startX = e.clientX;
-  });
-  stage.addEventListener("pointerup", (e) => {
-    if (startX == null) return;
-    const dx = e.clientX - startX;
-    if (Math.abs(dx) > 30) dx < 0 ? goNext() : goPrev();
-    startX = null;
-  });
+  // Evita que el navegador arranque su drag-and-drop nativo sobre las fotos (pisaría el grab custom)
+  function disableNativeImgDrag(root) {
+    root.querySelectorAll("img").forEach((img) => {
+      img.draggable = false;
+    });
+  }
 
   // Observa nuevos testimonios añadidos (N dinámico)
   const observer = new MutationObserver((mutations) => {
@@ -338,6 +435,7 @@
           node.classList.remove("prev", "next", "active");
           node.classList.add("hidden");
           node.setAttribute("data-hidden-side", "right"); // por defecto, entra como "next"
+          disableNativeImgDrag(node);
           changed = true;
         }
       });
@@ -352,6 +450,7 @@
   observer.observe(stage, { childList: true });
 
   // Init
+  disableNativeImgDrag(stage);
   syncItems();
   setRoles(activeIndex); // normaliza el DOM inicial
   applyLayout();
