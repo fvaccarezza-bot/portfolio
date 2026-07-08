@@ -169,8 +169,8 @@
           body.opame .work-title .desc.will-reveal { opacity:0; transform:translateY(8px); }
           body.opame .work-title .desc.revealed { opacity:1; transform:translateY(0); }
 
-          .work-gallery > * { opacity:0; transform:translateY(40px); transition:opacity 1.0s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.0s cubic-bezier(0.25,0.46,0.45,0.94); }
-          .work-gallery > *.in-view { opacity:1; transform:translateY(0); }
+          .work-gallery > * { opacity:0; transform:translateY(40px); filter:blur(20px); transition:opacity 1.0s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.0s cubic-bezier(0.25,0.46,0.45,0.94), filter 1.0s cubic-bezier(0.25,0.46,0.45,0.94); }
+          .work-gallery > *.in-view { opacity:1; transform:translateY(0); filter:blur(0px); }
 
           #footer-bg-orange { display:none !important; }
           .footer-letsbuild { display:none !important; }
@@ -654,17 +654,17 @@
                   if (deskOrder) gsap.set(deskOrder, { opacity:0, y:14 });
                   if (deskDesc) gsap.set(deskDesc, { opacity:0, y:14 });
                   if (deskTags) gsap.set(deskTags, { opacity:0, y:10 });
-                  if (firstImg) gsap.set(firstImg, { opacity:0, y:30 });
+                  if (firstImg) gsap.set(firstImg, { opacity:0, y:30, filter:'blur(20px)' });
                   var secondImg = document.querySelectorAll('.work-gallery > *')[1];
-                  if (secondImg) gsap.set(secondImg, { opacity:0, y:30 });
+                  if (secondImg) gsap.set(secondImg, { opacity:0, y:30, filter:'blur(20px)' });
 
                   function deskReveal() {
                       if (deskTitle) gsap.to(deskTitle, { opacity:1, y:0, duration:1.0, ease:'power3.out', delay:0.0 });
                       if (deskOrder) gsap.to(deskOrder, { opacity:1, y:0, duration:0.9, ease:'power3.out', delay:0.15 });
                       if (deskDesc) gsap.to(deskDesc, { opacity:1, y:0, duration:0.9, ease:'power3.out', delay:0.28 });
                       if (deskTags) gsap.to(deskTags, { opacity:1, y:0, duration:0.8, ease:'power3.out', delay:0.42 });
-                      if (firstImg) gsap.to(firstImg, { opacity:1, y:0, duration:1.2, ease:'power3.out', delay:0.55 });
-                      if (secondImg) gsap.to(secondImg, { opacity:1, y:0, duration:1.2, ease:'power3.out', delay:0.7 });
+                      if (firstImg) gsap.to(firstImg, { opacity:1, y:0, filter:'blur(0px)', duration:1.2, ease:'power3.out', delay:0.55 });
+                      if (secondImg) gsap.to(secondImg, { opacity:1, y:0, filter:'blur(0px)', duration:1.2, ease:'power3.out', delay:0.7 });
                   }
                   var deskRev = false;
                   function safeDeskReveal() { if (!deskRev) { deskRev = true; deskReveal(); } }
@@ -680,7 +680,7 @@
 
                   document.querySelectorAll('.work-gallery > *').forEach(function(el, i) {
                       if (i === 0 || i === 1) return;
-                      gsap.fromTo(el, { opacity:0, y:40 }, { opacity:1, y:0, duration:1.2, ease:'power3.out',
+                      gsap.fromTo(el, { opacity:0, y:40, filter:'blur(20px)' }, { opacity:1, y:0, filter:'blur(0px)', duration:1.2, ease:'power3.out',
                           scrollTrigger: { trigger:el, start:'top 90%', toggleActions:'play none none none' }
                       });
                   });

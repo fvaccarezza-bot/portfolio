@@ -116,8 +116,8 @@
          body.web .work-title .desc { width:100% !important; max-width:100% !important; font-size:13px !important; line-height:1.7 !important; transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.35s, transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.35s; transform:translateY(8px); }
          body.web .work-title .desc.will-reveal { opacity:0; transform:translateY(8px); }
          body.web .work-title .desc.revealed { opacity:1; transform:translateY(0); }
-         .tt-row { opacity:0; transform:translateY(40px); transition:opacity 1.0s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.0s cubic-bezier(0.25,0.46,0.45,0.94); }
-         .tt-row.in-view { opacity:1; transform:translateY(0); }
+         .tt-row { opacity:0; transform:translateY(40px); filter:blur(20px); transition:opacity 1.0s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.0s cubic-bezier(0.25,0.46,0.45,0.94), filter 1.0s cubic-bezier(0.25,0.46,0.45,0.94); }
+         .tt-row.in-view { opacity:1; transform:translateY(0); filter:blur(0px); }
 
          /* overlay menu works list */
          .tt-ol-menu-list { display:flex !important; flex-direction:column !important; gap:2px !important; padding:0 !important; margin-top:48px !important; margin-bottom:0 !important; list-style:none !important; }
@@ -627,13 +627,13 @@ window.addEventListener('load', function() {
             if (deskTitle) gsap.set(deskTitle, { opacity:0, y:20 });
             if (deskOrder) gsap.set(deskOrder, { opacity:0, y:14 });
             if (deskDesc) gsap.set(deskDesc, { opacity:0, y:14 });
-            if (firstRow) gsap.set(firstRow, { opacity:0, y:30 });
+            if (firstRow) gsap.set(firstRow, { opacity:0, y:30, filter:'blur(20px)' });
 
             function deskReveal() {
                 if (deskTitle) gsap.to(deskTitle, { opacity:1, y:0, duration:1.0, ease:'power3.out', delay:0.0 });
                 if (deskOrder) gsap.to(deskOrder, { opacity:1, y:0, duration:0.9, ease:'power3.out', delay:0.15 });
                 if (deskDesc) gsap.to(deskDesc, { opacity:1, y:0, duration:0.9, ease:'power3.out', delay:0.28 });
-                if (firstRow) gsap.to(firstRow, { opacity:1, y:0, duration:1.2, ease:'power3.out', delay:0.42 });
+                if (firstRow) gsap.to(firstRow, { opacity:1, y:0, filter:'blur(0px)', duration:1.2, ease:'power3.out', delay:0.42 });
             }
             var deskRev = false;
             function safeDeskReveal() { if (!deskRev) { deskRev = true; deskReveal(); } }
@@ -646,7 +646,7 @@ window.addEventListener('load', function() {
 
             document.querySelectorAll('.tt-row').forEach(function(el, i) {
                 if (i === 0) return;
-                gsap.fromTo(el, { opacity:0, y:40 }, { opacity:1, y:0, duration:1.2, ease:'power3.out', scrollTrigger:{ trigger:el, start:'top 90%', toggleActions:'play none none none' } });
+                gsap.fromTo(el, { opacity:0, y:40, filter:'blur(20px)' }, { opacity:1, y:0, filter:'blur(0px)', duration:1.2, ease:'power3.out', scrollTrigger:{ trigger:el, start:'top 90%', toggleActions:'play none none none' } });
             });
 
             document.querySelectorAll('.footer-contact-socials a').forEach(function(a) {
