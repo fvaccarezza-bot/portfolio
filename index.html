@@ -103,6 +103,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .tt-main-menu.menu-revealed .tt-main-menu-list > li:nth-child(2) { transition-delay:0.07s; }
 .tt-main-menu.menu-revealed .tt-main-menu-list > li:nth-child(3) { transition-delay:0.14s; }
 .tt-main-menu.menu-revealed .tt-main-menu-list > li:nth-child(4) { transition-delay:0.21s; }
+.tt-logo.intro-hover a img:last-child { transform: scale(1); }
+.tt-logo.intro-hover a img:first-child { transform: rotate(2deg) scale(1.42) translate(-1px, 2px); }
 #works, #services, #contact { position:relative; z-index:2; background:#F8F8F8; }
 #content-wrap { background:#F8F8F8; }
 #about { background:#F8F8F8; }
@@ -400,11 +402,16 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #stickers-outer { padding-bottom: 160px !important; }
     #fede-photo-wrap { width:425px !important; height:425px !important; }
     #trusted-phrase-wrap { margin-bottom: -40px !important; }
-    #trusted-phrase-span { font-size: 16px !important; }
+    #trusted-phrase-span { font-size: 12px !important; }
     #footer-copyright { font-size: 16px !important; }
 }
 .hero-meta-row { display: flex; justify-content: space-between; align-items: center; position: absolute; left: 0; right: 0; bottom: 56px; padding: 0 80px; z-index: 5; pointer-events: none; }
 .hero-meta-item { font-family: 'PP Telegraf', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: 0.5em; text-transform: uppercase; color: #3A3A39; white-space: nowrap; }
+#hero-meta-location { position: relative; pointer-events: auto; cursor: default; }
+#hero-meta-location .meta-loc-default, #hero-meta-location .meta-loc-coords { transition: opacity 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
+#hero-meta-location .meta-loc-coords { position: absolute; left: 0; top: 0; opacity: 0; white-space: nowrap; }
+#hero-meta-location:hover .meta-loc-default { opacity: 0; }
+#hero-meta-location:hover .meta-loc-coords { opacity: 1; }
 #noise-overlay { display: none; }
 @media (min-resolution: 2dppx) {
     #deck-guidelines-frame { width: 1200px !important; max-width: 1200px !important; }
@@ -456,6 +463,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #trusted-by-section { padding-top: 50px !important; }
     #trusted-phrase-wrap { margin-bottom: 40px !important; }
     #trusted-by-row { transform: translateY(-50px) !important; }
+    #trusted-phrase-span { font-size: 12px !important; }
 }
 </style>
 <link rel="preload" href="./assets/fonts/PPTelegraf-Regular.woff2" as="font" type="font/woff2" crossorigin />
@@ -605,7 +613,7 @@ document.addEventListener('click', function(e) {
                 </div>
             </div>
             <div id="hero-meta-row" class="hero-meta-row">
-                <span class="hero-meta-item" id="hero-meta-location">TIGRE, BS.AS.</span>
+                <span class="hero-meta-item" id="hero-meta-location"><span class="meta-loc-default">TIGRE, BS.AS.</span><span class="meta-loc-coords">34°25′00″S 58°35′00″O</span></span>
                 <span class="hero-meta-item" id="hero-meta-date"></span>
                 <span class="hero-meta-item" id="hero-meta-time"></span>
             </div>
@@ -681,6 +689,7 @@ document.addEventListener('click', function(e) {
             </div>
 
             <div id="services" class="tt-section">
+                <img id="sidebg-img" src="./assets/img/sidebg.png" alt="" style="position:absolute;left:0;top:-250px;height:100%;width:auto;max-width:none;z-index:0;pointer-events:none;" />
                 <div class="tt-section-inner tt-wrap">
                 <style>
                     .services-big { position:relative; margin-top:100px; margin-bottom:180px; cursor:default; text-align:center; }
@@ -769,6 +778,17 @@ document.addEventListener('click', function(e) {
             <div class="mob-stickers-wrap" style="display:flex;justify-content:center;padding:0 0 40px;">
                 <img id="mob-stickers-img" src="./assets/img/mob-stickers.png" alt="" style="display:block;width:380px;max-width:92vw;height:auto;" />
             </div>
+
+        <div id="trusted-by-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#F8F8F8;padding-top:40px !important;margin-top:-150px !important;">
+            <div class="tt-section-inner tt-wrap">
+                <div class="tt-row" style="display:flex;flex-direction:column;align-items:center;" id="trusted-by-row">
+                    <div id="trusted-phrase-wrap" style="display:flex;align-items:center;justify-content:center;margin-bottom:80px;cursor:default;position:relative;">
+                        <span id="trusted-phrase-span" style="font-family:'PP Telegraf',sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#222222;white-space:nowrap;display:inline-block;">SOME OF THE TEAMS I'VE COLLABORATED WITH</span>
+                    </div>
+                    <img id="trusted-logos-img" src="./assets/img/desk-logos-trusted.svg" alt="Trusted by" style="display:block;width:auto;height:auto;" />
+                </div>
+            </div>
+        </div>
 
         <div id="extra-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#F8F8F8;padding-top:50px !important;padding-bottom:150px !important;margin-top:0;">
             <div class="tt-section-inner tt-wrap">
@@ -967,17 +987,6 @@ document.addEventListener('click', function(e) {
             </div>
         </div>
 
-        <div id="trusted-by-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#F8F8F8;padding-top:120px !important;">
-            <div class="tt-section-inner tt-wrap">
-                <div class="tt-row" style="display:flex;flex-direction:column;align-items:center;" id="trusted-by-row">
-                    <div id="trusted-phrase-wrap" style="display:flex;align-items:center;justify-content:center;margin-bottom:80px;cursor:default;position:relative;">
-                        <span id="trusted-phrase-span" style="font-family:'PP Telegraf',sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#222222;white-space:nowrap;display:inline-block;">SOME OF THE TEAMS I'VE COLLABORATED WITH</span>
-                    </div>
-                    <img id="trusted-logos-img" src="./assets/img/desk-logos-trusted.svg" alt="Trusted by" style="display:block;width:auto;height:auto;" />
-                </div>
-            </div>
-        </div>
-
         <footer id="contact" class="tt-section">
             <div id="footer-bg-orange" style="position:absolute;bottom:0;left:0;width:100%;z-index:1;pointer-events:none;"><img id="footer-orange-img" src="./assets/img/desk-footer-orange-main.png" style="width:100%;height:auto;display:block;" /></div>
             <div class="mob-footer">
@@ -1084,7 +1093,7 @@ document.addEventListener('click', function(e) {
                             <a href="https://www.linkedin.com/in/federico-vaccarezza-38b987255/" target="_blank"><img src="./assets/img/social-linkedin.svg" alt="LinkedIn" /></a>
                             <a href="https://vsco.co/fedevaccarezza/" target="_blank"><img src="./assets/img/social-vsco.svg" alt="VSCO" /></a>
                         </div>
-                        <span class="footer-roll-wrap" style="cursor:default;"><span class="brace brace-l">[</span><span class="footer-roll-text"><span>SOCIAL</span><span>SOCIAL</span></span><span class="brace brace-r">]</span></span>
+                        <span class="footer-roll-wrap" id="footer-social-label" style="cursor:pointer;"><span class="brace brace-l">[</span><span class="footer-roll-text"><span>SOCIAL</span><span>SOCIAL</span></span><span class="brace brace-r">]</span></span>
                     </div>
                 </div>
             </div>
@@ -1376,13 +1385,8 @@ window.addEventListener('load', () => {
         if (heroBgImg) gsap.set(heroBgImg, { yPercent: -100 });
         if (heroBgImg2) gsap.set(heroBgImg2, { yPercent: 100 });
         const doReveal = () => {
-            if (heroBgImg) {
-                gsap.to(heroBgImg, { yPercent: 0, duration: 1.9, ease: 'power3.out', delay: 0, onComplete: function() {
-                    var heroBgExit = heroBgImg.offsetHeight || window.innerHeight;
-                    gsap.to(heroBgImg, { y: -heroBgExit, duration: 20, ease: 'none' });
-                    if (heroBgImg2) gsap.to(heroBgImg2, { yPercent: 20, duration: 20, ease: 'none', delay: 0.15 });
-                } });
-            }
+            var introLogoEl = document.querySelector('.tt-logo.mob-no');
+            if (introLogoEl) { introLogoEl.classList.add('intro-hover'); setTimeout(() => { introLogoEl.classList.remove('intro-hover'); }, 1400); }
             gsap.to(minTitlesReveal, { y: 0, duration: 1.2, ease: 'power4.out', delay: 0 });
             gsap.to(lineFed, { y: 0, duration: 1.4, ease: 'power4.out', delay: 0.18, onComplete: () => { document.querySelectorAll('.name-reveal-mask').forEach(m => m.style.overflow = 'visible'); document.querySelectorAll('.ph-caption .min-titles').forEach(m => { if (m.parentNode) m.parentNode.style.overflow = 'visible'; }); } });
             gsap.to(lineVac, { y: 0, duration: 1.4, ease: 'power4.out', delay: 0.32 });
@@ -1418,6 +1422,23 @@ window.addEventListener('load', () => {
             obsReveal.observe(preloaderEl, { attributes: true, attributeFilter: ['style', 'class'] });
             setTimeout(safeReveal, 2000);
         } else { setTimeout(safeReveal, 300); }
+
+        // ── Hero background: starts its entrance earlier, while the preloader is still fading out ──
+        let heroBgRevealed = false;
+        const heroBgReveal = () => {
+            if (heroBgRevealed || !heroBgImg) return;
+            heroBgRevealed = true;
+            gsap.to(heroBgImg, { yPercent: 0, duration: 1.9, ease: 'power3.out', onComplete: function() {
+                var heroBgExit = heroBgImg.offsetHeight || window.innerHeight;
+                gsap.to(heroBgImg, { y: -heroBgExit, duration: 20, ease: 'none' });
+                if (heroBgImg2) gsap.to(heroBgImg2, { yPercent: 20, duration: 20, ease: 'none', delay: 0.15 });
+            } });
+        };
+        if (preloaderEl) {
+            const obsHeroBg = new MutationObserver(() => { const s = window.getComputedStyle(preloaderEl); if (parseFloat(s.opacity) < 0.9) { heroBgReveal(); obsHeroBg.disconnect(); } });
+            obsHeroBg.observe(preloaderEl, { attributes: true, attributeFilter: ['style', 'class'] });
+            setTimeout(heroBgReveal, 1200);
+        } else { setTimeout(heroBgReveal, 150); }
 
         if (window.innerWidth <= 768) {
             var lastScrollY = 0, menuBtn = document.getElementById('tt-ol-menu-toggle-btn-wrap'), logoHeader = document.getElementById('logo-header'), ticking = false;
@@ -1603,8 +1624,8 @@ window.addEventListener('load', () => {
             var figmaLogo = document.getElementById('figma-logo');
             if (figmaLogo) { gsap.to(figmaLogo, { opacity:1, ease:'none', scrollTrigger: { trigger:'#deck-guidelines-frame', start:'top 80%', end:'top 30%', scrub:1.2 } }); }
             if (extraImg) {
-                gsap.set(extraImg, { opacity:0, y:0 });
-                gsap.to(extraImg, { opacity:1, duration:1.2, ease:'power3.out', delay:0, scrollTrigger: { trigger:'#deck-guidelines-frame', start:'top 95%', toggleActions:'play none none none' } });
+                gsap.set(extraImg, { opacity:0 });
+                gsap.to(extraImg, { opacity:1, duration:1.0, ease:'power2.out', delay:0, scrollTrigger: { trigger:'#deck-guidelines-frame', start:'top 95%', toggleActions:'play none none none' } });
                 gsap.fromTo(extraImg, { y:'-7%' }, { y:'7%', ease:'none', scrollTrigger: { trigger:'#deck-guidelines-frame', start:'top bottom', end:'bottom top', scrub:true } });
             }
 
@@ -1622,11 +1643,11 @@ window.addEventListener('load', () => {
                 gsap.to(servicesBtns, { opacity: 1, y: 0, duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: '.services-btns', start: 'top 88%', toggleActions: 'play none none none' } });
             }
 
-            // ── Trusted by logos: fade reveal ──
+            // ── Trusted by logos: reveal (matches project-page image reveal) ──
             var trustedImg = document.getElementById('trusted-logos-img');
             if (trustedImg) {
-                gsap.set(trustedImg, { opacity: 0, y: 24 });
-                gsap.to(trustedImg, { opacity: 1, y: 0, duration: 1.4, ease: 'power3.out', scrollTrigger: { trigger: '#trusted-by-section', start: 'top 85%', toggleActions: 'play none none none' } });
+                gsap.set(trustedImg, { opacity: 0, y: 40 });
+                gsap.to(trustedImg, { opacity: 1, y: 0, duration: 1.0, ease: 'power2.out', scrollTrigger: { trigger: '#trusted-by-section', start: 'top 85%', toggleActions: 'play none none none' } });
             }
 
             // ── Trusted by: hover — letter-spacing expands on text only ──
@@ -1673,6 +1694,11 @@ window.addEventListener('load', () => {
                 [['.sb-line1',-180,0.8],['.sb-line2',-120,0.8],['.sb-line3',-70,0.8],['.sb-tag1',-40,0.8],['.sb-tag2',-20,0.8],['.sb-tag3',-8,0.8]].forEach(([sel,y,scrub]) => { const el = servicesBig.querySelector(sel); if (!el) return; gsap.to(el, { y, ease:'none', scrollTrigger: { trigger:servicesBig, start:'top bottom', end:'bottom top', scrub } }); });
                 const sbTagWrap = servicesBig.querySelector('.sb-tag');
                 if (sbTagWrap) { gsap.set(sbTagWrap, { scale: 0.85, transformOrigin: 'bottom right' }); gsap.to(sbTagWrap, { y: -50, ease:'none', scrollTrigger: { trigger:servicesBig, start:'top bottom', end:'bottom top', scrub:0.8 } }); }
+            }
+            const sidebgImg = document.getElementById('sidebg-img');
+            if (sidebgImg) {
+                gsap.set(sidebgImg, { xPercent: -40 });
+                gsap.to(sidebgImg, { xPercent: 0, ease: 'none', scrollTrigger: { trigger: '#services', start: 'top bottom', end: 'top top', scrub: 0.8 } });
             }
         }
 
@@ -1807,7 +1833,7 @@ if (window.innerWidth <= 768) {
 }
 if (window.innerWidth > 768) {
     var desktopStyle = document.createElement('style');
-    desktopStyle.textContent = ['.gallery .card { opacity:0; transform:translateY(60px); filter:blur(8px); transition:opacity 1.4s cubic-bezier(0.22,1,0.36,1), transform 1.4s cubic-bezier(0.22,1,0.36,1), filter 1.4s cubic-bezier(0.22,1,0.36,1); }', '.gallery .card.in-view { opacity:1; transform:translateY(0); filter:blur(0px); }'].join('');
+    desktopStyle.textContent = ['.gallery .card { opacity:0; transform:translateY(40px); transition:opacity 1.0s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.0s cubic-bezier(0.25,0.46,0.45,0.94); }', '.gallery .card.in-view { opacity:1; transform:translateY(0); }'].join('');
     document.head.appendChild(desktopStyle);
     var desktopCards = Array.from(document.querySelectorAll('.gallery .card')), cardTriggered = new Set();
     var desktopCardObs = new IntersectionObserver(function(entries) { entries.forEach(function(entry) { if (!entry.isIntersecting || cardTriggered.has(entry.target)) return; var targetTop = entry.target.offsetTop; var rowCards = desktopCards.filter(function(c) { return Math.abs(c.offsetTop - targetTop) < 10; }); rowCards.forEach(function(card, i) { if (cardTriggered.has(card)) return; cardTriggered.add(card); card.style.transitionDelay = (i * 0.1) + 's'; card.classList.add('in-view'); desktopCardObs.unobserve(card); }); }); }, { threshold: 0.08 });
@@ -2006,6 +2032,7 @@ if (window.innerWidth > 768) {
 // One absolute layer spanning 100% of #content-wrap height.
 // Only #content-wrap's overflow:hidden clips (at viewport edges). No section can cut SVGs.
 window.addEventListener('load', function() {
+    return; // ── temporarily disabled per request, keep code intact to restore later ──
     if (window.innerWidth <= 768) return;
     var cw = document.getElementById('content-wrap');
     if (!cw) return;
