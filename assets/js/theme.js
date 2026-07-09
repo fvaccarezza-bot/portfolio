@@ -150,6 +150,7 @@
                if (!hash) { return; }
                const { scrollbar } = this;
                scrollbar.containerEl.scrollTop = 0;
+               if (hash === '#contact') { scrollbar.scrollTo(0, scrollbar.limit.y, 600); return; }
                const target = document.querySelector(hash);
                if (target) { scrollbar.scrollIntoView(target, { offsetTop: parseFloat(target.getAttribute('data-offset')) || 0 }); }
             };
@@ -164,24 +165,6 @@
             }
          }
          Scrollbar.use(AnchorPlugin);
-         class EdgeBrakePlugin extends Scrollbar.ScrollbarPlugin {
-            static pluginName = 'edgeBrake';
-            static defaultOptions = { zone: 400, minFactor: 0.12 };
-            transformDelta(delta, fromEvent) {
-               const { limit, offset } = this.scrollbar;
-               const { zone, minFactor } = this.options;
-               if (delta.y > 0 && limit.y > 0) {
-                  const remaining = Math.max(limit.y - offset.y, 0);
-                  if (remaining < zone) {
-                     const t = remaining / zone;
-                     const factor = minFactor + (1 - minFactor) * t;
-                     return { ...delta, y: delta.y * factor };
-                  }
-               }
-               return delta;
-            }
-         }
-         Scrollbar.use(EdgeBrakePlugin);
          Scrollbar.init(document.querySelector('#scroll-container'), { damping: 0.06, renderByPixel: true, continuousScrolling: true, alwaysShowTracks: true });
          let scrollPositionX = 0, scrollPositionY = 0, bodyScrollBar = Scrollbar.init(document.getElementById('scroll-container'));
          bodyScrollBar.addListener(({ offset }) => { scrollPositionX = offset.x; scrollPositionY = offset.y; });
@@ -564,7 +547,7 @@
       if ($('#tt-header').hasClass('tt-header-fixed')) { var $offset = $('#tt-header').height(); } else { var $offset = 0; }
       if ($(this).data('offset') != undefined) $offset = $(this).data('offset');
       if (!isMobile) {
-         if ($('body').hasClass('tt-smooth-scroll')) { var topY = $(target).offset().top - $('#scroll-container > .scroll-content').offset().top - $offset; var $scrollbar = Scrollbar.init(document.getElementById('scroll-container')); gsap.to($scrollbar, { duration: 2.2, scrollTo: { y: topY, autoKill: true }, ease: Expo.easeInOut }); }
+         if ($('body').hasClass('tt-smooth-scroll')) { var $scrollbar = Scrollbar.init(document.getElementById('scroll-container')); var topY = target === '#contact' ? $scrollbar.limit.y : $(target).offset().top - $('#scroll-container > .scroll-content').offset().top - $offset; gsap.to($scrollbar, { duration: 2.2, scrollTo: { y: topY, autoKill: true }, ease: Expo.easeInOut }); }
          else { var topY = $(target).offset().top - $('body').offset().top - $offset; $('html,body').animate({ scrollTop: topY }, 800); }
       } else { var topY = $(target).offset().top - $('body').offset().top - $offset; $('html,body').animate({ scrollTop: topY }, 800); }
       return false;

@@ -186,6 +186,7 @@
         #lb-line1 { display:block; width:auto; height:auto; transform:translateY(100%); filter:none; margin:0 auto; }
         @media (min-width: 2560px) {
             #footer-copyright { font-size: 16px !important; }
+            #contact .tt-section-inner.tt-wrap { padding-top: 700px !important; }
         }
         .tt-main-menu-list > li { opacity:0; transform:translateY(-10px); transition:opacity 0.4s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); pointer-events:none; }
         .tt-main-menu-list > li:nth-child(1) { transition-delay:0.21s; }
@@ -721,8 +722,8 @@
                   window.addEventListener('resize', matchLbHeight);
 
                   var line1 = document.getElementById('lb-line1'), line2 = document.getElementById('lb-line2');
-                  if (line1) gsap.to(line1, { y:0, ease:'none', scrollTrigger: { trigger:'#contact', start:'top 90%', end:'top 30%', scrub:0.8 } });
-                  if (line2) gsap.to(line2, { y:0, ease:'none', scrollTrigger: { trigger:'#contact', start:'top 78%', end:'top 18%', scrub:0.8 } });
+                  if (line1) gsap.to(line1, { y:0, ease:'none', scrollTrigger: { trigger:'#contact', start:'top 95%', end:'top 25%', scrub:1.4 } });
+                  if (line2) gsap.to(line2, { y:0, ease:'none', scrollTrigger: { trigger:'#contact', start:'top 65%', end:'top -5%', scrub:1.4 } });
 
                   var footerOrangeBg = document.getElementById('footer-bg-orange');
                   if (footerOrangeBg) {

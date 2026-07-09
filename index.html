@@ -392,6 +392,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 #page-header { position:relative; }
 .stickers-scene { display:grid; place-items:center; height:520px; overflow:visible; }
 .stk-wrap { grid-area:1/1; display:block; user-select:none; pointer-events:none; }
+.tt-logo a, #logo-header a { color:#222222; }
 .stk { display:block; height:auto; transition:transform 0.55s cubic-bezier(0.34,1.4,0.64,1), filter 0.3s ease; pointer-events:visiblePainted; cursor:grab; }
 .stk:hover { filter:brightness(1.06); transform:scale(1.1); }
 .stk:active { cursor:grabbing; }
@@ -1531,8 +1532,8 @@ window.addEventListener('load', () => {
         (function() {
             const line1 = document.getElementById('lb-line1'), line2 = document.getElementById('lb-line2');
             if (!line1 || !line2) return;
-            gsap.to(line1, { y: 0, ease: 'none', scrollTrigger: { trigger: '#contact', start: 'top 90%', end: 'top 30%', scrub: 0.8 } });
-            gsap.to(line2, { y: 0, ease: 'none', scrollTrigger: { trigger: '#contact', start: 'top 78%', end: 'top 18%', scrub: 0.8 } });
+            gsap.to(line1, { y: 0, ease: 'none', scrollTrigger: { trigger: '#contact', start: 'top 95%', end: 'top 25%', scrub: 1.4 } });
+            gsap.to(line2, { y: 0, ease: 'none', scrollTrigger: { trigger: '#contact', start: 'top 65%', end: 'top -5%', scrub: 1.4 } });
         })();
 
         (function() {
