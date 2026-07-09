@@ -237,7 +237,8 @@
 
   // Grab & swipe — drag the active card, release past the threshold to advance
   const DRAG_SOFT = 110; // px antes de que empiece la resistencia
-  const DRAG_LIMIT = 160; // tope duro de recorrido (claramente limitado)
+  const DRAG_LIMIT = 160; // tope donde la resistencia se pone muy dura
+  const DRAG_HARD_LIMIT = 185; // tope final absoluto, con muchisima resistencia entre LIMIT y este
   const DRAG_THRESHOLD = 80; // px para soltar y cambiar de card
   const DRAG_MAX_ROTATE = 5; // grados — para que no sea un recorrido 100% recto
   const DRAG_SHADOW = "0 30px 55px rgba(0,0,0,0.18)"; // misma sombra que ya pone el hover, sin salto
@@ -262,9 +263,17 @@
     let startX = 0;
 
     function rubberBand(raw) {
-      if (Math.abs(raw) <= DRAG_SOFT) return raw;
-      const over = Math.abs(raw) - DRAG_SOFT;
-      const capped = Math.min(DRAG_SOFT + over * 0.35, DRAG_LIMIT);
+      const abs = Math.abs(raw);
+      if (abs <= DRAG_SOFT) return raw;
+      const overSoft = abs - DRAG_SOFT;
+      const stage1Span = (DRAG_LIMIT - DRAG_SOFT) / 0.35;
+      let capped;
+      if (overSoft <= stage1Span) {
+        capped = DRAG_SOFT + overSoft * 0.35;
+      } else {
+        const overHard = overSoft - stage1Span;
+        capped = Math.min(DRAG_LIMIT + overHard * 0.08, DRAG_HARD_LIMIT);
+      }
       return raw < 0 ? -capped : capped;
     }
 
