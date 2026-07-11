@@ -30,6 +30,8 @@
       <link rel="preload" href="../../assets/fonts/PPTelegraf-Ultrabold.woff2" as="font" type="font/woff2" crossorigin />
       <script src="../../assets/js/sessionStorage.js"></script>
       <style>
+        :root { --fv-caps: 13px; --fv-body: 14px; } /* normal-res text scale: caps=labels, body=paragraphs */
+        @media (min-width: 1200px) and (max-width: 2559px) and (max-resolution: 1.99dppx) { .tt-main-menu-list > li > a { font-size: var(--fv-caps); } }
         body.broke .tt-section.title-work { padding-left:0!important; padding-right:0!important; width:100vw!important; max-width:100%!important; box-sizing:border-box!important; }
         body.broke .title-work .work-header-inner { width:100%!important; display:flex!important; flex-direction:column!important; align-items:center!important; justify-content:center!important; text-align:center!important; padding:60px 0 40px!important; }
         body.broke .work-title { width:100%!important; max-width:100%!important; display:flex!important; flex-direction:column!important; align-items:center!important; text-align:center!important; }
@@ -37,7 +39,7 @@
         body.broke .work-title .order { margin-top:50px; }
         body.broke .work-title .desc { max-width:650px!important; width:650px!important; margin-left:auto!important; margin-right:auto!important; box-sizing:border-box!important; text-align:center!important; }
         body.broke .work-tags { display:flex; justify-content:center; gap:60px; margin-top:50px; margin-bottom:10px; }
-        body.broke .work-tags span { font-family:'PP Telegraf',sans-serif; font-size:14px; line-height:1.5; letter-spacing:0.5em; text-transform:uppercase; color:inherit; }
+        body.broke .work-tags span { font-family:'PP Telegraf',sans-serif; font-size:var(--fv-caps); line-height:1.5; letter-spacing:0.5em; text-transform:uppercase; color:inherit; }
         body.broke .tt-section.padding-bottom-xlg-150 { padding-top:0!important; padding-bottom:300px!important; }
         .work-gallery { display:flex; flex-direction:column; align-items:center; gap:50px; width:100%; padding:0; }
         .work-gallery img { width:1320px; max-width:100%; height:auto!important; max-height:none!important; display:block; border-radius:6px; }
@@ -110,14 +112,14 @@
         #modal-works .works-items a:hover .wm-roll-text span:first-child { transform:translateY(-100%); }
         #modal-works .works-items a:hover .wm-roll-text span:last-child { transform:translateY(0%); }
         body.broke .broke-title-mob { display:none; }
-        .footer-contact-links { display:grid; grid-template-columns:1fr 1fr 1fr; width:100%; align-items:center; padding-bottom:24px; letter-spacing:0.5em; font-size:14px; position:relative; z-index:10; box-sizing:border-box; }
-        .footer-roll-wrap { display:inline-flex; align-items:center; gap:6px; text-decoration:none; color:#3A3A39; text-transform:uppercase; font-weight:500; letter-spacing:0.5em; font-size:14px; }
+        .footer-contact-links { display:grid; grid-template-columns:1fr 1fr 1fr; width:100%; align-items:center; padding-bottom:24px; letter-spacing:0.5em; font-size:var(--fv-caps); position:relative; z-index:10; box-sizing:border-box; }
+        .footer-roll-wrap { display:inline-flex; align-items:center; gap:6px; text-decoration:none; color:#3A3A39; text-transform:uppercase; font-weight:500; letter-spacing:0.5em; font-size:var(--fv-caps); }
         .footer-roll-text { display:inline-block; overflow:hidden; vertical-align:bottom; position:relative; }
         .footer-roll-text span { display:block; transition:transform 0.4s cubic-bezier(0.76,0,0.24,1); }
         .footer-roll-text span:last-child { position:absolute; top:0; left:0; transform:translateY(100%); }
         .footer-roll-wrap:hover .footer-roll-text span:first-child { transform:translateY(-100%); }
         .footer-roll-wrap:hover .footer-roll-text span:last-child { transform:translateY(0%); }
-        .footer-roll-wrap .brace { display:inline-block; transition:transform 0.4s cubic-bezier(0.34,1.5,0.9,1); font-size:14px; font-weight:400; color:#3A3A39; }
+        .footer-roll-wrap .brace { display:inline-block; transition:transform 0.4s cubic-bezier(0.34,1.5,0.9,1); font-size:var(--fv-caps); font-weight:400; color:#3A3A39; }
         .footer-roll-wrap:hover .brace-l { transform:translateX(-6px); }
         .footer-roll-wrap:hover .brace-r { transform:translateX(6px); }
         .footer-col-center { text-align:center; display:flex; justify-content:center; }
@@ -359,7 +361,7 @@
                         <div class="footer-lb-clip" style="margin-top:0px;"><img id="lb-line2" src="../../assets/img/SOMETHING.svg" alt="SOMETHING" /></div>
                      </div>
                      <div class="footer-copyright" id="footer-copyright-wrap" style="text-align:center;padding:24px 0 32px;position:relative;z-index:10;">
-                        <p id="footer-copyright" style="font-family:'PP Telegraf',sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#222222;margin:0;">©2026 All Rights Reserved — Federico Vaccarezza</p>
+                        <p id="footer-copyright" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#222222;margin:0;">©2026 All Rights Reserved — Federico Vaccarezza</p>
                      </div>
                   </footer>
                </div>

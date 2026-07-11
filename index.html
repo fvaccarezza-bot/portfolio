@@ -36,6 +36,11 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 <link rel="stylesheet" href="./assets/css/ui-scale.css" />
 <style>
 
+/* ── Normal-res text scale (excludes retina/UW, which keep their own hardcoded sizes) ──
+   --fv-caps: uppercase + letter-spaced labels (menu, hero meta, footer, card titles, service titles, process labels)
+   --fv-body: standard sentence-case body copy (about, service descriptions, flow descriptions, FAQ Q&A) */
+:root { --fv-caps: 13px; --fv-body: 14px; }
+
 .name-reveal-mask { display:flex; justify-content:center; overflow:hidden; }
 .name-reveal-mask:has(#line-federico) { margin-bottom: 0px; }
 .name-reveal-mask:has(#line-vaccarezza) { margin-top: 0px; }
@@ -56,6 +61,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .faq-question:hover .faq-answer-wrap { opacity:1; transform:translateY(8px); }
 @keyframes faq-plus-breathe { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
 .faq-plus { position:relative; width:16px; height:16px; flex-shrink:0; animation: faq-plus-breathe 2.2s ease-in-out infinite; }
+@media (max-width: 2559px) { .faq-plus { width:12px; height:12px; } }
 .faq-question:hover .faq-plus { animation-play-state: paused; }
 .faq-plus::before, .faq-plus::after { content:''; position:absolute; background:#FF6600; transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94); }
 .faq-plus::before { top:50%; left:0; width:100%; height:2px; transform:translateY(-50%); }
@@ -176,10 +182,17 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #trusted-by-section .tt-wrap { max-width: 1800px !important; }
     #trusted-logos-img { max-width: none !important; width: auto !important; height: auto !important; }
 }
+/* FAQ section 1 — standard desktop only (ultrawide keeps its own override above) */
+@media (max-width: 2559px) {
+    #faq-section .faq-block-wrap { grid-template-columns: minmax(0, 1fr) 560px; }
+    #faq-section .faq-title-img { max-width: 100%; }
+    #faq-section .faq-questions-wrap { width: 560px; flex-shrink: 0; }
+}
 .section-title.hola, .section-title.hola:hover, .section-title.noise-fill-hover, .section-title.noise-fill-hover:hover { -webkit-text-stroke: 0 !important; text-stroke: 0 !important; color: #3A3A39 !important; background: none !important; -webkit-background-clip: unset !important; background-clip: unset !important; -webkit-text-fill-color: #3A3A39 !important; pointer-events: none !important; cursor: default !important; }
 #modal-works .modal__dialog { display:flex; flex-direction:column; align-items:center; justify-content:center; }
 #modal-works .content { justify-content:center !important; align-items:center !important; }
 .tt-ol-menu-list > li > a, .tt-ol-submenu-list > li > a, .tt-main-menu-list > li > a { background-color: transparent !important; color: #222222 !important; border: none !important; outline: none !important; box-shadow: none !important; user-select: none; -webkit-user-select: none; }
+@media (min-width: 1200px) and (max-width: 2559px) and (max-resolution: 1.99dppx) { .tt-main-menu-list > li > a { font-size: var(--fv-caps); } }
 .tt-ol-menu-list > li > a:hover, .tt-ol-menu-list > li > a:focus, .tt-ol-menu-list > li > a:active, .tt-ol-menu-list > li > a:focus-visible, .tt-ol-submenu-list > li > a:hover, .tt-ol-submenu-list > li > a:focus, .tt-ol-submenu-list > li > a:active, .tt-main-menu-list > li > a:hover, .tt-main-menu-list > li > a:focus, .tt-main-menu-list > li > a:active { background-color: transparent !important; color: #222222 !important; border: none !important; box-shadow: none !important; outline: none !important; }
 .tt-ol-menu-list > li > a.ol-roll-wrap, .tt-ol-submenu-list > li > a.ol-roll-wrap, .tt-main-menu-list > li > a.ol-roll-wrap { display:inline-flex !important; align-items:center !important; gap:5px !important; }
 .ol-roll-wrap { display:inline-flex; align-items:center; gap:5px; }
@@ -427,7 +440,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .hero-meta-item { font-size: 16px !important; }
 }
 .hero-meta-row { display: flex; justify-content: space-between; align-items: center; position: absolute; left: 0; right: 0; bottom: 56px; padding: 0 80px; z-index: 5; pointer-events: none; }
-.hero-meta-item { font-family: 'PP Telegraf', sans-serif; font-size: 12px; font-weight: 400; letter-spacing: 0.5em; text-transform: uppercase; color: #3A3A39; white-space: nowrap; }
+.hero-meta-item { font-family: 'PP Telegraf', sans-serif; font-size: var(--fv-caps); font-weight: 400; letter-spacing: 0.5em; text-transform: uppercase; color: #3A3A39; white-space: nowrap; }
 #hero-meta-location { position: relative; pointer-events: auto; cursor: default; }
 #hero-meta-location .meta-loc-default, #hero-meta-location .meta-loc-coords { transition: opacity 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
 #hero-meta-location .meta-loc-coords { position: absolute; left: 0; top: 0; opacity: 0; white-space: nowrap; }
@@ -671,9 +684,9 @@ document.addEventListener('click', function(e) {
                             <img id="fede-solo-img" src="./assets/img/fede-solo.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:4px;will-change:transform;transition:none;" />
                             <div id="fede-orange-mask" style="position:absolute;inset:0;background:#FF6600;mix-blend-mode:multiply;border-radius:4px;pointer-events:none;transition:opacity 0.6s cubic-bezier(0.25,0.46,0.45,0.94);opacity:1;"></div>
                         </div>
-                        <div class="info" style="width:100%;display:flex;flex-direction:column;gap:16px;text-align:center;" id="fede-text-wrap">
-                            <p style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.7;margin:0;">Educated at the University of Buenos Aires (UBA), I began in Industrial Design before transitioning to Graphic Design.</p>
-                            <p style="font-family:'PP Telegraf',sans-serif;font-size:12px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#3A3A39;line-height:1.7;margin:0;">Over the years, my work has spanned branding, web design, and UI/UX, collaborating with startups and established companies to create brands, websites, and digital experiences that are clear, effective, and thoughtfully designed.</p>
+                        <div class="info" style="width:100%;max-width:500px;margin:0 auto;display:flex;flex-direction:column;gap:16px;text-align:center;" id="fede-text-wrap">
+                            <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:#979797;line-height:1.6;margin:0;">Educated at the University of Buenos Aires (UBA), I began in Industrial Design before transitioning to Graphic Design.</p>
+                            <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:#979797;line-height:1.6;margin:0;">Over the years, my work has spanned branding, web design, and UI/UX, collaborating with startups and established companies to create brands, websites, and digital experiences that are clear, effective, and thoughtfully designed.</p>
                         </div>
                     </div>
                 </div>
@@ -723,9 +736,9 @@ document.addEventListener('click', function(e) {
                     .sb-tag img { display:block; width:auto; max-width:none; }
                     .trusted-track img { filter:none; }
                     .services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:90px; margin-bottom:40px; transform:translateY(-50px); }
-                    .services-grid-item h3 { display:flex; align-items:center; gap:10px; font-family:'PP Telegraf',sans-serif; font-size:14px; font-weight:400; color:#222222; letter-spacing:0.5em; text-transform:uppercase; margin-bottom:12px; padding-top:0; cursor:default; transition:color 0.6s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); line-height:1; }
+                    .services-grid-item h3 { display:flex; align-items:center; gap:10px; font-family:'PP Telegraf',sans-serif; font-size:var(--fv-caps); font-weight:400; color:#222222; letter-spacing:0.5em; text-transform:uppercase; margin-bottom:12px; padding-top:0; cursor:default; transition:color 0.6s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); line-height:1; }
                     .services-grid-item h3 img { width:auto; height:20px; transition:filter 0.6s cubic-bezier(0.25,0.46,0.45,0.94), transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); flex-shrink:0; position:relative; top:0; }
-                    .services-grid-item p { font-family:'PP Telegraf',sans-serif !important; font-size:16px !important; font-weight:400; color:#979797; letter-spacing:0.03em; line-height:1.6; transition:transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), color 0.6s cubic-bezier(0.25,0.46,0.45,0.94); }
+                    .services-grid-item p { font-family:'PP Telegraf',sans-serif !important; font-size:var(--fv-body) !important; font-weight:400; color:#979797; letter-spacing:0.03em; line-height:1.6; transition:transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94), color 0.6s cubic-bezier(0.25,0.46,0.45,0.94); }
                     .services-grid-item { transition: none; text-align:left; display:flex; flex-direction:column; align-items:flex-start; }
                     .services-grid-item h3 { flex-direction:column; align-items:flex-start; gap:14px; }
                     .services-grid-item h3 img { width:auto; height:26px; }
@@ -744,7 +757,7 @@ document.addEventListener('click', function(e) {
                     .services-btns-row a:hover::after { opacity:0.9; }
                     .services-btns-row a:hover { background-image:none; color:#fff; }
                     .services-btns-row a span { position:relative; z-index:1; }
-                    .services-btns-connect { display:flex; width:100%; height:40px; align-items:center; justify-content:center; background:#1C1C1A; color:#fff; text-decoration:none; font-family:'PP Telegraf',sans-serif; font-size:14px; letter-spacing:0.5em; text-transform:uppercase; padding-left:0.5em; box-sizing:border-box; border-radius:5px; position:relative; overflow:hidden; transition:color 0.4s ease; }
+                    .services-btns-connect { display:flex; width:100%; height:40px; align-items:center; justify-content:center; background:#1C1C1A; color:#fff; text-decoration:none; font-family:'PP Telegraf',sans-serif; font-size:var(--fv-caps); letter-spacing:0.5em; text-transform:uppercase; padding-left:0.5em; box-sizing:border-box; border-radius:5px; position:relative; overflow:hidden; transition:color 0.4s ease; }
                     .services-btns-connect::before { content:''; position:absolute; bottom:-100%; left:0; width:100%; height:100%; background:#FF6600; transition:bottom 0.5s cubic-bezier(0.76,0,0.24,1); z-index:0; }
                     @media (hover: hover) and (pointer: fine) {
                         .services-btns-connect:hover::before { bottom:0; }
@@ -806,7 +819,7 @@ document.addEventListener('click', function(e) {
             <div class="tt-section-inner tt-wrap">
                 <div class="tt-row" style="display:flex;flex-direction:column;align-items:center;" id="trusted-by-row">
                     <div id="trusted-phrase-wrap" style="display:flex;align-items:center;justify-content:center;margin-bottom:80px;cursor:default;position:relative;">
-                        <span id="trusted-phrase-span" style="font-family:'PP Telegraf',sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#222222;white-space:nowrap;display:inline-block;">SOME OF THE TEAMS I'VE COLLABORATED WITH</span>
+                        <span id="trusted-phrase-span" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#222222;white-space:nowrap;display:inline-block;">SOME OF THE TEAMS I'VE COLLABORATED WITH</span>
                     </div>
                     <img id="trusted-logos-img" src="./assets/img/desk-logos-trusted.svg" alt="Trusted by" style="display:block;width:auto;height:auto;" />
                 </div>
@@ -826,7 +839,7 @@ document.addEventListener('click', function(e) {
                                 </div>
                                 <img id="figma-logo" src="./assets/img/figma-logo.png" alt="Figma" style="position:absolute;bottom:-60px;right:-100px;width:auto;height:auto;display:block;pointer-events:none;opacity:0;" />
                             </div>
-                            <p id="extra-text" style="font-family:'PP Telegraf',sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#FFFFFF;line-height:1.7;margin:0;opacity:0;">THIS WILL OPEN A FIGMA OF MY BRAND GUIDELINES AND DECKS<br>(A FEW I'M ALLOWED TO SHARE)</p>
+                            <p id="extra-text" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#FFFFFF;line-height:1.7;margin:0;opacity:0;">THIS WILL OPEN A FIGMA OF MY BRAND GUIDELINES AND DECKS<br>(A FEW I'M ALLOWED TO SHARE)</p>
                         </div>
                     </a>
                 </div>
@@ -914,32 +927,32 @@ document.addEventListener('click', function(e) {
                             <img src="./assets/img/people-need.svg" id="faq-pill-1" style="display:block;height:auto;width:auto;transform:translateX(-110%);" alt="People Need To Know" />
                         </div>
                     </div>
-                    <div class="faq-questions-wrap" style="display:flex;flex-direction:column;gap:0;max-width:480px;padding-top:0;padding-bottom:0;justify-content:space-between;">
+                    <div class="faq-questions-wrap" style="display:flex;flex-direction:column;gap:0;padding-top:0;padding-bottom:0;justify-content:space-between;">
                         <div class="faq-question">
                             <div class="faq-question-inner">
-                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(01)</span> What kind of clients do you work with?</p><span class="faq-plus"></span></div>
-                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">I've worked with startups, growing businesses, and established companies across a wide range of industries.</p></div>
+                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(01)</span> What kind of clients do you work with?</p><span class="faq-plus"></span></div>
+                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">I've worked with startups, growing businesses, and established companies across a wide range of industries.</p></div>
                             </div>
                             <div class="fq-sep"></div>
                         </div>
                         <div class="faq-question">
                             <div class="faq-question-inner">
-                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(02)</span> What kind of projects do I take on?</p><span class="faq-plus"></span></div>
-                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">From brand identities and websites to UI/UX systems and digital products.</p></div>
+                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(02)</span> What kind of projects do I take on?</p><span class="faq-plus"></span></div>
+                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">From brand identities and websites to UI/UX systems and digital products.</p></div>
                             </div>
                             <div class="fq-sep"></div>
                         </div>
                         <div class="faq-question">
                             <div class="faq-question-inner">
-                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(03)</span> What's it like working with me?</p><span class="faq-plus"></span></div>
-                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">I keep the process collaborative and straightforward. Clear communication, honest feedback, and execution.</p></div>
+                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(03)</span> What's it like working with me?</p><span class="faq-plus"></span></div>
+                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">I keep the process collaborative and straightforward. Clear communication, honest feedback, and execution.</p></div>
                             </div>
                             <div class="fq-sep"></div>
                         </div>
                         <div class="faq-question">
                             <div class="faq-question-inner">
-                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(04)</span> How long does a project take?</p><span class="faq-plus"></span></div>
-                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">Every project is different, but once I understand the scope, I'll provide a realistic timeline and keep things moving.</p></div>
+                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(04)</span> How long does a project take?</p><span class="faq-plus"></span></div>
+                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">Every project is different, but once I understand the scope, I'll provide a realistic timeline and keep things moving.</p></div>
                             </div>
                             <div class="fq-sep"></div>
                         </div>
@@ -968,7 +981,7 @@ document.addEventListener('click', function(e) {
             </div>
         </div>
 
-        <div id="faq-section-2" class="tt-section mob-no" style="position:relative;z-index:2;background:#F8F8F8;padding-top:100px;padding-bottom:100px;">
+        <div id="faq-section-2" class="tt-section mob-no" style="position:relative;z-index:2;background:#F8F8F8;padding-top:100px;padding-bottom:300px;">
             <div class="tt-section-inner tt-wrap">
                 <div class="faq-block-wrap" style="margin:0 auto;display:flex;flex-direction:row;gap:80px;align-items:stretch;">
                     <div class="faq-questions-wrap" style="display:flex;flex-direction:column;justify-content:space-between;width:460px;flex-shrink:0;position:relative;">
@@ -977,25 +990,25 @@ document.addEventListener('click', function(e) {
                         <div class="process-step" style="display:flex;flex-direction:row;align-items:flex-start;opacity:0;transform:translateY(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:26px;font-weight:800;color:#3A3A39;line-height:1;width:80px;flex-shrink:0;">(01)</div>
                             <div style="padding-right:24px;padding-top:2px;flex-shrink:0;"><div class="process-dot" style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div></div>
-                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:14px;font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Understand</p><p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">Learning about your business, goals, and challenges.</p></div>
+                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Understand</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">Learning about your business, goals, and challenges.</p></div>
                         </div>
                         <!-- step 02 -->
                         <div class="process-step" style="display:flex;flex-direction:row;align-items:flex-start;opacity:0;transform:translateY(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:26px;font-weight:800;color:#3A3A39;line-height:1;width:80px;flex-shrink:0;">(02)</div>
                             <div style="padding-right:24px;padding-top:2px;flex-shrink:0;"><div class="process-dot" style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div></div>
-                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:14px;font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Explore</p><p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">Developing ideas, directions, and solutions.</p></div>
+                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Explore</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">Developing ideas, directions, and solutions.</p></div>
                         </div>
                         <!-- step 03 -->
                         <div class="process-step" style="display:flex;flex-direction:row;align-items:flex-start;opacity:0;transform:translateY(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:26px;font-weight:800;color:#3A3A39;line-height:1;width:80px;flex-shrink:0;">(03)</div>
                             <div style="padding-right:24px;padding-top:2px;flex-shrink:0;"><div class="process-dot" style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div></div>
-                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:14px;font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Create</p><p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">Designing, refining, and bringing everything together.</p></div>
+                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Create</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">Designing, refining, and bringing everything together.</p></div>
                         </div>
                         <!-- step 04 -->
                         <div class="process-step" style="display:flex;flex-direction:row;align-items:flex-start;opacity:0;transform:translateY(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:26px;font-weight:800;color:#3A3A39;line-height:1;width:80px;flex-shrink:0;">(04)</div>
                             <div style="padding-right:24px;padding-top:2px;flex-shrink:0;"><div class="process-dot" style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div></div>
-                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:14px;font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Deliver</p><p style="font-family:'PP Telegraf',sans-serif;font-size:16px;font-weight:400;color:#979797;margin:0;line-height:1.6;">Launching the final work and supporting what comes next.</p></div>
+                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Deliver</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">Launching the final work and supporting what comes next.</p></div>
                         </div>
                     </div>
                     <div class="faq-title-wrap" style="overflow:visible;display:flex;flex-direction:column;gap:16px;flex:1;align-items:flex-end;">
@@ -1051,7 +1064,7 @@ document.addEventListener('click', function(e) {
                 footer#contact { margin-bottom: 0 !important; }
                 #page-content { padding-bottom: 0 !important; margin-bottom: 0 !important; }
                 .tt-section:last-child { margin-bottom: 0 !important; padding-bottom: 0 !important; }
-                .footer-contact-links { display:grid; grid-template-columns:1fr 1fr 1fr; width:100%; align-items:center; padding-bottom:24px; letter-spacing:0.5em; font-size:14px; position:relative; z-index:10; box-sizing:border-box; }
+                .footer-contact-links { display:grid; grid-template-columns:1fr 1fr 1fr; width:100%; align-items:center; padding-bottom:24px; letter-spacing:0.5em; font-size:var(--fv-caps); position:relative; z-index:10; box-sizing:border-box; }
                 .card a.media, .card .pgi-image-holder { position:relative; overflow:hidden; display:block; border-radius:10px !important; isolation:isolate; will-change:transform; }
                 .card:hover a.media, .card:hover .pgi-image-holder { border-radius:10px !important; }
                 .gallery:has(.card:hover) .card:not(:hover) { filter:blur(5px); }
@@ -1070,14 +1083,14 @@ document.addEventListener('click', function(e) {
                 .card:hover .img-base { transform:scale(1.03); }
                 .card .meta h3 { letter-spacing:0.5em; text-transform:uppercase; }
                 .footer-roll { display:inline; }
-                .footer-roll-wrap { display:inline-flex; align-items:center; gap:6px; text-decoration:none; color:#222222; text-transform:uppercase; font-weight:500; letter-spacing:0.5em; font-size:14px; }
-                #footer-social-label { font-size:16px; }
+                .footer-roll-wrap { display:inline-flex; align-items:center; gap:6px; text-decoration:none; color:#222222; text-transform:uppercase; font-weight:500; letter-spacing:0.5em; font-size:var(--fv-caps); }
+                #footer-social-label { font-size:var(--fv-caps); }
                 .footer-roll-text { display:inline-block; overflow:hidden; vertical-align:bottom; position:relative; }
                 .footer-roll-text span { display:block; transition:transform 0.4s cubic-bezier(0.76,0,0.24,1); }
                 .footer-roll-text span:last-child { position:absolute; top:0; left:0; transform:translateY(100%); }
                 .footer-roll-wrap:hover .footer-roll-text span:first-child { transform:translateY(-100%); }
                 .footer-roll-wrap:hover .footer-roll-text span:last-child { transform:translateY(0%); }
-                .footer-roll-wrap .brace { display:inline-block; transition:transform 0.4s cubic-bezier(0.34,1.5,0.9,1); font-size:14px; font-weight:400; color:#222222; }
+                .footer-roll-wrap .brace { display:inline-block; transition:transform 0.4s cubic-bezier(0.34,1.5,0.9,1); font-size:var(--fv-caps); font-weight:400; color:#222222; }
                 .footer-roll-wrap:hover .brace-l { transform:translateX(-6px); }
                 .footer-roll-wrap:hover .brace-r { transform:translateX(6px); }
                 .title-clip { overflow:hidden; display:block; }
@@ -1133,7 +1146,7 @@ document.addEventListener('click', function(e) {
                 <div class="footer-lb-clip"><img id="lb-line2" src="./assets/img/SOMETHING.svg" alt="SOMETHING" /></div>
             </div>
             <div id="footer-copyright-wrap" style="text-align:center;padding:24px 0 32px;position:relative;z-index:10;">
-                <p id="footer-copyright" style="font-family:'PP Telegraf',sans-serif;font-size:14px;font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#222222;margin:0;">©2026 All Rights Reserved — Federico Vaccarezza</p>
+                <p id="footer-copyright" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#222222;margin:0;">©2026 All Rights Reserved — Federico Vaccarezza</p>
             </div>
         </footer>
         </div>
@@ -1560,7 +1573,7 @@ window.addEventListener('load', () => {
             const line1 = document.getElementById('lb-line1'), line2 = document.getElementById('lb-line2');
             if (!line1 || !line2) return;
             gsap.to(line1, { y: 0, ease: 'none', scrollTrigger: { trigger: '#contact', start: 'top 95%', end: 'top 25%', scrub: 1.4 } });
-            gsap.to(line2, { y: 0, ease: 'none', scrollTrigger: { trigger: '#contact', start: 'top 65%', end: 'top -5%', scrub: 1.4 } });
+            gsap.to(line2, { y: 0, ease: 'none', scrollTrigger: { trigger: '#contact', start: 'top 65%', end: 'top 15%', scrub: 1.4 } });
         })();
 
         (function() {
@@ -2063,7 +2076,6 @@ if (window.innerWidth > 768) {
 // One absolute layer spanning 100% of #content-wrap height.
 // Only #content-wrap's overflow:hidden clips (at viewport edges). No section can cut SVGs.
 window.addEventListener('load', function() {
-    return; // ── temporarily disabled per request, keep code intact to restore later ──
     if (window.innerWidth <= 768) return;
     var cw = document.getElementById('content-wrap');
     if (!cw) return;
