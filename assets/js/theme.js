@@ -593,6 +593,10 @@
       }
    }
 
+   // ── Work page prev/next nav arrows ──
+   $('.nav-work .is-prev').on('click', function () { var url = document.body.getAttribute('data-prev'); if (url) window.location.href = url; });
+   $('.nav-work .is-next').on('click', function () { var url = document.body.getAttribute('data-next'); if (url) window.location.href = url; });
+
    // Miscellaneous
    $('.tt-btn-disabled').find('a').on('click', function () { return false; });
    $(window).on('pagehide', function () { $(window).scrollTop(0); });
