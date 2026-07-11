@@ -215,7 +215,7 @@
   color: var(--color-fede-fv);
   background-color: transparent;
   text-align: center;
-  font-size: 14px;
+  font-size: var(--fv-caps, 14px);
   font-weight: 400;
   letter-spacing: 6px;
   padding: 6px 6px 6px 12px;
@@ -226,6 +226,31 @@
 .modal-simple.submmodal .works-items a:hover {
   color: var(--color-fede-white);
   background-color: var(--color-fede-fv);
+}
+.modal-simple.submmodal .works-items a {
+  opacity: 0;
+  transform: translateY(28px);
+}
+.modal-simple.is-open .works-items a {
+  animation: worksItemSlideIn 700ms cubic-bezier(0.7, 0, 0.2, 1) forwards;
+}
+.modal-simple.is-open .works-items a:nth-child(1) { animation-delay: 0ms; }
+.modal-simple.is-open .works-items a:nth-child(2) { animation-delay: 40ms; }
+.modal-simple.is-open .works-items a:nth-child(3) { animation-delay: 80ms; }
+.modal-simple.is-open .works-items a:nth-child(4) { animation-delay: 120ms; }
+.modal-simple.is-open .works-items a:nth-child(5) { animation-delay: 160ms; }
+.modal-simple.is-open .works-items a:nth-child(6) { animation-delay: 200ms; }
+.modal-simple.is-open .works-items a:nth-child(7) { animation-delay: 240ms; }
+.modal-simple.is-open .works-items a:nth-child(8) { animation-delay: 280ms; }
+.modal-simple.is-open .works-items a:nth-child(9) { animation-delay: 320ms; }
+.modal-simple.is-open .works-items a:nth-child(10) { animation-delay: 360ms; }
+@keyframes worksItemSlideIn {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .modal-simple.submmodal .works-items a { opacity: 1; transform: none; }
+  .modal-simple.is-open .works-items a { animation: none; }
 }
 .modal-simple.submmodal .works-items a.active {
   /* border: 1px solid var(--color-fede-fv); */
