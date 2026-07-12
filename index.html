@@ -40,6 +40,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
    --fv-caps: uppercase + letter-spaced labels (menu, hero meta, footer, card titles, service titles, process labels)
    --fv-body: standard sentence-case body copy (about, service descriptions, flow descriptions, FAQ Q&A) */
 :root { --fv-caps: 13px; --fv-body: 14px; }
+@media (min-width: 2560px) { :root { --fv-caps: 16px; --fv-body: 16px; } }
 
 .name-reveal-mask { display:flex; justify-content:center; overflow:hidden; }
 .name-reveal-mask:has(#line-federico) { margin-bottom: 0px; }
@@ -146,6 +147,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 #work-them { display:block; width:auto; height:31px; opacity:0; margin-bottom:0; }
 #work-line { display:block; width:auto; height:auto; opacity:0; margin-bottom:0; }
 #desk-extra { display:block; width:auto; height:auto; transform:translateY(160%); }
+#deck-guidelines-frame { transition: aspect-ratio 1.2s cubic-bezier(0.16,1,0.3,1); }
+#deck-guidelines-frame:hover { aspect-ratio: 1320/700; }
 @media (min-width: 2560px) {
     .gallery .stamp { width: 84px !important; height: 84px !important; }
     #stickers-img { width: 1300px !important; }
@@ -164,8 +167,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .faq-block-wrap { max-width: 1800px !important; width: 1800px !important; margin-left: auto !important; margin-right: auto !important; align-items: stretch !important; }
     .faq-questions-wrap { max-width: 654px !important; }
     #faq-section .tt-wrap, #faq-section-2 .tt-wrap { max-width: 1800px !important; }
-    /* About text - no scale */
-    #fede-text-wrap p { font-size: 14px !important; }
     /* Card meta text - no scale */
     .card .meta h3 { font-size: 14px !important; }
     .card .meta p { font-size: 14px !important; }
@@ -276,7 +277,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #mob-about-svg { transform: translateY(100%); transition: transform 1.1s cubic-bezier(0.76,0,0.24,1); }
     #mob-about-svg.in-view { transform: translateY(0); }
     .mob-about-clip-text { overflow: hidden; }
-    .mob-about-text { font-family: 'PP Telegraf', sans-serif; font-size: 12px; font-weight: 400; color: var(--color-fede-fv, #3A3A39); letter-spacing: 0.5em; line-height: 1.6; text-align: center; text-transform: uppercase; margin: 0; transform: translateY(30px); opacity: 0; transition: transform 1.1s cubic-bezier(0.25,0.46,0.45,0.94) 0.15s, opacity 1.1s cubic-bezier(0.25,0.46,0.45,0.94) 0.15s; }
+    .mob-about-text { font-family: 'PP Telegraf', sans-serif; font-size: var(--fv-body); font-weight: 400; color: var(--color-fede-fv, #3A3A39); letter-spacing: 0.5em; line-height: 1.6; text-align: center; text-transform: uppercase; margin: 0; transform: translateY(30px); opacity: 0; transition: transform 1.1s cubic-bezier(0.25,0.46,0.45,0.94) 0.15s, opacity 1.1s cubic-bezier(0.25,0.46,0.45,0.94) 0.15s; }
     .mob-about-text.in-view { transform: translateY(0); opacity: 1; }
     .mobile-hero { display: flex !important; flex-direction: column; align-items: center; padding: 95px 0 0; gap: 16px; text-align: center; width: 100%; }
     .mobile-hero-portfolio-label { display: block !important; font-size: 12px; letter-spacing: 0.5em; text-transform: uppercase; margin: 0; color: var(--color-fede-fv, #3A3A39); overflow: hidden; }

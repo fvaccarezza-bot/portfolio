@@ -501,16 +501,13 @@ body.tt-boxed.work.ui-ux .tt-section:last-child {
 }
 body.tt-boxed.work.ui-ux .tt-wrap {
   width: 1080px;
+  row-gap: 160px;
 }
 body.tt-boxed.work.ui-ux .tt-wrap .tt-row {
   -moz-column-gap: 100px;
   column-gap: 100px;
-}
-body.tt-boxed.work.ui-ux .tt-wrap .tt-row:nth-child(1) {
-  margin-bottom: 140px;
-}
-body.tt-boxed.work.ui-ux .tt-wrap .tt-row:nth-child(2) {
-  margin-bottom: 60px;
+  margin-bottom: 0;
+  margin-top: 0;
 }
 body.tt-boxed.work.ui-ux .tt-wrap .tt-col-md-6,
 body.tt-boxed.work.ui-ux .tt-wrap .tt-col-md-6:first-child,
