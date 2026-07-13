@@ -40,7 +40,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
    --fv-caps: uppercase + letter-spaced labels (menu, hero meta, footer, card titles, service titles, process labels)
    --fv-body: standard sentence-case body copy (about, service descriptions, flow descriptions, FAQ Q&A) */
 :root { --fv-caps: 13px; --fv-body: 14px; }
-@media (min-width: 2560px) { :root { --fv-caps: 16px; --fv-body: 16px; } }
+@media (min-width: 2560px) { :root { --fv-caps: 15px; --fv-body: 16px; } }
 @media (min-resolution: 2dppx) and (max-width: 2559px) { :root { --fv-caps: 12px; --fv-body: 14px; } }
 
 .name-reveal-mask { display:flex; justify-content:center; overflow:hidden; }
@@ -167,12 +167,13 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #faq-section .faq-title-wrap, #faq-section-2 .faq-title-wrap { display: flex !important; flex-direction: column !important; gap: 16px !important; }
     .faq-block-wrap { max-width: 1800px !important; width: 1800px !important; margin-left: auto !important; margin-right: auto !important; align-items: stretch !important; }
     .faq-questions-wrap { max-width: 654px !important; }
+    .faq-answer-wrap { right: auto !important; width: 500px !important; }
     #faq-section .tt-wrap, #faq-section-2 .tt-wrap { max-width: 1800px !important; }
-    /* Card meta text - no scale */
-    .card .meta h3 { font-size: 14px !important; }
-    .card .meta p { font-size: 14px !important; }
+    /* Card meta title/job-type now follow --fv-caps/--fv-body, see base rule below */
     /* Connect button - outside scale(1.5) */
     .services-btns-connect { font-family: 'PP Telegraf', sans-serif !important; letter-spacing: 0.5em !important; text-transform: uppercase !important; padding-left: 0.5em !important; }
+    /* Services grid - force wider spacing, UW only */
+    .services-grid { width: 1500px !important; max-width: 1500px !important; }
 
     #trusted-by-section .tt-wrap { max-width: 1800px !important; }
     #trusted-logos-img { max-width: none !important; width: auto !important; height: auto !important; }
@@ -187,7 +188,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 #modal-works .modal__dialog { display:flex; flex-direction:column; align-items:center; justify-content:center; }
 #modal-works .content { justify-content:center !important; align-items:center !important; }
 .tt-ol-menu-list > li > a, .tt-ol-submenu-list > li > a, .tt-main-menu-list > li > a { background-color: transparent !important; color: #222222 !important; border: none !important; outline: none !important; box-shadow: none !important; user-select: none; -webkit-user-select: none; }
-@media (min-width: 1200px) and (max-width: 2559px) { .tt-main-menu-list > li > a { font-size: 16px !important; transform: scale(calc(var(--fv-caps) / 16px)); transform-origin: left center; } }
+@media (min-width: 1200px) { .tt-main-menu-list > li > a { font-size: 16px !important; transform: scale(calc(var(--fv-caps) / 16px)); transform-origin: left center; } }
 .tt-ol-menu-list > li > a:hover, .tt-ol-menu-list > li > a:focus, .tt-ol-menu-list > li > a:active, .tt-ol-menu-list > li > a:focus-visible, .tt-ol-submenu-list > li > a:hover, .tt-ol-submenu-list > li > a:focus, .tt-ol-submenu-list > li > a:active, .tt-main-menu-list > li > a:hover, .tt-main-menu-list > li > a:focus, .tt-main-menu-list > li > a:active { background-color: transparent !important; color: #222222 !important; border: none !important; box-shadow: none !important; outline: none !important; }
 .tt-ol-menu-list > li > a.ol-roll-wrap, .tt-ol-submenu-list > li > a.ol-roll-wrap, .tt-main-menu-list > li > a.ol-roll-wrap { display:inline-flex !important; align-items:center !important; gap:5px !important; }
 .ol-roll-wrap { display:inline-flex; align-items:center; gap:5px; }
@@ -480,10 +481,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #work-them, .desktop-testi-tag img { height: 25px !important; width: auto !important; }
     /* Hero pills - retina */
     #hero-portfolio-label img, .hero-subtitle img { height: 25px !important; width: auto !important; }
-    /* Card meta - retina: name 12px, description 14px, number 14px */
-    .card .meta h3 { font-size: 12px !important; }
+    /* Card meta number - retina: fixed size, not on the caps/body system */
     .card .meta p:last-of-type { font-size: 14px !important; }
-    .card .meta p:first-of-type { font-size: 14px !important; }
     /* Testi cards - retina fix overflow */
     .words-container, .carousel, .stage { overflow: visible !important; }
     .verbatim { overflow: visible !important; }
@@ -1075,7 +1074,8 @@ document.addEventListener('click', function(e) {
                 .card .img-base { transition:transform 1.4s cubic-bezier(0.25,0.46,0.45,0.94); display:block; width:100%; }
                 .card:hover .img-hover { opacity:1; transform:scale(1.03); }
                 .card:hover .img-base { transform:scale(1.03); }
-                .card .meta h3 { letter-spacing:0.5em; text-transform:uppercase; }
+                .card .meta h3 { letter-spacing:0.5em; text-transform:uppercase; font-size:var(--fv-caps); }
+                .card .meta p:first-of-type { font-size:var(--fv-body); }
                 .footer-roll { display:inline; }
                 .footer-roll-wrap { display:inline-flex; align-items:center; gap:6px; text-decoration:none; color:#222222; text-transform:uppercase; font-weight:500; letter-spacing:0.5em; font-size:16px; transform:scale(calc(var(--fv-caps) / 16px)); transform-origin:left center; }
                 .footer-roll-text { display:inline-block; overflow:hidden; vertical-align:bottom; position:relative; }

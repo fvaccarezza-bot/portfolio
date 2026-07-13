@@ -39,9 +39,9 @@
    <script src="../../assets/js/sessionStorage.js"></script>
    <style>
       :root { --fv-caps: 13px; --fv-body: 14px; } /* normal-res text scale: caps=labels, body=paragraphs */
-        @media (min-width: 2560px) { :root { --fv-caps: 16px; --fv-body: 16px; } }
+        @media (min-width: 2560px) { :root { --fv-caps: 15px; --fv-body: 16px; } }
       @media (min-resolution: 2dppx) and (max-width: 2559px) { :root { --fv-caps: 12px; --fv-body: 14px; } }
-      @media (min-width: 1200px) and (max-width: 2559px) { .tt-main-menu-list > li > a { font-size: 16px !important; transform: scale(calc(var(--fv-caps) / 16px)); transform-origin: left center; } }
+      @media (min-width: 1200px) { .tt-main-menu-list > li > a { font-size: 16px !important; transform: scale(calc(var(--fv-caps) / 16px)); transform-origin: left center; } }
       body.web .tt-section.title-work { padding-left:0!important; padding-right:0!important; width:100vw!important; max-width:100%!important; box-sizing:border-box!important; }
       body.web .title-work .work-header-inner { width:100%!important; display:flex!important; flex-direction:column!important; align-items:center!important; justify-content:center!important; text-align:center!important; padding:60px 0 40px!important; }
       body.web .work-title { width:100%!important; max-width:100%!important; display:flex!important; flex-direction:column!important; align-items:center!important; text-align:center!important; }
@@ -73,6 +73,7 @@
       .ol-roll-wrap:hover .ol-roll-text span:first-child { transform:translateY(-100%); }
       .ol-roll-wrap:hover .ol-roll-text span:last-child { transform:translateY(0%); }
       @media (min-resolution: 2dppx) {
+         #content-wrap.work .work-title p.desc { font-size: var(--fv-body) !important; }
          .footer-social-icons img { width: 25.5px !important; height: 25.5px !important; }
          #footer-bg-orange { width: 100vw !important; left: 50% !important; margin-left: -50vw !important; }
          #contact .tt-section-inner.tt-wrap { transform: translateY(24px) !important; }
@@ -90,6 +91,15 @@
       .nav-work button::after { transition: opacity 0.35s ease-in-out, transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94) 0.08s; }
       .nav-work button.is-prev:hover::after { transform: translate(calc(-50% - 5px), 0); }
       .nav-work button.is-next:hover::after { transform: translate(calc(-50% + 5px), 0); }
+      /* ── WORKS modal: slide-in from below / slide-out back down, no bounce ── */
+      /* driven entirely by JS (Web Animations API, see script below) — no CSS transition/keyframe
+      involved, so nothing in modal.css's cascade can interfere with or cut it short */
+      #modal-works.is-open, #modal-works.is-closing {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      }
+      #modal-works .modal__dialog { animation: none !important; }
+      #modal-works .works-items a { animation: none !important; transform: none; }
       /* ── WORKS modal: center content + bring title closer + roll hover like CALL ME/WRITE ME ── */
       #modal-works .content { justify-content: center !important; }
       #modal-works .modal__dialog { gap: 40px !important; }
@@ -104,6 +114,31 @@
       #modal-works .works-items a .wm-roll-text span:last-child { position:absolute; top:0; left:0; transform:translateY(100%); }
       #modal-works .works-items a:hover .wm-roll-text span:first-child { transform:translateY(-100%); }
       #modal-works .works-items a:hover .wm-roll-text span:last-child { transform:translateY(0%); }
+
+      /* ── product-style gallery (photo / title / text) ── */
+      .product-parallax-frame { width:1320px; max-width:100%; overflow:hidden; border-radius:6px; position:relative; aspect-ratio:1320/600; transition:aspect-ratio 1.2s cubic-bezier(0.16,1,0.3,1); }
+      .product-parallax-frame:hover { aspect-ratio:1320/899; }
+      .product-shot { width:100%; height:auto; display:block; border-radius:0; position:absolute; top:50%; left:0; transform:translateY(-50%) scale(1); transition:transform 1.2s cubic-bezier(0.16,1,0.3,1); }
+      .product-parallax-frame:hover .product-shot { transform:translateY(-50%) scale(1.04); }
+      .product-shot-dark { width:100%; height:auto; display:block; border-radius:0; position:absolute; top:50%; left:0; transform:translateY(-50%) scale(1); transition:transform 1.2s cubic-bezier(0.16,1,0.3,1), opacity 0.8s ease; opacity:0; z-index:1; }
+      .product-parallax-frame:hover .product-shot-dark { opacity:1; transform:translateY(-50%) scale(1.04); }
+      .product-meta { width:1320px; max-width:100%; margin:40px auto 0; display:grid; grid-template-columns:repeat(4,1fr); }
+      .product-meta-item { display:flex; flex-direction:column; gap:10px; padding:0 32px; border-left:1px solid #DADADA; }
+      .product-meta-item:first-child { border-left:none; padding-left:0; }
+      .product-meta-label { display:flex; align-items:center; gap:8px; font-family:'PP Telegraf',sans-serif; font-weight:400; letter-spacing:0.3em; text-transform:uppercase; color:#3A3A39; font-size:var(--fv-caps); }
+      .product-meta-icon { width:16px; height:16px; border-radius:4px; background:#D9D9D9; flex-shrink:0; }
+      .product-meta-value { font-family:'PP Telegraf',sans-serif; font-weight:400; color:#3A3A39; font-size:var(--fv-body); margin-left:24px; }
+      body.web .tt-section.work-content.product-gallery { padding-top:85px !important; padding-bottom:100px !important; }
+      .product-details { text-align:left !important; }
+      .product-details h5 { font-weight:800 !important; max-width:500px !important; text-transform:uppercase !important; }
+      .product-details p.desc { font-size:var(--fv-caps, 14px) !important; font-weight:400 !important; line-height:22px !important; letter-spacing:0.02em !important; text-align:left !important; margin-left:0 !important; justify-content:flex-start !important; max-width:500px !important; }
+
+      /* retina: derive these from body's font-size instead of --fv-caps/--fv-body, scoped to this page only */
+      @media (min-resolution: 2dppx) {
+         .product-meta-label { font-size: 0.7895em !important; }
+         .product-meta-value { font-size: 0.9211em !important; }
+         .product-details p.desc { font-size: 0.9211em !important; }
+      }
 
       @media (max-width: 768px) {
          #content-wrap.work { position: relative; z-index: 2; }
@@ -154,6 +189,21 @@
          .mob-footer-clip { overflow:hidden; display:flex; justify-content:center; line-height:0; }
          .mob-footer-word { display:block; height:80px; width:auto; transform:translateY(110%); transition:transform 1.1s cubic-bezier(0.76,0,0.24,1); }
          .mob-footer-word.in-view { transform:translateY(0); }
+
+         /* product-style gallery: photo, title, text, repeat - no hover effect, square photos */
+         .mobs-separator { display:none !important; }
+         .work-content.product-gallery { padding-left:0 !important; padding-right:0 !important; }
+         .work-content.product-gallery .tt-wrap { padding-left:15px !important; padding-right:15px !important; }
+         .tt-col-md-12 { display:flex !important; flex-direction:column !important; align-items:center !important; width:100% !important; }
+         .product-parallax-frame { order:1 !important; width:360px !important; max-width:100% !important; height:auto !important; aspect-ratio:1/1 !important; margin:0 auto !important; }
+         .product-parallax-frame:hover { aspect-ratio:1/1 !important; }
+         .product-parallax-frame .product-shot,
+         .product-parallax-frame .product-shot-dark { position:absolute !important; inset:0 !important; top:auto !important; left:auto !important; width:100% !important; height:100% !important; object-fit:cover !important; transform:none !important; }
+         .product-parallax-frame:hover .product-shot { transform:none !important; }
+         .product-parallax-frame:hover .product-shot-dark { opacity:0 !important; transform:none !important; }
+         .product-details { order:2 !important; margin-top:20px !important; text-align:center !important; width:360px !important; max-width:100% !important; margin-left:auto !important; margin-right:auto !important; }
+         .product-details h5 { font-size:20px !important; max-width:100% !important; }
+         .product-details p.desc { font-size:13px !important; text-align:center !important; max-width:100% !important; justify-content:center !important; margin-left:auto !important; margin-right:auto !important; }
       }
 
       @media (min-width: 769px) {
@@ -195,7 +245,7 @@
         }
    </style>
 </head>
-<body id="body" class="tt-boxed tt-smooth-scroll work web" data-prev="../product/" data-next="../logofolio/">
+<body id="body" class="tt-boxed tt-smooth-scroll work web" data-prev="../product/">
 <main id="body-inner">
    <div id="preloader-under" aria-hidden="true"></div>
    <div id="preloader" aria-live="polite" aria-label="Loading">
@@ -296,70 +346,108 @@
                </div>
             </div>
 
-            <div class="tt-section padding-bottom-xlg-150 padding-left-sm-3-p padding-right-sm-3-p work-content">
-               <div class="tt-section-inner tt-wrap center work-gallery">
+            <div class="tt-section padding-bottom-xlg-150 padding-left-sm-3-p padding-right-sm-3-p no-padding-bottom work-content product-gallery">
+               <div class="tt-section-inner tt-wrap center">
                   <div class="tt-row">
                      <div class="tt-col-md-12">
-                        <div class="mob-ok mobs-separator"><img src="../../assets/img/uxui-separator.svg" alt="" /></div>
-                        <div class="mobs"><img src="content/mob1.png" alt="Web" /><img src="content/laptop1.png" alt="Web" class="base" /></div>
-                        <a href="https://netwrkventures.com/" target="_blank" class="stamp" data-vt-mode="fade"><img src="../../assets/img/stamp/launched.svg" alt="" /><img src="../../assets/img/stamp/launched-a.svg" class="join" alt="" /><img src="../../assets/img/stamp/launched-b-2024.svg" class="inside" alt="" /></a>
-                        <div class="mobs-details"><h5>Netwrk Ventures</h5><p class="desc">Netwrk Ventures is an early-stage VC firm. The site highlights their founder-first approach, investment focus, and strong network, making it easy for startups to connect and learn more.</p></div>
+                        <div class="mobs-details product-details">
+                           <h5>Netwrk Ventures</h5>
+                           <p class="desc">Netwrk Ventures is an early-stage VC firm. The site highlights their founder-first approach, investment focus, and strong network, making it easy for startups to connect and learn more.</p>
+                        </div>
+                        <div class="product-parallax-frame" style="margin-top:24px;">
+                           <img src="content/web-netwrk.png" alt="Netwrk Ventures" class="product-shot" />
+                           <img src="content/web-netwrk-dark.png" alt="Netwrk Ventures" class="product-shot-dark" />
+                        </div>
+                        <div class="product-meta mob-no">
+                           <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>ROLE</div><div class="product-meta-value">Lead Product Designer</div></div>
+                           <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>TIMELINE</div><div class="product-meta-value">8 Weeks</div></div>
+                           <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>SERVICES</div><div class="product-meta-value">UI-UX / Branding</div></div>
+                           <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>TOOLS</div><div class="product-meta-value">Figma / Ilustrator</div></div>
+                        </div>
                      </div>
                   </div>
                   <div class="tt-row">
                      <div class="tt-col-md-12">
-                        <div class="mob-ok mobs-separator"><img src="../../assets/img/uxui-separator.svg" alt="" /></div>
-                        <div class="mobs"><img src="content/mob2.png" alt="Web" /><img src="content/laptop2.png" alt="Web" class="base" /></div>
-                        <a href="https://covertrevenue.com/" target="_blank" class="stamp" data-vt-mode="fade"><img src="../../assets/img/stamp/launched.svg" alt="" /><img src="../../assets/img/stamp/launched-a.svg" class="join" alt="" /><img src="../../assets/img/stamp/launched-b.svg" class="inside" alt="" /></a>
-                        <div class="mobs-details"><h5>Covert Revenue</h5><p class="desc">Covert Revenue is a RevOps partner for B2B SaaS startups. The site combines sharp messaging with a minimal, structured layout to highlight their core services—CRM cleanup, automation, and team alignment—while making it easy for visitors to book a strategy call.</p></div>
+                        <div class="mob-ok mobs-separator">
+                           <img src="../../assets/img/uxui-separator.svg" alt="Web" />
+                        </div>
+                        <div class="mobs-details product-details">
+                           <h5>Covert Revenue</h5>
+                           <p class="desc">Covert Revenue is a RevOps partner for B2B SaaS startups. The site combines sharp messaging with a minimal, structured layout to highlight their core services—CRM cleanup, automation, and team alignment—while making it easy for visitors to book a strategy call.</p>
+                        </div>
+                        <div class="product-parallax-frame" style="margin-top:24px;">
+                           <img src="content/web-covert.png" alt="Covert Revenue" class="product-shot" />
+                           <img src="content/web-covert-dark.png" alt="Covert Revenue" class="product-shot-dark" />
+                        </div>
+                        <div class="product-meta mob-no">
+                           <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>ROLE</div><div class="product-meta-value">Lead Product Designer</div></div>
+                           <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>TIMELINE</div><div class="product-meta-value">8 Weeks</div></div>
+                           <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>SERVICES</div><div class="product-meta-value">UI-UX / Branding</div></div>
+                           <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>TOOLS</div><div class="product-meta-value">Figma / Ilustrator</div></div>
+                        </div>
                      </div>
                   </div>
                   <div class="tt-row">
                      <div class="tt-col-md-12">
-                        <div class="mob-ok mobs-separator"><img src="../../assets/img/uxui-separator.svg" alt="" /></div>
-                        <div class="mobs"><img src="content/mob3.png" alt="Web" /><img src="content/laptop3.png" alt="Web" class="base" /></div>
-                        <a href="https://www.convertstudios.com.au/" target="_blank" class="stamp" data-vt-mode="fade"><img src="../../assets/img/stamp/launched.svg" alt="" /><img src="../../assets/img/stamp/launched-a.svg" class="join" alt="" /><img src="../../assets/img/stamp/launched-b.svg" class="inside" alt="" /></a>
-                        <div class="mobs-details"><h5>Convert Studios</h5><p class="desc">Convert Studios, an end-to-end product innovation firm based in Perth. The site uses a clean, modular layout with bold visuals and clear service blocks to showcase their expertise in hardware prototyping.</p></div>
+                        <div class="mob-ok mobs-separator">
+                           <img src="../../assets/img/uxui-separator.svg" alt="Web" />
+                        </div>
+                        <div class="mobs-details product-details">
+                           <h5>Convert Studios</h5>
+                           <p class="desc">Convert Studios, an end‑to‑end product innovation firm based in Perth. The site uses a clean, modular layout with bold visuals and clear service blocks to showcase their expertise in hardware prototyping.</p>
+                        </div>
+                        <div class="product-parallax-frame" style="margin-top:24px;">
+                           <img src="content/web-convert.png" alt="Convert Studios" class="product-shot" />
+                           <img src="content/web-convert-dark.png" alt="Convert Studios" class="product-shot-dark" />
+                        </div>
+                        <div class="product-meta mob-no">
+                           <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>ROLE</div><div class="product-meta-value">Lead Product Designer</div></div>
+                           <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>TIMELINE</div><div class="product-meta-value">8 Weeks</div></div>
+                           <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>SERVICES</div><div class="product-meta-value">UI-UX / Branding</div></div>
+                           <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>TOOLS</div><div class="product-meta-value">Figma / Ilustrator</div></div>
+                        </div>
                      </div>
                   </div>
                   <div class="tt-row">
                      <div class="tt-col-md-12">
-                        <div class="mob-ok mobs-separator"><img src="../../assets/img/uxui-separator.svg" alt="" /></div>
-                        <div class="mobs"><img src="content/mob4.png" alt="Web" /><img src="content/laptop4.png" alt="Web" class="base" /></div>
-                        <a href="https://gradbridge.com/" target="_blank" class="stamp" data-vt-mode="fade"><img src="../../assets/img/stamp/launched.svg" alt="" /><img src="../../assets/img/stamp/launched-a.svg" class="join" alt="" /><img src="../../assets/img/stamp/launched-b.svg" class="inside" alt="" /></a>
-                        <div class="mobs-details"><h5>GradBridge Student Loans</h5><p class="desc">GradBridge gives students a fresh start when others turn them away. The site uses bold colors, friendly visuals, and clear language to show support and build trust.</p></div>
+                        <div class="mob-ok mobs-separator">
+                           <img src="../../assets/img/uxui-separator.svg" alt="Web" />
+                        </div>
+                        <div class="mobs-details product-details">
+                           <h5>GradBridge</h5>
+                           <p class="desc">GradBridge gives students a fresh start when others turn them away. The site uses bold colors, friendly visuals, and clear language to show support and build trust. It's easy to use on any device and helps students feel confident about taking the next step in their education.</p>
+                        </div>
+                        <div class="product-parallax-frame" style="margin-top:24px;">
+                           <img src="content/web-gradbridge.png" alt="GradBridge" class="product-shot" />
+                           <img src="content/web-gradbridge-dark.png" alt="GradBridge" class="product-shot-dark" />
+                        </div>
+                        <div class="product-meta mob-no">
+                           <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>ROLE</div><div class="product-meta-value">Lead Product Designer</div></div>
+                           <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>TIMELINE</div><div class="product-meta-value">8 Weeks</div></div>
+                           <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>SERVICES</div><div class="product-meta-value">UI-UX / Branding</div></div>
+                           <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>TOOLS</div><div class="product-meta-value">Figma / Ilustrator</div></div>
+                        </div>
                      </div>
                   </div>
                   <div class="tt-row">
                      <div class="tt-col-md-12">
-                        <div class="mob-ok mobs-separator"><img src="../../assets/img/uxui-separator.svg" alt="" /></div>
-                        <div class="mobs"><img src="content/mob5.png" alt="Web" /><img src="content/laptop5.png" alt="Web" class="base" /></div>
-                        <a href="https://www.absarokaglobal.com/" target="_blank" class="stamp" data-vt-mode="fade"><img src="../../assets/img/stamp/launched.svg" alt="" /><img src="../../assets/img/stamp/launched-a.svg" class="join" alt="" /><img src="../../assets/img/stamp/launched-b-work.svg" class="inside" alt="" /></a>
-                        <div class="mobs-details"><h5>Absaroka</h5><p class="desc">Absaroka is a product innovation firm with a sharp, future-focused site. Bold visuals, clean layout, and clear messaging help guide founders and CEOs through their services and projects.</p></div>
-                     </div>
-                  </div>
-                  <div class="tt-row">
-                     <div class="tt-col-md-12">
-                        <div class="mob-ok mobs-separator"><img src="../../assets/img/uxui-separator.svg" alt="" /></div>
-                        <div class="mobs"><img src="content/mob6.png" alt="Web" /><img src="content/laptop6.png" alt="Web" class="base" /></div>
-                        <a href="https://www.hpaustin.org/" target="_blank" class="stamp" data-vt-mode="fade"><img src="../../assets/img/stamp/launched.svg" alt="" /><img src="../../assets/img/stamp/launched-a.svg" class="join" alt="" /><img src="../../assets/img/stamp/launched-b-2023.svg" class="inside" alt="" /></a>
-                        <div class="mobs-details"><h5>Hyde Park Schools</h5><p class="desc">Hyde Park is a private K-12 school with a strong identity and mission. The site blends bold type, rich colors, and a clear structure to welcome families, students, and staff.</p></div>
-                     </div>
-                  </div>
-                  <div class="tt-row">
-                     <div class="tt-col-md-12">
-                        <div class="mob-ok mobs-separator"><img src="../../assets/img/uxui-separator.svg" alt="" /></div>
-                        <div class="mobs"><img src="content/mob7.png" alt="Web" /><img src="content/laptop7.png" alt="Web" class="base" /></div>
-                        <a href="#" target="_blank" class="stamp" data-vt-mode="fade"><img src="../../assets/img/stamp/launched.svg" alt="" /><img src="../../assets/img/stamp/launched-a.svg" class="join" alt="" /><img src="../../assets/img/stamp/launched-b-work.svg" class="inside" alt="" /></a>
-                        <div class="mobs-details"><h5>Anne Capital</h5><p class="desc">Absaroka is a product innovation firm with a sharp, future-focused site. Bold visuals, clean layout, and clear messaging help guide founders and CEOs through their services and projects.</p></div>
-                     </div>
-                  </div>
-                  <div class="tt-row">
-                     <div class="tt-col-md-12">
-                        <div class="mob-ok mobs-separator"><img src="../../assets/img/uxui-separator.svg" alt="" /></div>
-                        <div class="mobs"><img src="content/mob8.png" alt="Web" /><img src="content/laptop8.png" alt="Web" class="base" /></div>
-                        <a href="https://mb3partners.com/" target="_blank" class="stamp" data-vt-mode="fade"><img src="../../assets/img/stamp/launched.svg" alt="" /><img src="../../assets/img/stamp/launched-a.svg" class="join" alt="" /><img src="../../assets/img/stamp/launched-b-2024.svg" class="inside" alt="" /></a>
-                        <div class="mobs-details"><h5>MB3 Partners</h5><p class="desc">MB3 Partners is a marina investment and management group. The site combines clean typography, ocean-inspired tones, and a clear structure to convey trust and style.</p></div>
+                        <div class="mob-ok mobs-separator">
+                           <img src="../../assets/img/uxui-separator.svg" alt="Web" />
+                        </div>
+                        <div class="mobs-details product-details">
+                           <h5>MB3 Partners</h5>
+                           <p class="desc">MB3 Partners is a marina investment and management group. The site combines clean typography, ocean-inspired tones, and a clear structure to convey trust and style. It's designed to feel modern and relaxed — with a coastal vibe that reflects MB3's spirit of creating waterfront spaces where everything flows with calm and precision.</p>
+                        </div>
+                        <div class="product-parallax-frame" style="margin-top:24px;">
+                           <img src="content/web-mb3.png" alt="MB3 Partners" class="product-shot" />
+                           <img src="content/web-mb3-dark.png" alt="MB3 Partners" class="product-shot-dark" />
+                        </div>
+                        <div class="product-meta mob-no">
+                           <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>ROLE</div><div class="product-meta-value">Lead Product Designer</div></div>
+                           <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>TIMELINE</div><div class="product-meta-value">8 Weeks</div></div>
+                           <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>SERVICES</div><div class="product-meta-value">UI-UX / Branding</div></div>
+                           <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>TOOLS</div><div class="product-meta-value">Figma / Ilustrator</div></div>
+                        </div>
                      </div>
                   </div>
                </div>
@@ -471,6 +559,145 @@
 <script src="../../assets/js/menu.js"></script>
 <script src="../../assets/js/gallery.js"></script>
 <script src="../../assets/js/modal.js"></script>
+      <script>
+      // ── Works modal: open/close animation driven directly via the Web Animations API ──
+      // (not CSS transitions/keyframes — guarantees nothing in modal.css's cascade can interfere)
+      (function () {
+        var modal = document.getElementById('modal-works');
+        if (!modal) return;
+        var dialog = modal.querySelector('.modal__dialog');
+        var backdrop = modal.querySelector('[data-modal-close]');
+        var links = Array.prototype.slice.call(modal.querySelectorAll('.works-items a'));
+        if (!dialog || !backdrop) return;
+
+        var DIALOG_MS = 900;
+        var TEXT_MS = 600;
+        var STAGGER_MS = 50;
+        var CLOSE_MS = 1500;
+        var DIALOG_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+        var TEXT_EASE = 'cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        var CLOSE_EASE = 'ease-out';
+        var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // set the resting "closed" look before the very first open
+        dialog.style.opacity = 0;
+        dialog.style.transform = 'translateY(60px)';
+        links.forEach(function (a) { a.style.opacity = 0; a.style.filter = 'blur(14px)'; a.style.transform = 'translateY(16px)'; });
+
+        var dialogAnim = null;
+        var linkAnims = [];
+        var isShown = false; // tracked ourselves — modal.js's own 'is-open' class already
+                              // flips before our click handler runs, so it can't be used as the guard
+
+        function cancelAll() {
+          if (dialogAnim) { dialogAnim.cancel(); dialogAnim = null; }
+          linkAnims.forEach(function (a) { if (a) a.cancel(); });
+          linkAnims = [];
+        }
+
+        function openAnim() {
+          isShown = true;
+          cancelAll();
+          if (reduced) {
+            dialog.style.opacity = 1; dialog.style.transform = 'none';
+            links.forEach(function (a) { a.style.opacity = 1; a.style.filter = 'none'; });
+            return;
+          }
+          dialogAnim = dialog.animate(
+            [{ opacity: 0, transform: 'translateY(60px)' }, { opacity: 1, transform: 'translateY(0)' }],
+            { duration: DIALOG_MS, easing: DIALOG_EASE, fill: 'forwards' }
+          );
+          linkAnims = links.map(function (a, i) {
+            return a.animate(
+              [
+                { opacity: 0, filter: 'blur(14px)', transform: 'translateY(16px)' },
+                { opacity: 1, filter: 'blur(0px)', transform: 'translateY(0)' }
+              ],
+              { duration: TEXT_MS, delay: i * STAGGER_MS, easing: TEXT_EASE, fill: 'forwards' }
+            );
+          });
+        }
+
+        function closeAnim() {
+          isShown = false;
+          cancelAll();
+          if (reduced) return;
+          dialogAnim = dialog.animate(
+            [{ opacity: 1, transform: 'translateY(0)' }, { opacity: 0, transform: 'translateY(60px)' }],
+            { duration: CLOSE_MS, easing: CLOSE_EASE, fill: 'forwards' }
+          );
+          linkAnims = links.map(function (a) {
+            return a.animate(
+              [{ opacity: 1 }, { opacity: 0 }],
+              { duration: CLOSE_MS, easing: CLOSE_EASE, fill: 'forwards' }
+            );
+          });
+        }
+
+        document.addEventListener('click', function (e) {
+          if (e.target.closest('a[data-modal-open="#modal-works"]')) {
+            if (isShown) return; // already open — do nothing
+            requestAnimationFrame(openAnim);
+            return;
+          }
+          var closeTarget = e.target.closest('[data-modal-close]');
+          if (closeTarget && modal.contains(closeTarget)) {
+            closeAnim();
+          }
+        }, true);
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && isShown) {
+            closeAnim();
+          }
+        });
+
+        // clicking blank space (not a link) closes it, same as clicking the backdrop
+        dialog.addEventListener('click', function (e) {
+          if (e.target.closest('a')) return;
+          backdrop.click();
+        });
+
+        // ── custom "CLOSE" cursor over blank space, same style as the home page's "VIEW MORE" ──
+        if (window.innerWidth > 768) {
+          var closeCursor = document.createElement('div');
+          closeCursor.id = 'works-close-cursor';
+          closeCursor.style.cssText = 'position:fixed;pointer-events:none;z-index:9999999;opacity:0;display:flex;align-items:center;justify-content:center;width:10px;height:10px;border-radius:50%;background:#FF6600;mix-blend-mode:multiply;overflow:hidden;will-change:left,top;transition:width 0.4s cubic-bezier(0.34,1.2,0.64,1), height 0.4s cubic-bezier(0.34,1.2,0.64,1), opacity 0.3s ease;';
+          closeCursor.innerHTML = '<span style="position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1;letter-spacing:0.2em;text-align:center;text-transform:uppercase;font-family:&quot;PP Telegraf&quot;,sans-serif;font-size:0px;font-weight:400;color:white;transition:font-size 0.3s ease;"><span style="margin-left:0.2em;">CLOSE</span></span>';
+          document.body.appendChild(closeCursor);
+          var closeCursorText = closeCursor.querySelector('span');
+          var fxCursor = document.querySelector('.fx-cursor');
+
+          var ccx = -100, ccy = -100, cctx = ccx, ccty = ccy;
+          document.addEventListener('pointermove', function (e) { cctx = e.clientX; ccty = e.clientY; }, { passive: true });
+          (function animateCloseCursor() {
+            ccx += (cctx - ccx) * 0.08;
+            ccy += (ccty - ccy) * 0.08;
+            closeCursor.style.left = ccx + 'px';
+            closeCursor.style.top = ccy + 'px';
+            closeCursor.style.transform = 'translate(-50%, -50%)';
+            requestAnimationFrame(animateCloseCursor);
+          })();
+
+          dialog.addEventListener('mouseover', function (e) {
+            if (e.target.closest('a')) {
+              closeCursor.style.width = '10px'; closeCursor.style.height = '10px';
+              closeCursorText.style.fontSize = '0px'; closeCursor.style.opacity = '0';
+              if (fxCursor) { fxCursor.style.filter = 'blur(0px)'; fxCursor.style.opacity = '1'; }
+            } else {
+              closeCursor.style.width = '70px'; closeCursor.style.height = '70px';
+              closeCursorText.style.fontSize = '12px'; closeCursor.style.opacity = '1';
+              if (fxCursor) { fxCursor.style.filter = 'blur(4px)'; fxCursor.style.opacity = '0'; }
+            }
+          });
+          dialog.addEventListener('mouseleave', function () {
+            closeCursor.style.width = '10px'; closeCursor.style.height = '10px';
+            closeCursorText.style.fontSize = '0px'; closeCursor.style.opacity = '0';
+            if (fxCursor) { fxCursor.style.filter = 'blur(0px)'; fxCursor.style.opacity = '1'; }
+          });
+        }
+      })();
+      </script>
 <script src="../../assets/js/cursor-follow.js" defer></script>
 <script src="../../assets/js/noise.js"></script>
 <script src="../../assets/js/scroll.js"></script>
@@ -608,6 +835,31 @@ window.addEventListener('load', function() {
         if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
             gsap.registerPlugin(ScrollTrigger);
 
+            // ── force scroll-sync recalculation once gallery images finish loading (fixes content/scroll-position desync on slower connections) ──
+            (function() {
+                function refreshScrollSync() {
+                    window.dispatchEvent(new Event('resize'));
+                    if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+                    try {
+                        if (typeof Scrollbar !== 'undefined' && document.getElementById('scroll-container')) {
+                            var sb = Scrollbar.init(document.getElementById('scroll-container'));
+                            if (sb && typeof sb.update === 'function') sb.update();
+                        }
+                    } catch (e) {}
+                }
+                var galleryImgs = document.querySelectorAll('.product-parallax-frame img');
+                var pending = galleryImgs.length;
+                if (pending === 0) { refreshScrollSync(); }
+                galleryImgs.forEach(function(img) {
+                    if (img.complete) { pending--; if (pending <= 0) refreshScrollSync(); }
+                    else {
+                        img.addEventListener('load', function() { pending--; if (pending <= 0) refreshScrollSync(); });
+                        img.addEventListener('error', function() { pending--; if (pending <= 0) refreshScrollSync(); });
+                    }
+                });
+                window.addEventListener('load', function() { setTimeout(refreshScrollSync, 300); setTimeout(refreshScrollSync, 1200); });
+            })();
+
             function matchLbHeight() { var lb1 = document.getElementById('lb-line1'), lb2 = document.getElementById('lb-line2'); if (lb1 && lb2) { lb1.style.height = lb2.getBoundingClientRect().height + 'px'; lb1.style.width = 'auto'; } }
             matchLbHeight(); window.addEventListener('resize', matchLbHeight);
 
@@ -630,7 +882,7 @@ window.addEventListener('load', function() {
 
             var navWorkButtons = document.querySelectorAll('.nav-work button');
             if (navWorkButtons.length) {
-                gsap.to(navWorkButtons, { top: '18%', ease:'none', scrollTrigger: { trigger:'#contact', start:'top bottom', end:'bottom bottom', scrub:true } });
+                gsap.to(navWorkButtons, { top: '8%', ease:'none', scrollTrigger: { trigger:'#contact', start:'top bottom', end:'bottom bottom', scrub:true } });
             }
 
 

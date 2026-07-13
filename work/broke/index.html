@@ -31,9 +31,9 @@
       <script src="../../assets/js/sessionStorage.js"></script>
       <style>
         :root { --fv-caps: 13px; --fv-body: 14px; } /* normal-res text scale: caps=labels, body=paragraphs */
-        @media (min-width: 2560px) { :root { --fv-caps: 16px; --fv-body: 16px; } }
+        @media (min-width: 2560px) { :root { --fv-caps: 15px; --fv-body: 16px; } }
       @media (min-resolution: 2dppx) and (max-width: 2559px) { :root { --fv-caps: 12px; --fv-body: 14px; } }
-        @media (min-width: 1200px) and (max-width: 2559px) { .tt-main-menu-list > li > a { font-size: 16px !important; transform: scale(calc(var(--fv-caps) / 16px)); transform-origin: left center; } }
+        @media (min-width: 1200px) { .tt-main-menu-list > li > a { font-size: 16px !important; transform: scale(calc(var(--fv-caps) / 16px)); transform-origin: left center; } }
         body.broke .tt-section.title-work { padding-left:0!important; padding-right:0!important; width:100vw!important; max-width:100%!important; box-sizing:border-box!important; }
         body.broke .title-work .work-header-inner { width:100%!important; display:flex!important; flex-direction:column!important; align-items:center!important; justify-content:center!important; text-align:center!important; padding:60px 0 40px!important; }
         body.broke .work-title { width:100%!important; max-width:100%!important; display:flex!important; flex-direction:column!important; align-items:center!important; text-align:center!important; }
@@ -74,6 +74,7 @@
         .ol-roll-wrap:hover .ol-roll-text span:first-child { transform:translateY(-100%); }
         .ol-roll-wrap:hover .ol-roll-text span:last-child { transform:translateY(0%); }
         @media (min-resolution: 2dppx) {
+          #content-wrap.work .work-title p.desc { font-size: var(--fv-body) !important; }
           .footer-social-icons img { width: 25.5px !important; height: 25.5px !important; }
           #footer-bg-orange { width: 100vw !important; left: 50% !important; margin-left: -50vw !important; }
           #contact .tt-section-inner.tt-wrap { transform: translateY(24px) !important; }
@@ -100,6 +101,15 @@
         .nav-work button::after { transition: opacity 0.35s ease-in-out, transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94) 0.08s; }
         .nav-work button.is-prev:hover::after { transform: translate(calc(-50% - 5px), 0); }
         .nav-work button.is-next:hover::after { transform: translate(calc(-50% + 5px), 0); }
+        /* ── WORKS modal: slide-in from below / slide-out back down, no bounce ── */
+        /* driven entirely by JS (Web Animations API, see script below) — no CSS transition/keyframe
+        involved, so nothing in modal.css's cascade can interfere with or cut it short */
+        #modal-works.is-open, #modal-works.is-closing {
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        }
+        #modal-works .modal__dialog { animation: none !important; }
+        #modal-works .works-items a { animation: none !important; transform: none; }
         /* ── WORKS modal: center content + bring title closer + roll hover like CALL ME/WRITE ME ── */
         #modal-works .content { justify-content: center !important; }
         #modal-works .modal__dialog { gap: 40px !important; }
@@ -415,6 +425,145 @@
       <script src="../../assets/js/menu.js"></script>
       <script src="../../assets/js/gallery.js"></script>
       <script src="../../assets/js/modal.js"></script>
+      <script>
+      // ── Works modal: open/close animation driven directly via the Web Animations API ──
+      // (not CSS transitions/keyframes — guarantees nothing in modal.css's cascade can interfere)
+      (function () {
+        var modal = document.getElementById('modal-works');
+        if (!modal) return;
+        var dialog = modal.querySelector('.modal__dialog');
+        var backdrop = modal.querySelector('[data-modal-close]');
+        var links = Array.prototype.slice.call(modal.querySelectorAll('.works-items a'));
+        if (!dialog || !backdrop) return;
+
+        var DIALOG_MS = 900;
+        var TEXT_MS = 600;
+        var STAGGER_MS = 50;
+        var CLOSE_MS = 1500;
+        var DIALOG_EASE = 'cubic-bezier(0.16, 1, 0.3, 1)';
+        var TEXT_EASE = 'cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        var CLOSE_EASE = 'ease-out';
+        var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // set the resting "closed" look before the very first open
+        dialog.style.opacity = 0;
+        dialog.style.transform = 'translateY(60px)';
+        links.forEach(function (a) { a.style.opacity = 0; a.style.filter = 'blur(14px)'; a.style.transform = 'translateY(16px)'; });
+
+        var dialogAnim = null;
+        var linkAnims = [];
+        var isShown = false; // tracked ourselves — modal.js's own 'is-open' class already
+                              // flips before our click handler runs, so it can't be used as the guard
+
+        function cancelAll() {
+          if (dialogAnim) { dialogAnim.cancel(); dialogAnim = null; }
+          linkAnims.forEach(function (a) { if (a) a.cancel(); });
+          linkAnims = [];
+        }
+
+        function openAnim() {
+          isShown = true;
+          cancelAll();
+          if (reduced) {
+            dialog.style.opacity = 1; dialog.style.transform = 'none';
+            links.forEach(function (a) { a.style.opacity = 1; a.style.filter = 'none'; });
+            return;
+          }
+          dialogAnim = dialog.animate(
+            [{ opacity: 0, transform: 'translateY(60px)' }, { opacity: 1, transform: 'translateY(0)' }],
+            { duration: DIALOG_MS, easing: DIALOG_EASE, fill: 'forwards' }
+          );
+          linkAnims = links.map(function (a, i) {
+            return a.animate(
+              [
+                { opacity: 0, filter: 'blur(14px)', transform: 'translateY(16px)' },
+                { opacity: 1, filter: 'blur(0px)', transform: 'translateY(0)' }
+              ],
+              { duration: TEXT_MS, delay: i * STAGGER_MS, easing: TEXT_EASE, fill: 'forwards' }
+            );
+          });
+        }
+
+        function closeAnim() {
+          isShown = false;
+          cancelAll();
+          if (reduced) return;
+          dialogAnim = dialog.animate(
+            [{ opacity: 1, transform: 'translateY(0)' }, { opacity: 0, transform: 'translateY(60px)' }],
+            { duration: CLOSE_MS, easing: CLOSE_EASE, fill: 'forwards' }
+          );
+          linkAnims = links.map(function (a) {
+            return a.animate(
+              [{ opacity: 1 }, { opacity: 0 }],
+              { duration: CLOSE_MS, easing: CLOSE_EASE, fill: 'forwards' }
+            );
+          });
+        }
+
+        document.addEventListener('click', function (e) {
+          if (e.target.closest('a[data-modal-open="#modal-works"]')) {
+            if (isShown) return; // already open — do nothing
+            requestAnimationFrame(openAnim);
+            return;
+          }
+          var closeTarget = e.target.closest('[data-modal-close]');
+          if (closeTarget && modal.contains(closeTarget)) {
+            closeAnim();
+          }
+        }, true);
+
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && isShown) {
+            closeAnim();
+          }
+        });
+
+        // clicking blank space (not a link) closes it, same as clicking the backdrop
+        dialog.addEventListener('click', function (e) {
+          if (e.target.closest('a')) return;
+          backdrop.click();
+        });
+
+        // ── custom "CLOSE" cursor over blank space, same style as the home page's "VIEW MORE" ──
+        if (window.innerWidth > 768) {
+          var closeCursor = document.createElement('div');
+          closeCursor.id = 'works-close-cursor';
+          closeCursor.style.cssText = 'position:fixed;pointer-events:none;z-index:9999999;opacity:0;display:flex;align-items:center;justify-content:center;width:10px;height:10px;border-radius:50%;background:#FF6600;mix-blend-mode:multiply;overflow:hidden;will-change:left,top;transition:width 0.4s cubic-bezier(0.34,1.2,0.64,1), height 0.4s cubic-bezier(0.34,1.2,0.64,1), opacity 0.3s ease;';
+          closeCursor.innerHTML = '<span style="position:relative;isolation:isolate;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.1;letter-spacing:0.2em;text-align:center;text-transform:uppercase;font-family:&quot;PP Telegraf&quot;,sans-serif;font-size:0px;font-weight:400;color:white;transition:font-size 0.3s ease;"><span style="margin-left:0.2em;">CLOSE</span></span>';
+          document.body.appendChild(closeCursor);
+          var closeCursorText = closeCursor.querySelector('span');
+          var fxCursor = document.querySelector('.fx-cursor');
+
+          var ccx = -100, ccy = -100, cctx = ccx, ccty = ccy;
+          document.addEventListener('pointermove', function (e) { cctx = e.clientX; ccty = e.clientY; }, { passive: true });
+          (function animateCloseCursor() {
+            ccx += (cctx - ccx) * 0.08;
+            ccy += (ccty - ccy) * 0.08;
+            closeCursor.style.left = ccx + 'px';
+            closeCursor.style.top = ccy + 'px';
+            closeCursor.style.transform = 'translate(-50%, -50%)';
+            requestAnimationFrame(animateCloseCursor);
+          })();
+
+          dialog.addEventListener('mouseover', function (e) {
+            if (e.target.closest('a')) {
+              closeCursor.style.width = '10px'; closeCursor.style.height = '10px';
+              closeCursorText.style.fontSize = '0px'; closeCursor.style.opacity = '0';
+              if (fxCursor) { fxCursor.style.filter = 'blur(0px)'; fxCursor.style.opacity = '1'; }
+            } else {
+              closeCursor.style.width = '70px'; closeCursor.style.height = '70px';
+              closeCursorText.style.fontSize = '12px'; closeCursor.style.opacity = '1';
+              if (fxCursor) { fxCursor.style.filter = 'blur(4px)'; fxCursor.style.opacity = '0'; }
+            }
+          });
+          dialog.addEventListener('mouseleave', function () {
+            closeCursor.style.width = '10px'; closeCursor.style.height = '10px';
+            closeCursorText.style.fontSize = '0px'; closeCursor.style.opacity = '0';
+            if (fxCursor) { fxCursor.style.filter = 'blur(0px)'; fxCursor.style.opacity = '1'; }
+          });
+        }
+      })();
+      </script>
       <script src="../../assets/js/cursor-follow.js" defer></script>
       <script src="../../assets/js/noise.js"></script>
       <script src="../../assets/js/scroll.js"></script>

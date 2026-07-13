@@ -642,7 +642,6 @@ textarea {
     margin-bottom: 4px;
   }
   #content-wrap.work h5 {
-    font-size: 30.4px;
     margin-bottom: 12px;
   }
   #content-wrap.work .work-title p.order {
@@ -945,12 +944,6 @@ textarea {
     -moz-column-gap: 80px;
     column-gap: 80px;
   }
-  body.tt-boxed.work.ui-ux .tt-wrap .tt-row:nth-child(1) {
-    margin-bottom: 112px;
-  }
-  body.tt-boxed.work.ui-ux .tt-wrap .tt-row:nth-child(2) {
-    margin-bottom: 48px;
-  }
   body.tt-boxed.work.ui-ux .tt-wrap .tt-col-md-6,
 body.tt-boxed.work.ui-ux .tt-wrap .tt-col-md-6:first-child,
 body.tt-boxed.work.ui-ux .tt-wrap .tt-col-md-6:last-child {
@@ -964,7 +957,6 @@ body.tt-boxed.work.ui-ux .tt-wrap .tt-col-md-6:last-child {
   }
   body.tt-boxed.work.ui-ux .tt-wrap .tt-col-md-12 .mobs-details {
     max-width: 448px;
-    margin-left: 156px;
   }
   body.tt-boxed.work.ui-ux .tt-wrap .tt-col-md-6 .mobs.iphone {
     margin-left: -48px;
@@ -1007,7 +999,6 @@ body.tt-boxed.work.ui-ux .tt-wrap .tt-col-md-6:last-child {
   }
   body.tt-boxed.work.web .tt-wrap {
     width: 864px;
-    row-gap: 32px;
   }
   body.tt-boxed .tt-wrap.work-gallery .tt-row:nth-child(odd) {
     transform: translateX(120px);
