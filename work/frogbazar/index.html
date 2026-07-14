@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
    <head>
-      <title>Frog Bazar :: Federico Vaccarezza - Portfolio 2026</title>
+      <title>Frog Bazar - Federico Vaccarezza 2026</title>
       <meta charset="utf-8" />
       <meta name="Graphic Designer" content="I'm based in Tigre, Argentina." />
       <meta name="Federico Vaccarezza" content="fvaccarezza.com" />
@@ -157,6 +157,11 @@
         .footer-roll-wrap .brace { display:inline-block; transition:transform 0.4s cubic-bezier(0.34,1.5,0.9,1); font-weight:400; color:#3A3A39; }
         .footer-roll-wrap:hover .brace-l { transform:translateX(-6px); }
         .footer-roll-wrap:hover .brace-r { transform:translateX(6px); }
+        /* UW: the roll-wrap's scale(calc(--fv-caps/16px)) introduces a ~2px sub-pixel rounding gap,
+           letting the hidden second line peek out at rest — nudge it down a touch extra to compensate */
+        @media (min-width: 2560px) {
+          .footer-roll-text span:last-child, .ol-roll-text span:last-child { transform: translateY(calc(100% + 2px)); }
+        }
         .footer-col-center { text-align:center; display:flex; justify-content:center; }
         /* ── WORKS modal: slide-in from below / slide-out back down, no bounce ── */
         /* driven entirely by JS (Web Animations API, see script below) — no CSS transition/keyframe
@@ -197,6 +202,86 @@
         .footer-lb-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; }
         #lb-line2 { display:block; width:100%; height:auto; transform:translateY(100%); filter:none; }
         #lb-line1 { display:block; width:auto; height:auto; transform:translateY(100%); filter:none; margin:0 auto; }
+        /* ── "More Projects" carousel before the footer (trial) ── */
+        /* transform-driven (not native scroll) — avoids any interference from the page's own
+           smooth-scrollbar instance, and makes autoplay/drag fully deterministic */
+        .works-carousel-viewport {
+          overflow: hidden;
+          padding: 0 40px 20px;
+          cursor: grab;
+          user-select: none;
+        }
+        .works-carousel-track {
+          display: flex;
+          gap: 24px;
+          will-change: transform;
+        }
+        .works-carousel-item {
+          flex: 0 0 auto;
+          width: 320px;
+          max-width: 80vw;
+          text-decoration: none;
+          display: block;
+          -webkit-user-drag: none;
+        }
+        .works-carousel-item .wc-media {
+          position: relative;
+          display: block;
+          overflow: hidden;
+          border-radius: 6px;
+          transition: box-shadow 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .works-carousel-item:hover .wc-media { box-shadow: 0 12px 40px rgba(0,0,0,0.10); }
+        .works-carousel-item .wc-media img {
+          width: 100%;
+          height: auto;
+          display: block;
+          filter: saturate(1.05) contrast(1.02);
+          transition: filter 0.2s ease-in-out, transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .works-carousel-item .wc-img-hover {
+          position: absolute;
+          inset: 0;
+          opacity: 0;
+          pointer-events: none;
+        }
+        .works-carousel-item:hover .wc-img-hover { opacity: 1; }
+        .works-carousel-item:hover .wc-img-base { filter: saturate(1.15) contrast(1.06); }
+        .works-carousel-item .wc-label {
+          display: block;
+          margin-top: 14px;
+          font-family: 'PP Telegraf', sans-serif;
+          font-weight: 400;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          color: #3A3A39;
+          font-size: var(--fv-caps, 14px);
+        }
+        .works-carousel-btn {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-30px);
+          width: 48px;
+          height: 48px;
+          border-radius: 50%;
+          border: none;
+          background: transparent;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          z-index: 2;
+        }
+        .works-carousel-btn.prev { left: -10px; }
+        .works-carousel-btn.next { right: -10px; }
+        .works-carousel-btn img { width: 12px; height: 18px; }
+        @media (max-width: 768px) {
+          .works-carousel-btn { display: none; }
+          .works-carousel-viewport { padding: 0 20px 20px; }
+        }
+        @media (min-width: 2560px) {
+          .works-carousel-item { width: 480px; }
+        }
         @media (min-width: 2560px) {
             #footer-copyright { font-size: 16px !important; }
             #contact .tt-section-inner.tt-wrap { padding-top: 700px !important; }
@@ -219,7 +304,7 @@
         .ol-roll-wrap:hover .ol-brace-l { transform:translateX(-5px); }
         .ol-roll-wrap:hover .ol-brace-r { transform:translateX(5px); }
         .ol-roll-text { display:inline-block; overflow:hidden; position:relative; vertical-align:bottom; }
-        .ol-roll-text span { display:block; transition:transform 0.4s cubic-bezier(0.76,0,0.24,1); }
+        .ol-roll-text span { display:block; line-height:1; transition:transform 0.4s cubic-bezier(0.76,0,0.24,1); }
         .ol-roll-text span:last-child { position:absolute; top:0; left:0; transform:translateY(100%); }
         .ol-roll-wrap:hover .ol-roll-text span:first-child { transform:translateY(-100%); }
         .ol-roll-wrap:hover .ol-roll-text span:last-child { transform:translateY(0%); }
@@ -387,6 +472,30 @@
                            <img src="content/frog-12.jpg" alt="Frog Bazar" />
                            <img src="content/frog-13.jpg" alt="Frog Bazar" />
                         </div>
+                     </div>
+                  </div>
+                  <div class="tt-section works-carousel-section" style="padding:80px 0 100px;position:relative;">
+                     <div class="tt-wrap" style="max-width:100%;position:relative;">
+                        <h3 style="text-align:center;font-family:'PP Telegraf',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 40px;color:#3A3A39;">More Projects</h3>
+                        <div class="works-carousel-viewport" id="works-carousel-viewport">
+                           <div class="works-carousel-track" id="works-carousel-track">
+                              <a class="works-carousel-item" href="../estudio32/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/estudio32-b.jpg" alt="Estudio 32" /><img class="wc-img-hover" src="../../assets/home/estudio32.jpg" alt="" aria-hidden="true" /></span><span class="wc-label">Estudio 32</span></a>
+                              <a class="works-carousel-item" href="../opame/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/opame-b.jpg" alt="Opame Collective" /><img class="wc-img-hover" src="../../assets/home/opame.jpg" alt="" aria-hidden="true" /></span><span class="wc-label">Opame Collective</span></a>
+                              <a class="works-carousel-item" href="../nmp/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/nmp-b.jpg" alt="N.M,P" /><img class="wc-img-hover" src="../../assets/home/nmp.jpg" alt="" aria-hidden="true" /></span><span class="wc-label">N.M,P</span></a>
+                              <a class="works-carousel-item" href="../cleo/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/cleo-b.jpg" alt="Cleo Pay" /><img class="wc-img-hover" src="../../assets/home/cleo.jpg" alt="" aria-hidden="true" /></span><span class="wc-label">Cleo Pay</span></a>
+                              <a class="works-carousel-item" href="../michi/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/michi-b.jpg" alt="Michi Bistro" /><img class="wc-img-hover" src="../../assets/home/michi.jpg" alt="" aria-hidden="true" /></span><span class="wc-label">Michi Bistro</span></a>
+                              <a class="works-carousel-item" href="../broke/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/broke-b.jpg" alt="Broke" /><img class="wc-img-hover" src="../../assets/home/broke.jpg" alt="" aria-hidden="true" /></span><span class="wc-label">Broke</span></a>
+                              <a class="works-carousel-item" href="../big-mother-energy/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/big-mother-energy-b.jpg" alt="Big Mother Energy" /><img class="wc-img-hover" src="../../assets/home/big-mother-energy.jpg" alt="" aria-hidden="true" /></span><span class="wc-label">Big Mother Energy</span></a>
+                              <a class="works-carousel-item" href="../product/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/product-b.jpg" alt="UI/UX" /><img class="wc-img-hover" src="../../assets/home/product.jpg" alt="" aria-hidden="true" /></span><span class="wc-label">UI / UX</span></a>
+                              <a class="works-carousel-item" href="../web/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/web-b.jpg" alt="Web" /><img class="wc-img-hover" src="../../assets/home/web.jpg" alt="" aria-hidden="true" /></span><span class="wc-label">Web</span></a>
+                           </div>
+                        </div>
+                        <button type="button" class="works-carousel-btn prev" id="wc-prev" aria-label="Previous">
+                           <img src="../../assets/img/arrow-prev.svg" alt="" />
+                        </button>
+                        <button type="button" class="works-carousel-btn next" id="wc-next" aria-label="Next">
+                           <img src="../../assets/img/arrow-next.svg" alt="" />
+                        </button>
                      </div>
                   </div>
                   <footer id="contact" class="tt-section">
@@ -636,6 +745,114 @@
             if (fxCursor) { fxCursor.style.filter = 'blur(0px)'; fxCursor.style.opacity = '1'; }
           });
         }
+      })();
+      </script>
+      <script>
+      // ── "More Projects" carousel: mouse-steered + drag + tilt hover (trial) ──
+      // own script tag so it can't be silently blocked by an error elsewhere in the page's inline JS
+      (function () {
+        var viewport = document.getElementById('works-carousel-viewport');
+        var track = document.getElementById('works-carousel-track');
+        var prevBtn = document.getElementById('wc-prev');
+        var nextBtn = document.getElementById('wc-next');
+        if (!viewport || !track) return;
+
+        var originalItems = Array.prototype.slice.call(track.children);
+        if (!originalItems.length) return;
+
+        // duplicate the set once so the loop wraps seamlessly
+        originalItems.forEach(function (item) { track.appendChild(item.cloneNode(true)); });
+
+        var offset = 0; // px scrolled forward; wraps within [0, setWidth)
+        var setWidth = 0;
+        function measure() {
+          var first = originalItems[0];
+          var lastOriginal = originalItems[originalItems.length - 1];
+          setWidth = (lastOriginal.offsetLeft + lastOriginal.offsetWidth) - first.offsetLeft + 24; // + gap
+        }
+        measure();
+        window.addEventListener('resize', measure);
+
+        function render() {
+          track.style.transform = 'translateX(' + (-offset) + 'px)';
+        }
+
+        function wrap() {
+          if (setWidth <= 0) return;
+          offset = ((offset % setWidth) + setWidth) % setWidth;
+        }
+
+        function step() {
+          var item = originalItems[0];
+          return item ? item.getBoundingClientRect().width + 24 : 344;
+        }
+        if (prevBtn) prevBtn.addEventListener('click', function () { offset -= step(); wrap(); render(); });
+        if (nextBtn) nextBtn.addEventListener('click', function () { offset += step(); wrap(); render(); });
+
+        // mouse steering: move toward the right edge of the viewport to advance, left edge to go back
+        var steerV = 0; // -1 (full speed left) to 1 (full speed right), 0 = still
+        var isDragging = false;
+        var MAX_SPEED = 4; // px/frame at the very edge
+        var DEAD_ZONE = 0.12; // fraction of half-width near center that does nothing
+
+        viewport.addEventListener('mousemove', function (e) {
+          if (isDragging) return;
+          var rect = viewport.getBoundingClientRect();
+          var rel = ((e.clientX - rect.left) / rect.width - 0.5) * 2; // -1 .. 1
+          if (Math.abs(rel) < DEAD_ZONE) { steerV = 0; return; }
+          var sign = rel > 0 ? 1 : -1;
+          var mag = (Math.abs(rel) - DEAD_ZONE) / (1 - DEAD_ZONE); // 0..1 past the dead zone
+          steerV = sign * mag;
+        });
+        viewport.addEventListener('mouseleave', function () { steerV = 0; });
+
+        function loop() {
+          if (!isDragging && steerV !== 0) {
+            offset += steerV * MAX_SPEED;
+            wrap();
+            render();
+          }
+          requestAnimationFrame(loop);
+        }
+        requestAnimationFrame(loop);
+
+        // click-and-drag still works too, for precise control
+        var dragStartX = 0;
+        var dragStartOffset = 0;
+
+        viewport.addEventListener('pointerdown', function (e) {
+          if (e.pointerType === 'touch') return;
+          isDragging = true;
+          steerV = 0;
+          dragStartX = e.clientX;
+          dragStartOffset = offset;
+          viewport.setPointerCapture(e.pointerId);
+          viewport.style.cursor = 'grabbing';
+        });
+        viewport.addEventListener('pointermove', function (e) {
+          if (!isDragging) return;
+          offset = dragStartOffset - (e.clientX - dragStartX);
+          wrap();
+          render();
+        });
+        function endDrag() { isDragging = false; viewport.style.cursor = 'grab'; }
+        viewport.addEventListener('pointerup', endDrag);
+        viewport.addEventListener('pointercancel', endDrag);
+
+        // tilt ("magnet") + shadow hover, same feel as the home page's project cards
+        Array.prototype.slice.call(track.querySelectorAll('.wc-media')).forEach(function (media) {
+          media.addEventListener('mousemove', function (e) {
+            var rect = media.getBoundingClientRect();
+            var cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
+            var dx = (e.clientX - cx) / (rect.width / 2), dy = (e.clientY - cy) / (rect.height / 2);
+            media.style.transform = 'perspective(1200px) rotateX(' + (-dy * 6) + 'deg) rotateY(' + (dx * 6) + 'deg)';
+            media.style.transition = 'transform 0.15s ease';
+          });
+          media.addEventListener('mouseleave', function () {
+            media.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)';
+            media.style.transition = 'transform 0.6s cubic-bezier(0.34,1.5,0.9,1)';
+          });
+        });
       })();
       </script>
       <script src="../../assets/js/cursor-follow.js" defer></script>

@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
    <head>
-      <title>Michi Bistro :: Federico Vaccarezza - Portfolio 2026</title>
+      <title>Michi Bistro - Federico Vaccarezza 2026</title>
       <meta charset="utf-8" />
       <meta name="Graphic Designer" content="I'm based in Tigre, Argentina." />
       <meta name="Federico Vaccarezza" content="fvaccarezza.com" />
@@ -70,6 +70,9 @@
         .footer-roll-wrap .brace { display:inline-block; transition:transform 0.4s cubic-bezier(0.34,1.5,0.9,1); font-weight:400; color:#3A3A39; }
         .footer-roll-wrap:hover .brace-l { transform:translateX(-6px); }
         .footer-roll-wrap:hover .brace-r { transform:translateX(6px); }
+        @media (min-width: 2560px) {
+          .footer-roll-text span:last-child, .ol-roll-text span:last-child { transform: translateY(calc(100% + 2px)); }
+        }
         .footer-col-center { text-align:center; display:flex; justify-content:center; }
         .footer-col-right { text-align:right; justify-content:flex-end; }
         .footer-contact-links a { color:#3A3A39; text-decoration:none; text-transform:uppercase; font-weight:500; }
@@ -109,7 +112,7 @@
         .ol-roll-wrap:hover .ol-brace-l { transform:translateX(-5px); }
         .ol-roll-wrap:hover .ol-brace-r { transform:translateX(5px); }
         .ol-roll-text { display:inline-block; overflow:hidden; position:relative; vertical-align:bottom; }
-        .ol-roll-text span { display:block; transition:transform 0.4s cubic-bezier(0.76,0,0.24,1); }
+        .ol-roll-text span { display:block; line-height:1; transition:transform 0.4s cubic-bezier(0.76,0,0.24,1); }
         .ol-roll-text span:last-child { position:absolute; top:0; left:0; transform:translateY(100%); }
         .ol-roll-wrap:hover .ol-roll-text span:first-child { transform:translateY(-100%); }
         .ol-roll-wrap:hover .ol-roll-text span:last-child { transform:translateY(0%); }
