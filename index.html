@@ -248,8 +248,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #testimonials-section .verbatim p:first-child { font-size: 18px !important; margin-bottom: 20px !important; }
     #testimonials-section .verbatim img { width: 88px !important; height: 88px !important; }
     #faq-section { margin-bottom: 100px !important; }
-    #hola-foto { width: 780px !important; }
-    #fede-text-wrap { max-width: 650px !important; }
     #works-afew-desc { max-width: 433px !important; }
 }
 @media (max-width:768px) { .name-letter { height:29px !important; } .home-title { gap:16px; } .name-line { gap:2px !important; } }
@@ -433,7 +431,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .stickers-scene { width:1500px !important; height:660px !important; }
     .stk-wrap[data-bolsita] .stk { width:1500px !important; }
     #stickers-outer { padding-bottom: 160px !important; }
-    #fede-photo-wrap { width:425px !important; height:425px !important; }
+    #hola-foto { max-width:1500px !important; }
     #trusted-phrase-wrap { margin-bottom: -40px !important; margin-top: 50px !important; }
     #contact .tt-section-inner.tt-wrap { padding-top: 700px !important; }
 }
@@ -448,8 +446,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 @media (min-resolution: 2dppx) {
     #deck-guidelines-frame { width: 1200px !important; max-width: 1200px !important; }
     #deck-guidelines { width: 1200px !important; max-width: 1200px !important; }
-    #fede-photo-wrap { width: 300px !important; height: 300px !important; }
-    #fede-text-wrap { max-width: 650px !important; }
+    #desk-about-me { height: 25px !important; width: auto !important; }
+    #desk-hola { height: 73px !important; width: auto !important; }
     /* FAQ: tighten question / line / answer spacing - retina only */
     .faq-question { padding-bottom: 4px !important; }
     .fq-sep { margin-top: 4px !important; }
@@ -459,7 +457,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .footer-roll-wrap, .footer-roll-wrap .brace { font-size: var(--fv-caps) !important; transform: none !important; }
     .services-grid-item h3 img { width: auto !important; height: 26px !important; }
     #desk-extra { height: 110px !important; width: auto !important; max-width: 1320px !important; }
-    #desk-about-me { height: 55px !important; width: auto !important; }
     #desk-work { height: 110px !important; width: auto !important; max-width: 1320px !important; }
     #testi-phrase-img { height: 110px !important; width: auto !important; max-width: 1320px !important; }
     .hover-fv { transform: translateY(10px); }
@@ -676,16 +673,19 @@ document.addEventListener('click', function(e) {
             <div id="about" data-offset="-50" class="tt-section padding-bottom-xlg-90 psi-image-is-light">
                 <div class="bg-vectors" id="bg-vectors-2"><div class="pos bottom-right"><img src="./assets/img/bg-lines/bg-lines2.svg" /></div></div>
                 <div class="tt-section-inner tt-wrap">
-                    <div id="hola-foto" style="display:flex;flex-direction:column;align-items:center;width:650px;max-width:100%;margin:0 auto;gap:32px;">
-                        <img id="desk-about-me" src="./assets/img/desk-about-me.svg" alt="About Me" class="mob-no" style="display:block;width:auto;height:auto;margin:0 auto;opacity:0;filter:blur(20px);border-radius:0 !important;" />
-                        <div style="flex-shrink:0;position:relative;width:375px;height:375px;border-radius:10px;overflow:hidden;cursor:default;" id="fede-photo-wrap">
+                    <div id="hola-foto" class="mob-no" style="display:flex;align-items:stretch;justify-content:center;gap:60px;width:100%;max-width:1100px;margin:0 auto;">
+                        <div style="flex-shrink:0;position:relative;border-radius:10px;overflow:hidden;cursor:default;" id="fede-photo-wrap">
                             <img id="fede-blur-img" src="./assets/img/fede-blur.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:4px;will-change:filter,transform;transition:none;" />
                             <img id="fede-solo-img" src="./assets/img/fede-solo.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:4px;will-change:transform;transition:none;" />
                             <div id="fede-orange-mask" style="position:absolute;inset:0;background:#FF6600;mix-blend-mode:multiply;border-radius:4px;pointer-events:none;transition:opacity 0.6s cubic-bezier(0.25,0.46,0.45,0.94);opacity:1;"></div>
                         </div>
-                        <div class="info" style="width:100%;max-width:500px;margin:0 auto;display:flex;flex-direction:column;gap:16px;text-align:center;" id="fede-text-wrap">
-                            <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;">Educated at the University of Buenos Aires (UBA), I began in Industrial Design before transitioning to Graphic Design.</p>
-                            <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;">Over the years, my work has spanned branding, web design, and UI/UX, collaborating with startups and established companies to create brands, websites, and digital experiences that are clear, effective, and thoughtfully designed.</p>
+                        <div id="hola-text-col" style="display:flex;flex-direction:column;align-items:flex-start;align-self:flex-start;justify-content:center;width:fit-content;flex-shrink:0;">
+                            <img id="desk-about-me" src="./assets/img/pill-aboutme.svg" alt="About Me" style="display:block;width:auto;height:auto;margin-bottom:24px;opacity:0;filter:blur(20px);border-radius:0 !important;" />
+                            <img id="desk-hola" src="./assets/img/desk-hola.svg" alt="Hola!" style="display:block;width:auto;height:auto;margin-bottom:24px;opacity:0;filter:blur(20px);" />
+                            <div class="info" style="width:100%;display:flex;flex-direction:column;gap:16px;text-align:left;" id="fede-text-wrap">
+                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;">Educated at the University of Buenos Aires (UBA), I began in Industrial Design before transitioning to Graphic Design.</p>
+                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;">Over the years, my work has spanned branding, web design, and UI/UX, collaborating with startups and established companies to create brands, websites, and digital experiences that are clear, effective, and thoughtfully designed.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -696,7 +696,7 @@ document.addEventListener('click', function(e) {
                 <div class="desk-works-phrase mob-no">
                     <div class="desk-works-clip"><img id="desk-featured" src="./assets/img/desk-featured.svg" alt="featured" /></div>
                     <div class="desk-works-afew mob-no">
-                        <img id="work-them" src="./assets/img/a-few-of.svg" alt="A Few of Them" style="display:block;height:auto;width:auto;" />
+                        <img id="work-them" src="./assets/img/pill-afewof.svg" alt="A Few of Them" style="display:block;height:auto;width:auto;" />
                         <p style="display:none;">A Few of Them</p>
                     </div>
                     <div class="desk-works-clip"><img id="desk-work" src="./assets/img/desk-projects.svg" alt="projects" /></div>
@@ -707,7 +707,7 @@ document.addEventListener('click', function(e) {
                         <div class="mob-phrase-clip"><img src="./assets/img/work-featu.svg" class="mob-phrase-word" alt="" /></div>
                         <div class="mob-phrase-clip" id="mob-works-red-clip"><img src="./assets/img/work-red.svg" class="mob-phrase-word" alt="" /></div>
                         <div class="mob-phrase-clip"><img src="./assets/img/work-work.svg" class="mob-phrase-word" alt="" /></div>
-                        <img src="./assets/img/a-few-of.svg" alt="A Few of Them" class="mob-pill" id="mob-works-pill" />
+                        <img src="./assets/img/pill-afewof.svg" alt="A Few of Them" class="mob-pill" id="mob-works-pill" />
                     </div>
                     <div class="gallery">
                         <div class="card" id="frog-bazar"><a href="https://www.behance.net/gallery/157959551/Frog-Bazar-2023" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a><a class="media" href="work/frogbazar/" alt="frog-bazar" data-vt-mode="slide"><img class="img-base" src="./assets/home/frogbazar-b.jpg" alt="Frog Bazar" /><img class="img-hover" src="./assets/home/frogbazar.jpg" alt="" aria-hidden="true" /></a><div class="meta"><h3>Frog Bazar</h3><p>branding + website + photo</p><p>(001)</p><span class="meta-name">Frog Bazar</span><span class="meta-num">(001)</span></div></div>
@@ -884,7 +884,7 @@ document.addEventListener('click', function(e) {
                     <div class="tt-col-md-6 d-flex-center flex-col max-width-full" style="position:relative;">
                         <div class="desktop-testi-wrap">
                             <div class="desktop-testi-tag">
-                                <img src="./assets/img/some-kind.svg" alt="Some Kind Words" style="display:block;height:auto;width:auto;" />
+                                <img src="./assets/img/pill-somekind.svg" alt="Some Kind Words" style="display:block;height:auto;width:auto;" />
                                 <p style="display:none;">Some Kind Words</p>
                             </div>
                             <div class="testi-phrase-clip">
@@ -896,7 +896,7 @@ document.addEventListener('click', function(e) {
                             <div class="mob-phrase-clip"><img src="./assets/img/testimonials-they.svg" class="mob-phrase-word" alt="" /></div>
                             <div class="mob-phrase-clip"><img src="./assets/img/testimonials-said.svg" class="mob-phrase-word" alt="" /></div>
                             <div class="mob-phrase-clip"><img src="./assets/img/testimonials-it.svg" class="mob-phrase-word" alt="" /></div>
-                            <img src="./assets/img/some-kind.svg" alt="Some Kind Words" class="mob-pill" id="mob-testi-pill" />
+                            <img src="./assets/img/pill-somekind.svg" alt="Some Kind Words" class="mob-pill" id="mob-testi-pill" />
                         </div>
                         <div class="words-container"><div class="carousel" role="region"><div class="stage" id="stage">
                             <article class="verbatim prev" tabindex="0"><img src="./assets/img/word2.jpg" alt="" /><div><p><span>Dana Johonson</span> (Dotted 8)</p><p>"As a US-based agency, it can be tricky to find reliable international talent that aligns with our time constraints and quality expectations. Fede has been an incredible resource and a valued member of our team for many years!"</p></div></article>
@@ -1639,12 +1639,33 @@ window.addEventListener('load', () => {
         // ── ABOUT breathe parallax ──
         if (window.innerWidth > 768) {
             var fedeAboutMe = document.getElementById('desk-about-me');
+            var fedeHola = document.getElementById('desk-hola');
             var fedePhoto = document.getElementById('fede-photo-wrap');
             var fedeText = document.getElementById('fede-text-wrap');
+
+            // ── Square photo: width/height locked to the pill+title+text column's rendered height ──
+            (function sizeAboutPhoto() {
+                var col = document.getElementById('hola-text-col');
+                if (!fedePhoto || !col) return;
+                function applySize() {
+                    var h = col.offsetHeight;
+                    if (h > 0) { fedePhoto.style.width = h + 'px'; fedePhoto.style.height = h + 'px'; }
+                }
+                applySize();
+                window.addEventListener('resize', applySize);
+                setTimeout(applySize, 300);
+                if (document.fonts && document.fonts.ready) { document.fonts.ready.then(applySize); }
+                if (window.ResizeObserver) { new ResizeObserver(applySize).observe(col); }
+            })();
             if (fedeAboutMe) {
                 gsap.set(fedeAboutMe, { opacity:0, filter:'blur(20px)' });
                 gsap.to(fedeAboutMe, { opacity:1, filter:'blur(0px)', duration:1.2, ease:'power3.out', scrollTrigger: { trigger:'#about', start:'top bottom', toggleActions:'play none none none' } });
                 gsap.to(fedeAboutMe, { y:-160, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'bottom top', scrub:0.6 } });
+            }
+            if (fedeHola) {
+                gsap.set(fedeHola, { opacity:0, filter:'blur(20px)' });
+                gsap.to(fedeHola, { opacity:1, filter:'blur(0px)', duration:1.2, ease:'power3.out', delay:0.1, scrollTrigger: { trigger:'#about', start:'top bottom', toggleActions:'play none none none' } });
+                gsap.to(fedeHola, { y:-130, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'bottom top', scrub:0.5 } });
             }
             if (fedePhoto) {
                 gsap.set(fedePhoto, { opacity:0, filter:'blur(20px)' });
