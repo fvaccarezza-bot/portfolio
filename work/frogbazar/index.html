@@ -142,8 +142,9 @@
 
         @media (min-width: 769px) {
           .mob-footer { display:none !important; }
-          #contact { margin-top:-300px; overflow:visible; padding-bottom:0 !important; position:relative; }
+          #contact { margin-top:-300px; overflow:visible; padding-bottom:0 !important; position:relative; pointer-events:none; }
           #contact .tt-section-inner.tt-wrap { padding-top:300px; }
+          #contact .tt-section-inner.tt-wrap > *, #contact .footer-letsbuild, #contact .footer-copyright { pointer-events:auto; }
         }
 
         /* ── DESKTOP FOOTER STYLES ── */
@@ -211,6 +212,8 @@
           cursor: grab;
           user-select: none;
         }
+        .works-carousel-viewport.is-dragging { cursor: grabbing; }
+        .works-carousel-viewport.is-dragging .works-carousel-item { pointer-events: none; }
         .works-carousel-track {
           display: flex;
           gap: 24px;
@@ -276,8 +279,7 @@
         .works-carousel-btn.next { right: -10px; }
         .works-carousel-btn img { width: 12px; height: 18px; }
         @media (max-width: 768px) {
-          .works-carousel-btn { display: none; }
-          .works-carousel-viewport { padding: 0 20px 20px; }
+          .works-carousel-section { display: none !important; }
         }
         @media (min-width: 2560px) {
           .works-carousel-item { width: 480px; }
@@ -748,96 +750,89 @@
       })();
       </script>
       <script>
-      // ── "More Projects" carousel: mouse-steered + drag + tilt hover (trial) ──
+      // ── "More Projects" carousel: click-and-drag, bounded (stops at first/last), tilt hover ──
       // own script tag so it can't be silently blocked by an error elsewhere in the page's inline JS
       (function () {
+        if (window.innerWidth <= 768) return; // removed entirely on mobile
         var viewport = document.getElementById('works-carousel-viewport');
         var track = document.getElementById('works-carousel-track');
         var prevBtn = document.getElementById('wc-prev');
         var nextBtn = document.getElementById('wc-next');
         if (!viewport || !track) return;
 
-        var originalItems = Array.prototype.slice.call(track.children);
-        if (!originalItems.length) return;
+        var items = Array.prototype.slice.call(track.children);
+        if (!items.length) return;
 
-        // duplicate the set once so the loop wraps seamlessly
-        originalItems.forEach(function (item) { track.appendChild(item.cloneNode(true)); });
-
-        var offset = 0; // px scrolled forward; wraps within [0, setWidth)
-        var setWidth = 0;
+        var offset = 0; // px scrolled forward
+        var maxOffset = 0;
         function measure() {
-          var first = originalItems[0];
-          var lastOriginal = originalItems[originalItems.length - 1];
-          setWidth = (lastOriginal.offsetLeft + lastOriginal.offsetWidth) - first.offsetLeft + 24; // + gap
+          maxOffset = Math.max(0, track.scrollWidth - viewport.clientWidth);
+          offset = Math.max(0, Math.min(offset, maxOffset));
+          render();
         }
-        measure();
-        window.addEventListener('resize', measure);
 
         function render() {
           track.style.transform = 'translateX(' + (-offset) + 'px)';
+          if (prevBtn) prevBtn.style.opacity = offset <= 0 ? '0.3' : '1';
+          if (nextBtn) nextBtn.style.opacity = offset >= maxOffset ? '0.3' : '1';
         }
 
-        function wrap() {
-          if (setWidth <= 0) return;
-          offset = ((offset % setWidth) + setWidth) % setWidth;
+        function clamp() {
+          offset = Math.max(0, Math.min(offset, maxOffset));
         }
 
         function step() {
-          var item = originalItems[0];
+          var item = items[0];
           return item ? item.getBoundingClientRect().width + 24 : 344;
         }
-        if (prevBtn) prevBtn.addEventListener('click', function () { offset -= step(); wrap(); render(); });
-        if (nextBtn) nextBtn.addEventListener('click', function () { offset += step(); wrap(); render(); });
+        if (prevBtn) prevBtn.addEventListener('click', function () { offset -= step(); clamp(); render(); });
+        if (nextBtn) nextBtn.addEventListener('click', function () { offset += step(); clamp(); render(); });
 
-        // mouse steering: move toward the right edge of the viewport to advance, left edge to go back
-        var steerV = 0; // -1 (full speed left) to 1 (full speed right), 0 = still
+        window.addEventListener('resize', measure);
+        measure();
+
+        // click-and-drag only, like the home page cards
         var isDragging = false;
-        var MAX_SPEED = 4; // px/frame at the very edge
-        var DEAD_ZONE = 0.12; // fraction of half-width near center that does nothing
-
-        viewport.addEventListener('mousemove', function (e) {
-          if (isDragging) return;
-          var rect = viewport.getBoundingClientRect();
-          var rel = ((e.clientX - rect.left) / rect.width - 0.5) * 2; // -1 .. 1
-          if (Math.abs(rel) < DEAD_ZONE) { steerV = 0; return; }
-          var sign = rel > 0 ? 1 : -1;
-          var mag = (Math.abs(rel) - DEAD_ZONE) / (1 - DEAD_ZONE); // 0..1 past the dead zone
-          steerV = sign * mag;
-        });
-        viewport.addEventListener('mouseleave', function () { steerV = 0; });
-
-        function loop() {
-          if (!isDragging && steerV !== 0) {
-            offset += steerV * MAX_SPEED;
-            wrap();
-            render();
-          }
-          requestAnimationFrame(loop);
-        }
-        requestAnimationFrame(loop);
-
-        // click-and-drag still works too, for precise control
         var dragStartX = 0;
         var dragStartOffset = 0;
+        var dragMoved = 0;
+        var DRAG_CLICK_THRESHOLD = 6; // px — below this, treat it as a click, not a drag
 
         viewport.addEventListener('pointerdown', function (e) {
-          if (e.pointerType === 'touch') return;
+          console.log('CAROUSEL pointerdown, pointerType=', e.pointerType);
+          if (e.pointerType !== 'mouse' && e.pointerType !== 'pen') { console.log('CAROUSEL bailed: wrong pointerType'); return; }
+          e.preventDefault();
+          e.stopPropagation();
           isDragging = true;
-          steerV = 0;
+          dragMoved = 0;
           dragStartX = e.clientX;
           dragStartOffset = offset;
-          viewport.setPointerCapture(e.pointerId);
-          viewport.style.cursor = 'grabbing';
-        });
+          try { viewport.setPointerCapture(e.pointerId); } catch (err) { console.log('CAROUSEL setPointerCapture threw:', err); }
+          viewport.classList.add('is-dragging');
+          console.log('CAROUSEL isDragging set to', isDragging);
+        }, true);
         viewport.addEventListener('pointermove', function (e) {
-          if (!isDragging) return;
-          offset = dragStartOffset - (e.clientX - dragStartX);
-          wrap();
+          if (!isDragging) { return; }
+          console.log('CAROUSEL pointermove, dx=', e.clientX - dragStartX);
+          e.preventDefault();
+          e.stopPropagation();
+          var dx = e.clientX - dragStartX;
+          dragMoved = Math.max(dragMoved, Math.abs(dx));
+          offset = dragStartOffset - dx;
+          clamp();
           render();
-        });
-        function endDrag() { isDragging = false; viewport.style.cursor = 'grab'; }
-        viewport.addEventListener('pointerup', endDrag);
-        viewport.addEventListener('pointercancel', endDrag);
+        }, true);
+        function endDrag(e) { if (!isDragging) return; isDragging = false; viewport.classList.remove('is-dragging'); if (e) { e.stopPropagation(); } }
+        viewport.addEventListener('pointerup', endDrag, true);
+        viewport.addEventListener('pointercancel', endDrag, true);
+
+        // dragged past the threshold → suppress the link's click so it doesn't navigate
+        track.addEventListener('click', function (e) {
+          if (dragMoved > DRAG_CLICK_THRESHOLD) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        }, true);
 
         // tilt ("magnet") + shadow hover, same feel as the home page's project cards
         Array.prototype.slice.call(track.querySelectorAll('.wc-media')).forEach(function (media) {
