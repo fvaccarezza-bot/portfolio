@@ -178,36 +178,6 @@
   #about h2.section-title {
     margin-bottom: 30.4px;
   }
-  #about .tt-wrap {
-    width: 640px;
-  }
-  #about .tt-wrap .info {
-    margin-top: -4.8px;
-  }
-  #about .tt-wrap p {
-    font-size: 12.8px;
-  }
-  #about .tt-wrap .photo {
-    max-height: 291.2px;
-    max-width: 291.2px;
-    width: 291.2px;
-    height: 291.2px;
-  }
-  #about .tt-wrap .photo * {
-    max-height: 291.2px;
-    max-width: 291.2px;
-    border-radius: 8px;
-  }
-  #about .tt-wrap .photo,
-#about .tt-wrap img {
-    border-radius: 8px;
-  }
-  #about .tt-wrap .photo {
-    margin-left: 14.4px;
-  }
-  #about .tt-wrap #hola-foto:hover .info {
-    transform: translateX(24px);
-  }
   #work {
     padding-top: 152px;
     padding-bottom: 32px !important;

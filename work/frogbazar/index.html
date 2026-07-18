@@ -211,6 +211,9 @@
           padding: 0 40px 20px;
           cursor: grab;
           user-select: none;
+          width: 100%;
+          align-self: stretch;
+          box-sizing: border-box;
         }
         .works-carousel-viewport.is-dragging { cursor: grabbing; }
         .works-carousel-viewport.is-dragging .works-carousel-item { pointer-events: none; }
@@ -250,39 +253,36 @@
         }
         .works-carousel-item:hover .wc-img-hover { opacity: 1; }
         .works-carousel-item:hover .wc-img-base { filter: saturate(1.15) contrast(1.06); }
+        .works-carousel-item .wc-meta {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 14px;
+        }
         .works-carousel-item .wc-label {
           display: block;
-          margin-top: 14px;
           font-family: 'PP Telegraf', sans-serif;
           font-weight: 400;
           text-transform: uppercase;
-          letter-spacing: 0.05em;
+          letter-spacing: 0.5em;
           color: #3A3A39;
           font-size: var(--fv-caps, 14px);
         }
-        .works-carousel-btn {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-30px);
-          width: 48px;
-          height: 48px;
-          border-radius: 50%;
-          border: none;
-          background: transparent;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          z-index: 2;
+        .works-carousel-item .wc-num {
+          display: block;
+          font-family: 'PP Telegraf', sans-serif;
+          font-weight: 800;
+          color: #3A3A39;
+          font-size: var(--fv-body, 14px);
         }
-        .works-carousel-btn.prev { left: -10px; }
-        .works-carousel-btn.next { right: -10px; }
-        .works-carousel-btn img { width: 12px; height: 18px; }
         @media (max-width: 768px) {
           .works-carousel-section { display: none !important; }
         }
         @media (min-width: 2560px) {
-          .works-carousel-item { width: 480px; }
+          .works-carousel-item { width: 940px; } /* matches the home page's 2-col gallery card width at UW */
+          .works-carousel-track { gap: 48px; }
+          .works-carousel-section { padding-bottom: 0 !important; }
         }
         @media (min-width: 2560px) {
             #footer-copyright { font-size: 16px !important; }
@@ -478,26 +478,23 @@
                   </div>
                   <div class="tt-section works-carousel-section" style="padding:80px 0 100px;position:relative;">
                      <div class="tt-wrap" style="max-width:100%;position:relative;">
-                        <h3 style="text-align:center;font-family:'PP Telegraf',sans-serif;font-weight:800;text-transform:uppercase;letter-spacing:0.05em;margin:0 0 40px;color:#3A3A39;">More Projects</h3>
+                        <div style="display:flex;justify-content:center;margin:0 0 24px;">
+                           <img src="../../assets/img/pill-more-works.svg" alt="More Works" style="display:block;height:auto;width:auto;" />
+                        </div>
+                        <p id="wc-carousel-desc" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:#3A3A39;line-height:1.6;margin:0 auto 40px;max-width:680px;text-align:center;position:relative;z-index:1;opacity:0;transform:translateY(40px);filter:blur(20px);">Not every project made the homepage, but here are a few more worth checking out. A mix of brands, websites, products, and everything in between.</p>
                         <div class="works-carousel-viewport" id="works-carousel-viewport">
                            <div class="works-carousel-track" id="works-carousel-track">
-                              <a class="works-carousel-item" href="../estudio32/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/estudio32-b.jpg" alt="Estudio 32" /><img class="wc-img-hover" src="../../assets/home/estudio32.jpg" alt="" aria-hidden="true" /></span><span class="wc-label">Estudio 32</span></a>
-                              <a class="works-carousel-item" href="../opame/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/opame-b.jpg" alt="Opame Collective" /><img class="wc-img-hover" src="../../assets/home/opame.jpg" alt="" aria-hidden="true" /></span><span class="wc-label">Opame Collective</span></a>
-                              <a class="works-carousel-item" href="../nmp/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/nmp-b.jpg" alt="N.M,P" /><img class="wc-img-hover" src="../../assets/home/nmp.jpg" alt="" aria-hidden="true" /></span><span class="wc-label">N.M,P</span></a>
-                              <a class="works-carousel-item" href="../cleo/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/cleo-b.jpg" alt="Cleo Pay" /><img class="wc-img-hover" src="../../assets/home/cleo.jpg" alt="" aria-hidden="true" /></span><span class="wc-label">Cleo Pay</span></a>
-                              <a class="works-carousel-item" href="../michi/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/michi-b.jpg" alt="Michi Bistro" /><img class="wc-img-hover" src="../../assets/home/michi.jpg" alt="" aria-hidden="true" /></span><span class="wc-label">Michi Bistro</span></a>
-                              <a class="works-carousel-item" href="../broke/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/broke-b.jpg" alt="Broke" /><img class="wc-img-hover" src="../../assets/home/broke.jpg" alt="" aria-hidden="true" /></span><span class="wc-label">Broke</span></a>
-                              <a class="works-carousel-item" href="../big-mother-energy/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/big-mother-energy-b.jpg" alt="Big Mother Energy" /><img class="wc-img-hover" src="../../assets/home/big-mother-energy.jpg" alt="" aria-hidden="true" /></span><span class="wc-label">Big Mother Energy</span></a>
-                              <a class="works-carousel-item" href="../product/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/product-b.jpg" alt="UI/UX" /><img class="wc-img-hover" src="../../assets/home/product.jpg" alt="" aria-hidden="true" /></span><span class="wc-label">UI / UX</span></a>
-                              <a class="works-carousel-item" href="../web/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/web-b.jpg" alt="Web" /><img class="wc-img-hover" src="../../assets/home/web.jpg" alt="" aria-hidden="true" /></span><span class="wc-label">Web</span></a>
+                              <a class="works-carousel-item" href="../estudio32/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/estudio32-b.jpg" alt="Estudio 32" /><img class="wc-img-hover" src="../../assets/home/estudio32.jpg" alt="" aria-hidden="true" /></span><span class="wc-meta"><span class="wc-label">Estudio 32</span><span class="wc-num">(002)</span></span></a>
+                              <a class="works-carousel-item" href="../opame/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/opame-b.jpg" alt="Opame Collective" /><img class="wc-img-hover" src="../../assets/home/opame.jpg" alt="" aria-hidden="true" /></span><span class="wc-meta"><span class="wc-label">Opame Collective</span><span class="wc-num">(003)</span></span></a>
+                              <a class="works-carousel-item" href="../nmp/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/nmp-b.jpg" alt="N.M,P" /><img class="wc-img-hover" src="../../assets/home/nmp.jpg" alt="" aria-hidden="true" /></span><span class="wc-meta"><span class="wc-label">N.M,P</span><span class="wc-num">(004)</span></span></a>
+                              <a class="works-carousel-item" href="../cleo/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/cleo-b.jpg" alt="Cleo Pay" /><img class="wc-img-hover" src="../../assets/home/cleo.jpg" alt="" aria-hidden="true" /></span><span class="wc-meta"><span class="wc-label">Cleo Pay</span><span class="wc-num">(005)</span></span></a>
+                              <a class="works-carousel-item" href="../michi/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/michi-b.jpg" alt="Michi Bistro" /><img class="wc-img-hover" src="../../assets/home/michi.jpg" alt="" aria-hidden="true" /></span><span class="wc-meta"><span class="wc-label">Michi Bistro</span><span class="wc-num">(006)</span></span></a>
+                              <a class="works-carousel-item" href="../broke/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/broke-b.jpg" alt="Broke" /><img class="wc-img-hover" src="../../assets/home/broke.jpg" alt="" aria-hidden="true" /></span><span class="wc-meta"><span class="wc-label">Broke</span><span class="wc-num">(007)</span></span></a>
+                              <a class="works-carousel-item" href="../big-mother-energy/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/big-mother-energy-b.jpg" alt="Big Mother Energy" /><img class="wc-img-hover" src="../../assets/home/big-mother-energy.jpg" alt="" aria-hidden="true" /></span><span class="wc-meta"><span class="wc-label">Big Mother Energy</span><span class="wc-num">(008)</span></span></a>
+                              <a class="works-carousel-item" href="../product/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/product-b.jpg" alt="UI/UX" /><img class="wc-img-hover" src="../../assets/home/product.jpg" alt="" aria-hidden="true" /></span><span class="wc-meta"><span class="wc-label">UI / UX</span><span class="wc-num">(009)</span></span></a>
+                              <a class="works-carousel-item" href="../web/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/web-b.jpg" alt="Web" /><img class="wc-img-hover" src="../../assets/home/web.jpg" alt="" aria-hidden="true" /></span><span class="wc-meta"><span class="wc-label">Web</span><span class="wc-num">(010)</span></span></a>
                            </div>
                         </div>
-                        <button type="button" class="works-carousel-btn prev" id="wc-prev" aria-label="Previous">
-                           <img src="../../assets/img/arrow-prev.svg" alt="" />
-                        </button>
-                        <button type="button" class="works-carousel-btn next" id="wc-next" aria-label="Next">
-                           <img src="../../assets/img/arrow-next.svg" alt="" />
-                        </button>
                      </div>
                   </div>
                   <footer id="contact" class="tt-section">
@@ -756,75 +753,180 @@
         if (window.innerWidth <= 768) return; // removed entirely on mobile
         var viewport = document.getElementById('works-carousel-viewport');
         var track = document.getElementById('works-carousel-track');
-        var prevBtn = document.getElementById('wc-prev');
-        var nextBtn = document.getElementById('wc-next');
         if (!viewport || !track) return;
 
         var items = Array.prototype.slice.call(track.children);
         if (!items.length) return;
 
+        // Kill the browser's native image/link drag-ghost — it races against our own
+        // pointer-based drag and wins intermittently, which is what made dragging feel random.
+        track.addEventListener('dragstart', function (e) { e.preventDefault(); });
+
         var offset = 0; // px scrolled forward
         var maxOffset = 0;
+        var renderOffset = 0;
+        var RENDER_LERP = 0.22; // smooths every offset change (drag/momentum/idle) into a fluid trailing motion
         function measure() {
           maxOffset = Math.max(0, track.scrollWidth - viewport.clientWidth);
           offset = Math.max(0, Math.min(offset, maxOffset));
-          render();
+          renderOffset = offset; // snap instantly on init/resize — no lag on layout changes
+          applyTransform();
         }
 
-        function render() {
-          track.style.transform = 'translateX(' + (-offset) + 'px)';
-          if (prevBtn) prevBtn.style.opacity = offset <= 0 ? '0.3' : '1';
-          if (nextBtn) nextBtn.style.opacity = offset >= maxOffset ? '0.3' : '1';
+        function applyTransform() {
+          track.style.transform = 'translateX(' + (-renderOffset) + 'px)';
         }
+
+        // legacy name kept for call sites — no longer snaps instantly, the smoothLoop below does that
+        function render() {}
+
+        (function smoothLoop() {
+          var diff = offset - renderOffset;
+          if (Math.abs(diff) < 0.03) { renderOffset = offset; } else { renderOffset += diff * RENDER_LERP; }
+          applyTransform();
+          requestAnimationFrame(smoothLoop);
+        })();
 
         function clamp() {
           offset = Math.max(0, Math.min(offset, maxOffset));
         }
 
-        function step() {
-          var item = items[0];
-          return item ? item.getBoundingClientRect().width + 24 : 344;
-        }
-        if (prevBtn) prevBtn.addEventListener('click', function () { offset -= step(); clamp(); render(); });
-        if (nextBtn) nextBtn.addEventListener('click', function () { offset += step(); clamp(); render(); });
-
         window.addEventListener('resize', measure);
         measure();
 
-        // click-and-drag only, like the home page cards
-        var isDragging = false;
+        // images load async — the initial measure() above likely runs before they're loaded,
+        // undercounting track.scrollWidth (so maxOffset ends up ~0 and clamp() kills all drag).
+        // re-measure once everything has actually loaded.
+        var carouselImgs = track.querySelectorAll('img');
+        var pendingImgs = carouselImgs.length;
+        if (pendingImgs) {
+          carouselImgs.forEach(function (img) {
+            if (img.complete) { pendingImgs--; if (pendingImgs <= 0) measure(); return; }
+            img.addEventListener('load', function () { pendingImgs--; if (pendingImgs <= 0) measure(); });
+            img.addEventListener('error', function () { pendingImgs--; if (pendingImgs <= 0) measure(); });
+          });
+        }
+        setTimeout(measure, 500);
+        setTimeout(measure, 1500);
+
+        // click-and-drag with momentum, like the home page cards
+        var pointerActive = false;
+        var isDragging = false; // only true once movement crosses the click threshold
+        var activePointerId = null;
         var dragStartX = 0;
         var dragStartOffset = 0;
         var dragMoved = 0;
         var DRAG_CLICK_THRESHOLD = 6; // px — below this, treat it as a click, not a drag
+        var lastMoveX = 0, lastMoveT = 0, velocity = 0; // velocity in px/ms
+        var momentumRAF = null;
 
+        function stopMomentum() {
+          if (momentumRAF) { cancelAnimationFrame(momentumRAF); momentumRAF = null; }
+        }
+
+        function startMomentum() {
+          var v = velocity * -16.7; // px/ms → px/frame (~60fps)
+          var FRICTION = 0.945;
+          function tick() {
+            if (Math.abs(v) < 0.4 || offset <= 0 || offset >= maxOffset) { momentumRAF = null; return; }
+            offset += v;
+            clamp();
+            render();
+            v *= FRICTION;
+            momentumRAF = requestAnimationFrame(tick);
+          }
+          if (Math.abs(v) > 0.4) momentumRAF = requestAnimationFrame(tick);
+        }
+
+        // pointer capture / preventDefault are only applied once real dragging is confirmed
+        // (movement past DRAG_CLICK_THRESHOLD) — otherwise a plain click never gets to the
+        // browser's native anchor-click handling and links stop navigating.
         viewport.addEventListener('pointerdown', function (e) {
-          console.log('CAROUSEL pointerdown, pointerType=', e.pointerType);
-          if (e.pointerType !== 'mouse' && e.pointerType !== 'pen') { console.log('CAROUSEL bailed: wrong pointerType'); return; }
-          e.preventDefault();
-          e.stopPropagation();
-          isDragging = true;
+          if (e.pointerType !== 'mouse' && e.pointerType !== 'pen') return;
+          stopMomentum();
+          idleDriftEnabled = false; // user found it — no need to keep hinting
+          pointerActive = true;
+          isDragging = false;
+          activePointerId = e.pointerId;
           dragMoved = 0;
           dragStartX = e.clientX;
           dragStartOffset = offset;
-          try { viewport.setPointerCapture(e.pointerId); } catch (err) { console.log('CAROUSEL setPointerCapture threw:', err); }
-          viewport.classList.add('is-dragging');
-          console.log('CAROUSEL isDragging set to', isDragging);
+          lastMoveX = e.clientX;
+          lastMoveT = performance.now();
+          velocity = 0;
         }, true);
         viewport.addEventListener('pointermove', function (e) {
-          if (!isDragging) { return; }
-          console.log('CAROUSEL pointermove, dx=', e.clientX - dragStartX);
-          e.preventDefault();
-          e.stopPropagation();
+          if (!pointerActive || e.pointerId !== activePointerId) return;
+          var now = performance.now();
+          var dt = now - lastMoveT;
+          if (dt > 0) {
+            var instVelocity = (e.clientX - lastMoveX) / dt;
+            velocity = velocity * 0.7 + instVelocity * 0.3; // smooth out jitter
+          }
+          lastMoveX = e.clientX;
+          lastMoveT = now;
           var dx = e.clientX - dragStartX;
           dragMoved = Math.max(dragMoved, Math.abs(dx));
+
+          if (!isDragging) {
+            if (dragMoved <= DRAG_CLICK_THRESHOLD) return;
+            isDragging = true;
+            try { viewport.setPointerCapture(activePointerId); } catch (err) {}
+            viewport.classList.add('is-dragging');
+          }
+
+          e.preventDefault();
+          e.stopPropagation();
           offset = dragStartOffset - dx;
           clamp();
           render();
         }, true);
-        function endDrag(e) { if (!isDragging) return; isDragging = false; viewport.classList.remove('is-dragging'); if (e) { e.stopPropagation(); } }
+        function endDrag(e) {
+          if (!pointerActive) return;
+          pointerActive = false;
+          activePointerId = null;
+          if (isDragging) {
+            isDragging = false;
+            viewport.classList.remove('is-dragging');
+            if (e) { e.stopPropagation(); }
+            startMomentum();
+          }
+        }
         viewport.addEventListener('pointerup', endDrag, true);
         viewport.addEventListener('pointercancel', endDrag, true);
+
+        // Safety net: if a pointerup/pointercancel is ever missed (released outside the
+        // viewport before capture kicked in, alt-tab mid-drag, etc.) the "is-dragging" class
+        // — and its pointer-events:none on the cards — could get stuck forever. Force-clear it.
+        function forceEndDrag() {
+          pointerActive = false;
+          activePointerId = null;
+          if (isDragging || viewport.classList.contains('is-dragging')) {
+            isDragging = false;
+            viewport.classList.remove('is-dragging');
+            startMomentum();
+          }
+        }
+        window.addEventListener('pointerup', forceEndDrag);
+        window.addEventListener('pointercancel', forceEndDrag);
+        window.addEventListener('blur', forceEndDrag);
+        document.addEventListener('visibilitychange', function () { if (document.hidden) forceEndDrag(); });
+
+        // ── idle hint: very slow drift to the left, so it reads as draggable — stops for good on first interaction ──
+        var idleDriftEnabled = true;
+        var IDLE_DRIFT_SPEED = 0.35; // px/frame, ~21px/s
+        (function idleDrift() {
+          if (idleDriftEnabled && !isDragging && !momentumRAF) {
+            if (offset < maxOffset) {
+              offset += IDLE_DRIFT_SPEED;
+              clamp();
+              render();
+            } else {
+              idleDriftEnabled = false; // reached the end — stop hinting
+            }
+          }
+          requestAnimationFrame(idleDrift);
+        })();
 
         // dragged past the threshold → suppress the link's click so it doesn't navigate
         track.addEventListener('click', function (e) {
@@ -840,7 +942,7 @@
             var rect = media.getBoundingClientRect();
             var cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
             var dx = (e.clientX - cx) / (rect.width / 2), dy = (e.clientY - cy) / (rect.height / 2);
-            media.style.transform = 'perspective(1200px) rotateX(' + (-dy * 6) + 'deg) rotateY(' + (dx * 6) + 'deg)';
+            media.style.transform = 'perspective(1200px) rotateX(' + (-dy * 2) + 'deg) rotateY(' + (dx * 2) + 'deg)';
             media.style.transition = 'transform 0.15s ease';
           });
           media.addEventListener('mouseleave', function () {
@@ -1096,9 +1198,17 @@
                       gsap.set(footerOrangeBg, { y: 120 });
                       gsap.to(footerOrangeBg, { y: 0, ease:'none', scrollTrigger: { trigger:'#contact', start:'top bottom', end:'bottom bottom', scrub:1.2 } });
                   }
+                  var wcCarouselDesc = document.getElementById('wc-carousel-desc');
+                  if (wcCarouselDesc) { gsap.to(wcCarouselDesc, { opacity:1, y:0, filter:'blur(0px)', ease:'power3.out', duration:1.2, scrollTrigger: { trigger:'.works-carousel-section', start:'top 85%', toggleActions:'play none none none' } }); }
                   var navWorkButtons = document.querySelectorAll('.nav-work button');
                   if (navWorkButtons.length) {
-                      gsap.to(navWorkButtons, { top: '18%', ease:'none', scrollTrigger: { trigger:'#contact', start:'top bottom', end:'bottom bottom', scrub:true } });
+                      gsap.set(navWorkButtons, { willChange:'opacity, filter' });
+                      ScrollTrigger.create({
+                          trigger: '#details',
+                          start: 'bottom bottom',
+                          onEnter: function () { gsap.to(navWorkButtons, { opacity:0, filter:'blur(8px)', duration:0.1, ease:'power2.out', pointerEvents:'none' }); },
+                          onLeaveBack: function () { gsap.to(navWorkButtons, { opacity:1, filter:'blur(0px)', duration:0.5, ease:'power2.out', pointerEvents:'all' }); }
+                      });
                   }
 
                   function swapFooterOrangeSVG() {

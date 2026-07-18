@@ -222,8 +222,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #testimonials-section .verbatim p:first-child { font-size: 18px !important; margin-bottom: 20px !important; }
     #testimonials-section .verbatim img { width: 88px !important; height: 88px !important; }
     #faq-section { margin-bottom: 100px !important; }
-    #hola-foto { width: 780px !important; }
-    #fede-text-wrap { max-width: 650px !important; }
+    #hola-foto { width: 1480px !important; }
+    #fede-photo-wrap { flex-basis: 500px !important; }
+    #about-text-col { max-width: 780px !important; }
     #works-afew-desc { max-width: 433px !important; }
 }
 @media (max-width:768px) { .name-letter { height:29px !important; } .home-title { gap:16px; } .name-line { gap:2px !important; } }
@@ -407,7 +408,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .stickers-scene { width:1500px !important; height:660px !important; }
     .stk-wrap[data-bolsita] .stk { width:1500px !important; }
     #stickers-outer { padding-bottom: 160px !important; }
-    #fede-photo-wrap { width:425px !important; height:425px !important; }
     #contact .tt-section-inner.tt-wrap { padding-top: 700px !important; }
 }
 .hero-meta-row { display: flex; justify-content: space-between; align-items: center; position: absolute; left: 0; right: 0; bottom: 56px; padding: 0 80px; z-index: 5; pointer-events: none; }
@@ -421,8 +421,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 @media (min-resolution: 2dppx) {
     #deck-guidelines-frame { width: 1200px !important; max-width: 1200px !important; }
     #deck-guidelines { width: 1200px !important; max-width: 1200px !important; }
-    #fede-photo-wrap { width: 300px !important; height: 300px !important; }
-    #fede-text-wrap { max-width: 650px !important; }
+    #fede-photo-wrap { flex-basis: 280px !important; }
+    #about-text-col { max-width: 600px !important; }
+    #about-pill { height: 25px !important; }
     /* FAQ: tighten question / line / answer spacing - retina only */
     .faq-question { padding-bottom: 4px !important; }
     .fq-sep { margin-top: 4px !important; }
@@ -432,7 +433,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .footer-roll-wrap, .footer-roll-wrap .brace { font-size: var(--fv-caps) !important; transform: none !important; }
     .services-grid-item h3 img { width: auto !important; height: 26px !important; }
     #desk-extra { height: 110px !important; width: auto !important; max-width: 1320px !important; }
-    #desk-about-me { height: 55px !important; width: auto !important; }
     #desk-work { height: 110px !important; width: auto !important; max-width: 1320px !important; }
     #testi-phrase-img { height: 110px !important; width: auto !important; max-width: 1320px !important; }
     .hover-fv { transform: translateY(10px); }
@@ -646,16 +646,21 @@ document.addEventListener('click', function(e) {
             <div id="about" data-offset="-50" class="tt-section padding-bottom-xlg-90 psi-image-is-light">
                 <div class="bg-vectors" id="bg-vectors-2"><div class="pos bottom-right"><img src="./assets/img/bg-lines/bg-lines2.svg" /></div></div>
                 <div class="tt-section-inner tt-wrap">
-                    <div id="hola-foto" style="display:flex;flex-direction:column;align-items:center;width:650px;max-width:100%;margin:0 auto;gap:32px;">
-                        <img id="desk-about-me" src="./assets/img/desk-about-me.svg" alt="About Me" class="mob-no" style="display:block;width:auto;height:auto;margin:0 auto;opacity:0;filter:blur(20px);border-radius:0 !important;" />
-                        <div style="flex-shrink:0;position:relative;width:375px;height:375px;border-radius:10px;overflow:hidden;cursor:default;" id="fede-photo-wrap">
+                    <div id="hola-foto" style="display:flex;flex-direction:row;align-items:stretch;justify-content:center;width:1000px;max-width:100%;margin:0 auto;gap:64px;">
+                        <div style="flex:0 1 340px;min-width:0;position:relative;border-radius:10px;overflow:hidden;cursor:default;" id="fede-photo-wrap">
                             <img id="fede-blur-img" src="./assets/img/fede-blur.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:4px;will-change:filter,transform;transition:none;" />
                             <img id="fede-solo-img" src="./assets/img/fede-solo.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;border-radius:4px;will-change:transform;transition:none;" />
                             <div id="fede-orange-mask" style="position:absolute;inset:0;background:#FF6600;mix-blend-mode:multiply;border-radius:4px;pointer-events:none;transition:opacity 0.6s cubic-bezier(0.25,0.46,0.45,0.94);opacity:1;"></div>
                         </div>
-                        <div class="info" style="width:100%;max-width:500px;margin:0 auto;display:flex;flex-direction:column;gap:16px;text-align:center;" id="fede-text-wrap">
-                            <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;">Educated at the University of Buenos Aires (UBA), I began in Industrial Design before transitioning to Graphic Design.</p>
-                            <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;">Over the years, my work has spanned branding, web design, and UI/UX, collaborating with startups and established companies to create brands, websites, and digital experiences that are clear, effective, and thoughtfully designed.</p>
+                        <div id="about-text-col" style="flex:1 1 600px;min-width:0;display:flex;flex-direction:column;justify-content:flex-start;gap:24px;max-width:600px;">
+                            <img id="about-pill" src="./assets/img/pill-aboutme.svg" alt="About Me" class="mob-no" style="display:block;width:auto;height:31px;align-self:flex-start;opacity:0;transform:translateY(20px);filter:blur(20px);" />
+                            <div style="overflow:hidden;line-height:0;display:flex;justify-content:flex-start;width:100%;">
+                                <img id="desk-about-me" src="./assets/img/desk-story-uw.svg" alt="Story" class="mob-no" style="display:block;width:auto;max-width:100%;filter:blur(20px);border-radius:0 !important;" />
+                            </div>
+                            <div class="info" style="width:100%;display:flex;flex-direction:column;gap:16px;text-align:left;" id="fede-text-wrap">
+                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;">Educated at the University of Buenos Aires (UBA), I began in Industrial Design before transitioning to Graphic Design.</p>
+                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;">Over the years, my work has spanned branding, web design, and UI/UX, collaborating with startups and established companies to create brands, websites, and digital experiences that are clear, effective, and thoughtfully designed.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1123,34 +1128,6 @@ document.addEventListener('click', function(e) {
     </div>
 </div>
 </main>
-<div class="modal-simple submmodal" id="modal-process" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal__backdrop" data-modal-close></div>
-    <div class="modal__dialog" role="document">
-        <div class="bg-vectors" id="bg-vectors-5"><div class="pos bottom-left"><img src="./assets/img/bg-lines/modal-bg1.svg" /></div><div class="pos top-right"><img src="./assets/img/bg-lines/modal-bg2.svg" /></div></div>
-        <header><h3 class="section-title">PROCESS</h3><a href="#" data-modal-close class="submodal-close"><img src="./assets/img/icon-close.svg" alt=""></a></header>
-        <div class="content">
-            <div class="modal-item"><div><p><strong>(01)</strong> Discovery & Research</p><p class="ans">It all starts with getting to know your needs.</p></div></div>
-            <div class="modal-item"><div><p><strong>(02)</strong> Concept & Ideation</p><p class="ans">Time to brainstorm!</p></div></div>
-            <div class="modal-item"><div><p><strong>(03)</strong> Design & Development</p><p class="ans">I bring the design to life.</p></div></div>
-            <div class="modal-item"><div><p><strong>(04)</strong> Review & Delivery</p><p class="ans">I'll walk you through the final design.</p></div></div>
-            <a href="#" data-modal-close class="close">Close</a>
-        </div>
-    </div>
-</div>
-<div class="modal-simple submmodal" id="modal-faqs" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal__backdrop" data-modal-close></div>
-    <div class="modal__dialog" role="document">
-        <div class="bg-vectors" id="bg-vectors-6"><div class="pos bottom-left"><img src="./assets/img/bg-lines/modal-bg1.svg" /></div><div class="pos top-right"><img src="./assets/img/bg-lines/modal-bg2.svg" /></div></div>
-        <header><h3 class="section-title">FAQs</h3><a href="#" data-modal-close class="submodal-close"><img src="./assets/img/icon-close.svg" alt=""></a></header>
-        <div class="content">
-            <div class="modal-item"><div><p><strong>(01)</strong> Who do you usually work with?</p><p class="ans">I've worked with startups, small businesses, and larger companies.</p></div></div>
-            <div class="modal-item"><div><p><strong>(02)</strong> How long does the project take?</p><p class="ans">It depends on the project.</p></div></div>
-            <div class="modal-item"><div><p><strong>(03)</strong> How much do you charge?</p><p class="ans">Prices vary based on the project.</p></div></div>
-            <div class="modal-item"><div><p><strong>(04)</strong> What if I want changes?</p><p class="ans">Most projects include 2-3 rounds of revisions.</p></div></div>
-            <a href="#" data-modal-close class="close">Close</a>
-        </div>
-    </div>
-</div>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="./assets/vendor/gsap/ScrollToPlugin.min.js"></script>
@@ -1604,20 +1581,21 @@ window.addEventListener('load', () => {
             var fedeAboutMe = document.getElementById('desk-about-me');
             var fedePhoto = document.getElementById('fede-photo-wrap');
             var fedeText = document.getElementById('fede-text-wrap');
+            var aboutPill = document.getElementById('about-pill');
+            if (aboutPill) {
+                gsap.to(aboutPill, { opacity:1, y:0, filter:'blur(0px)', duration:1.2, ease:'power3.out', scrollTrigger: { trigger:'#hola-foto', start:'top 85%', toggleActions:'play none none none' } });
+            }
             if (fedeAboutMe) {
-                gsap.set(fedeAboutMe, { opacity:0, filter:'blur(20px)' });
-                gsap.to(fedeAboutMe, { opacity:1, filter:'blur(0px)', duration:1.2, ease:'power3.out', scrollTrigger: { trigger:'#about', start:'top bottom', toggleActions:'play none none none' } });
-                gsap.to(fedeAboutMe, { y:-160, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'bottom top', scrub:0.6 } });
+                gsap.set(fedeAboutMe, { y: '160%', filter: 'blur(20px)' });
+                gsap.to(fedeAboutMe, { y: 0, filter: 'blur(0px)', ease: 'power3.out', duration: 1.4, scrollTrigger: { trigger: '#hola-foto', start: 'top 85%', toggleActions: 'play none none none' } });
             }
             if (fedePhoto) {
-                gsap.set(fedePhoto, { opacity:0, filter:'blur(20px)' });
-                gsap.to(fedePhoto, { opacity:1, filter:'blur(0px)', duration:1.2, ease:'power3.out', scrollTrigger: { trigger:'#about', start:'top bottom', toggleActions:'play none none none' } });
-                gsap.to(fedePhoto, { y:-100, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'bottom top', scrub:0.4 } });
+                gsap.set(fedePhoto, { opacity:0, y:40, filter:'blur(20px)' });
+                gsap.to(fedePhoto, { opacity:1, y:0, filter:'blur(0px)', duration:1.2, ease:'power3.out', scrollTrigger: { trigger:'#hola-foto', start:'top 85%', toggleActions:'play none none none' } });
             }
             if (fedeText) {
-                gsap.set(fedeText, { opacity:0, filter:'blur(20px)' });
-                gsap.to(fedeText, { opacity:1, filter:'blur(0px)', duration:1.2, ease:'power3.out', scrollTrigger: { trigger:'#about', start:'top bottom', toggleActions:'play none none none' } });
-                gsap.to(fedeText, { y:-60, ease:'none', scrollTrigger: { trigger:'#about', start:'top bottom', end:'bottom top', scrub:0.2 } });
+                gsap.set(fedeText, { opacity:0, y:40, filter:'blur(20px)' });
+                gsap.to(fedeText, { opacity:1, y:0, filter:'blur(0px)', duration:1.2, ease:'power3.out', scrollTrigger: { trigger:'#hola-foto', start:'top 85%', toggleActions:'play none none none' } });
             }
 
             // fede-blur zoom + fede-solo scale down anchored to bottom
