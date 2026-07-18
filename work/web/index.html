@@ -41,6 +41,7 @@
       :root { --fv-caps: 13px; --fv-body: 14px; } /* normal-res text scale: caps=labels, body=paragraphs */
         @media (min-width: 2560px) { :root { --fv-caps: 15px; --fv-body: 16px; } }
       @media (min-resolution: 2dppx) and (max-width: 2559px) { :root { --fv-caps: 12px; --fv-body: 14px; } }
+      @media (min-resolution: 2dppx) and (max-width: 2559px) { .works-carousel-item { width: 485.8px !important; } }
       @media (min-width: 1200px) { .tt-main-menu-list > li > a { font-size: 16px !important; transform: scale(calc(var(--fv-caps) / 16px)); transform-origin: left center; } }
       body.web .tt-section.title-work { padding-left:0!important; padding-right:0!important; width:100vw!important; max-width:100%!important; box-sizing:border-box!important; }
       body.web .title-work .work-header-inner { width:100%!important; display:flex!important; flex-direction:column!important; align-items:center!important; justify-content:center!important; text-align:center!important; padding:60px 0 40px!important; }
@@ -266,7 +267,7 @@
         }
         .works-carousel-item {
           flex: 0 0 auto;
-          width: 320px;
+          width: 592px;
           max-width: 80vw;
           text-decoration: none;
           display: block;
@@ -323,6 +324,7 @@
         }
         @media (min-width: 2560px) {
           .works-carousel-item { width: 940px; }
+          #wc-carousel-desc { max-width: 680px !important; }
           .works-carousel-track { gap: 48px; }
           .works-carousel-section { padding-bottom: 0 !important; }
         }
@@ -438,8 +440,8 @@
                            <p class="desc">Netwrk Ventures is an early-stage VC firm. The site highlights their founder-first approach, investment focus, and strong network, making it easy for startups to connect and learn more.</p>
                         </div>
                         <div class="product-parallax-frame" style="margin-top:24px;">
-                           <img src="content/web-netwrk.png" alt="Netwrk Ventures" class="product-shot" />
-                           <img src="content/web-netwrk-dark.png" alt="Netwrk Ventures" class="product-shot-dark" />
+                           <img src="content/web-netwrk.jpg" alt="Netwrk Ventures" class="product-shot" />
+                           <img src="content/web-netwrk-dark.jpg" alt="Netwrk Ventures" class="product-shot-dark" />
                         </div>
                         <div class="product-meta mob-no">
                            <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>ROLE</div><div class="product-meta-value">Lead Product Designer</div></div>
@@ -459,8 +461,8 @@
                            <p class="desc">Covert Revenue is a RevOps partner for B2B SaaS startups. The site combines sharp messaging with a minimal, structured layout to highlight their core services—CRM cleanup, automation, and team alignment—while making it easy for visitors to book a strategy call.</p>
                         </div>
                         <div class="product-parallax-frame" style="margin-top:24px;">
-                           <img src="content/web-covert.png" alt="Covert Revenue" class="product-shot" />
-                           <img src="content/web-covert-dark.png" alt="Covert Revenue" class="product-shot-dark" />
+                           <img src="content/web-covert.jpg" alt="Covert Revenue" class="product-shot" />
+                           <img src="content/web-covert-dark.jpg" alt="Covert Revenue" class="product-shot-dark" />
                         </div>
                         <div class="product-meta mob-no">
                            <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>ROLE</div><div class="product-meta-value">Lead Product Designer</div></div>
@@ -480,8 +482,8 @@
                            <p class="desc">Convert Studios, an end‑to‑end product innovation firm based in Perth. The site uses a clean, modular layout with bold visuals and clear service blocks to showcase their expertise in hardware prototyping.</p>
                         </div>
                         <div class="product-parallax-frame" style="margin-top:24px;">
-                           <img src="content/web-convert.png" alt="Convert Studios" class="product-shot" />
-                           <img src="content/web-convert-dark.png" alt="Convert Studios" class="product-shot-dark" />
+                           <img src="content/web-convert.jpg" alt="Convert Studios" class="product-shot" />
+                           <img src="content/web-convert-dark.jpg" alt="Convert Studios" class="product-shot-dark" />
                         </div>
                         <div class="product-meta mob-no">
                            <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>ROLE</div><div class="product-meta-value">Lead Product Designer</div></div>
@@ -501,8 +503,8 @@
                            <p class="desc">GradBridge gives students a fresh start when others turn them away. The site uses bold colors, friendly visuals, and clear language to show support and build trust. It's easy to use on any device and helps students feel confident about taking the next step in their education.</p>
                         </div>
                         <div class="product-parallax-frame" style="margin-top:24px;">
-                           <img src="content/web-gradbridge.png" alt="GradBridge" class="product-shot" />
-                           <img src="content/web-gradbridge-dark.png" alt="GradBridge" class="product-shot-dark" />
+                           <img src="content/web-gradbridge.jpg" alt="GradBridge" class="product-shot" />
+                           <img src="content/web-gradbridge-dark.jpg" alt="GradBridge" class="product-shot-dark" />
                         </div>
                         <div class="product-meta mob-no">
                            <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>ROLE</div><div class="product-meta-value">Lead Product Designer</div></div>
@@ -522,8 +524,8 @@
                            <p class="desc">MB3 Partners is a marina investment and management group. The site combines clean typography, ocean-inspired tones, and a clear structure to convey trust and style. It's designed to feel modern and relaxed — with a coastal vibe that reflects MB3's spirit of creating waterfront spaces where everything flows with calm and precision.</p>
                         </div>
                         <div class="product-parallax-frame" style="margin-top:24px;">
-                           <img src="content/web-mb3.png" alt="MB3 Partners" class="product-shot" />
-                           <img src="content/web-mb3-dark.png" alt="MB3 Partners" class="product-shot-dark" />
+                           <img src="content/web-mb3.jpg" alt="MB3 Partners" class="product-shot" />
+                           <img src="content/web-mb3-dark.jpg" alt="MB3 Partners" class="product-shot-dark" />
                         </div>
                         <div class="product-meta mob-no">
                            <div class="product-meta-item"><div class="product-meta-label"><span class="product-meta-icon"></span>ROLE</div><div class="product-meta-value">Lead Product Designer</div></div>
@@ -541,7 +543,7 @@
                   <div style="display:flex;justify-content:center;margin:0 0 24px;">
                      <img src="../../assets/img/pill-more-works.svg" alt="More Works" style="display:block;height:auto;width:auto;" />
                   </div>
-                  <p id="wc-carousel-desc" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:#3A3A39;line-height:1.6;margin:0 auto 40px;max-width:680px;text-align:center;position:relative;z-index:1;opacity:0;transform:translateY(40px);filter:blur(20px);">Not every project made the homepage, but here are a few more worth checking out. A mix of brands, websites, products, and everything in between.</p>
+                  <p id="wc-carousel-desc" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:#3A3A39;line-height:1.6;margin:0 auto 40px;max-width:400px;text-align:center;position:relative;z-index:1;opacity:0;transform:translateY(40px);filter:blur(20px);">Not every project made the homepage, but here are a few more worth checking out. A mix of brands, websites, products, and everything in between.</p>
                   <div class="works-carousel-viewport" id="works-carousel-viewport">
                      <div class="works-carousel-track" id="works-carousel-track">
                         <a class="works-carousel-item" href="../frogbazar/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/frogbazar-b.jpg" alt="Frog Bazar" /><img class="wc-img-hover" src="../../assets/home/frogbazar.jpg" alt="" aria-hidden="true" /></span><span class="wc-meta"><span class="wc-label">Frog Bazar</span><span class="wc-num">(001)</span></span></a>

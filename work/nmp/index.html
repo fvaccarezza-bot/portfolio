@@ -41,6 +41,7 @@
         :root { --fv-caps: 13px; --fv-body: 14px; } /* normal-res text scale: caps=labels, body=paragraphs */
         @media (min-width: 2560px) { :root { --fv-caps: 15px; --fv-body: 16px; } }
       @media (min-resolution: 2dppx) and (max-width: 2559px) { :root { --fv-caps: 12px; --fv-body: 14px; } }
+      @media (min-resolution: 2dppx) and (max-width: 2559px) { .works-carousel-item { width: 485.8px !important; } }
         @media (min-width: 1200px) { .tt-main-menu-list > li > a { font-size: 16px !important; transform: scale(calc(var(--fv-caps) / 16px)); transform-origin: left center; } }
         body.nmp .tt-section.title-work { padding-left:0!important; padding-right:0!important; width:100vw!important; max-width:100%!important; box-sizing:border-box!important; }
         body.nmp .title-work .work-header-inner { width:100%!important; display:flex!important; flex-direction:column!important; align-items:center!important; justify-content:center!important; text-align:center!important; padding:60px 0 40px!important; }
@@ -243,7 +244,7 @@
         }
         .works-carousel-item {
           flex: 0 0 auto;
-          width: 320px;
+          width: 592px;
           max-width: 80vw;
           text-decoration: none;
           display: block;
@@ -300,6 +301,7 @@
         }
         @media (min-width: 2560px) {
           .works-carousel-item { width: 940px; }
+          #wc-carousel-desc { max-width: 680px !important; }
           .works-carousel-track { gap: 48px; }
           .works-carousel-section { padding-bottom: 0 !important; }
         }
@@ -431,7 +433,7 @@
                         <div style="display:flex;justify-content:center;margin:0 0 24px;">
                            <img src="../../assets/img/pill-more-works.svg" alt="More Works" style="display:block;height:auto;width:auto;" />
                         </div>
-                        <p id="wc-carousel-desc" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:#3A3A39;line-height:1.6;margin:0 auto 40px;max-width:680px;text-align:center;position:relative;z-index:1;opacity:0;transform:translateY(40px);filter:blur(20px);">Not every project made the homepage, but here are a few more worth checking out. A mix of brands, websites, products, and everything in between.</p>
+                        <p id="wc-carousel-desc" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:#3A3A39;line-height:1.6;margin:0 auto 40px;max-width:400px;text-align:center;position:relative;z-index:1;opacity:0;transform:translateY(40px);filter:blur(20px);">Not every project made the homepage, but here are a few more worth checking out. A mix of brands, websites, products, and everything in between.</p>
                         <div class="works-carousel-viewport" id="works-carousel-viewport">
                            <div class="works-carousel-track" id="works-carousel-track">
                               <a class="works-carousel-item" href="../frogbazar/"><span class="wc-media"><img class="wc-img-base" src="../../assets/home/frogbazar-b.jpg" alt="Frog Bazar" /><img class="wc-img-hover" src="../../assets/home/frogbazar.jpg" alt="" aria-hidden="true" /></span><span class="wc-meta"><span class="wc-label">Frog Bazar</span><span class="wc-num">(001)</span></span></a>
