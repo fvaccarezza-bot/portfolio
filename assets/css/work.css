@@ -499,7 +499,7 @@ body.tt-boxed.work.ui-ux footer {
 body.tt-boxed.work.ui-ux .tt-section:last-child {
   margin-top: 65px;
 }
-body.tt-boxed.work.ui-ux .tt-wrap {
+body.tt-boxed.work.ui-ux .tt-wrap.center {
   row-gap: 160px;
 }
 body.tt-boxed.work.ui-ux .tt-wrap .tt-row {
@@ -595,7 +595,7 @@ body.tt-boxed.work.ui-ux .tt-wrap .talk {
 body.tt-boxed.work.web .tt-section:last-child {
   margin-top: -74px;
 }
-body.tt-boxed.work.web .tt-wrap {
+body.tt-boxed.work.web .tt-wrap.center {
   row-gap: 160px;
 }
 body.tt-boxed.work.web .tt-wrap .tt-row {
