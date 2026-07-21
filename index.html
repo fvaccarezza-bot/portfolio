@@ -236,24 +236,24 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .mobile-testimonials { margin-top: 8px !important; }
     #services .words-container { margin-top: 0 !important; padding-top: 0 !important; }
     #services .tt-row:last-of-type { margin-top: 40px !important; }
-    .services-btns-connect { opacity: 0; transform: translateY(20px); filter: blur(20px); transition: opacity 1.1s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.1s cubic-bezier(0.25,0.46,0.45,0.94), filter 1.1s cubic-bezier(0.25,0.46,0.45,0.94), color 0.4s ease !important; }
-    .services-btns-connect.in-view { opacity: 1; transform: translateY(0); filter: blur(0px); }
-    #title-works, #mob-works-subtitle { opacity: 0; transform: translateY(30px); filter: blur(20px); transition: opacity 1.1s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.1s cubic-bezier(0.25,0.46,0.45,0.94), filter 1.1s cubic-bezier(0.25,0.46,0.45,0.94); }
-    #title-works.in-view, #mob-works-subtitle.in-view { opacity: 1; transform: translateY(0); filter: blur(0px); }
+    .services-btns-connect { opacity: 0; transform: translateY(20px); transition: opacity 1.1s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.1s cubic-bezier(0.25,0.46,0.45,0.94), color 0.4s ease !important; }
+    .services-btns-connect.in-view { opacity: 1; transform: translateY(0); }
+    #title-works, #mob-works-subtitle { opacity: 0; transform: translateY(30px); transition: opacity 1.1s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.1s cubic-bezier(0.25,0.46,0.45,0.94); }
+    #title-works.in-view, #mob-works-subtitle.in-view { opacity: 1; transform: translateY(0); }
     .mob-works-phrase { display: flex !important; flex-direction: column; align-items: center; width: 100%; gap: 8px; position: relative; margin-bottom: 48px; margin-top: 150px; }
-    .mobile-testimonials img { opacity: 0; transform: translateY(30px); filter: blur(20px); transition: opacity 1.1s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.1s cubic-bezier(0.25,0.46,0.45,0.94), filter 1.1s cubic-bezier(0.25,0.46,0.45,0.94); }
-    .mobile-testimonials img.in-view { opacity: 1; transform: translateY(0); filter: blur(0px); }
+    .mobile-testimonials img { opacity: 0; transform: translateY(30px); transition: opacity 1.1s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.1s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .mobile-testimonials img.in-view { opacity: 1; transform: translateY(0); }
     #logo-header { display: block !important; position: fixed; top: 20px; left: 20px; z-index: 100; }
     #page-header { display: none !important; }
     #about { display: none !important; }
     #hola-foto { display: none !important; }
     .mob-about-block { display: flex !important; flex-direction: column; align-items: center; width: 92vw; max-width: 360px; margin: 148px auto 0; gap: 32px; }
     .mob-about-clip { overflow: hidden; display: flex; justify-content: center; }
-    #mob-about-svg { transform: translateY(100%); filter: blur(20px); transition: transform 1.1s cubic-bezier(0.76,0,0.24,1), filter 1.1s cubic-bezier(0.76,0,0.24,1); }
-    #mob-about-svg.in-view { transform: translateY(0); filter: blur(0px); }
+    #mob-about-svg { transform: translateY(100%); transition: transform 1.1s cubic-bezier(0.76,0,0.24,1); }
+    #mob-about-svg.in-view { transform: translateY(0); }
     .mob-about-clip-text { overflow: hidden; }
-    .mob-about-text { font-family: 'PP Telegraf', sans-serif; font-size: var(--fv-body); font-weight: 400; color: var(--color-fede-fv, #3A3A39); letter-spacing: 0.5em; line-height: 1.6; text-align: center; text-transform: uppercase; margin: 0; transform: translateY(30px); opacity: 0; filter: blur(20px); transition: transform 1.1s cubic-bezier(0.25,0.46,0.45,0.94) 0.15s, opacity 1.1s cubic-bezier(0.25,0.46,0.45,0.94) 0.15s, filter 1.1s cubic-bezier(0.25,0.46,0.45,0.94) 0.15s; }
-    .mob-about-text.in-view { transform: translateY(0); opacity: 1; filter: blur(0px); }
+    .mob-about-text { font-family: 'PP Telegraf', sans-serif; font-size: var(--fv-body); font-weight: 400; color: var(--color-fede-fv, #3A3A39); letter-spacing: 0.5em; line-height: 1.6; text-align: center; text-transform: uppercase; margin: 0; transform: translateY(30px); opacity: 0; transition: transform 1.1s cubic-bezier(0.25,0.46,0.45,0.94) 0.15s, opacity 1.1s cubic-bezier(0.25,0.46,0.45,0.94) 0.15s; }
+    .mob-about-text.in-view { transform: translateY(0); opacity: 1; }
     .mobile-hero { display: flex !important; flex-direction: column; align-items: center; padding: 95px 0 0; gap: 16px; text-align: center; width: 100%; }
     .mobile-hero-portfolio-label { display: block !important; font-size: 12px; letter-spacing: 0.5em; text-transform: uppercase; margin: 0; color: var(--color-fede-fv, #3A3A39); overflow: hidden; }
     .mobile-hero-portfolio-label-inner { display: block; transform: translateY(110%); transition: transform 0.9s cubic-bezier(0.76,0,0.24,1); }
@@ -296,13 +296,13 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .services-big { display: none !important; visibility: hidden !important; height: 0 !important; max-height: 0 !important; overflow: hidden !important; margin: 0 !important; padding: 0 !important; position: absolute !important; pointer-events: none !important; }
     .mob-services-phrase { position: relative; display: flex; flex-direction: column; align-items: center; width: 100%; gap: 8px; margin-top: 75px !important; margin-bottom: 125px !important; }
     .mob-phrase-clip { overflow: hidden; display: flex; justify-content: center; width: 92vw; max-width: 340px; height: 80px; }
-    .mob-phrase-word { display: block; width: auto; height: 80px; max-width: 340px; transform: translateY(110%); filter: blur(20px); transition: transform 1.1s cubic-bezier(0.76,0,0.24,1), filter 1.1s cubic-bezier(0.76,0,0.24,1); }
-    .mob-phrase-word.in-view { transform: translateY(0); filter: blur(0px); }
+    .mob-phrase-word { display: block; width: auto; height: 80px; max-width: 340px; transform: translateY(110%); transition: transform 1.1s cubic-bezier(0.76,0,0.24,1); }
+    .mob-phrase-word.in-view { transform: translateY(0); }
     .mob-phrase-tags-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 92vw; max-width: 340px; pointer-events: none; z-index: 2; }
-    .mob-tag-complete { display: block; width: 100%; height: auto; opacity: 0; filter: blur(20px); will-change: opacity, filter; transition: opacity 1.2s cubic-bezier(0.25,0.46,0.45,0.94), filter 1.2s cubic-bezier(0.25,0.46,0.45,0.94); transform: translateZ(0); -webkit-transform: translateZ(0); }
-    .mob-tag-complete.in-view { opacity: 1; filter: blur(0px); }
-    .mob-pill { display: block; height: 28px; width: auto; margin-top: 16px; margin-bottom: 16px; opacity: 0; transform: translateY(16px); filter: blur(20px); transition: opacity 1.1s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.1s cubic-bezier(0.25,0.46,0.45,0.94), filter 1.1s cubic-bezier(0.25,0.46,0.45,0.94); }
-    .mob-pill.in-view { opacity: 1; transform: translateY(0); filter: blur(0px); }
+    .mob-tag-complete { display: block; width: 100%; height: auto; opacity: 0; will-change: opacity; transition: opacity 1.2s cubic-bezier(0.25,0.46,0.45,0.94); transform: translateZ(0); -webkit-transform: translateZ(0); }
+    .mob-tag-complete.in-view { opacity: 1; }
+    .mob-pill { display: block; height: 28px; width: auto; margin-top: 16px; margin-bottom: 16px; opacity: 0; transform: translateY(16px); transition: opacity 1.1s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.1s cubic-bezier(0.25,0.46,0.45,0.94); }
+    .mob-pill.in-view { opacity: 1; transform: translateY(0); }
     .mob-workflow-wrap { display: flex !important; flex-direction: column; align-items: center; width: 100%; padding: 40px 0 100px; }
     .mob-process-list { display: flex; flex-direction: column; align-items: center; width: 92vw; max-width: 340px; margin: 48px auto 0; }
     .mob-process-step { display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; }
@@ -329,8 +329,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .card .img-base { transition: none !important; }
     .gallery:has(.card:hover) .card:not(:hover) { filter: none !important; opacity: 1 !important; }
     .gallery .card { transition: none !important; }
-    .services-grid-item { transition: opacity 1.0s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.0s cubic-bezier(0.25,0.46,0.45,0.94), filter 1.0s cubic-bezier(0.25,0.46,0.45,0.94) !important; filter: blur(20px); opacity: 0; transform: translateY(30px); }
-    .services-grid-item.in-view { opacity: 1 !important; transform: translateY(0) !important; filter: blur(0px) !important; }
+    .services-grid-item { transition: opacity 1.0s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.0s cubic-bezier(0.25,0.46,0.45,0.94) !important; opacity: 0; transform: translateY(30px); }
+    .services-grid-item.in-view { opacity: 1 !important; transform: translateY(0) !important; }
     .services-grid:has(.services-grid-item:hover) .services-grid-item:not(:hover) { filter: none !important; }
     .services-grid-item:hover h3 { color: #3A3A39 !important; }
     .services-grid-item:hover h3 img { filter: none !important; }
@@ -343,8 +343,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .card .meta p { display: none !important; }
     .card .meta .meta-name { display: inline !important; font-family: 'PP Telegraf', sans-serif !important; font-size: 12px !important; font-weight: 400 !important; letter-spacing: 0.5em !important; text-transform: uppercase !important; color: #3A3A39 !important; line-height: 1 !important; vertical-align: baseline !important; }
     .card .meta .meta-num { display: inline !important; font-family: 'PP Telegraf', sans-serif !important; font-size: 12px !important; font-weight: 700 !important; letter-spacing: 0 !important; color: #3A3A39 !important; line-height: 1 !important; vertical-align: baseline !important; }
-    .gallery .card { opacity: 0; transform: translateY(40px); filter: blur(20px); transition: opacity 1.0s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.0s cubic-bezier(0.25,0.46,0.45,0.94), filter 1.0s cubic-bezier(0.25,0.46,0.45,0.94) !important; }
-    .gallery .card.in-view { opacity: 1; transform: translateY(0); filter: blur(0px); }
+    .gallery .card { opacity: 0; transform: translateY(40px); transition: opacity 1.0s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.0s cubic-bezier(0.25,0.46,0.45,0.94) !important; }
+    .gallery .card.in-view { opacity: 1; transform: translateY(0); }
 }
 @media (min-width: 769px) {
     .card .meta .meta-name, .card .meta .meta-num { display: none !important; }
@@ -393,8 +393,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .mob-footer-socials a { display: inline-flex !important; }
     .mob-footer-text { position: relative; z-index: 4; width: 100%; display: flex !important; flex-direction: column; align-items: center; gap: 8px; padding: 0; padding-bottom: env(safe-area-inset-bottom); margin: 0; line-height: 0; }
     .mob-footer-clip { overflow: hidden; display: flex; justify-content: center; line-height: 0; }
-    .mob-footer-word { display: block; height: 80px; width: auto; transform: translateY(110%); filter: blur(20px); transition: transform 1.1s cubic-bezier(0.76,0,0.24,1), filter 1.1s cubic-bezier(0.76,0,0.24,1); }
-    .mob-footer-word.in-view { transform: translateY(0); filter: blur(0px); }
+    .mob-footer-word { display: block; height: 80px; width: auto; transform: translateY(110%); transition: transform 1.1s cubic-bezier(0.76,0,0.24,1); }
+    .mob-footer-word.in-view { transform: translateY(0); }
 }
 #page-header { position:relative; }
 .stickers-scene { display:grid; place-items:center; height:520px; overflow:visible; }
@@ -1178,6 +1178,15 @@ document.addEventListener('click', function(e) {
 <script>
 window.addEventListener('load', () => {
     setTimeout(function() { if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh(); }, 1000);
+    // ── Late-loading images (services-big, trusted-logos, footer, etc.) can still shift the
+    //    page height after the 1s refresh above fires, leaving scrub-linked ScrollTriggers
+    //    below that point calculated against a stale layout. Refresh again once every image
+    //    on the page has actually finished loading, whenever that really happens. ──
+    if (window.jQuery && typeof jQuery.fn.imagesLoaded === 'function') {
+        jQuery(document).imagesLoaded(function() {
+            if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+        });
+    }
 
     // ── Hero meta clock — Tigre, Bs.As. (GMT-3), live date + time ──
     (function() {
@@ -1577,6 +1586,7 @@ window.addEventListener('load', () => {
         }
 
         // ── ABOUT breathe parallax ──
+        try {
         if (window.innerWidth > 768) {
             var fedeAboutMe = document.getElementById('desk-about-me');
             var fedePhoto = document.getElementById('fede-photo-wrap');
@@ -1619,7 +1629,9 @@ window.addEventListener('load', () => {
                 });
             }, 800);
         }
+        } catch (e) { console.error('[anim] breathe parallax failed:', e); }
 
+        try {
         if (window.innerWidth > 768) {
             var extraTitle = document.getElementById('desk-extra'), extraText = document.getElementById('extra-text'), extraImg = document.getElementById('deck-guidelines');
             if (extraTitle) { gsap.to(extraTitle, { y: 0, filter: 'blur(0px)', ease: 'power3.out', duration: 1.4, scrollTrigger: { trigger: '#deck-guidelines-frame', start: 'top 85%', toggleActions: 'play none none none' } }); }
@@ -1660,8 +1672,8 @@ window.addEventListener('load', () => {
 
             // ── Extra photo: orange mask fade on hover ──
             var extraMask = document.getElementById('extra-orange-mask');
-            if (extraMask) {
-                var extraFrame = document.getElementById('deck-guidelines-frame');
+            var extraFrame = document.getElementById('deck-guidelines-frame');
+            if (extraMask && extraFrame) {
                 var vcSpans = viewCursorText ? viewCursorText.querySelectorAll('span') : null;
                 extraFrame.addEventListener('mouseenter', () => {
                     extraMask.style.transition = 'opacity 0.6s cubic-bezier(0.25,0.46,0.45,0.94)'; extraMask.style.opacity = '0';
@@ -1675,7 +1687,9 @@ window.addEventListener('load', () => {
                 });
             }
         }
+        } catch (e) { console.error('[anim] deck-guidelines / services-grid / trusted-logos failed:', e); }
 
+        try {
         if (window.innerWidth > 768) {
             var footerOrangeBg = document.getElementById('footer-bg-orange');
             if (footerOrangeBg) {
@@ -1684,7 +1698,9 @@ window.addEventListener('load', () => {
                 gsap.to(footerOrangeBg, { filter: 'blur(0px)', duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger:'#contact', start:'top bottom', toggleActions:'play none none none' } });
             }
         }
+        } catch (e) { console.error('[anim] footer orange bg failed:', e); }
 
+        try {
         if (window.innerWidth > 768) {
             const servicesBig = document.querySelector('.services-big');
             if (servicesBig) {
@@ -1702,7 +1718,9 @@ window.addEventListener('load', () => {
                 }
             }
         }
+        } catch (e) { console.error('[anim] services-big parallax failed:', e); }
 
+        try {
         const testiTag = document.querySelector('.desktop-testi-tag');
         if (testiTag) {
             const testiWrap = document.querySelector('.desktop-testi-wrap');
@@ -1712,8 +1730,10 @@ window.addEventListener('load', () => {
                 gsap.to(pillImg, { opacity: 1, y: 0, filter: 'blur(0px)', ease: 'power3.out', duration: 1.2, delay: 0, force3D:false, scrollTrigger: { trigger: testiWrap, start: 'top 85%', toggleActions: 'play none none none' } });
             }
         }
+        } catch (e) { console.error('[anim] testi tag pill failed:', e); }
 
         // ── FAQ title: one-time parallax reveal, then staggered questions ──
+        try {
         if (window.innerWidth > 768) {
             const faqLines = document.querySelectorAll('.faq-title-line');
             const faqQuestions = document.querySelectorAll('#faq-section .faq-question');
@@ -1769,6 +1789,7 @@ window.addEventListener('load', () => {
                 gsap.to(step, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.0, ease: 'power3.out', delay: 0.5 + j * 0.2, scrollTrigger: { trigger: '#faq-section-2', start: 'top 78%', toggleActions: 'play none none none' }, onUpdate: () => { if (positionProcessLine) positionProcessLine(); } });
             });
         }
+        } catch (e) { console.error('[anim] FAQ / process steps failed:', e); }
     }
 });
 </script>
