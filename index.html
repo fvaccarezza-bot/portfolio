@@ -1188,6 +1188,29 @@ window.addEventListener('load', () => {
         });
     }
 
+    // ── "Works" nav links: stop 50px above the "A Few of Them" pill instead of the top of
+    //    #works, computed live off the pill's own position so it stays correct even if the
+    //    page layout above it changes. ──
+    try {
+        document.addEventListener('click', function(e) {
+            var link = e.target.closest('a[href="#works"]');
+            if (!link) return;
+            var pill = document.getElementById('work-them');
+            if (!pill) return;
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            var sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
+            if (sb && window.gsap && typeof jQuery !== 'undefined') {
+                var scrollContent = document.querySelector('#scroll-container > .scroll-content');
+                var topY = jQuery(pill).offset().top - jQuery(scrollContent).offset().top - 50;
+                gsap.to(sb, { duration: 2.2, scrollTo: { y: topY, autoKill: true }, ease: Expo.easeInOut });
+            } else {
+                var y = pill.getBoundingClientRect().top + window.pageYOffset - 50;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+            }
+        }, true);
+    } catch (e) { console.error('[nav] works pill scroll override failed:', e); }
+
     // ── Hero meta clock — Tigre, Bs.As. (GMT-3), live date + time ──
     (function() {
         var dateEl = document.getElementById('hero-meta-date');

@@ -252,7 +252,6 @@
       .product-meta-item:nth-child(4) .product-meta-icon { background-image:url(../../assets/img/icon-tool.svg); }
       .product-meta-value { font-family:'PP Telegraf',sans-serif; font-weight:400; color:#3A3A39; font-size:var(--fv-body); margin-left:24px; }
       body.ui-ux .tt-section.work-content.product-gallery { padding-top:85px !important; padding-bottom:100px !important; }
-      body.ui-ux .works-carousel-section { padding-top:300px !important; }
       .product-details { text-align:left !important; }
       .product-details h5 { font-weight:800 !important; max-width:500px !important; text-transform:uppercase !important; }
       .product-details p.desc { font-size:var(--fv-caps, 14px) !important; font-weight:400 !important; line-height:22px !important; letter-spacing:0.02em !important; text-align:left !important; margin-left:0 !important; justify-content:flex-start !important; max-width:500px !important; }
@@ -318,7 +317,8 @@
           pointer-events: none;
         }
         .works-carousel-item:hover .wc-img-hover { opacity: 1; }
-        .works-carousel-item:hover .wc-img-base { filter: saturate(1.15) contrast(1.06); }
+        .works-carousel-item:hover .wc-img-base { filter: saturate(1.15) contrast(1.06); transform: scale(1.03); }
+        .works-carousel-item:hover .wc-img-hover { transform: scale(1.03); }
         .works-carousel-item .wc-meta {
           display: flex;
           flex-direction: row;
@@ -350,6 +350,7 @@
           #wc-carousel-desc { max-width: 680px !important; }
           .works-carousel-track { gap: 48px; }
           .works-carousel-section { padding-bottom: 0 !important; }
+          body.ui-ux .works-carousel-section { padding-top: 80px !important; }
         }
    </style>
 </head>
@@ -565,7 +566,7 @@
                </div>
             </div>
 
-            <div class="tt-section works-carousel-section" style="padding:80px 0 100px;position:relative;">
+            <div class="tt-section works-carousel-section" style="padding:250px 0 100px;position:relative;">
                <div class="tt-wrap" style="max-width:100%;position:relative;">
                   <div style="display:flex;justify-content:center;margin:0 0 24px;">
                      <img src="../../assets/img/pill-more-works.svg" alt="More Works" style="display:block;height:auto;width:auto;" />
