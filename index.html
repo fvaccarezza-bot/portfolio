@@ -213,7 +213,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .desktop-testi-tag p { font-size: calc(16px / 1.5) !important; letter-spacing: 0.5em !important; }
     #testi-afew-desc { font-size: calc(var(--fv-body) / 1.5) !important; max-width: 433px !important; }
     #testimonials-section { margin-bottom: 200px !important; }
-    #testimonials-section .words-container { margin-top: -50px; }
+    #testimonials-section .words-container { margin-top: -150px; }
     #testimonials-section .carousel { overflow: visible !important; }
     #testimonials-section .stage { perspective: none !important; transform-style: flat !important; }
     #testimonials-section .verbatim { will-change: auto !important; width: 540px !important; height: 237px !important; padding: 45px 45px 45px 35px !important; gap: 30px !important; }
@@ -1744,7 +1744,7 @@ window.addEventListener('load', () => {
                 const targets = img ? [el, img] : el;
                 gsap.set(targets, { filter: 'blur(20px)' });
                 gsap.to(targets, {
-                    x: 0, filter: 'blur(0px)', duration: 1.4, ease: 'power3.out', delay: i * 0.15,
+                    x: 0, filter: 'blur(0px)', duration: 1.7, ease: 'power3.out', delay: i * 0.15,
                     scrollTrigger: { trigger: '#faq-section', start: 'top 78%', toggleActions: 'play none none none' }
                 });
             });
@@ -1764,7 +1764,7 @@ window.addEventListener('load', () => {
                 const targets2 = img ? [el, img] : el;
                 gsap.set(targets2, { filter: 'blur(20px)' });
                 gsap.to(targets2, {
-                    x: 0, filter: 'blur(0px)', duration: 1.4, ease: 'power3.out', delay: i * 0.15,
+                    x: 0, filter: 'blur(0px)', duration: 1.7, ease: 'power3.out', delay: i * 0.15,
                     scrollTrigger: { trigger: '#faq-section-2', start: 'top 78%', toggleActions: 'play none none none' }
                 });
             });
