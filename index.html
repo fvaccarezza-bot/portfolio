@@ -115,7 +115,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .home-title,.home-title:hover,.home-title:focus,.home-title .name-line,.home-title:hover .name-line,.home-title:focus .name-line { color:inherit !important; -webkit-text-stroke:0 !important; text-decoration:none !important; }
 #title-hola, #title-works { cursor: default !important; }
 .desk-works-phrase { display:flex; flex-direction:column; align-items:center; margin-top:75px; margin-bottom:100px; gap:32px; width:fit-content; margin-left:auto; margin-right:auto; position:relative; }
-.desk-works-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; width:100%; }
+.desk-works-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; width:100%; padding:0 40px; margin:0 -40px; }
 #desk-featured, #desk-work { display:block; width:auto; max-width:100%; }
 #desk-featured { display:none !important; }
 .desk-works-afew { position:static; display:flex; flex-direction:column; align-items:center; gap:0; pointer-events:none; }
@@ -187,7 +187,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 @media (min-width: 2560px) { .desktop-testi-phrase img { transform: none; transform-origin: center center; } .desktop-testi-phrase { margin-bottom: 150px; margin-top: 50px; } }
 .desktop-testi-wrap { position: relative; display: flex; flex-direction: column; align-items: center; gap: 32px; margin-top: 0; margin-bottom: 120px; cursor: default; text-align: center; overflow: visible; }
 .desktop-testi-wrap > img { display: block; width: auto; max-width: 100%; margin: 0 auto; clip-path: inset(0); }
-.testi-phrase-clip { overflow: hidden; line-height: 0; display: flex; justify-content: center; height: auto; }
+.testi-phrase-clip { overflow: hidden; line-height: 0; display: flex; justify-content: center; height: auto; padding: 0 40px; margin: 0 -40px; }
 #desk-extra-wrap { transform:none; display:inline-block; overflow:hidden; }
 #testi-phrase-img { display: block; width: auto; max-width: 100%; transform: translateY(160%); filter: blur(20px); }
 .tt-col-md-6.d-flex-center { overflow: visible !important; }
@@ -424,6 +424,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #fede-photo-wrap { flex-basis: 280px !important; }
     #about-text-col { max-width: 600px !important; }
     #about-pill { height: 25px !important; }
+    #desk-about-me { height: 110px !important; width: auto !important; }
+    #fede-text-wrap { max-width: 506px !important; }
     /* FAQ: tighten question / line / answer spacing - retina only */
     .faq-question { padding-bottom: 4px !important; }
     .fq-sep { margin-top: 4px !important; }
@@ -451,8 +453,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #faq-section-2 .faq-block-wrap { gap: 40px !important; }
     #faq-section-2 .faq-questions-wrap { width: 400px !important; }
     #faq-section .tt-wrap { max-width: 1320px !important; }
-    #faq-section .faq-block-wrap { grid-template-columns: minmax(0, 1fr) 500px !important; }
-    #faq-section .faq-questions-wrap { width: 500px !important; }
+    #faq-section .faq-block-wrap { grid-template-columns: minmax(0, 1fr) 420px !important; }
+    #faq-section .faq-questions-wrap { width: 420px !important; }
+    #faq-section { padding-bottom: 80px !important; }
     #faq-section-2 .process-step > div:first-child { font-size: 20px !important; }
     /* FAQ pills - retina */
     #faq-pill-1, #faq-pill-2 { height: 25px !important; width: auto !important; }
@@ -467,6 +470,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .verbatim { overflow: visible !important; }
     .stage { height: auto !important; }
     #testimonials-section { margin-bottom: 100px !important; }
+    #testi-afew-desc { max-width: 720px !important; }
     .words-container { margin-top: 50px !important; }
     #stickers-outer { padding-bottom: 10px !important; }
     #trusted-by-section { padding-top: 50px !important; }
@@ -654,7 +658,7 @@ document.addEventListener('click', function(e) {
                         </div>
                         <div id="about-text-col" style="flex:1 1 600px;min-width:0;display:flex;flex-direction:column;justify-content:flex-start;gap:24px;max-width:600px;">
                             <img id="about-pill" src="./assets/img/pill-aboutme.svg" alt="About Me" class="mob-no" style="display:block;width:auto;height:31px;align-self:flex-start;opacity:0;transform:translateY(20px);filter:blur(20px);" />
-                            <div style="overflow:hidden;line-height:0;display:flex;justify-content:flex-start;width:100%;">
+                            <div style="overflow:hidden;line-height:0;display:flex;justify-content:flex-start;width:100%;padding:0 40px;margin:0 -40px;">
                                 <img id="desk-about-me" src="./assets/img/desk-story-uw.svg" alt="Story" class="mob-no" style="display:block;width:auto;max-width:100%;filter:blur(20px);border-radius:0 !important;" />
                             </div>
                             <div class="info" style="width:100%;display:flex;flex-direction:column;gap:16px;text-align:left;" id="fede-text-wrap">
@@ -892,10 +896,10 @@ document.addEventListener('click', function(e) {
             <div class="tt-section-inner tt-wrap">
                 <div class="faq-block-wrap" style="margin:0 auto;display:grid;grid-template-columns:max-content 1fr;gap:60px;">
                     <div class="faq-title-wrap" style="overflow:visible;display:flex;flex-direction:column;gap:16px;align-self:start;">
-                        <div style="overflow:hidden;"><div class="faq-title-line" style="display:none;"></div><img src="./assets/img/desk-things.svg" alt="THINGS" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-2000px);filter:blur(20px);" /></div>
-                        <div style="overflow:hidden;"><div class="faq-title-line" style="display:none;"></div><img src="./assets/img/desk-iget.svg" alt="I GET" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-2000px);filter:blur(20px);" /></div>
-                        <div style="overflow:hidden;"><div class="faq-title-line" style="display:none;"></div><img src="./assets/img/desk-asked.svg" alt="ASKED" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-2000px);filter:blur(20px);" /></div>
-                        <div style="overflow:hidden;">
+                        <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line" style="display:none;"></div><img src="./assets/img/desk-things.svg" alt="THINGS" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-2000px);filter:blur(20px);" /></div>
+                        <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line" style="display:none;"></div><img src="./assets/img/desk-iget.svg" alt="I GET" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-2000px);filter:blur(20px);" /></div>
+                        <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line" style="display:none;"></div><img src="./assets/img/desk-asked.svg" alt="ASKED" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-2000px);filter:blur(20px);" /></div>
+                        <div style="overflow:hidden;padding:0 40px;margin:0 -40px;">
                             <img src="./assets/img/people-need.svg" id="faq-pill-1" style="display:block;height:auto;width:auto;transform:translateX(-110%);filter:blur(20px);" alt="People Need To Know" />
                         </div>
                     </div>
@@ -984,10 +988,10 @@ document.addEventListener('click', function(e) {
                         </div>
                     </div>
                     <div class="faq-title-wrap" style="overflow:visible;display:flex;flex-direction:column;gap:16px;flex:1;align-items:flex-end;">
-                        <div style="overflow:hidden;"><div class="faq-title-line-2" style="display:none;"></div><img src="./assets/img/desk-how.svg" alt="HOW" class="faq-title-img faq-title-img-2" style="display:block;height:auto;width:auto;transform:translateX(2000px);filter:blur(20px);" /></div>
-                        <div style="overflow:hidden;"><div class="faq-title-line-2" style="display:none;"></div><img id="faq-things-flow" src="./assets/img/desk-things.svg" alt="THINGS" class="faq-title-img faq-title-img-2" style="display:block;height:auto;width:auto;transform:translateX(2000px);filter:blur(20px);" /></div>
-                        <div style="overflow:hidden;"><div class="faq-title-line-2" style="display:none;"></div><img src="./assets/img/desk-flow.svg" alt="FLOW" class="faq-title-img faq-title-img-2" style="display:block;height:auto;width:auto;transform:translateX(2000px);filter:blur(20px);" /></div>
-                        <div style="overflow:hidden;display:flex;justify-content:flex-end;">
+                        <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line-2" style="display:none;"></div><img src="./assets/img/desk-how.svg" alt="HOW" class="faq-title-img faq-title-img-2" style="display:block;height:auto;width:auto;transform:translateX(2000px);filter:blur(20px);" /></div>
+                        <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line-2" style="display:none;"></div><img id="faq-things-flow" src="./assets/img/desk-things.svg" alt="THINGS" class="faq-title-img faq-title-img-2" style="display:block;height:auto;width:auto;transform:translateX(2000px);filter:blur(20px);" /></div>
+                        <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line-2" style="display:none;"></div><img src="./assets/img/desk-flow.svg" alt="FLOW" class="faq-title-img faq-title-img-2" style="display:block;height:auto;width:auto;transform:translateX(2000px);filter:blur(20px);" /></div>
+                        <div style="overflow:hidden;display:flex;justify-content:flex-end;padding:0 40px;margin:0 -40px;">
                             <img src="./assets/img/and-they.svg" id="faq-pill-2" style="display:block;height:auto;width:auto;transform:translateX(110%);filter:blur(20px);" alt="And They Also Need To Know About This" />
                         </div>
                     </div>
