@@ -147,7 +147,7 @@
       .product-meta-value { font-family:'PP Telegraf',sans-serif; font-weight:400; color:#3A3A39; font-size:var(--fv-body); margin-left:24px; }
       body.web .tt-section.work-content.product-gallery { padding-top:85px !important; padding-bottom:100px !important; }
       .product-details { text-align:left !important; }
-      .product-details h5 { font-weight:800 !important; max-width:500px !important; text-transform:uppercase !important; }
+      .product-details h5 { font-weight:700 !important; max-width:500px !important; text-transform:uppercase !important; }
       .product-details p.desc { font-size:var(--fv-caps, 14px) !important; font-weight:400 !important; line-height:22px !important; letter-spacing:0.02em !important; text-align:left !important; margin-left:0 !important; justify-content:flex-start !important; max-width:500px !important; }
 
       /* retina: derive these from body's font-size instead of --fv-caps/--fv-body, scoped to this page only */
@@ -170,7 +170,7 @@
          body.web .work-title .order { margin-top:20px !important; font-size:12px !important; letter-spacing:1em !important; transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.2s, transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.2s; transform:translateY(8px); }
          body.web .work-title .order.will-reveal { opacity:0; transform:translateY(8px); }
          body.web .work-title .order.revealed { opacity:1; transform:translateY(0); }
-         body.web .work-title .desc { width:100% !important; max-width:100% !important; font-size:13px !important; line-height:1.7 !important; transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.35s, transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.35s; transform:translateY(8px); }
+         body.web .work-title .desc { width:100% !important; max-width:100% !important; font-size:var(--fv-body) !important; line-height:1.7 !important; transition:opacity 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.35s, transform 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.35s; transform:translateY(8px); }
          body.web .work-title .desc.will-reveal { opacity:0; transform:translateY(8px); }
          body.web .work-title .desc.revealed { opacity:1; transform:translateY(0); }
          .tt-row { opacity:0; transform:translateY(40px); filter:blur(20px); transition:opacity 1.0s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.0s cubic-bezier(0.25,0.46,0.45,0.94), filter 1.0s cubic-bezier(0.25,0.46,0.45,0.94); }
@@ -187,9 +187,11 @@
          #footer-bg-orange { display:none !important; }
          .footer-letsbuild { display:none !important; }
          .footer-contact-links { display:none !important; }
+         .footer-copyright { display:none !important; }
          #contact { margin-top:-300px !important; padding:0 !important; overflow:visible !important; }
          #contact .tt-section-inner.tt-wrap { display:none !important; }
          body.web .tt-section.padding-bottom-xlg-150 { padding-bottom:0 !important; }
+         body.work footer#contact, body.work footer#contact.tt-section { padding:0 !important; padding-bottom:0 !important; margin:0 !important; }
          html, body { overflow-x:hidden; }
          .mob-footer { display:flex !important; flex-direction:column; align-items:center; width:100%; position:relative; overflow:visible; background:transparent; padding:0; box-sizing:border-box; }
          .mob-footer-shapes { position:absolute; top:-80px; left:0; right:0; bottom:0; pointer-events:none; z-index:3; overflow:visible; }
@@ -219,7 +221,7 @@
          .product-parallax-frame:hover .product-shot { transform:none !important; }
          .product-parallax-frame:hover .product-shot-dark { opacity:0 !important; transform:none !important; }
          .product-details { order:2 !important; margin-top:20px !important; text-align:center !important; width:360px !important; max-width:100% !important; margin-left:auto !important; margin-right:auto !important; }
-         .product-details h5 { font-size:20px !important; max-width:100% !important; }
+         .product-details h5 { font-size:20px !important; max-width:100% !important; text-align:center !important; }
          .product-details p.desc { font-size:13px !important; text-align:center !important; max-width:100% !important; justify-content:center !important; margin-left:auto !important; margin-right:auto !important; }
       }
 
