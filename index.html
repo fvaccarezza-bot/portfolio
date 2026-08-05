@@ -233,8 +233,10 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #testimonials-section .verbatim img { width: 88px !important; height: 88px !important; }
     #faq-section { margin-bottom: 100px !important; }
     #hola-foto { width: 1480px !important; }
-    #fede-photo-wrap { flex-basis: 500px !important; }
+    #fede-photo-wrap { flex-basis: 400px !important; }
     #about-text-col { max-width: 780px !important; }
+    #fede-text-wrap { max-width: calc(100% - 30px) !important; }
+    #fede-that-are { white-space: nowrap; }
     #works-afew-desc { max-width: 433px !important; }
 }
 @media (max-width:768px) { .name-letter { height:29px !important; } .home-title { gap:16px; } .name-line { gap:2px !important; } }
@@ -672,8 +674,8 @@ document.addEventListener('click', function(e) {
                                 <img id="desk-about-me" src="./assets/img/desk-story-uw.svg" alt="Story" class="mob-no" style="display:block;width:auto;max-width:100%;filter:blur(20px);border-radius:0 !important;" />
                             </div>
                             <div class="info" style="width:100%;display:flex;flex-direction:column;gap:16px;text-align:left;" id="fede-text-wrap">
-                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;">Educated at the University of Buenos Aires (UBA), I began in Industrial Design before transitioning to Graphic Design.</p>
-                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;">Over the years, my work has spanned branding, web design, and UI/UX, collaborating with startups and established companies to create brands, websites, and digital experiences that are clear, effective, and thoughtfully designed.</p>
+                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;text-wrap:pretty;">Educated at the University of Buenos Aires (UBA), I began in Industrial Design before transitioning to Graphic Design.</p>
+                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;text-wrap:pretty;">Over the years, my work has spanned branding, web design, and UI/UX, collaborating with startups and established companies to create brands, websites, and digital experiences <span id="fede-that-are">that are</span>&nbsp;clear, effective, and thoughtfully designed.</p>
                             </div>
                         </div>
                     </div>
@@ -803,7 +805,7 @@ document.addEventListener('click', function(e) {
                 <img id="mob-stickers-img" src="./assets/img/mob-stickers.png" alt="" style="display:block;width:380px;max-width:92vw;height:auto;" />
             </div>
 
-        <div id="trusted-by-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#F8F8F8;padding-top:40px !important;margin-top:-150px !important;">
+        <div id="trusted-by-section" class="tt-section mob-no" style="display:none !important;position:relative;z-index:2;background:#F8F8F8;padding-top:40px !important;margin-top:-150px !important;">
             <div class="tt-section-inner tt-wrap">
                 <div class="tt-row" style="display:flex;flex-direction:column;align-items:center;" id="trusted-by-row">
                     <img id="trusted-logos-img" src="./assets/img/desk-logos-trusted.svg" alt="Trusted by" style="display:block;width:auto;height:auto;" />
@@ -916,29 +918,29 @@ document.addEventListener('click', function(e) {
                     <div class="faq-questions-wrap" style="display:flex;flex-direction:column;gap:0;padding-top:0;padding-bottom:0;justify-content:space-between;">
                         <div class="faq-question">
                             <div class="faq-question-inner">
-                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(01)</span> What kind of clients do you work with?</p><span class="faq-plus"></span></div>
-                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">I've worked with startups, growing businesses, and established companies across a wide range of industries.</p></div>
+                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(01)</span> Who do I work with?</p><span class="faq-plus"></span></div>
+                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">I work with startups, agencies, and companies of different sizes. Some clients need help with a single project, while others bring me in as an ongoing design partner.</p></div>
                             </div>
                             <div class="fq-sep"></div>
                         </div>
                         <div class="faq-question">
                             <div class="faq-question-inner">
                             <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(02)</span> What kind of projects do I take on?</p><span class="faq-plus"></span></div>
-                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">From brand identities and websites to UI/UX systems and digital products.</p></div>
+                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">Mostly websites, product design, branding, presentations, and design systems. If it's design-related, there's a good chance I can help.</p></div>
                             </div>
                             <div class="fq-sep"></div>
                         </div>
                         <div class="faq-question">
                             <div class="faq-question-inner">
-                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(03)</span> What's it like working with me?</p><span class="faq-plus"></span></div>
-                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">I keep the process collaborative and straightforward. Clear communication, honest feedback, and execution.</p></div>
+                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(03)</span> How long does a project usually take?</p><span class="faq-plus"></span></div>
+                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">It depends on the size of the project. Some are finished in a couple of weeks, while others take a few months. We'll define a timeline before getting started.</p></div>
                             </div>
                             <div class="fq-sep"></div>
                         </div>
                         <div class="faq-question">
                             <div class="faq-question-inner">
-                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(04)</span> How long does a project take?</p><span class="faq-plus"></span></div>
-                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">Every project is different, but once I understand the scope, I'll provide a realistic timeline and keep things moving.</p></div>
+                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(04)</span> Can I join an existing team?</p><span class="faq-plus"></span></div>
+                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">Yes. I often work with founders, designers, developers, and agencies. I'm happy to adapt to the way your team already works.</p></div>
                             </div>
                             <div class="fq-sep"></div>
                         </div>
