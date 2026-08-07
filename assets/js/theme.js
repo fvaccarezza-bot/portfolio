@@ -386,7 +386,7 @@
                            if (offset <= -9000) { topY = document.body.scrollHeight; }
                            else if (offset >= 9000) { topY = 0; }
                            else { topY = target.getBoundingClientRect().top + window.pageYOffset - offset; }
-                           window.scrollTo({ top: topY, behavior: 'smooth' });
+                           gsap.to(window, { duration: 1.6, scrollTo: { y: topY, autoKill: false }, ease: 'power2.inOut' });
                         }
                      }, 50);
                   }

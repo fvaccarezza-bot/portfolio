@@ -260,6 +260,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #about { display: none !important; }
     #hola-foto { display: none !important; }
     .mob-about-block { display: flex !important; flex-direction: column; align-items: center; width: 92vw; max-width: 360px; margin: 148px auto 0; gap: 32px; }
+    #footer-shape-left, #footer-shape-right { display: none !important; }
     .mob-about-clip { overflow: hidden; display: flex; justify-content: center; }
     #mob-about-svg { transform: translateY(100%); transition: transform 1.1s cubic-bezier(0.76,0,0.24,1); }
     #mob-about-svg.in-view { transform: translateY(0); }
@@ -379,6 +380,16 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .ol-menu-contact { display: flex; flex-direction: column; align-items: center; gap: 40px; position: absolute; left: 0; right: 0; bottom: 60px; z-index: 3; }
     .ol-menu-contact-links { display: flex; flex-direction: column; align-items: center; gap: 30px; }
     .ol-menu-contact-links a { font-family: 'PP Telegraf', sans-serif; font-size: 14px; font-weight: 400; letter-spacing: 0.5em; text-transform: uppercase; color: #3A3A39; text-decoration: none; }
+    /* CALL ME / WRITE ME are now normal menu items (same block = same reveal) — pushed near the bottom */
+    .ol-contact-li.ol-contact-first { margin-top: 190px !important; }
+    /* entrance mirrors the exit: comes DOWN from above with fade + blur */
+    @keyframes olItemDropIn { from { opacity: 0; transform: translateY(-28px); filter: blur(12px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
+    body.tt-ol-menu-open .tt-ol-menu-list > li { animation: olItemDropIn 0.75s cubic-bezier(0.22,1,0.36,1) both; }
+    body.tt-ol-menu-open .tt-ol-menu-list > li:nth-child(1) { animation-delay: 0.05s; }
+    body.tt-ol-menu-open .tt-ol-menu-list > li:nth-child(2) { animation-delay: 0.13s; }
+    body.tt-ol-menu-open .tt-ol-menu-list > li:nth-child(3) { animation-delay: 0.21s; }
+    body.tt-ol-menu-open .tt-ol-menu-list > li:nth-child(4) { animation-delay: 0.29s; }
+    body.tt-ol-menu-open .tt-ol-menu-list > li:nth-child(5) { animation-delay: 0.37s; }
 }
 @media (min-width: 769px) { .ol-menu-contact { display: none !important; } }
 @media (max-width: 768px) {
@@ -581,14 +592,10 @@ document.addEventListener('click', function(e) {
                         <li class="common-li"><a href="#mob-about-block" data-offset="80">About</a></li>
                         <li class="common-li"><a href="#works" data-offset="-150">Works</a></li>
                         <li class="common-li"><a href="#services" data-offset="-50">Services</a></li>
+                        <li class="common-li ol-contact-li ol-contact-first"><a href="https://calendly.com/fvaccarezza/intro-call" target="_blank">CALL ME</a></li>
+                        <li class="common-li ol-contact-li"><a href="mailto:fvaccarezza@gmail.com">WRITE ME</a></li>
                     </ul>
                     </div></div>
-                    <div class="ol-menu-contact">
-                        <div class="ol-menu-contact-links">
-                            <a href="https://calendly.com/fvaccarezza/intro-call" target="_blank">CALL ME</a>
-                            <a href="mailto:fvaccarezza@gmail.com">WRITE ME</a>
-                        </div>
-                    </div>
                     </div>
                 </nav>
             </div>
@@ -646,6 +653,8 @@ document.addEventListener('click', function(e) {
             <p class="mobile-hero-text" style="display:none;">VISUAL DESIGNER BASED IN BUENOS AIRES, ARGENTINA</p>
             <div class="mob-about-block" id="mob-about-block" style="display:none;">
                 <div class="mob-about-clip" style="display:none;"><img src="./assets/img/mobile-about.svg" id="mob-about-svg" alt="about" style="display:block;width:auto;height:auto;" /></div>
+                <img src="./assets/img/pill-aboutme.svg" alt="About Me" style="display:block;height:28px;width:auto;margin:0 auto;" />
+                <div class="mob-about-clip"><img src="./assets/img/mob-core.svg" alt="" style="display:block;width:auto;height:auto;max-width:92vw;" /></div>
                 <div class="mob-about-clip-text"><p class="mob-about-text">Educated at the University of Buenos Aires (UBA), I began in Industrial Design before transitioning to Graphic Design.</p><p class="mob-about-text" style="margin-top:24px;">Over the years, my work has spanned branding, web design, and UI/UX, collaborating with startups and established companies to create brands, websites, and digital experiences that are clear, effective, and thoughtfully designed.</p></div>
             </div>
 
@@ -687,10 +696,9 @@ document.addEventListener('click', function(e) {
                 </div>
                 <div class="tt-section-inner tt-wrap">
                     <div class="mob-works-phrase mob-ok" style="display:none;position:relative;">
-                        <div class="mob-phrase-clip"><img src="./assets/img/work-featu.svg" class="mob-phrase-word" alt="" /></div>
-                        <div class="mob-phrase-clip" id="mob-works-red-clip"><img src="./assets/img/work-red.svg" class="mob-phrase-word" alt="" /></div>
-                        <div class="mob-phrase-clip"><img src="./assets/img/work-work.svg" class="mob-phrase-word" alt="" /></div>
                         <img src="./assets/img/a-few-of.svg" alt="A Few of Them" class="mob-pill" id="mob-works-pill" />
+                        <div class="mob-phrase-clip"><img src="./assets/img/mob-pro.svg" class="mob-phrase-word" alt="" /></div>
+                        <div class="mob-phrase-clip" id="mob-works-red-clip"><img src="./assets/img/mob-jects.svg" class="mob-phrase-word" alt="" /></div>
                     </div>
                     <div class="gallery">
                         <div class="card" id="frog-bazar"><a href="https://www.behance.net/gallery/157959551/Frog-Bazar-2023" target="_blank" class="stamp" data-vt-mode="fade"><img src="./assets/img/stamp/project-be.svg" alt="" /><img src="./assets/img/stamp/project-be-a.svg" class="join" alt="" /><img src="./assets/img/stamp/project-be-b.svg" class="inside" alt="" /></a><a class="media" href="work/frogbazar/" alt="frog-bazar" data-vt-mode="slide"><img class="img-base" loading="lazy" decoding="async" src="./assets/home/frogbazar-b.jpg" alt="Frog Bazar" /><img class="img-hover" loading="lazy" decoding="async" src="./assets/home/frogbazar.jpg" alt="" aria-hidden="true" /></a><div class="meta"><h3>Frog Bazar</h3><p>branding + website + photo</p><p>(001)</p><span class="meta-name">Frog Bazar</span><span class="meta-num">(001)</span></div></div>
@@ -829,9 +837,9 @@ document.addEventListener('click', function(e) {
         <div id="mob-workflow-section" class="mob-workflow-wrap" style="position:relative;z-index:2;background:#F8F8F8;">
             <div class="tt-section-inner tt-wrap">
                 <div class="mob-workflow-phrase" style="position:relative;display:flex;flex-direction:column;align-items:center;width:100%;gap:8px;">
+                    <img src="./assets/img/and-they.svg" alt="From Idea To Execution" class="mob-pill" id="mob-workflow-pill" />
                     <div class="mob-phrase-clip"><img src="./assets/img/work-work.svg" class="mob-phrase-word" alt="" /></div>
                     <div class="mob-phrase-clip"><img src="./assets/img/work-flow.svg" class="mob-phrase-word" alt="" /></div>
-                    <img src="./assets/img/and-they.svg" alt="From Idea To Execution" class="mob-pill" id="mob-workflow-pill" />
                 </div>
                 <div class="mob-process-list">
                     <div class="mob-process-step">
@@ -873,10 +881,10 @@ document.addEventListener('click', function(e) {
                             <p id="testi-afew-desc" class="mob-no" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;max-width:600px;text-align:center;position:relative;z-index:1;opacity:0;transform:translateY(40px);filter:blur(20px);">Over the years, I've been lucky to work with amazing founders, marketers, developers, and teams from all kinds of industries. Here are a few words they shared after working together.</p>
                         </div>
                         <div class="mob-somekind-phrase" style="position:relative;display:flex;flex-direction:column;align-items:center;width:100%;gap:8px;margin-bottom:8px;">
+                            <img src="./assets/img/some-kind.svg" alt="Some Kind Words" class="mob-pill" id="mob-testi-pill" />
                             <div class="mob-phrase-clip"><img src="./assets/img/testimonials-they.svg" class="mob-phrase-word" alt="" /></div>
                             <div class="mob-phrase-clip"><img src="./assets/img/testimonials-said.svg" class="mob-phrase-word" alt="" /></div>
                             <div class="mob-phrase-clip"><img src="./assets/img/testimonials-it.svg" class="mob-phrase-word" alt="" /></div>
-                            <img src="./assets/img/some-kind.svg" alt="Some Kind Words" class="mob-pill" id="mob-testi-pill" />
                         </div>
                         <div class="words-container"><div class="carousel" role="region"><div class="stage" id="stage">
                             <article class="verbatim prev" tabindex="0"><img src="./assets/img/word2.jpg" alt="" /><div><p><span>Dana Johonson</span> (Dotted 8)</p><p>"As a US-based agency, it can be tricky to find reliable international talent that aligns with our time constraints and quality expectations. Fede has been an incredible resource and a valued member of our team for many years!"</p></div></article>
