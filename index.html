@@ -52,6 +52,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 :root { --fv-caps: 13px; --fv-body: 14px; }
 @media (min-width: 2560px) { :root { --fv-caps: 15px; --fv-body: 16px; } }
 @media (min-resolution: 2dppx) and (max-width: 2559px) { :root { --fv-caps: 12px; --fv-body: 14px; } }
+@media (min-width: 769px) and (max-width: 2559px) { #testimonials-section { margin-bottom: 150px; } }
 
 .name-reveal-mask { display:flex; justify-content:center; overflow:hidden; }
 .name-reveal-mask:has(#line-federico) { margin-bottom: 0px; }
@@ -604,8 +605,8 @@ document.addEventListener('click', function(e) {
     <div id="content-wrap">
         <div id="page-header" data-offset="0" class="ph-full ph-cap-sm ph-image-cropped ph-image-cover-3">
             <div aria-hidden="true" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:0;">
-                <img id="hero-bg-img" src="./assets/images/home/herobg.png" alt="" style="display:block;position:absolute;top:0;left:0;width:100%;height:auto;" />
-                <img id="hero-bg-img-2" src="./assets/images/home/herobg.png" alt="" style="display:block;position:absolute;bottom:0;right:0;width:100%;height:auto;transform:rotate(180deg);" />
+                <img id="hero-bg-img" src="./assets/images/home/herobg.png" alt="" style="display:block;position:absolute;bottom:0;left:0;width:100%;height:auto;transform:rotate(180deg);" />
+                <img id="hero-bg-img-2" src="./assets/images/home/herobg.png" alt="" style="display:block;position:absolute;top:0;right:0;width:100%;height:auto;" />
             </div>
             <div id="about-enter-shadow" aria-hidden="true" style="position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to top, rgba(0,0,0,0.16), rgba(0,0,0,0));pointer-events:none;z-index:1;opacity:0;"></div>
             <div class="page-header-inner tt-wrap">
@@ -1415,8 +1416,8 @@ window.addEventListener('load', () => {
         gsap.set(lineVac, { y: '100%' });
         gsap.set(heroSubtitle, { y: '100%' });
         if (heroMetaRow) gsap.set(heroMetaRow, { opacity: 0, y: 16 });
-        if (heroBgImg) gsap.set(heroBgImg, { yPercent: -100 });
-        if (heroBgImg2) gsap.set(heroBgImg2, { yPercent: 100 });
+        if (heroBgImg) gsap.set(heroBgImg, { yPercent: 100 });
+        if (heroBgImg2) gsap.set(heroBgImg2, { yPercent: -100 });
         const doReveal = () => {
             var introLogoEl = document.querySelector('.tt-logo.mob-no');
             if (introLogoEl) { introLogoEl.classList.add('intro-hover'); setTimeout(() => { introLogoEl.classList.remove('intro-hover'); }, 1400); }
@@ -1461,19 +1462,19 @@ window.addEventListener('load', () => {
         const heroBgReveal = () => {
             if (heroBgRevealed || !heroBgImg) return;
             heroBgRevealed = true;
-            gsap.to(heroBgImg, { yPercent: 0, duration: 1.9, ease: 'power3.out', onComplete: function() {
+            gsap.to(heroBgImg, { yPercent: 0, duration: 1.9, ease: 'power3.out', delay: 0.35, onComplete: function() {
                 var heroBgExit = heroBgImg.offsetHeight || window.innerHeight;
-                gsap.to(heroBgImg, { y: -heroBgExit, duration: 20, ease: 'none' });
+                gsap.to(heroBgImg, { y: heroBgExit, duration: 20, ease: 'none' });
                 if (heroBgImg2) {
                     var isUWHero = window.innerWidth >= 2560;
-                    gsap.to(heroBgImg2, { yPercent: 55, duration: isUWHero ? 30 : 20, ease: 'none', delay: 0.15 });
+                    gsap.to(heroBgImg2, { yPercent: -55, duration: isUWHero ? 30 : 20, ease: 'none', delay: 0.15 });
                 }
             } });
         };
         if (preloaderEl) {
             const obsHeroBg = new MutationObserver(() => { const s = window.getComputedStyle(preloaderEl); if (parseFloat(s.opacity) < 0.9) { heroBgReveal(); obsHeroBg.disconnect(); } });
             obsHeroBg.observe(preloaderEl, { attributes: true, attributeFilter: ['style', 'class'] });
-            setTimeout(heroBgReveal, 1200);
+            setTimeout(heroBgReveal, 1500);
         } else { setTimeout(heroBgReveal, 150); }
 
         if (window.innerWidth <= 768) {
