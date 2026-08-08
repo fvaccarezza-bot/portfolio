@@ -56,6 +56,17 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 @media (min-width: 769px) and (max-width: 2559px) { #testimonials-section { margin-bottom: 150px; } }
 @media (min-width: 769px) and (max-width: 2559px) { #contact { margin-top: -200px !important; } }
 
+/* ── Hero craft.png — DESKTOP ONLY ────────────────────────────────────────────
+   Hidden by default, switched on only inside the desktop range, and switched off
+   again in the retina block below. UW (>=2560), retina and mobile never see it.
+   No width/height here on purpose: the image renders at its intrinsic 1137x466.
+   ADJUST HERE: top / left are the only knobs for placement. */
+#hero-craft { display: none; }
+@media (min-width: 769px) and (max-width: 2559px) {
+    #hero-craft { display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; z-index: 12; mix-blend-mode: hard-light; opacity: 0; transition: opacity 0.7s ease; }
+    #hero-craft.is-in { opacity: 0.8; }
+}
+
 .name-reveal-mask { display:flex; justify-content:center; overflow:hidden; }
 .name-reveal-mask:has(#line-federico) { margin-bottom: 0px; }
 .name-reveal-mask:has(#line-vaccarezza) { margin-top: 8px; }
@@ -446,6 +457,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 #hero-meta-location:hover .meta-loc-coords { opacity: 1; }
 #noise-overlay { display: none; }
 @media (min-resolution: 2dppx) {
+    #hero-craft { display: none !important; } /* craft.png is desktop-only */
     #contact { margin-top: -300px !important; }
     #deck-guidelines-frame { width: 1200px !important; max-width: 1200px !important; }
     #deck-guidelines { width: 1200px !important; max-width: 1200px !important; }
@@ -632,7 +644,30 @@ document.addEventListener('click', function(e) {
                                     </span>
                                 </span>
                             </a>
+                            <!-- DESKTOP ONLY. src is set from JS so mobile / retina / UW never request it. -->
+                            <img id="hero-craft" alt="" aria-hidden="true" data-src="./assets/images/home/craft.png" />
                         </h1>
+                        <script>
+                        /* Fades craft.png in once the hero reveal has finished — desktop only
+                           (769–2559px, non-retina), mirroring the CSS gate.
+                           _heroParallaxReady is set by the existing hero reveal on its last tween,
+                           so this stays in step with it without touching that code. */
+                        (function () {
+                            var el = document.getElementById('hero-craft');
+                            if (!el) return;
+                            var w = window.innerWidth;
+                            if (w < 769 || w > 2559) return;
+                            if (window.matchMedia && window.matchMedia('(min-resolution: 2dppx)').matches) return;
+                            el.src = el.getAttribute('data-src');
+                            function show() { el.classList.add('is-in'); }
+                            var poll = setInterval(function () {
+                                if (!window._heroParallaxReady) return;
+                                clearInterval(poll);
+                                setTimeout(show, 400); // small pause after the hero settles
+                            }, 100);
+                            setTimeout(function () { clearInterval(poll); show(); }, 12000); // safety net
+                        })();
+                        </script>
                         <div style="overflow:hidden;position:relative;z-index:10;"><div class="text-center color-fv min-titles spacing hero-subtitle"></div></div>
                     </div>
                 </div>
