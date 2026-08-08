@@ -608,8 +608,8 @@ document.addEventListener('click', function(e) {
     <div id="content-wrap">
         <div id="page-header" data-offset="0" class="ph-full ph-cap-sm ph-image-cropped ph-image-cover-3">
             <div aria-hidden="true" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:0;">
-                <img id="hero-bg-img" src="./assets/images/home/herobg.png" alt="" style="display:block;position:absolute;bottom:0;left:0;width:100%;height:auto;transform:rotate(180deg);" />
-                <img id="hero-bg-img-2" src="./assets/images/home/herobg.png" alt="" style="display:block;position:absolute;top:0;right:0;width:100%;height:auto;" />
+                <img id="hero-bg-img" data-dsrc="./assets/images/home/herobg.png" alt="" style="display:block;position:absolute;bottom:0;left:0;width:100%;height:auto;transform:rotate(180deg);" />
+                <img id="hero-bg-img-2" data-dsrc="./assets/images/home/herobg.png" alt="" style="display:block;position:absolute;top:0;right:0;width:100%;height:auto;" />
             </div>
             <div id="about-enter-shadow" aria-hidden="true" style="position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to top, rgba(0,0,0,0.16), rgba(0,0,0,0));pointer-events:none;z-index:1;opacity:0;"></div>
             <div class="page-header-inner tt-wrap">
@@ -620,12 +620,12 @@ document.addEventListener('click', function(e) {
                             <a href="#about" data-offset="-160" class="home-title" id="hero-name-link">
                                 <span class="name-reveal-mask">
                                     <span class="name-line" id="line-federico">
-                                        <img class="name-letter" src="./assets/svg/desk-federico.svg" alt="Federico" />
+                                        <img class="name-letter" data-dsrc="./assets/svg/desk-federico.svg" alt="Federico" />
                                     </span>
                                 </span>
                                 <span class="name-reveal-mask">
                                     <span class="name-line" id="line-vaccarezza">
-                                        <img class="name-letter" src="./assets/svg/desk-vaccarezza.svg" alt="Vaccarezza" />
+                                        <img class="name-letter" data-dsrc="./assets/svg/desk-vaccarezza.svg" alt="Vaccarezza" />
                                     </span>
                                 </span>
                             </a>
@@ -812,7 +812,7 @@ document.addEventListener('click', function(e) {
         <div id="trusted-by-section" class="tt-section mob-no" style="display:none !important;position:relative;z-index:2;background:#F8F8F8;padding-top:40px !important;margin-top:-150px !important;">
             <div class="tt-section-inner tt-wrap">
                 <div class="tt-row" style="display:flex;flex-direction:column;align-items:center;" id="trusted-by-row">
-                    <img id="trusted-logos-img" src="./assets/svg/desk-logos-trusted.svg" alt="Trusted by" style="display:block;width:auto;height:auto;" />
+                    <img id="trusted-logos-img" data-dsrc="./assets/svg/desk-logos-trusted.svg" alt="Trusted by" style="display:block;width:auto;height:auto;" />
                 </div>
             </div>
         </div>
@@ -821,14 +821,14 @@ document.addEventListener('click', function(e) {
             <div class="tt-section-inner tt-wrap">
                 <div style="display:flex;justify-content:center;margin-top:32px;">
                     <a href="https://www.figma.com/design/MzElBS0sIsLs6uYz3BlaRj/Decks-and-Guidelines?node-id=0-1&t=OMYz78S2X2hq22Iq-1" target="_blank" id="deck-guidelines-frame" style="width:1320px;max-width:100%;overflow:hidden;border-radius:6px;aspect-ratio:1320/650;position:relative;display:block;">
-                        <img id="deck-guidelines" src="./assets/images/home/deck-guidelines.jpg" alt="" style="display:block;width:100%;height:115%;object-fit:cover;object-position:center top;will-change:transform;transition:transform 0.15s ease;transform:translateY(0px);opacity:0;" />
+                        <img id="deck-guidelines" data-dsrc="./assets/images/home/deck-guidelines.jpg" alt="" style="display:block;width:100%;height:115%;object-fit:cover;object-position:center top;will-change:transform;transition:transform 0.15s ease;transform:translateY(0px);opacity:0;" />
                         <div id="extra-orange-mask" style="position:absolute;inset:0;background:#FF6600;mix-blend-mode:multiply;pointer-events:none;transition:opacity 0.6s cubic-bezier(0.25,0.46,0.45,0.94);opacity:1;"></div>
                         <div style="position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;text-align:center;pointer-events:none;">
                             <div style="position:relative;display:inline-block;">
                                 <div id="desk-extra-wrap" class="testi-phrase-clip" style="display:flex;justify-content:center;">
                                     <img id="desk-extra" src="./assets/svg/desk-extra.svg" alt="" style="display:block;width:auto;height:auto;filter:brightness(0) invert(1);" />
                                 </div>
-                                <img id="figma-logo" src="./assets/images/home/figma-logo.png" alt="Figma" style="position:absolute;bottom:-60px;right:-100px;width:auto;height:auto;display:block;pointer-events:none;opacity:0;" />
+                                <img id="figma-logo" data-dsrc="./assets/images/home/figma-logo.png" alt="Figma" style="position:absolute;bottom:-60px;right:-100px;width:auto;height:auto;display:block;pointer-events:none;opacity:0;" />
                             </div>
                             <p id="extra-text" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#FFFFFF;line-height:1.7;margin:0;opacity:0;">THIS WILL OPEN A FIGMA OF MY BRAND GUIDELINES AND DECKS<br>(A FEW I'M ALLOWED TO SHARE)</p>
                         </div>
@@ -891,12 +891,12 @@ document.addEventListener('click', function(e) {
                             <div class="mob-phrase-clip"><img src="./assets/svg/testimonials-it.svg" class="mob-phrase-word" alt="" /></div>
                         </div>
                         <div class="words-container"><div class="carousel" role="region"><div class="stage" id="stage">
-                            <article class="verbatim prev" tabindex="0"><img src="./assets/images/home/word2.jpg" alt="" /><div><p><span>Dana Johonson</span> (Dotted 8)</p><p>"As a US-based agency, it can be tricky to find reliable international talent that aligns with our time constraints and quality expectations. Fede has been an incredible resource and a valued member of our team for many years!"</p></div></article>
-                            <article class="verbatim active" tabindex="0"><img src="./assets/images/home/word1.jpg" alt="" /><div><p><span>Ramiro Nieto Moreno</span> (N.M,P.)</p><p>"From the first call to the final delivery, everything just flowed. The site captures our vibe perfectly—and the whole process was smoother than expected!"</p></div></article>
-                            <article class="verbatim next" tabindex="0"><img src="./assets/images/home/word3.jpg" alt="" /><div><p><span>Nayoung S. Kim</span> (Highfive)</p><p>"Fede did an amazing job with HighFive! Our vet purchase app is sleek, intuitive, and exactly what we needed. Highly recommend!"</p></div></article>
-                            <article class="verbatim hidden" tabindex="0"><img src="./assets/images/home/word4.jpg" alt="" /><div><p><span>Tristan Kemitzis</span> (K.C.)</p><p>"Working with Fede has been a true pleasure. Quick turnarounds, immediate responsiveness... all in all extremely high quality, white-glove service."</p></div></article>
-                            <article class="verbatim hidden" tabindex="0"><img src="./assets/images/home/word5.jpg" alt="" /><div><p><span>Nick Godin</span> (Netwrk Ventures)</p><p>"Fede nailed it. He instantly got what we were about and came up with fresh, modern branding that tells our story perfectly. Super easy to work with and always on point"</p></div></article>
-                            <article class="verbatim hidden" tabindex="0"><img src="./assets/images/home/word6.png" alt="" /><div><p><span>Hana Elster</span> (VYA)</p><p>"Fede did an amazing job helping me with my design. He effectively took feedback and was able to create an amazing brand guideline for me in just two weeks. Will be a forever customer"</p></div></article>
+                            <article class="verbatim prev" tabindex="0"><img data-dsrc="./assets/images/home/word2.jpg" alt="" /><div><p><span>Dana Johonson</span> (Dotted 8)</p><p>"As a US-based agency, it can be tricky to find reliable international talent that aligns with our time constraints and quality expectations. Fede has been an incredible resource and a valued member of our team for many years!"</p></div></article>
+                            <article class="verbatim active" tabindex="0"><img data-dsrc="./assets/images/home/word1.jpg" alt="" /><div><p><span>Ramiro Nieto Moreno</span> (N.M,P.)</p><p>"From the first call to the final delivery, everything just flowed. The site captures our vibe perfectly—and the whole process was smoother than expected!"</p></div></article>
+                            <article class="verbatim next" tabindex="0"><img data-dsrc="./assets/images/home/word3.jpg" alt="" /><div><p><span>Nayoung S. Kim</span> (Highfive)</p><p>"Fede did an amazing job with HighFive! Our vet purchase app is sleek, intuitive, and exactly what we needed. Highly recommend!"</p></div></article>
+                            <article class="verbatim hidden" tabindex="0"><img data-dsrc="./assets/images/home/word4.jpg" alt="" /><div><p><span>Tristan Kemitzis</span> (K.C.)</p><p>"Working with Fede has been a true pleasure. Quick turnarounds, immediate responsiveness... all in all extremely high quality, white-glove service."</p></div></article>
+                            <article class="verbatim hidden" tabindex="0"><img data-dsrc="./assets/images/home/word5.jpg" alt="" /><div><p><span>Nick Godin</span> (Netwrk Ventures)</p><p>"Fede nailed it. He instantly got what we were about and came up with fresh, modern branding that tells our story perfectly. Super easy to work with and always on point"</p></div></article>
+                            <article class="verbatim hidden" tabindex="0"><img data-dsrc="./assets/images/home/word6.png" alt="" /><div><p><span>Hana Elster</span> (VYA)</p><p>"Fede did an amazing job helping me with my design. He effectively took feedback and was able to create an amazing brand guideline for me in just two weeks. Will be a forever customer"</p></div></article>
                             <div class="hit left" aria-hidden="true"></div>
                             <div class="hit right" aria-hidden="true"></div>
                         </div></div></div>
@@ -955,21 +955,21 @@ document.addEventListener('click', function(e) {
 
         <div id="stickers-outer" class="mob-no" style="position:relative;z-index:2;background:#F8F8F8;display:flex;justify-content:center;padding:0 0 60px;">
             <div class="stickers-scene" style="width:900px;max-width:100%;margin-top:20px;">
-                <div class="stk-wrap" data-x="-280" data-y="-65" data-rot="-10" style="transform:translate(0px,0px) rotate(-10deg);"><img class="stk" src="./assets/images/home/sticker2.png" /></div>
-                <div class="stk-wrap" data-x="-280" data-y="12" data-rot="-8" style="transform:translate(0px,0px) rotate(-8deg);"><img class="stk" src="./assets/images/home/sticker1.png" /></div>
-                <div class="stk-wrap" data-x="-222" data-y="85" data-rot="7" style="transform:translate(0px,0px) rotate(7deg);"><img class="stk" src="./assets/images/home/sticker3.png" /></div>
-                <div class="stk-wrap" data-x="-150" data-y="-18" data-rot="-3" style="transform:translate(0px,0px) rotate(-3deg);"><img class="stk" src="./assets/images/home/sticker4.png" /></div>
-                <div class="stk-wrap" data-x="12" data-y="-80" data-rot="1" style="transform:translate(0px,0px) rotate(1deg);"><img class="stk" src="./assets/images/home/sticker7.png" /></div>
-                <div class="stk-wrap" data-x="45" data-y="-25" data-rot="-3" style="transform:translate(0px,0px) rotate(-3deg);"><img class="stk" src="./assets/images/home/sticker6.png" /></div>
-                <div class="stk-wrap" data-x="-48" data-y="65" data-rot="5" style="transform:translate(0px,0px) rotate(5deg);"><img class="stk" src="./assets/images/home/sticker5.png" /></div>
-                <div class="stk-wrap" data-x="-148" data-y="78" data-rot="-8" style="transform:translate(0px,0px) rotate(-8deg);"><img class="stk" src="./assets/images/home/sticker9.png" /></div>
-                <div class="stk-wrap" data-x="102" data-y="25" data-rot="12" style="transform:translate(0px,0px) rotate(12deg);"><img class="stk" src="./assets/images/home/sticker8.png" /></div>
-                <div class="stk-wrap" data-x="163" data-y="42" data-rot="-6" style="transform:translate(0px,0px) rotate(-6deg);"><img class="stk" src="./assets/images/home/sticker10.png" /></div>
-                <div class="stk-wrap" data-x="222" data-y="-48" data-rot="-5" style="transform:translate(0px,0px) rotate(-5deg);"><img class="stk" src="./assets/images/home/sticker12.png" /></div>
-                <div class="stk-wrap" data-x="262" data-y="44" data-rot="8" style="transform:translate(0px,0px) rotate(8deg);"><img class="stk" src="./assets/images/home/sticker11.png" /></div>
-                <div class="stk-wrap" data-x="288" data-y="-65" data-rot="10" style="transform:translate(0px,0px) rotate(10deg);"><img class="stk" src="./assets/images/home/sticker14.png" /></div>
-                <div class="stk-wrap" data-x="30" data-y="45" data-rot="6" style="transform:translate(0px,0px) rotate(6deg);"><img class="stk" src="./assets/images/home/sticker15.png" /></div>
-                <div class="stk-wrap" data-x="0" data-y="0" data-rot="-5" data-bolsita="1" style="z-index:999;transform:translate(0px,0px) rotate(-5deg);pointer-events:none;"><img class="stk" src="./assets/images/home/bag.png" style="pointer-events:none;" /></div>
+                <div class="stk-wrap" data-x="-280" data-y="-65" data-rot="-10" style="transform:translate(0px,0px) rotate(-10deg);"><img class="stk" data-dsrc="./assets/images/home/sticker2.png" /></div>
+                <div class="stk-wrap" data-x="-280" data-y="12" data-rot="-8" style="transform:translate(0px,0px) rotate(-8deg);"><img class="stk" data-dsrc="./assets/images/home/sticker1.png" /></div>
+                <div class="stk-wrap" data-x="-222" data-y="85" data-rot="7" style="transform:translate(0px,0px) rotate(7deg);"><img class="stk" data-dsrc="./assets/images/home/sticker3.png" /></div>
+                <div class="stk-wrap" data-x="-150" data-y="-18" data-rot="-3" style="transform:translate(0px,0px) rotate(-3deg);"><img class="stk" data-dsrc="./assets/images/home/sticker4.png" /></div>
+                <div class="stk-wrap" data-x="12" data-y="-80" data-rot="1" style="transform:translate(0px,0px) rotate(1deg);"><img class="stk" data-dsrc="./assets/images/home/sticker7.png" /></div>
+                <div class="stk-wrap" data-x="45" data-y="-25" data-rot="-3" style="transform:translate(0px,0px) rotate(-3deg);"><img class="stk" data-dsrc="./assets/images/home/sticker6.png" /></div>
+                <div class="stk-wrap" data-x="-48" data-y="65" data-rot="5" style="transform:translate(0px,0px) rotate(5deg);"><img class="stk" data-dsrc="./assets/images/home/sticker5.png" /></div>
+                <div class="stk-wrap" data-x="-148" data-y="78" data-rot="-8" style="transform:translate(0px,0px) rotate(-8deg);"><img class="stk" data-dsrc="./assets/images/home/sticker9.png" /></div>
+                <div class="stk-wrap" data-x="102" data-y="25" data-rot="12" style="transform:translate(0px,0px) rotate(12deg);"><img class="stk" data-dsrc="./assets/images/home/sticker8.png" /></div>
+                <div class="stk-wrap" data-x="163" data-y="42" data-rot="-6" style="transform:translate(0px,0px) rotate(-6deg);"><img class="stk" data-dsrc="./assets/images/home/sticker10.png" /></div>
+                <div class="stk-wrap" data-x="222" data-y="-48" data-rot="-5" style="transform:translate(0px,0px) rotate(-5deg);"><img class="stk" data-dsrc="./assets/images/home/sticker12.png" /></div>
+                <div class="stk-wrap" data-x="262" data-y="44" data-rot="8" style="transform:translate(0px,0px) rotate(8deg);"><img class="stk" data-dsrc="./assets/images/home/sticker11.png" /></div>
+                <div class="stk-wrap" data-x="288" data-y="-65" data-rot="10" style="transform:translate(0px,0px) rotate(10deg);"><img class="stk" data-dsrc="./assets/images/home/sticker14.png" /></div>
+                <div class="stk-wrap" data-x="30" data-y="45" data-rot="6" style="transform:translate(0px,0px) rotate(6deg);"><img class="stk" data-dsrc="./assets/images/home/sticker15.png" /></div>
+                <div class="stk-wrap" data-x="0" data-y="0" data-rot="-5" data-bolsita="1" style="z-index:999;transform:translate(0px,0px) rotate(-5deg);pointer-events:none;"><img class="stk" data-dsrc="./assets/images/home/bag.png" style="pointer-events:none;" /></div>
             </div>
         </div>
 
@@ -1016,7 +1016,7 @@ document.addEventListener('click', function(e) {
         </div>
 
         <footer id="contact" class="tt-section">
-            <div id="footer-bg-orange" style="position:absolute;bottom:0;left:0;width:100%;z-index:1;pointer-events:none;"><img id="footer-orange-img" src="./assets/images/home/desk-footer-orange-main.png" style="width:100%;height:auto;display:block;" /></div>
+            <div id="footer-bg-orange" style="position:absolute;bottom:0;left:0;width:100%;z-index:1;pointer-events:none;"><img id="footer-orange-img" data-dsrc="./assets/images/home/desk-footer-orange-main.png" style="width:100%;height:auto;display:block;" /></div>
             <div class="mob-footer">
                 <div class="mob-footer-shapes" style="z-index:1;"><img class="mob-footer-shape-orange" src="./assets/svg/mobile-footer-orange-shape.svg" alt="" /></div>
                 <div class="mob-footer-content" style="display:flex !important;flex-direction:column;align-items:center;gap:0;width:100%;padding:60px 0 0;position:relative;z-index:10;">
@@ -1148,6 +1148,30 @@ document.addEventListener('click', function(e) {
     </div>
 </div>
 </main>
+<script>
+/* ── Desktop-only image hydration ──────────────────────────────────────────────
+   Images that live inside containers hidden on mobile (#page-header,
+   #trusted-by-section, #extra-section, #stickers-outer, #footer-bg-orange,
+   .words-container .verbatim) ship with data-dsrc instead of src, so the
+   preload scanner never requests them on a phone. On desktop we promote them
+   back to src here, before any other script runs.
+   Must stay ABOVE the swap functions further down, which read getAttribute('src'). */
+(function () {
+    function hydrate() {
+        if (window.innerWidth <= 768) return;
+        var imgs = document.querySelectorAll('img[data-dsrc]');
+        if (!imgs.length) return;
+        for (var i = 0; i < imgs.length; i++) {
+            imgs[i].setAttribute('src', imgs[i].getAttribute('data-dsrc'));
+            imgs[i].removeAttribute('data-dsrc');
+        }
+    }
+    hydrate();
+    // A tablet rotating from <=768 into the desktop layout must still get them.
+    window.addEventListener('resize', hydrate, { passive: true });
+    window.addEventListener('orientationchange', hydrate, { passive: true });
+})();
+</script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="./assets/vendor/gsap/ScrollToPlugin.min.js"></script>
@@ -1257,6 +1281,7 @@ window.addEventListener('load', () => {
 
     // ── UW SVG swap — load larger versions at 2560px+ ──
     function swapHeroSVGs() {
+        if (window.innerWidth <= 768) return; // mobile: these targets are display:none, do not request desktop assets
         var fedImg = document.querySelector('#line-federico img');
         var vacImg = document.querySelector('#line-vaccarezza img');
         if (!fedImg || !vacImg) return;
@@ -1277,6 +1302,7 @@ window.addEventListener('load', () => {
 
     // ── UW SVG swap — desk-extra ──
     function swapExtraSVG() {
+        if (window.innerWidth <= 768) return; // mobile: these targets are display:none, do not request desktop assets
         var extraImg = document.getElementById('desk-extra');
         if (!extraImg) return;
         extraImg.src = window.innerWidth >= 2560
@@ -1288,6 +1314,7 @@ window.addEventListener('load', () => {
 
     // ── UW SVG swap — testi phrase ──
     function swapTestiSVG() {
+        if (window.innerWidth <= 768) return; // mobile: these targets are display:none, do not request desktop assets
         var testiImg = document.getElementById('testi-phrase-img');
         if (!testiImg) return;
         testiImg.src = window.innerWidth >= 2560
@@ -1299,6 +1326,7 @@ window.addEventListener('load', () => {
 
     // ── UW SVG swap — FAQ titles ──
     function swapFaqSVGs() {
+        if (window.innerWidth <= 768) return; // mobile: these targets are display:none, do not request desktop assets
         var isUW = window.innerWidth >= 2560;
         var map = [
             { id: null, sel: '#faq-section .faq-title-img', srcs: ['./assets/svg/desk-things.svg','./assets/svg/desk-iget.svg','./assets/svg/desk-asked.svg'], uwSrcs: ['./assets/svg/desk-things-uw.svg','./assets/svg/desk-iget-uw.svg','./assets/svg/desk-asked-uw.svg'] },
@@ -1314,6 +1342,7 @@ window.addEventListener('load', () => {
     swapFaqSVGs();
     window.addEventListener('resize', swapFaqSVGs);
     function swapTrustedLogosSVG() {
+        if (window.innerWidth <= 768) return; // mobile: these targets are display:none, do not request desktop assets
         var img = document.getElementById('trusted-logos-img');
         if (!img) return;
         var isUW = window.innerWidth >= 2560;
@@ -1325,6 +1354,7 @@ window.addEventListener('load', () => {
     swapTrustedLogosSVG();
     window.addEventListener('resize', swapTrustedLogosSVG);
     function swapFooterOrangeSVG() {
+        if (window.innerWidth <= 768) return; // mobile: these targets are display:none, do not request desktop assets
         var img = document.getElementById('footer-orange-img');
         if (!img) return;
         img.src = './assets/images/home/desk-footer-orange-main.png';
@@ -1333,9 +1363,11 @@ window.addEventListener('load', () => {
     window.addEventListener('resize', swapFooterOrangeSVG);
     var stickerRtMissing = []; // sticker12rt.png uploaded
     function swapStickerImages() {
+        if (window.innerWidth <= 768) return; // mobile: these targets are display:none, do not request desktop assets
         var isUW = window.innerWidth >= 2560;
         document.querySelectorAll('.stk-wrap:not([data-bolsita]) .stk').forEach(function(img) {
             var src = img.getAttribute('src');
+            if (!src) return; // not hydrated (mobile) — nothing to swap
             if (isUW) {
                 img.setAttribute('src', src.replace(/sticker(\d+)(rt)?\.png/, 'sticker$1uw.png'));
                 img.removeAttribute('srcset');

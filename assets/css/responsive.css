@@ -390,11 +390,9 @@
   }
   #services .services-container .services-buttons .buttons1 a {
     width: 156px;
-    background-image: url(../images/home/services-button1-mob.png);
   }
   #services .services-container .services-buttons a.buttons2 {
     width: 341px;
-    background-image: url(../images/home/button-mob.png);
   }
   #services h4 {
     margin-top: 120px;
@@ -445,7 +443,6 @@
   }
   footer#contact .btn {
     width: 341px;
-    background-image: url(../images/home/button-mob.png);
   }
   footer#contact .socials,
   body.work footer .socials {

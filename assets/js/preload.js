@@ -9,15 +9,26 @@
   let finished = false;
   const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
   const setTarget = (v) => (target = clamp(v, target, 100));
+  // Hard ceiling: the loader is never allowed to hold the page longer than this,
+  // no matter what is still in flight.
+  const MAX_WAIT_MS = 2800;
+  // Only the images that actually paint in the first viewport gate the reveal.
+  // Everything else (below-the-fold, desktop-only, the lazy grid) is irrelevant here.
+  const CRITICAL_SELECTOR =
+    window.innerWidth <= 768
+      ? ".mobile-hero img"
+      : "#hero-bg-img, #page-header .name-letter";
   const bumpByState = () => {
     switch (document.readyState) {
       case "loading":     setTarget(10); break;
       case "interactive": setTarget(45); break;
-      case "complete":    setTarget(100); break;
+      case "complete":    setTarget(90); break;
     }
   };
   document.addEventListener("readystatechange", bumpByState);
   document.addEventListener("DOMContentLoaded", () => setTarget(65));
+  // window.load waits on every eager image on the page; keep it only as a
+  // late safety net — MAX_WAIT_MS and the critical set normally win the race.
   window.addEventListener("load", () => setTarget(100));
   const trackImages = () => {
     const imgs = Array.from(document.images || []);
@@ -36,6 +47,30 @@
       img.addEventListener("error", onAsset, { once: true });
     });
   };
+  // Reveal as soon as the DOM is usable and the first-viewport images are decoded.
+  const waitForCritical = () => {
+    const imgs = Array.from(
+      document.querySelectorAll(CRITICAL_SELECTOR)
+    ).filter((img) => img.getAttribute("src"));
+    let remaining = imgs.filter((img) => !img.complete).length;
+    if (remaining === 0) { setTarget(100); return; }
+    const onCritical = () => { if (--remaining <= 0) setTarget(100); };
+    imgs.forEach((img) => {
+      if (img.complete) return;
+      img.addEventListener("load", onCritical, { once: true });
+      img.addEventListener("error", onCritical, { once: true });
+    });
+  };
+  const startCriticalWatch = () => {
+    setTarget(65);
+    waitForCritical();
+  };
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", startCriticalWatch, { once: true });
+  } else {
+    startCriticalWatch();
+  }
+  setTimeout(() => setTarget(100), MAX_WAIT_MS);
   const render = () => {
     displayed += (target - displayed) * 0.12;
     if (Math.abs(target - displayed) < 0.15) displayed = target;

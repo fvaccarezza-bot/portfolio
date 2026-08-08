@@ -410,11 +410,9 @@ body.tt-boxed #services .tt-wrap { padding: 0; }
 }
 #services .services-container .services-buttons .buttons1 a {
   width: 266px;
-  background-image: url("../images/home/services-button1.png");
 }
 #services .services-container .services-buttons a.buttons2 {
   width: 100%;
-  background-image: url("../images/home/services-button2.png");
 }
 #services .services-container .services-buttons a:hover {
   color: var(--color-fede-white);

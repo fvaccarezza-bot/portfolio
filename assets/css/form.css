@@ -62,7 +62,6 @@ textarea {
   height: 33px;
   width: 77px;
   margin-bottom: 0;
-  background-image: url("../images/home/form-check.png");
   background-size: contain;
   transition:
     background-color 0.2s ease,
