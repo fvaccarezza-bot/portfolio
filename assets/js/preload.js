@@ -79,10 +79,20 @@
     if (!finished && target === 100 && p === 100) finish();
     if (!finished) requestAnimationFrame(render);
   };
+  // Broadcast the moment the loader is actually gone. Consumers used to sniff this
+  // with a MutationObserver looking for opacity/display/visibility on #preloader,
+  // which could never fire: the exit is a transform animation followed by remove(),
+  // and neither shows up as one of those computed values.
+  const signalDone = () => {
+    if (window.__preloaderDone) return;
+    window.__preloaderDone = true;
+    document.dispatchEvent(new CustomEvent("preloader:done"));
+  };
   const cleanup = () => {
     preloader?.remove();
     underlay?.remove();
     document.documentElement.classList.remove("no-scroll");
+    signalDone();
   };
   const finish = () => {
     finished = true;
@@ -103,6 +113,10 @@
         cleanup();
       }, { once: true });
     }
+    // underlay-out is 800ms on a 220ms delay, preloader-out is 900ms. If either
+    // animationend never arrives, still tear down (cleanup is idempotent) so the
+    // page is never left under the loader and preloader:done always fires.
+    setTimeout(cleanup, 1400);
   };
   bumpByState();
   trackImages();
