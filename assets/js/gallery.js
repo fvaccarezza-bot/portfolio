@@ -53,8 +53,8 @@ window.addEventListener('DOMContentLoaded', () => {
          Carousel: {
             ...common.Carousel,
             Navigation: {
-               prevTpl: `<img src="assets/img/arrow-prev.svg" alt="Prev">`,
-               nextTpl: `<img src="assets/img/arrow-next.svg" alt="Next">`,
+               prevTpl: `<img src="assets/svg/arrow-prev.svg" alt="Prev">`,
+               nextTpl: `<img src="assets/svg/arrow-next.svg" alt="Next">`,
                // Si querés agregar clases custom a los botones:
                // prevClass: 'nav-prev-custom',
                // nextClass: 'nav-next-custom',

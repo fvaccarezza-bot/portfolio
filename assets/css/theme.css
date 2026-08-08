@@ -8704,7 +8704,7 @@ video.tt-bg-video {
    height: calc(100% + 40rem);
    z-index: -1;
    pointer-events: none;
-   background-image: url(../img/bg-noise.jpg);
+   background-image: url(../images/home/bg-noise.jpg);
    background-position: 50%;
    /* animation: BgNoise 3s steps(2) infinite; */
 }

@@ -261,7 +261,7 @@ h2.section-title:hover {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
-  background-image: url("../img/form-submit.png");
+  background-image: url("../images/home/form-submit.png");
   background-size: contain;
   color: var(--color-fede-fv);
   cursor: pointer;

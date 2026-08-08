@@ -29,7 +29,7 @@
       var(--transparent, currentColor),
       var(--transparent, currentColor)
     ),
-    url("../img/noise-black.jpg");
+    url("../images/home/noise-black.jpg");
   background-repeat: no-repeat, repeat;
   background-size:
     100% 100%,
@@ -410,11 +410,11 @@ body.tt-boxed #services .tt-wrap { padding: 0; }
 }
 #services .services-container .services-buttons .buttons1 a {
   width: 266px;
-  background-image: url("../img/services-button1.png");
+  background-image: url("../images/home/services-button1.png");
 }
 #services .services-container .services-buttons a.buttons2 {
   width: 100%;
-  background-image: url("../img/services-button2.png");
+  background-image: url("../images/home/services-button2.png");
 }
 #services .services-container .services-buttons a:hover {
   color: var(--color-fede-white);
@@ -478,8 +478,8 @@ footer .footer-texture {
   background-size: 250px auto;
   pointer-events: none;
 }
-footer .footer-texture.yellow { background-image: url("../img/noise-yellow.jpg"); }
-footer .footer-texture.orange { background-image: url("../img/noise-orange.jpg"); }
+footer .footer-texture.yellow { background-image: url("../images/home/noise-yellow.jpg"); }
+footer .footer-texture.orange { background-image: url("../images/home/noise-orange.jpg"); }
 #contact h2.section-title { margin-bottom: 4px; }
 #contact .tt-row { column-gap: 224px; }
 #contact .tt-col-md-6 {

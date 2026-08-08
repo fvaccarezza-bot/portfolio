@@ -49,7 +49,7 @@
 .modal-simple a.close {
   width: 568px;
   height: 41px;
-  background-image: url(../img/modal-button-close.png);
+  background-image: url(../images/home/modal-button-close.png);
   background-size: contain;
   display: flex;
   align-items: center;

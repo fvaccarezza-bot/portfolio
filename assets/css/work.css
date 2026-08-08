@@ -81,7 +81,7 @@ body.work footer .btn {
   color: var(--color-fede-fv);
   width: 341px;
   margin-bottom: 36px;
-  background-image: url(../img/talk-buttons.png);
+  background-image: url(../images/home/talk-buttons.png);
 }
 body.work footer .btn:hover {
   background: var(--color-fede-fv);
@@ -674,22 +674,22 @@ body.work footer .footer-masked {
   mask-position: center top;
 }
 body.work footer .footer-masked.footer1 {
-  -webkit-mask-image: url("../img/footer-works-1.svg");
-  mask-image: url("../img/footer-works-1.svg");
+  -webkit-mask-image: url("../svg/footer-works-1.svg");
+  mask-image: url("../svg/footer-works-1.svg");
 }
 body.work footer .footer-masked.footer2 {
-  -webkit-mask-image: url("../img/footer-works-2.svg");
-  mask-image: url("../img/footer-works-2.svg");
+  -webkit-mask-image: url("../svg/footer-works-2.svg");
+  mask-image: url("../svg/footer-works-2.svg");
 }
 body.work footer .footer-masked.footer3 {
-  -webkit-mask-image: url("../img/footer-works-3.svg");
-  mask-image: url("../img/footer-works-3.svg");
+  -webkit-mask-image: url("../svg/footer-works-3.svg");
+  mask-image: url("../svg/footer-works-3.svg");
 }
 body.work footer .footer-bottom-full,
 body.work footer .footer-bottom-cut {
   height: 5.33vw;
-  -webkit-mask-image: url("../img/footer-works_lets-build.svg");
-  mask-image: url("../img/footer-works_lets-build.svg");
+  -webkit-mask-image: url("../svg/footer-works-lets-build.svg");
+  mask-image: url("../svg/footer-works-lets-build.svg");
 }
 body.work footer .footer-bottom-mask {
   left: 0;
@@ -698,8 +698,8 @@ body.work footer .footer-bottom-mask {
   mask-position: left top;
 }
 body.work footer .footer-bottom-mask {
-  -webkit-mask-image: url("../img/footer-works-mask.svg");
-  mask-image: url("../img/footer-works-mask.svg");
+  -webkit-mask-image: url("../svg/footer-works-mask.svg");
+  mask-image: url("../svg/footer-works-mask.svg");
 }
 body.work footer .footer-bottom-cut {
   left: 0;
@@ -712,16 +712,16 @@ body.work footer .footer-ink {
   mask-position: center bottom;
 }
 body.work footer .footer-ink.footer1 {
-  -webkit-mask-image: url("../img/footer-works-1.svg");
-  mask-image: url("../img/footer-works-1.svg");
+  -webkit-mask-image: url("../svg/footer-works-1.svg");
+  mask-image: url("../svg/footer-works-1.svg");
 }
 body.work footer .footer-ink.footer2 {
-  -webkit-mask-image: url("../img/footer-works-2.svg");
-  mask-image: url("../img/footer-works-2.svg");
+  -webkit-mask-image: url("../svg/footer-works-2.svg");
+  mask-image: url("../svg/footer-works-2.svg");
 }
 body.work footer .footer-ink.footer3 {
-  -webkit-mask-image: url("../img/footer-works-3.svg");
-  mask-image: url("../img/footer-works-3.svg");
+  -webkit-mask-image: url("../svg/footer-works-3.svg");
+  mask-image: url("../svg/footer-works-3.svg");
 }
 
 /* NAV-WORK */

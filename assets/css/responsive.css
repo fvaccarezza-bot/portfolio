@@ -390,11 +390,11 @@
   }
   #services .services-container .services-buttons .buttons1 a {
     width: 156px;
-    background-image: url(../img/services-button1-mob.png);
+    background-image: url(../images/home/services-button1-mob.png);
   }
   #services .services-container .services-buttons a.buttons2 {
     width: 341px;
-    background-image: url(../img/button-mob.png);
+    background-image: url(../images/home/button-mob.png);
   }
   #services h4 {
     margin-top: 120px;
@@ -445,7 +445,7 @@
   }
   footer#contact .btn {
     width: 341px;
-    background-image: url(../img/button-mob.png);
+    background-image: url(../images/home/button-mob.png);
   }
   footer#contact .socials,
   body.work footer .socials {
@@ -458,38 +458,38 @@
     padding: 155px 0 88.22vw !important;
   }
   footer#contact .footer-masked.footer1 {
-    -webkit-mask-image: url("../img/footer-1-mob.svg");
-    mask-image: url("../img/footer-1-mob.svg");
+    -webkit-mask-image: url("../svg/footer-1-mob.svg");
+    mask-image: url("../svg/footer-1-mob.svg");
   }
   footer#contact .footer-masked.footer2 {
-    -webkit-mask-image: url("../img/footer-2-mob.svg");
-    mask-image: url("../img/footer-2-mob.svg");
+    -webkit-mask-image: url("../svg/footer-2-mob.svg");
+    mask-image: url("../svg/footer-2-mob.svg");
   }
   footer#contact .footer-masked.footer3 {
-    -webkit-mask-image: url("../img/footer-3-mob.svg");
-    mask-image: url("../img/footer-3-mob.svg");
+    -webkit-mask-image: url("../svg/footer-3-mob.svg");
+    mask-image: url("../svg/footer-3-mob.svg");
   }
   footer#contact .footer-bottom-full,
   footer#contact .footer-bottom-cut {
     height: 87.22vw;
-    -webkit-mask-image: url("../img/footer_lets-build-mob.svg");
-    mask-image: url("../img/footer_lets-build-mob.svg");
+    -webkit-mask-image: url("../svg/footer-lets-build-mob.svg");
+    mask-image: url("../svg/footer-lets-build-mob.svg");
   }
   footer#contact .footer-bottom-mask {
-    -webkit-mask-image: url("../img/footer-2-mask-mob.svg");
-    mask-image: url("../img/footer-2-mask-mob.svg");
+    -webkit-mask-image: url("../svg/footer-2-mask-mob.svg");
+    mask-image: url("../svg/footer-2-mask-mob.svg");
   }
   footer#contact .footer-ink.footer1 {
-    -webkit-mask-image: url("../img/footer-1-mob.svg");
-    mask-image: url("../img/footer-1-mob.svg");
+    -webkit-mask-image: url("../svg/footer-1-mob.svg");
+    mask-image: url("../svg/footer-1-mob.svg");
   }
   footer#contact .footer-ink.footer2 {
-    -webkit-mask-image: url("../img/footer-2-mob.svg");
-    mask-image: url("../img/footer-2-mob.svg");
+    -webkit-mask-image: url("../svg/footer-2-mob.svg");
+    mask-image: url("../svg/footer-2-mob.svg");
   }
   footer#contact .footer-ink.footer3 {
-    -webkit-mask-image: url("../img/footer-3-mob.svg");
-    mask-image: url("../img/footer-3-mob.svg");
+    -webkit-mask-image: url("../svg/footer-3-mob.svg");
+    mask-image: url("../svg/footer-3-mob.svg");
   }
 
   /****/
@@ -588,38 +588,38 @@
     margin-top: -100vw !important;
   }
   body.work footer .footer-masked.footer1 {
-    -webkit-mask-image: url("../img/footer-works-1-mob.svg");
-    mask-image: url("../img/footer-works-1-mob.svg");
+    -webkit-mask-image: url("../svg/footer-works-1-mob.svg");
+    mask-image: url("../svg/footer-works-1-mob.svg");
   }
   body.work footer .footer-masked.footer2 {
-    -webkit-mask-image: url("../img/footer-works-2-mob.svg");
-    mask-image: url("../img/footer-works-2-mob.svg");
+    -webkit-mask-image: url("../svg/footer-works-2-mob.svg");
+    mask-image: url("../svg/footer-works-2-mob.svg");
   }
   body.work footer .footer-masked.footer3 {
-    -webkit-mask-image: url("../img/footer-works-3-mob.svg");
-    mask-image: url("../img/footer-works-3-mob.svg");
+    -webkit-mask-image: url("../svg/footer-works-3-mob.svg");
+    mask-image: url("../svg/footer-works-3-mob.svg");
   }
   body.work footer .footer-bottom-full,
   body.work footer .footer-bottom-cut {
     height: 187.22vw;
-    -webkit-mask-image: url("../img/footer_lets-build-mob.svg");
-    mask-image: url("../img/footer_lets-build-mob.svg");
+    -webkit-mask-image: url("../svg/footer-lets-build-mob.svg");
+    mask-image: url("../svg/footer-lets-build-mob.svg");
   }
   body.work footer .footer-bottom-mask {
-    -webkit-mask-image: url("../img/footer-works-mask-mob.svg");
-    mask-image: url("../img/footer-works-mask-mob.svg");
+    -webkit-mask-image: url("../svg/footer-works-mask-mob.svg");
+    mask-image: url("../svg/footer-works-mask-mob.svg");
   }
   body.work footer .footer-ink.footer1 {
-    -webkit-mask-image: url("../img/footer-works-1-mob.svg");
-    mask-image: url("../img/footer-works-1-mob.svg");
+    -webkit-mask-image: url("../svg/footer-works-1-mob.svg");
+    mask-image: url("../svg/footer-works-1-mob.svg");
   }
   body.work footer .footer-ink.footer2 {
-    -webkit-mask-image: url("../img/footer-works-2-mob.svg");
-    mask-image: url("../img/footer-works-2-mob.svg");
+    -webkit-mask-image: url("../svg/footer-works-2-mob.svg");
+    mask-image: url("../svg/footer-works-2-mob.svg");
   }
   body.work footer .footer-ink.footer3 {
-    -webkit-mask-image: url("../img/footer-works-3-mob.svg");
-    mask-image: url("../img/footer-works-3-mob.svg");
+    -webkit-mask-image: url("../svg/footer-works-3-mob.svg");
+    mask-image: url("../svg/footer-works-3-mob.svg");
   }
 
   /* WORK PROJECTS */
@@ -925,7 +925,7 @@
   .modal-simple a.close {
     width: 341px;
     min-height: 41px;
-    background-image: url(../img/button-mob.png);
+    background-image: url(../images/home/button-mob.png);
   }
   .modal-simple.submmodal a.submodal-close {
     display: none;
