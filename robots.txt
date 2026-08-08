@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /index.backup.html
-Disallow: /testimonials/
 
 Sitemap: https://fvaccarezza.com/sitemap.xml

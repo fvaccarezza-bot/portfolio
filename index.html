@@ -15,6 +15,7 @@
 <meta name="description" content="I'm based in Tigre, Argentina, and I spent several years studying at the University of Buenos Aires (UBA), switching from industrial to graphic design." />
 <meta name="Federico Vaccarezza" content="fvaccarezza.com" />
 <link rel="canonical" href="https://fvaccarezza.com/" />
+<meta property="og:url" content="https://fvaccarezza.com/" />
 <meta property="og:image" content="https://fvaccarezza.com/assets/images/home/thumb.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -53,6 +54,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 @media (min-width: 2560px) { :root { --fv-caps: 15px; --fv-body: 16px; } }
 @media (min-resolution: 2dppx) and (max-width: 2559px) { :root { --fv-caps: 12px; --fv-body: 14px; } }
 @media (min-width: 769px) and (max-width: 2559px) { #testimonials-section { margin-bottom: 150px; } }
+@media (min-width: 769px) and (max-width: 2559px) { #contact { margin-top: -200px !important; } }
 
 .name-reveal-mask { display:flex; justify-content:center; overflow:hidden; }
 .name-reveal-mask:has(#line-federico) { margin-bottom: 0px; }
@@ -441,6 +443,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 #hero-meta-location:hover .meta-loc-coords { opacity: 1; }
 #noise-overlay { display: none; }
 @media (min-resolution: 2dppx) {
+    #contact { margin-top: -300px !important; }
     #deck-guidelines-frame { width: 1200px !important; max-width: 1200px !important; }
     #deck-guidelines { width: 1200px !important; max-width: 1200px !important; }
     #fede-photo-wrap { flex-basis: 280px !important; }

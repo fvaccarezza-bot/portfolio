@@ -1,0 +1,26 @@
+# ─────────────────────────────────────────────────────────────
+# SEO / canonical URL normalisation
+# Host: Hostinger (LiteSpeed). HTTP -> HTTPS is already forced at
+# the panel level, so it is intentionally NOT duplicated here.
+#
+# If Hostinger generates its own rules on the server, keep them and
+# paste this block ABOVE them. Do not remove existing directives.
+# ─────────────────────────────────────────────────────────────
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # 1. www -> non-www (301), preserving the full path and query string.
+  #    Target host has no "www", so this cannot loop.
+  RewriteCond %{HTTP_HOST} ^www\.fvaccarezza\.com$ [NC]
+  RewriteRule ^(.*)$ https://fvaccarezza.com/$1 [R=301,L,QSA]
+
+  # 2. /index.html -> /
+  #    Matched against THE_REQUEST so the internal DirectoryIndex
+  #    rewrite for "/" does not re-trigger this rule (no loop).
+  RewriteCond %{THE_REQUEST} \s/+index\.html[\s?] [NC]
+  RewriteRule ^index\.html$ / [R=301,L]
+
+  # 3. Legacy URL kept alive after the ui-ux -> product rename.
+  RewriteRule ^work/ui-ux/?$ /work/product/ [R=301,L]
+</IfModule>
