@@ -88,10 +88,19 @@
     window.__preloaderDone = true;
     document.dispatchEvent(new CustomEvent("preloader:done"));
   };
+  // Fired the instant the exit sweep starts, ~1s before 'preloader:done'.
+  // Lets the hero rise while the loader is still sweeping away instead of
+  // waiting for the loader to be fully torn down.
+  const signalLeaving = () => {
+    if (window.__preloaderLeaving) return;
+    window.__preloaderLeaving = true;
+    document.dispatchEvent(new CustomEvent("preloader:leaving"));
+  };
   const cleanup = () => {
     preloader?.remove();
     underlay?.remove();
     document.documentElement.classList.remove("no-scroll");
+    signalLeaving();
     signalDone();
   };
   const finish = () => {
@@ -102,6 +111,7 @@
     }
     preloader.classList.add("is-done");
     if (underlay) underlay.classList.add("is-done");
+    signalLeaving();
     if (underlay) {
       underlay.addEventListener("animationend", (e) => {
         if (e.animationName !== "underlay-out") return;

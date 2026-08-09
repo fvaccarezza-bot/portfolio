@@ -56,15 +56,18 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 @media (min-width: 769px) and (max-width: 2559px) { #testimonials-section { margin-bottom: 150px; } }
 @media (min-width: 769px) and (max-width: 2559px) { #contact { margin-top: -200px !important; } }
 
-/* ── Hero craft.png — DESKTOP ONLY ────────────────────────────────────────────
+/* ── Hero craft.png — DESKTOP (769–2559, non-retina) ──────────────────────────
    Hidden by default, switched on only inside the desktop range, and switched off
-   again in the retina block below. UW (>=2560), retina and mobile never see it.
+   again in the retina block below. Mobile and desktop-retina never see it;
+   UW (>=2560) gets craft-uw.png from its own block after the retina block.
    No width/height here on purpose: the image renders at its intrinsic 1137x466.
    ADJUST HERE: top / left are the only knobs for placement. */
 #hero-craft { display: none; }
 @media (min-width: 769px) and (max-width: 2559px) {
-    #hero-craft { display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; z-index: 12; mix-blend-mode: hard-light; opacity: 0; transition: opacity 0.7s ease; }
+    #hero-craft { display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)); pointer-events: none; z-index: 12; mix-blend-mode: hard-light; opacity: 0; transition: opacity 0.7s ease; }
     #hero-craft.is-in { opacity: 0.8; }
+    /* Entrance done: drop transform from the transition so the parallax tracks scroll 1:1. */
+    #hero-craft.craft-settled { transition: opacity 0.7s ease; }
 }
 
 .name-reveal-mask { display:flex; justify-content:center; overflow:hidden; }
@@ -398,7 +401,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .ol-menu-contact-links { display: flex; flex-direction: column; align-items: center; gap: 30px; }
     .ol-menu-contact-links a { font-family: 'PP Telegraf', sans-serif; font-size: 14px; font-weight: 400; letter-spacing: 0.5em; text-transform: uppercase; color: #3A3A39; text-decoration: none; }
     /* CALL ME / WRITE ME are now normal menu items (same block = same reveal) — pushed near the bottom */
-    .ol-contact-li.ol-contact-first { margin-top: 190px !important; }
+    .ol-contact-li.ol-contact-first { margin-top: 240px !important; }
     /* entrance mirrors the exit: comes DOWN from above with fade + blur */
     @keyframes olItemDropIn { from { opacity: 0; transform: translateY(-28px); filter: blur(12px); } to { opacity: 1; transform: translateY(0); filter: blur(0); } }
     body.tt-ol-menu-open .tt-ol-menu-list > li { animation: olItemDropIn 0.75s cubic-bezier(0.22,1,0.36,1) both; }
@@ -515,6 +518,19 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #stickers-outer { padding-bottom: 10px !important; }
     #trusted-by-section { padding-top: 50px !important; }
     #trusted-by-row { transform: translateY(-50px) !important; }
+}
+
+/* ── Hero craft-uw.png — UW ONLY (>=2560) ─────────────────────────────────────
+   Mirrors the desktop craft.png block above (same placement, blend, opacity and
+   transition); only the asset differs (1167x478 vs 778x319, same aspect).
+   Declared AFTER the retina block on purpose: that block hides #hero-craft
+   unconditionally, so this has to come later to win on a HiDPI ultrawide.
+   ADJUST HERE: top / left are the only knobs for placement. */
+@media (min-width: 2560px) {
+    #hero-craft { display: block !important; position: absolute; top: calc(50% + 40px); left: 50%; transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) scale(1.04); pointer-events: none; z-index: 12; mix-blend-mode: hard-light; opacity: 0; filter: blur(16px); transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1), filter 1.8s cubic-bezier(0.22, 1, 0.36, 1), transform 1.8s cubic-bezier(0.22, 1, 0.36, 1); }
+    #hero-craft.is-in { opacity: 0.8; filter: blur(0); transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) scale(1); }
+    /* Entrance done: drop transform from the transition so the parallax tracks scroll 1:1. */
+    #hero-craft.craft-settled { transition: opacity 1.4s cubic-bezier(0.22, 1, 0.36, 1), filter 1.8s cubic-bezier(0.22, 1, 0.36, 1); }
 }
 </style>
 <link rel="preload" href="./assets/fonts/PPTelegraf-Regular.woff2" as="font" type="font/woff2" crossorigin />
@@ -645,21 +661,43 @@ document.addEventListener('click', function(e) {
                                 </span>
                             </a>
                             <!-- DESKTOP ONLY. src is set from JS so mobile / retina / UW never request it. -->
-                            <img id="hero-craft" alt="" aria-hidden="true" data-src="./assets/images/home/craft.png" />
+                            <img id="hero-craft" alt="" aria-hidden="true" data-src="./assets/images/home/craft.png" data-src-uw="./assets/images/home/craft-uw.png" />
                         </h1>
                         <script>
-                        /* Fades craft.png in once the hero reveal has finished — desktop only
-                           (769–2559px, non-retina), mirroring the CSS gate.
+                        /* Fades the craft image in once the hero reveal has finished, mirroring
+                           the CSS gates: 769–2559px non-retina uses craft.png, >=2560 (UW) uses
+                           craft-uw.png at any DPI. Mobile never loads either.
                            _heroParallaxReady is set by the existing hero reveal on its last tween,
                            so this stays in step with it without touching that code. */
                         (function () {
                             var el = document.getElementById('hero-craft');
                             if (!el) return;
                             var w = window.innerWidth;
-                            if (w < 769 || w > 2559) return;
-                            if (window.matchMedia && window.matchMedia('(min-resolution: 2dppx)').matches) return;
-                            el.src = el.getAttribute('data-src');
-                            function show() { el.classList.add('is-in'); }
+                            if (w < 769) return;
+                            var isUW = w >= 2560;
+                            if (!isUW && window.matchMedia && window.matchMedia('(min-resolution: 2dppx)').matches) return;
+                            el.src = el.getAttribute(isUW ? 'data-src-uw' : 'data-src');
+
+                            /* Parallax: #hero-craft lives inside #page-header, which theme.js
+                               drags up at 0.025px per scrolled px (heroH * -0.5 spread over
+                               heroH * 20). Pushing back down by part of that makes the craft
+                               drift slower than the hero instead of locked to it.
+                               ADJUST HERE: 1 = same speed as the hero, 0 = pinned to viewport. */
+                            var CRAFT_SPEED = 0.45;
+                            var HERO_RATE = 0.025;
+                            var drift = HERO_RATE * (1 - CRAFT_SPEED);
+                            function startParallax() {
+                                var sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
+                                if (!sb) return;
+                                sb.addListener(function (status) {
+                                    el.style.setProperty('--craft-parallax', (status.offset.y * drift).toFixed(2) + 'px');
+                                });
+                            }
+                            function show() {
+                                el.classList.add('is-in');
+                                // Let the entrance finish before handing transform over to the parallax.
+                                setTimeout(function () { el.classList.add('craft-settled'); startParallax(); }, 1900);
+                            }
                             var poll = setInterval(function () {
                                 if (!window._heroParallaxReady) return;
                                 clearInterval(poll);
@@ -711,10 +749,12 @@ document.addEventListener('click', function(e) {
                is already laid out. This only drives the staggered reveal — same order,
                same delays (160/320/480/640/1200ms), same blur+scale behaviour.
 
-               It waits on the real 'preloader:done' event dispatched from preload.js
-               when the exit animation finishes, replacing the MutationObserver that
-               could never fire (the preloader exits via transform, never via
-               opacity/display/visibility) and its blind 1800ms fallback. */
+               It waits on 'preloader:leaving' (dispatched the instant the exit sweep
+               starts), with 'preloader:done' as a fallback. Both replace the
+               MutationObserver that could never fire (the preloader exits via
+               transform, never via opacity/display/visibility) and its blind 1800ms
+               fallback. Hooking 'leaving' instead of 'done' removes ~1s of dead time:
+               'done' only lands after underlay-out (220ms delay + 800ms) completes. */
             (function () {
                 if (window.innerWidth > 768) return;
                 var revealed = false;
@@ -749,8 +789,14 @@ document.addEventListener('click', function(e) {
                 }
                 window.__revealMobileHero = revealMobileHero;
                 if (document.getElementById('preloader')) {
-                    if (window.__preloaderDone) revealMobileHero();
-                    else document.addEventListener('preloader:done', revealMobileHero, { once: true });
+                    // 'preloader:leaving' fires when the exit sweep starts; 'preloader:done'
+                    // only fires ~1s later once the loader is torn down. Hook the early one
+                    // so the hero rises alongside the sweep instead of after it.
+                    if (window.__preloaderLeaving || window.__preloaderDone) revealMobileHero();
+                    else {
+                        document.addEventListener('preloader:leaving', revealMobileHero, { once: true });
+                        document.addEventListener('preloader:done', revealMobileHero, { once: true });
+                    }
                     // Safety net only: preload.js caps itself at 2800ms, so this should
                     // never be what fires. It exists so a failed animation cannot leave
                     // the hero permanently at opacity 0.
