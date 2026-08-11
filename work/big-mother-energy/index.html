@@ -218,6 +218,7 @@
           .mob-footer-socials a { display:inline-flex !important; }
           .mob-footer-text { position:relative; z-index:4; width:100%; display:flex !important; flex-direction:column; align-items:center; gap:8px; padding:0; padding-bottom:env(safe-area-inset-bottom); margin:0; line-height:0; }
           .mob-footer-clip { overflow:hidden; display:flex; justify-content:center; line-height:0; }
+          #footer-shape-left, #footer-shape-right { display: none !important; }
           .mob-footer-word { display:block; height:80px; width:auto; transform:translateY(110%); transition:transform 1.1s cubic-bezier(0.76,0,0.24,1); }
           .mob-footer-word.in-view { transform:translateY(0); }
 
@@ -1035,7 +1036,7 @@
                   }, { threshold: 0.05 });
                   footerClips.forEach(function(clip) { fo.observe(clip); });
               }
-              var sl = document.getElementById('footer-shape-left'), sr = document.getElementById('footer-shape-right');
+              var sl = null /* hidden on mobile: no parallax */, sr = null;
               if (sl || sr) {
                   window.addEventListener('scroll', function() {
                       if (sl) { var rL = sl.getBoundingClientRect(); sl.style.transform = 'translateY(' + ((rL.top + rL.height/2 - window.innerHeight/2) * 0.12) + 'px)'; }
