@@ -12,6 +12,11 @@
     baseWRetina: 1400,
     requireFinePointer: true,
     htmlOnClass: "ui-scale-on",
+    /* Set ONLY while the layout is actually being scaled down (scale < 1), i.e.
+       at the in-between widths. At the target resolutions scale is exactly 1, so
+       anything hanging off this class is absent there rather than applied as a
+       no-op. */
+    htmlFitClass: "ui-scale-fit",
     rootSelector: "#scroll-container",
     eps: 0.0005,
   };
@@ -54,6 +59,7 @@
 
   function disable() {
     html.classList.remove(CFG.htmlOnClass);
+    html.classList.remove(CFG.htmlFitClass);
     delete html.dataset.uiScale;
     delete html.dataset.uiBasew;
     clearVars();
@@ -67,6 +73,8 @@
     if (!html.classList.contains(CFG.htmlOnClass)) {
       html.classList.add(CFG.htmlOnClass);
     }
+
+    html.classList.toggle(CFG.htmlFitClass, scale < 1 - CFG.eps);
 
     setVar("--uiBaseW", String(baseW));
     setVar("--uiScale", scale.toFixed(6));
@@ -102,19 +110,43 @@
     enable(baseW, scale);
   }
 
+  /* Scheduling only — this decides WHEN computeAndApply runs, never what it
+     computes. The old version parked the pending frame id in `raf` and returned
+     early on every later call; `raf` was cleared only from inside the callback,
+     so a frame that never arrived left it latched forever and every later
+     resize / matchMedia / ResizeObserver / pageshow event was dropped silently.
+     That is how the page got stuck at an old --uiScale and never recovered when
+     the window was widened again. rAF still does the coalescing; the timeout is
+     purely a backstop for the frame that never comes. */
   let raf = 0;
+  let safety = 0;
+
+  function apply() {
+    if (raf) cancelAnimationFrame(raf);
+    if (safety) clearTimeout(safety);
+
+    raf = 0;
+    safety = 0;
+
+    computeAndApply();
+  }
+
   function requestUpdate() {
-    if (raf) return;
-    raf = requestAnimationFrame(() => {
-      raf = 0;
-      computeAndApply();
-    });
+    if (!raf) {
+      raf = requestAnimationFrame(apply);
+    }
+
+    clearTimeout(safety);
+    safety = setTimeout(apply, 250);
   }
 
   window.addEventListener("resize", requestUpdate, { passive: true });
   window.addEventListener("orientationchange", requestUpdate, { passive: true });
   window.addEventListener("pageshow", requestUpdate, { passive: true });
   window.addEventListener("load", requestUpdate, { passive: true });
+  /* Resizing while the tab is hidden is one way to get a resize event with no
+     frame behind it; re-check on the way back in. */
+  document.addEventListener("visibilitychange", requestUpdate);
 
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(requestUpdate).catch(() => {});

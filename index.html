@@ -143,6 +143,36 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     body.tt-boxed .tt-wrap > * { min-width: 0; max-width: 100%; }
 }
 
+/* ── Hero at in-between widths ────────────────────────────────────────────────
+   theme.js hoists #page-header out of #scroll-container and pins it fixed, so
+   the `transform: scale(var(--uiScale))` that shrinks the rest of the page never
+   reaches it: at 1440 the site renders at 83% while the hero stays at 100%.
+   Hand the hero caption the same factor, and freeze its box at the width it
+   already measures at the targets — that also keeps the two name SVGs scaling
+   together (below ~1215px only VACCAREZZA, 1215 intrinsic, was hitting
+   max-width:100%, squashing it toward FEDERICO's 920: the width ratio fell from
+   1.321 to 1.087 by 1000px).
+   `zoom`, not `transform`: a transform here would open a stacking context and
+   #hero-craft blends (hard-light) against the bg images OUTSIDE this element.
+   html.ui-scale-fit is set by ui-scale.js only while --uiScale < 1, so at the
+   Normal / Retina / UW targets this rule is absent, not applied as scale(1). */
+html.ui-scale-fit #page-header .page-header-inner {
+    /* --retinaScale is retina-80.css's own 1 / 0.8, so this resolves to the
+       1320px the wrap measures at the desktop targets and the 1056px it
+       measures at the retina ones — no jump when crossing either base width. */
+    width: calc(1320px * var(--retinaScale, 1));
+    max-width: none;
+    flex-shrink: 0;
+    zoom: var(--uiScale);
+}
+/* fede.css caps .home-title at 100vw. Viewport units ignore the zoom above, so
+   that cap would re-impose the raw viewport width on the frozen box above and
+   squash VACCAREZZA again. The box it sits in is already bounded by the caption,
+   so the cap has nothing left to do in here. */
+html.ui-scale-fit #page-header .hover-fv .home-title {
+    max-width: none;
+}
+
 /* FAQ block 1: the first column is sized by the headline SVGs. `max-content`
    could never shrink, so the grid kept its widest intrinsic size forever. */
 #faq-section .faq-block-wrap { grid-template-columns: minmax(0, max-content) 1fr; }
