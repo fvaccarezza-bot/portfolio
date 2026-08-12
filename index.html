@@ -512,7 +512,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 #hero-meta-location:hover .meta-loc-coords { opacity: 1; }
 #noise-overlay { display: none; }
 @media (min-resolution: 2dppx) {
-    #hero-craft { display: none !important; } /* craft.svg is desktop-only */
     #contact { margin-top: -300px !important; }
     #deck-guidelines-frame { width: 1200px !important; max-width: 1200px !important; }
     #deck-guidelines { width: 1200px !important; max-width: 1200px !important; }
@@ -533,10 +532,6 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #desk-work { height: 110px !important; width: auto !important; max-width: 1320px !important; }
     #testi-phrase-img { height: 110px !important; width: auto !important; max-width: 1320px !important; }
     .hover-fv { transform: translateY(10px); }
-    /* Desktop-normal only changes above are reverted here so retina stays as it was. */
-    #services-with { display: none !important; }
-    .sb-tag-parallax { display: block !important; }
-    .sb-tag-parallax { transform: translateY(-20px) scale(0.8) !important; }
     .services-grid, .services-btns { transform: translateY(-125px) !important; }
     .services-btns-connect { height: 36px !important; width: 350px !important; max-width: 350px !important; }
     #footer-bg-orange { width: 100vw !important; left: 50% !important; margin-left: -50vw !important; }
@@ -573,6 +568,18 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     #stickers-outer { padding-bottom: 10px !important; }
     #trusted-by-section { padding-top: 50px !important; }
     #trusted-by-row { transform: translateY(-50px) !important; }
+}
+
+/* ── Hero craft.svg + services with.svg — RETINA, desktop width (769-2559) ────
+   Mirrors the desktop-normal blocks above (same placement/blend/opacity/transition),
+   just re-enabled for retina instead of being hidden. UW keeps its own blocks below,
+   which come later and win on a HiDPI ultrawide regardless of this. */
+@media (min-resolution: 2dppx) and (min-width: 769px) and (max-width: 2559px) {
+    #services-with { display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: auto !important; height: auto !important; max-width: none; pointer-events: none; z-index: 3; mix-blend-mode: hard-light; opacity: 0.8; }
+    .sb-tag-parallax { display: none; }
+    #hero-craft { display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) scale(1.2) scale(var(--craft-scale, 1)); pointer-events: none; z-index: 12; mix-blend-mode: hard-light; opacity: 0; filter: blur(16px); transition: opacity 1.9s cubic-bezier(0.22, 1, 0.36, 1), filter 6s cubic-bezier(0.22, 1, 0.36, 1), transform 6s cubic-bezier(0.22, 1, 0.36, 1); }
+    #hero-craft.is-in { opacity: 0.8; filter: blur(0); transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) scale(1) scale(var(--craft-scale, 1)); }
+    #hero-craft.craft-settled { transition: opacity 1.9s cubic-bezier(0.22, 1, 0.36, 1), filter 6s cubic-bezier(0.22, 1, 0.36, 1), --craft-scale 20s ease-in-out; }
 }
 
 /* ── Hero craft-uw.svg — UW ONLY (>=2560) ─────────────────────────────────────
@@ -733,7 +740,7 @@ document.addEventListener('click', function(e) {
                                 </span>
                             </a>
                             <!-- DESKTOP ONLY. src is set from JS so mobile / retina / UW never request it. -->
-                            <img id="hero-craft" alt="" aria-hidden="true" data-src="./assets/svg/craft.svg" data-src-uw="./assets/svg/craft-uw.svg" />
+                            <img id="hero-craft" alt="" aria-hidden="true" data-src="./assets/svg/craft.svg" data-src-rt="./assets/svg/craft-rt.svg" data-src-uw="./assets/svg/craft-uw.svg" />
                         </h1>
                         <script>
                         /* Fades the craft image in once the hero reveal has finished, mirroring
@@ -747,8 +754,8 @@ document.addEventListener('click', function(e) {
                             var w = window.innerWidth;
                             if (w < 769) return;
                             var isUW = w >= 2560;
-                            if (!isUW && window.matchMedia && window.matchMedia('(min-resolution: 2dppx)').matches) return;
-                            el.src = el.getAttribute(isUW ? 'data-src-uw' : 'data-src');
+                            var isRetina = !isUW && window.matchMedia && window.matchMedia('(min-resolution: 2dppx)').matches;
+                            el.src = el.getAttribute(isUW ? 'data-src-uw' : (isRetina ? 'data-src-rt' : 'data-src'));
 
                             /* Parallax: #hero-craft lives inside #page-header, which theme.js
                                drags up at 0.025px per scrolled px (heroH * -0.5 spread over
@@ -772,7 +779,7 @@ document.addEventListener('click', function(e) {
                                    transition list, so firing early would snap the zoom mid-flight.
                                    UW runs the long 6s blur+zoom pair; normal desktop only has the
                                    2.1s zoom, so it doesn't need to wait as long. */
-                                var settleAfter = isUW ? 6200 : 2300;
+                                var settleAfter = (isUW || isRetina) ? 6200 : 2300;
                                 setTimeout(function () {
                                     el.classList.add('craft-settled');
                                     startParallax();
@@ -1017,7 +1024,7 @@ document.addEventListener('click', function(e) {
                     <img class="sb-line2" src="./assets/svg/services-2.svg" alt="" />
                     <img class="sb-line3" src="./assets/svg/services-3.svg" alt="" />
                     <!-- Centered over the phrase. Desktop-normal only; intrinsic 1092x674, no scaling. -->
-                    <img id="services-with" src="./assets/svg/with.svg" data-src-uw="./assets/svg/with-uw.svg" alt="" aria-hidden="true" />
+                    <img id="services-with" src="./assets/svg/with.svg" data-src-rt="./assets/svg/with-rt.svg" data-src-uw="./assets/svg/with-uw.svg" alt="" aria-hidden="true" />
                     <div class="sb-tag-parallax">
                         <div class="sb-tag">
                             <img class="sb-tag1" src="./assets/svg/services-tag-1.svg" alt="" />
@@ -2019,16 +2026,16 @@ window.addEventListener('load', () => {
                     gsap.to(el, { filter: 'blur(0px)', duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger:servicesBig, start:'top bottom', toggleActions:'play none none none' } });
                 });
                 /* with.svg: very subtle upward drift as the section passes. Gated to
-                   match its CSS rules: desktop-normal (769–2559, non-retina) uses
-                   with.svg, UW (>=2560) uses with-uw.svg at any DPI. The outer guard
-                   here is only > 768, which would otherwise also catch retina.
+                   match its CSS rules: desktop width (769–2559, retina or not) uses
+                   with.svg, UW (>=2560) uses with-uw.svg at any DPI.
                    ADJUST HERE: the y value. The phrase lines move -180/-120/-70, so
                    anything well under -70 reads as slower than the text behind it. */
                 const withEl = servicesBig.querySelector('#services-with');
                 const isUWWith = window.innerWidth >= 2560;
-                const withOnNormalDesktop = window.innerWidth <= 2559 &&
-                    !(window.matchMedia && window.matchMedia('(min-resolution: 2dppx)').matches);
+                const isRetinaWith = !isUWWith && window.matchMedia && window.matchMedia('(min-resolution: 2dppx)').matches;
+                const withOnNormalDesktop = window.innerWidth <= 2559;
                 if (withEl && isUWWith) withEl.src = withEl.getAttribute('data-src-uw') || withEl.src;
+                else if (withEl && isRetinaWith) withEl.src = withEl.getAttribute('data-src-rt') || withEl.src;
                 if (withEl && (withOnNormalDesktop || isUWWith)) {
                     /* On UW, .services-big is transform:scale(1.5), which would blow the
                        image up with it. Cancel that here so with-uw.svg renders at exactly
