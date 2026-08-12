@@ -84,8 +84,9 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 }
 #hero-craft { display: none; }
 @media (min-width: 769px) and (max-width: 2559px) {
-    #hero-craft { display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) scale(1.2) scale(var(--craft-scale, 1)); pointer-events: none; z-index: 12; mix-blend-mode: hard-light; opacity: 0; transition: opacity 1.1s ease, transform 2.1s cubic-bezier(0.22, 1, 0.36, 1); }
-    #hero-craft.is-in { opacity: 0.8; transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) scale(1) scale(var(--craft-scale, 1)); }
+    /* No width/height: renders at whatever intrinsic size craft.svg is exported at. */
+    #hero-craft { display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) scale(1.2) scale(var(--craft-scale, 1)); pointer-events: none; z-index: 12; mix-blend-mode: hard-light; opacity: 0; filter: blur(20px); transition: opacity 1.1s ease, transform 2.1s cubic-bezier(0.22, 1, 0.36, 1), filter 2.1s cubic-bezier(0.22, 1, 0.36, 1); }
+    #hero-craft.is-in { opacity: 0.8; filter: blur(0); transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) scale(1) scale(var(--craft-scale, 1)); }
     /* Entrance done: drop transform from the transition so the parallax tracks scroll 1:1,
        and open a very slow lane for --craft-scale so the image keeps breathing. */
     #hero-craft.craft-settled { transition: opacity 1.1s ease, --craft-scale 20s ease-in-out; }
@@ -389,7 +390,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .mob-workflow-wrap { display: flex !important; flex-direction: column; align-items: center; width: 100%; padding: 40px 0 100px; }
     .mob-process-list { display: flex; flex-direction: column; align-items: center; width: 92vw; max-width: 340px; margin: 48px auto 0; }
     .mob-process-step { display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; }
-    .mob-process-step:not(:last-child)::after { content: ''; display: block; width: 50px; height: 1px; background: #DADADA; margin: 32px auto 32px; }
+    .mob-process-step:not(:last-child)::after { content: ''; display: block; width: 50px; height: 1px; background: #979797; margin: 32px auto 32px; }
     .mob-process-num { font-family: 'PP Telegraf', sans-serif; font-size: 32px; font-weight: 800; color: #FF6600; line-height: 1; margin-bottom: 16px; }
     .mob-process-label { font-family: 'PP Telegraf', sans-serif; font-size: 14px; font-weight: 400; letter-spacing: 0.4em; text-transform: uppercase; color: #3A3A39; margin: 0 0 8px; }
     .mob-process-desc { font-family: 'PP Telegraf', sans-serif; font-size: 15px; font-weight: 400; color: #979797; margin: 0; line-height: 1.6; max-width: 280px; }
@@ -472,7 +473,10 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 }
 @media (max-width: 768px) {
     .mob-footer { display: flex !important; flex-direction: column; align-items: center; width: 100%; position: relative; overflow: visible; background: transparent; padding: 0; box-sizing: border-box; isolation: auto; z-index: 1; }
-    .mob-footer-shapes { position: absolute; top: -80px; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 3; overflow: visible; }
+    /* Same compositing hint as .mob-footer-text below, applied here too: this wraps
+       the orange background shape, a full-width rasterized surface and the more
+       likely candidate for the "flashes white" repaint than the small word SVGs. */
+    .mob-footer-shapes { position: absolute; top: -80px; left: 0; right: 0; bottom: 0; pointer-events: none; z-index: 3; overflow: visible; transform: translateZ(0); -webkit-transform: translateZ(0); }
     .mob-footer-shape-orange { position: absolute; bottom: 0; left: 0; width: 100vw; height: auto; z-index: 0; }
     .mob-footer-shape-left  { position: absolute; bottom: 0; left: 0; height: auto; z-index: 1; mix-blend-mode: plus-lighter; }
     .mob-footer-shape-right { position: absolute; top: -100px; right: 0; height: auto; z-index: 1; mix-blend-mode: plus-lighter; }
@@ -484,7 +488,11 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
     .mob-footer-socials { display: flex !important; gap: 24px; align-items: center; }
     .mob-footer-socials img { display: block !important; width: 28px; height: 28px; filter: none; }
     .mob-footer-socials a { display: inline-flex !important; }
-    .mob-footer-text { position: relative; z-index: 4; width: 100%; display: flex !important; flex-direction: column; align-items: center; gap: 8px; padding: 0; padding-bottom: env(safe-area-inset-bottom); margin: 0; line-height: 0; }
+    /* transform:translateZ(0) keeps this on its own GPU layer so iOS Safari doesn't
+       discard and re-rasterize it after it's been scrolled far off-screen — the
+       "flashes white then repaints" glitch on scrolling back down. Purely a
+       compositing hint: no visual, layout or animation change. */
+    .mob-footer-text { position: relative; z-index: 4; width: 100%; display: flex !important; flex-direction: column; align-items: center; gap: 8px; padding: 0; padding-bottom: env(safe-area-inset-bottom); margin: 0; line-height: 0; transform: translateZ(0); -webkit-transform: translateZ(0); }
     .mob-footer-clip { overflow: hidden; display: flex; justify-content: center; line-height: 0; }
     .mob-footer-word { display: block; height: 80px; width: auto; transform: translateY(110%); transition: transform 1.1s cubic-bezier(0.76,0,0.24,1); }
     .mob-footer-word.in-view { transform: translateY(0); }
@@ -1088,12 +1096,12 @@ document.addEventListener('click', function(e) {
                     <div class="mob-process-step">
                         <div class="mob-process-num">(01)</div>
                         <p class="mob-process-label">Understand</p>
-                        <p class="mob-process-desc">Learning about your business, goals, and challenges.</p>
+                        <p class="mob-process-desc">Learning about your business,<br class="mob-br" />goals, and challenges.</p>
                     </div>
                     <div class="mob-process-step">
                         <div class="mob-process-num">(02)</div>
                         <p class="mob-process-label">Explore</p>
-                        <p class="mob-process-desc">Developing ideas, directions, and solutions.</p>
+                        <p class="mob-process-desc">Developing ideas, directions,<br class="mob-br" />and solutions.</p>
                     </div>
                     <div class="mob-process-step">
                         <div class="mob-process-num">(03)</div>
@@ -1103,7 +1111,7 @@ document.addEventListener('click', function(e) {
                     <div class="mob-process-step">
                         <div class="mob-process-num">(04)</div>
                         <p class="mob-process-label">Deliver</p>
-                        <p class="mob-process-desc">Launching the final work and supporting what comes next.</p>
+                        <p class="mob-process-desc">Launching the final work and<br class="mob-br" />supporting what comes next.</p>
                     </div>
                 </div>
             </div>
