@@ -191,10 +191,38 @@
          if ($pageHeader.length && $('body').hasClass('home')) {
             $pageHeader.prependTo($('#body-inner'));
             $pageHeader.css({ position: 'fixed', top: 0, left: 0, width: '100%', zIndex: 0 });
-            $('#content-wrap').css({ position: 'relative', zIndex: 1, marginTop: ($pageHeader.outerHeight() * 1.0) + 'px' });
+            $('#content-wrap').css({ position: 'relative', zIndex: 1 });
+
+            /* #content-wrap's marginTop reserves space for the fixed #page-header
+               above it. This used to be computed once, here, and never touched
+               again — so it stayed pinned to the desktop hero's height even after
+               #page-header goes display:none at <=768px (CSS), leaving a stale
+               gap the size of the old hero above the mobile layout whenever
+               mobile was reached by resizing rather than a fresh load.
+               Re-deriving it from the current outerHeight() on resize fixes both
+               directions with no breakpoint check needed: outerHeight() is 0 on
+               its own once the hero is hidden, and the real measured height once
+               it's visible again. Coalesced the same way ui-scale.js does (rAF
+               + timeout backstop) so a real drag-resize doesn't thrash layout. */
+            var syncContentWrapMargin = function () {
+               $('#content-wrap').css('marginTop', ($pageHeader.outerHeight() * 1.0) + 'px');
+            };
+            syncContentWrapMargin();
+            var cwMarginRaf = 0, cwMarginSafety = 0;
+            var scheduleContentWrapMarginSync = function () {
+               if (!cwMarginRaf) { cwMarginRaf = requestAnimationFrame(function () { cwMarginRaf = 0; syncContentWrapMargin(); }); }
+               clearTimeout(cwMarginSafety);
+               cwMarginSafety = setTimeout(function () { cwMarginSafety = 0; syncContentWrapMargin(); }, 250);
+            };
+            window.addEventListener('resize', scheduleContentWrapMarginSync, { passive: true });
+
             bodyScrollBar.addListener(function(status) {
                var scrollY = status.offset.y;
                var heroH = $pageHeader.outerHeight();
+               // #page-header is display:none at mobile widths (outerHeight() = 0);
+               // every line below divides by heroH, so skip rather than feed 0 into
+               // it and write blur(NaN) / translateY(Infinity) to the DOM.
+               if (heroH <= 0) return;
                var progress = Math.min(scrollY / (heroH * 18), 1);
                $pageHeader[0].style.filter = 'blur(' + (progress * 28) + 'px)';
                $pageHeader[0].style.opacity = 1 - progress * 1.0;

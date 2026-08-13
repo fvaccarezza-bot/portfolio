@@ -20,15 +20,35 @@ html.ui-scale-on {
   overflow-x: hidden;
 }
 
-/* Root escalable (tu viewport desktop) */
-html.ui-scale-on #scroll-container {
+/* Root escalable (tu viewport desktop)
+   Gated on .ui-scale-fit, not .ui-scale-on: ui-scale-fit is only present while
+   scale < 1 (see ui-scale.js). At/above baseW, scale clamps to 1 and this rule
+   is meant to be absent entirely, not applied as a scale(1) no-op — freezing
+   width unconditionally at baseW would pin #scroll-container to 1730px even on
+   wider viewports, introducing gutters that shouldn't exist there.
+   Qualified the same as the height rule below (body.tt-smooth-scroll:not(.is-mobile)):
+   theme.css's `body:not(.is-mobile).tt-smooth-scroll #scroll-container` selector
+   carries 2 classes (0,1,2,1) and was beating the old unqualified version of this
+   selector (0,1,1,1) on width, margin, AND overflow-x — freeze never applied, so
+   scale() shrank an already viewport-width box instead of a 1730px one, producing
+   lateral gutters at every width below baseW. */
+html.ui-scale-fit body.tt-smooth-scroll:not(.is-mobile) #scroll-container {
   /* Freeze a baseW */
   width: calc(var(--uiBaseW) * 1px);
   margin-left: auto;
   margin-right: auto;
 
-  /* Escala proporcional */
-  transform-origin: top center;
+  /* Escala proporcional
+     top left, not top center: the box's layout-left sits at 0 (margin:auto
+     resolves to 0 here per CSS2 §10.3.3 — the frozen width exceeds the
+     viewport below baseW, so auto margins can't center it), so scaling
+     around the box's own center pulled the painted left edge inward by half
+     the removed width and pushed the right edge past the viewport. Anchoring
+     the origin to where the box actually starts makes painted width == vw
+     with zero gutters at every width below baseW, with no margin/positioning
+     change needed. Only the X anchor moved (center -> left); Y stays 'top',
+     so vertical position/height/scroll compensation are unaffected. */
+  transform-origin: top left;
   transform: scale(var(--uiScale));
   will-change: transform;
 

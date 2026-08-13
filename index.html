@@ -836,6 +836,350 @@ document.addEventListener('click', function(e) {
                             setTimeout(function () { clearInterval(poll); show(); }, 12000); // safety net
                         })();
                         </script>
+
+                        <!-- ═══ EXPERIMENT: "Ink Shift" hover on craft-uw.svg, UW only ═══════════════
+                             Prototype. To fully revert: delete this <style> + <script> pair — nothing
+                             elsewhere depends on it, #hero-craft itself is never modified beyond
+                             reading its position, and it never sets pointer-events on #hero-craft. -->
+                        <style>
+                        /* position:absolute (not fixed) + appended inside #page-header (see
+                           makeEcho below) on purpose: #hero-craft is confined to #page-header's
+                           own stacking context (z-index:0, set inline by theme.js), which is why
+                           #content-wrap (z-index:1, also theme.js) naturally paints over it once
+                           scrolled past — z-index:12 here is only ever compared LOCALLY within
+                           that same context, never against #content-wrap directly. A fixed,
+                           body-appended element escapes that confinement and paints above
+                           #content-wrap regardless of z-index value — that was the previous bug. */
+                        #hero-craft-echo-a, #hero-craft-echo-b {
+                            position: absolute;
+                            pointer-events: none;
+                            z-index: 12;
+                            background-repeat: no-repeat;
+                            background-size: 100% 100%;
+                            mix-blend-mode: hard-light;
+                            opacity: 0;
+                            will-change: transform, opacity;
+                        }
+                        </style>
+                        <script>
+                        (function () {
+                            /* Gated purely on window.innerWidth >= 2560 — the same threshold used
+                               everywhere else in this file for isUW (see swapHeroSVGs etc. and the
+                               craft-uw src pick above). Re-checked live on resize, so this turns on
+                               and off deterministically as the viewport crosses the UW line, instead
+                               of only reflecting whatever craft.src happened to be picked at load. */
+                            var craft = document.getElementById('hero-craft');
+                            if (!craft) return;
+
+                            /* GSAP loads via a <script src> near the bottom of <body> (line ~1576) —
+                               this block sits up in the hero markup, long before that tag runs, so
+                               `gsap` is undefined here at parse time. Poll for it (same idiom as the
+                               _heroParallaxReady poll just above) instead of assuming it's ready. */
+                            var gsapPoll = setInterval(function () {
+                                if (typeof gsap === 'undefined') return;
+                                clearInterval(gsapPoll);
+                                initInkShift();
+                            }, 100);
+
+                            function initInkShift() {
+                            var built = false, echoA = null, echoB = null;
+                            var raf = 0;
+                            var hovering = false;
+                            var revealDone = false;
+                            var heroVisible = true;
+                            var interactivityCancel = null;
+                            var driveRaf = 0;
+                            // Velocity-driven displacement: cursor speed/direction is the primary
+                            // input. curAx/curBx etc. are the eased ("wet ink") positions each echo
+                            // actually renders at; target values are derived from velocity each
+                            // frame and curAx/curBx chase them at different rates per echo.
+                            var velX = 0, velY = 0;
+                            var lastMoveX = null, lastMoveY = null, lastMoveT = 0;
+                            var curAx = 0, curAy = 0, curBx = 0, curBy = 0;
+                            function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
+                            var VELOCITY_GAIN = 26, MAX_X = 11, MAX_Y = 3.5;
+
+                            /* Cursor is tracked purely by comparing coordinates against craft's own
+                               getBoundingClientRect() — not via mouseenter/mousemove/mouseleave on a
+                               dedicated hit-zone element. An earlier version used a position:fixed,
+                               pointer-events:auto div stacked above the page to catch those events;
+                               because that div was appended to <body> (outside #scroll-container),
+                               any wheel event hit-testing it never reached smooth-scrollbar's wheel
+                               listener (bound to #scroll-container itself) — scrolling silently
+                               stopped whenever the cursor sat over the hero. Doing the hit-test here
+                               instead, off the same passive global mousemove listener already used
+                               for lastGlobalX/Y, needs no pointer-events-capturing element at all, so
+                               wheel input is never intercepted. */
+                            var lastGlobalX = null, lastGlobalY = null;
+                            document.addEventListener('mousemove', function (e) {
+                                lastGlobalX = e.clientX; lastGlobalY = e.clientY;
+                                evaluateHover(e.clientX, e.clientY);
+                            }, { passive: true });
+
+                            function syncBox() {
+                                if (!built) return;
+                                var pageHeader = document.getElementById('page-header');
+                                if (!pageHeader) return;
+                                var craftRect = craft.getBoundingClientRect();
+                                var phRect = pageHeader.getBoundingClientRect();
+                                // Position relative to #page-header's own (already-transformed)
+                                // box, not the viewport: the echoes are absolute descendants of
+                                // #page-header now, so their left/top resolve against its padding
+                                // box. Subtracting phRect cancels out #page-header's own parallax
+                                // translateY, leaving craft's own parallax/scale contribution
+                                // (already baked into craftRect) intact.
+                                var left = craftRect.left - phRect.left;
+                                var top = craftRect.top - phRect.top;
+                                [echoA, echoB].forEach(function (el) {
+                                    el.style.left = left + 'px';
+                                    el.style.top = top + 'px';
+                                    el.style.width = craftRect.width + 'px';
+                                    el.style.height = craftRect.height + 'px';
+                                });
+                            }
+
+                            function makeEcho(id, clipPath) {
+                                var el = document.createElement('div');
+                                el.id = id;
+                                el.setAttribute('aria-hidden', 'true');
+                                el.style.clipPath = clipPath;
+                                // Appended inside #page-header (not document.body) so these share
+                                // #hero-craft's own stacking context — see the CSS comment above.
+                                document.getElementById('page-header').appendChild(el);
+                                return el;
+                            }
+
+                            function build() {
+                                if (built) return;
+                                built = true;
+
+                                // Irregular, uneven bands with a sliver left uncovered between them —
+                                // a clean 50/50 split reads as a UI element, not hand-cut ink.
+                                echoA = makeEcho('hero-craft-echo-a', 'inset(0% 0 45% 0)');   // upper ~55%
+                                echoB = makeEcho('hero-craft-echo-b', 'inset(58% 0 0% 0)');   // lower ~42%
+                                echoA.style.backgroundImage = 'url("' + craft.src + '")';
+                                echoB.style.backgroundImage = 'url("' + craft.src + '")';
+
+                                syncBox();
+
+                                // The echoes exist now (needed so syncBox can position them), but
+                                // sit at opacity:0 and revealDone stays false — evaluateHover won't
+                                // activate them — until the reveal is confirmed finished, see
+                                // waitForRevealThenEnable below. Nothing here can make them visible
+                                // or react to the cursor before that.
+                                interactivityCancel = waitForRevealThenEnable();
+                            }
+
+                            /* Real completion signal, not a guess: #hero-craft's own entrance is a
+                               plain CSS transition (opacity/filter/transform — see the UW block a
+                               few hundred lines up), so the native `transitionend` event IS its
+                               actual completion callback. filter/transform both run 6s in the UW
+                               rule (the longest of the three), so waiting for either one covers the
+                               full blur+zoom entrance; opacity (1.9s) will always be done by then.
+                               Falls back to polling the .craft-settled class — the SAME flag the
+                               reveal script itself uses to mean "fully done" (see show() above) —
+                               for the case where build() runs AFTER the entrance already finished
+                               (e.g. rebuilt after a resize round-trip, well past page load). */
+                            function waitForRevealThenEnable() {
+                                var settled = false;
+                                var pollId = 0;
+                                function onTransitionEnd(e) {
+                                    if (e.target !== craft) return;
+                                    if (e.propertyName !== 'filter' && e.propertyName !== 'transform') return;
+                                    finish();
+                                }
+                                function finish() {
+                                    if (settled) return;
+                                    settled = true;
+                                    craft.removeEventListener('transitionend', onTransitionEnd);
+                                    clearInterval(pollId);
+                                    if (!built) return; // torn down while waiting for the reveal
+                                    revealDone = true;
+                                    // Cursor may already be sitting over the artwork (or the hero may
+                                    // already be back in view after a scroll-up) the instant the
+                                    // reveal finishes — react immediately instead of waiting on a
+                                    // fresh mousemove that may not come right away.
+                                    evaluateHover(lastGlobalX, lastGlobalY);
+                                }
+                                craft.addEventListener('transitionend', onTransitionEnd);
+                                pollId = setInterval(function () {
+                                    if (craft.classList.contains('craft-settled')) finish();
+                                }, 150);
+                                return function cancel() {
+                                    settled = true;
+                                    craft.removeEventListener('transitionend', onTransitionEnd);
+                                    clearInterval(pollId);
+                                };
+                            }
+
+                            /* UW (via refresh/build gating) + revealDone + heroVisible + cursor
+                               inside craft's rect = active. Any one of those being false means "not
+                               hovering" — this is the single place that decides so, called from every
+                               place cursor position, reveal state, or scroll position can change. */
+                            function evaluateHover(x, y) {
+                                if (!built || !revealDone || !heroVisible || x === null) {
+                                    if (hovering) onLeave();
+                                    return;
+                                }
+                                var r = craft.getBoundingClientRect();
+                                var inside = x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+                                if (inside && !hovering) onEnter(x, y);
+                                else if (inside && hovering) onMove(x, y);
+                                else if (!inside && hovering) onLeave();
+                            }
+
+                            function onEnter(x, y) {
+                                if (hovering) return;
+                                hovering = true;
+                                syncBox();
+                                lastMoveX = x; lastMoveY = y; lastMoveT = performance.now();
+                                velX = 0; velY = 0;
+                                gsap.killTweensOf([echoA, echoB]);
+                                // Smooth fade into the "alive" state; driveLoop takes over the actual
+                                // per-frame position immediately after.
+                                gsap.to(echoA, { opacity: 0.14, duration: 0.2, ease: 'power2.out' });
+                                gsap.to(echoB, { opacity: 0.16, duration: 0.2, ease: 'power2.out' });
+                                if (!driveRaf) driveRaf = requestAnimationFrame(driveLoop);
+                            }
+
+                            function onMove(x, y) {
+                                if (!hovering) return;
+                                var now = performance.now();
+                                var dt = Math.max(now - lastMoveT, 1);
+                                velX = (x - lastMoveX) / dt; // px/ms
+                                velY = (y - lastMoveY) / dt;
+                                lastMoveX = x; lastMoveY = y; lastMoveT = now;
+                            }
+
+                            function onLeave() {
+                                if (!hovering) return;
+                                hovering = false; // driveLoop stops rescheduling itself
+                                velX = 0; velY = 0;
+                                gsap.killTweensOf([echoA, echoB]);
+                                // Smooth, premium settle back to perfect registration — same bezier
+                                // used for the hero-craft entrance elsewhere on this page. Releases
+                                // any residual velocity/inertia: curAx/curBx reset immediately so a
+                                // re-entry starts clean rather than resuming mid-drag.
+                                gsap.to(echoA, { x: 0, y: 0, skewX: 0, opacity: 0, duration: 0.4, ease: 'cubic-bezier(0.22, 1, 0.36, 1)' });
+                                gsap.to(echoB, { x: 0, y: 0, skewX: 0, opacity: 0, duration: 0.4, ease: 'cubic-bezier(0.22, 1, 0.36, 1)' });
+                                curAx = curAy = curBx = curBy = 0;
+                            }
+
+                            /* Hard, instant kill — used when the hero leaves its visible scroll
+                               phase (see updateHeroVisible below), including while the cursor sits
+                               perfectly still: a wheel-only scroll fires no mouse event at all, so
+                               evaluateHover would otherwise never re-run and the echoes would keep
+                               rendering at their last pose on top of whatever scrolled into view. No
+                               eased tween on purpose — fading out over 0.4s would still paint stray
+                               fragments of the artwork over About/Projects/etc. while it happens. */
+                            function forceHide() {
+                                hovering = false;
+                                if (driveRaf) { cancelAnimationFrame(driveRaf); driveRaf = 0; }
+                                if (!echoA || !echoB) return;
+                                gsap.killTweensOf([echoA, echoB]);
+                                gsap.set([echoA, echoB], { x: 0, y: 0, skewX: 0, opacity: 0 });
+                                curAx = curAy = curBx = curBy = 0;
+                                velX = velY = 0;
+                            }
+
+                            /* Per-frame drive: velocity -> clamped target -> eased ("wet ink") actual
+                               position. Different ease rates per echo (0.16 vs 0.10) is what makes
+                               them visibly lag behind each other on a direction change instead of
+                               moving as one rigid slab. A tiny sine/cosine idle component is always
+                               mixed in so a held-still cursor never reads as perfectly frozen, but at
+                               these amplitudes (0.35px / 0.15px) cursor motion completely dominates
+                               it the moment the mouse moves — matching "cursor drives it, idle life
+                               is a tiny remainder" rather than the old autonomous random walk. */
+                            function driveLoop(ts) {
+                                if (!hovering) { driveRaf = 0; return; }
+                                velX *= 0.82; velY *= 0.82; // decay between mousemove events, not just on leave
+
+                                var idlePhase = ts * 0.0011;
+                                var idleX = Math.sin(idlePhase) * 0.35;
+                                var idleY = Math.cos(idlePhase * 0.7) * 0.15;
+
+                                var targetAx = clamp(velX * VELOCITY_GAIN, -MAX_X, MAX_X) + idleX;
+                                var targetAy = clamp(velY * VELOCITY_GAIN * 0.22, -MAX_Y, MAX_Y) + idleY;
+                                var targetBx = clamp(velX * VELOCITY_GAIN * 1.2, -MAX_X * 1.2, MAX_X * 1.2) + idleX * 1.3;
+                                var targetBy = clamp(velY * VELOCITY_GAIN * 0.28, -MAX_Y * 1.2, MAX_Y * 1.2) + idleY * 1.3;
+
+                                curAx += (targetAx - curAx) * 0.16;
+                                curAy += (targetAy - curAy) * 0.16;
+                                curBx += (targetBx - curBx) * 0.10;
+                                curBy += (targetBy - curBy) * 0.10;
+
+                                var speed = Math.min(Math.abs(velX) + Math.abs(velY), 1);
+                                gsap.set(echoA, { x: curAx, y: curAy, skewX: curAx * 0.05, opacity: 0.12 + speed * 0.22 });
+                                gsap.set(echoB, { x: curBx, y: curBy, skewX: curBx * 0.05, opacity: 0.14 + speed * 0.26 });
+
+                                driveRaf = requestAnimationFrame(driveLoop);
+                            }
+
+                            function teardown() {
+                                if (!built) return;
+                                built = false;
+                                hovering = false; // stops driveLoop from rescheduling itself
+                                revealDone = false; // a rebuild must wait for the reveal signal again
+                                if (interactivityCancel) interactivityCancel(); // in case the reveal hadn't finished yet
+                                if (driveRaf) { cancelAnimationFrame(driveRaf); driveRaf = 0; }
+                                gsap.killTweensOf([echoA, echoB]);
+                                echoA.remove(); echoB.remove();
+                                echoA = echoB = null;
+                                interactivityCancel = null;
+                                curAx = curAy = curBx = curBy = 0;
+                                velX = velY = 0;
+                            }
+
+                            function refresh() {
+                                var shouldRun = window.innerWidth >= 2560;
+                                if (shouldRun && !built) build();
+                                if (!shouldRun && built) teardown();
+                                if (shouldRun) syncBox();
+                            }
+
+                            window.addEventListener('resize', function () {
+                                if (raf) return;
+                                raf = requestAnimationFrame(function () { raf = 0; refresh(); });
+                            }, { passive: true });
+
+                            /* #hero-craft lives inside #page-header (position:fixed, z-index:0 —
+                               assets/js/theme.js), which is why it never renders above scrolled-in
+                               content: #content-wrap sits at z-index:1 (theme.js), and hero-craft's
+                               own z-index:12 is scoped inside #page-header's stacking context, so it
+                               can never outrank content-wrap globally. echoA/echoB are fixed-position
+                               children of <body> instead (so their screen position can be driven
+                               straight from craft.getBoundingClientRect()), which means their
+                               z-index is NOT confined the same way — left alone they'd stay rendered
+                               above #content-wrap forever once it scrolls up over the hero. heroVisible
+                               is what actually keeps them hidden past that point, reusing the exact
+                               geometry #content-wrap's own marginTop already relies on (theme.js):
+                               that margin equals #page-header's height, so content-wrap's top reaches
+                               the viewport top — visually covering the hero — exactly when scrollY
+                               reaches heroH. No new scroll-tracking system, just that relationship. */
+                            function updateHeroVisible(scrollY) {
+                                var pageHeader = document.getElementById('page-header');
+                                var heroH = pageHeader ? pageHeader.offsetHeight : 0;
+                                var nowVisible = heroH > 0 && scrollY < heroH;
+                                if (nowVisible === heroVisible) return;
+                                heroVisible = nowVisible;
+                                if (!heroVisible) forceHide();
+                                else evaluateHover(lastGlobalX, lastGlobalY);
+                            }
+
+                            setTimeout(function () {
+                                var sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
+                                if (sb) sb.addListener(function (status) {
+                                    syncBox();
+                                    updateHeroVisible(status.offset.y);
+                                });
+                            }, 900);
+
+                            refresh();
+                            } // end initInkShift
+                        })();
+                        </script>
+                        <!-- ═══ END EXPERIMENT ═══════════════════════════════════════════════════ -->
+
                         <div style="overflow:hidden;position:relative;z-index:10;"><div class="text-center color-fv min-titles spacing hero-subtitle"></div></div>
                     </div>
                 </div>
