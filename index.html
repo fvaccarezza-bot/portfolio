@@ -85,8 +85,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 #hero-craft { display: none; }
 @media (min-width: 769px) and (max-width: 2559px) {
     /* No width/height: renders at whatever intrinsic size craft.svg is exported at. */
-    #hero-craft { display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) scale(1.2) scale(var(--craft-scale, 1)); pointer-events: none; z-index: 12; mix-blend-mode: hard-light; opacity: 0; filter: blur(20px); transition: opacity 1.1s ease, transform 2.1s cubic-bezier(0.22, 1, 0.36, 1), filter 2.1s cubic-bezier(0.22, 1, 0.36, 1); }
-    #hero-craft.is-in { opacity: 0.8; filter: blur(0); transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) scale(1) scale(var(--craft-scale, 1)); }
+    #hero-craft { display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) translate(var(--craft-counter-x, 0px), var(--craft-counter-y, 0px)) scale(1.2) scale(var(--craft-scale, 1)); pointer-events: none; z-index: 12; mix-blend-mode: hard-light; opacity: 0; filter: blur(20px); transition: opacity 1.1s ease, transform 2.1s cubic-bezier(0.22, 1, 0.36, 1), filter 2.1s cubic-bezier(0.22, 1, 0.36, 1); }
+    #hero-craft.is-in { opacity: 0.8; filter: blur(0); transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) translate(var(--craft-counter-x, 0px), var(--craft-counter-y, 0px)) scale(1) scale(var(--craft-scale, 1)); }
     /* Entrance done: drop transform from the transition so the parallax tracks scroll 1:1,
        and open a very slow lane for --craft-scale so the image keeps breathing. */
     #hero-craft.craft-settled { transition: opacity 1.1s ease, --craft-scale 20s ease-in-out; }
@@ -615,9 +615,9 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
 @media (min-resolution: 2dppx) and (min-width: 769px) and (max-width: 2559px) {
     #services-with { display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: auto !important; height: auto !important; max-width: none; pointer-events: none; z-index: 3; mix-blend-mode: hard-light; opacity: 0.8; }
     .sb-tag-parallax { display: none; }
-    #hero-craft { display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) scale(1.2) scale(var(--craft-scale, 1)); pointer-events: none; z-index: 12; mix-blend-mode: hard-light; opacity: 0; filter: blur(16px); transition: opacity 1.9s cubic-bezier(0.22, 1, 0.36, 1), filter 6s cubic-bezier(0.22, 1, 0.36, 1), transform 6s cubic-bezier(0.22, 1, 0.36, 1); }
-    #hero-craft.is-in { opacity: 0.8; filter: blur(0); transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) scale(1) scale(var(--craft-scale, 1)); }
-    #hero-craft.craft-settled { transition: opacity 1.9s cubic-bezier(0.22, 1, 0.36, 1), filter 6s cubic-bezier(0.22, 1, 0.36, 1), --craft-scale 20s ease-in-out; }
+    #hero-craft { display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) translate(var(--craft-counter-x, 0px), var(--craft-counter-y, 0px)) scale(1.2) scale(var(--craft-scale, 1)); pointer-events: none; z-index: 12; mix-blend-mode: hard-light; opacity: 0; filter: blur(16px); transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), filter 3.5s cubic-bezier(0.22, 1, 0.36, 1), transform 3.5s cubic-bezier(0.22, 1, 0.36, 1); }
+    #hero-craft.is-in { opacity: 0.8; filter: blur(0); transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) translate(var(--craft-counter-x, 0px), var(--craft-counter-y, 0px)) scale(1) scale(var(--craft-scale, 1)); }
+    #hero-craft.craft-settled { transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), filter 3.5s cubic-bezier(0.22, 1, 0.36, 1), --craft-scale 20s ease-in-out; }
 }
 
 /* ── Hero craft-uw.svg — UW ONLY (>=2560) ─────────────────────────────────────
@@ -629,11 +629,11 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
 @media (min-width: 2560px) {
     /* No width/height on purpose: the image renders at whatever its intrinsic size
        is, so swapping craft-uw.svg for a bigger export is all it takes to resize. */
-    #hero-craft { display: block !important; position: absolute; top: calc(50% + 40px); left: 50%; transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) scale(1.2) scale(var(--craft-scale, 1)); pointer-events: none; z-index: 12; mix-blend-mode: hard-light; opacity: 0; filter: blur(16px); transition: opacity 1.9s cubic-bezier(0.22, 1, 0.36, 1), filter 6s cubic-bezier(0.22, 1, 0.36, 1), transform 6s cubic-bezier(0.22, 1, 0.36, 1); }
-    #hero-craft.is-in { opacity: 0.8; filter: blur(0); transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) scale(1) scale(var(--craft-scale, 1)); }
+    #hero-craft { display: block !important; position: absolute; top: calc(50% + 40px); left: 50%; transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) translate(var(--craft-counter-x, 0px), var(--craft-counter-y, 0px)) scale(1.2) scale(var(--craft-scale, 1)); pointer-events: none; z-index: 12; mix-blend-mode: hard-light; opacity: 0; filter: blur(16px); transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), filter 3.5s cubic-bezier(0.22, 1, 0.36, 1), transform 3.5s cubic-bezier(0.22, 1, 0.36, 1); }
+    #hero-craft.is-in { opacity: 0.8; filter: blur(0); transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) translate(var(--craft-counter-x, 0px), var(--craft-counter-y, 0px)) scale(1) scale(var(--craft-scale, 1)); }
     /* Entrance done: drop transform from the transition so the parallax tracks scroll 1:1,
        and open a very slow lane for --craft-scale so the image keeps breathing. */
-    #hero-craft.craft-settled { transition: opacity 1.9s cubic-bezier(0.22, 1, 0.36, 1), filter 6s cubic-bezier(0.22, 1, 0.36, 1), --craft-scale 20s ease-in-out; }
+    #hero-craft.craft-settled { transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), filter 3.5s cubic-bezier(0.22, 1, 0.36, 1), --craft-scale 20s ease-in-out; }
 }
 
 /* ── services with-uw.svg — UW ONLY (>=2560) ──────────────────────────────────
@@ -817,7 +817,7 @@ document.addEventListener('click', function(e) {
                                    transition list, so firing early would snap the zoom mid-flight.
                                    UW runs the long 6s blur+zoom pair; normal desktop only has the
                                    2.1s zoom, so it doesn't need to wait as long. */
-                                var settleAfter = (isUW || isRetina) ? 6200 : 2300;
+                                var settleAfter = (isUW || isRetina) ? 3700 : 2300; // UW and retina both run the same 3.5s entrance now (see their CSS blocks); normal desktop's own entrance is unchanged at 2.1s
                                 setTimeout(function () {
                                     el.classList.add('craft-settled');
                                     startParallax();
@@ -863,10 +863,11 @@ document.addEventListener('click', function(e) {
                         </style>
                         <script>
                         (function () {
-                            /* Gated purely on window.innerWidth >= 2560 — the same threshold used
-                               everywhere else in this file for isUW (see swapHeroSVGs etc. and the
-                               craft-uw src pick above). Re-checked live on resize, so this turns on
-                               and off deterministically as the viewport crosses the UW line, instead
+                            /* Gated on window.innerWidth >= 769 — every desktop width (normal,
+                               retina, UW alike), same as every other craft.svg/with.svg CSS block
+                               in this file. Mobile/tablet stay excluded below that line.
+                               Re-checked live on resize, so this turns on and off deterministically
+                               as the viewport crosses that line, instead
                                of only reflecting whatever craft.src happened to be picked at load. */
                             var craft = document.getElementById('hero-craft');
                             if (!craft) return;
@@ -897,7 +898,19 @@ document.addEventListener('click', function(e) {
                             var lastMoveX = null, lastMoveY = null, lastMoveT = 0;
                             var curAx = 0, curAy = 0, curBx = 0, curBy = 0;
                             function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
-                            var VELOCITY_GAIN = 26, MAX_X = 11, MAX_Y = 3.5;
+                            // Y_INFLUENCE: vertical response as a fraction of horizontal (55-65% target).
+                            // COUNTER_RATIO: how much the original artwork resists in the opposite
+                            // direction of the ghosts' combined displacement (15-25% target).
+                            var VELOCITY_GAIN = 26, MAX_X = 11, Y_INFLUENCE = 0.6, MAX_Y = MAX_X * Y_INFLUENCE;
+                            var COUNTER_RATIO = 0.2;
+                            // Federico/Vaccarezza name lines sway WITH the ghosts (same direction,
+                            // not opposite like craft's counter-motion), at a barely-perceptible
+                            // fraction — "accompanying" the effect rather than reacting to it.
+                            // These are the same GSAP-tracked elements the reveal timeline already
+                            // animates (y: '100%' -> 0), so nudging x/y here composes with that
+                            // instead of fighting it — nothing to route through a CSS var for.
+                            var NAME_RATIO = 0.07;
+                            var nameLines = [document.getElementById('line-federico'), document.getElementById('line-vaccarezza')].filter(Boolean);
 
                             /* Cursor is tracked purely by comparing coordinates against craft's own
                                getBoundingClientRect() — not via mouseenter/mousemove/mouseleave on a
@@ -938,11 +951,20 @@ document.addEventListener('click', function(e) {
                                 });
                             }
 
-                            function makeEcho(id, clipPath) {
+                            function makeEcho(id, maskGradient) {
                                 var el = document.createElement('div');
                                 el.id = id;
                                 el.setAttribute('aria-hidden', 'true');
-                                el.style.clipPath = clipPath;
+                                // Feathered mask, not a hard clip-path: a crisp cut lines up with the
+                                // static original only at x/y=0. The moment the echo is translated
+                                // (which is the whole point of the effect), that hard edge no longer
+                                // lines up with the artwork underneath and reads as a torn seam/missing
+                                // slice through the lettering — worse the further it's displaced, so
+                                // the recent vertical-response increase made it much more visible.
+                                // A soft gradient fade instead means any misalignment blends away
+                                // gradually across the overlap band rather than cutting cleanly.
+                                el.style.webkitMaskImage = maskGradient;
+                                el.style.maskImage = maskGradient;
                                 // Appended inside #page-header (not document.body) so these share
                                 // #hero-craft's own stacking context — see the CSS comment above.
                                 document.getElementById('page-header').appendChild(el);
@@ -953,10 +975,10 @@ document.addEventListener('click', function(e) {
                                 if (built) return;
                                 built = true;
 
-                                // Irregular, uneven bands with a sliver left uncovered between them —
-                                // a clean 50/50 split reads as a UI element, not hand-cut ink.
-                                echoA = makeEcho('hero-craft-echo-a', 'inset(0% 0 45% 0)');   // upper ~55%
-                                echoB = makeEcho('hero-craft-echo-b', 'inset(58% 0 0% 0)');   // lower ~42%
+                                // Irregular, uneven bands, same rough coverage as before (~55% /
+                                // ~42%), but feathered instead of hard-cut — see makeEcho above.
+                                echoA = makeEcho('hero-craft-echo-a', 'linear-gradient(to bottom, #000 0%, #000 42%, transparent 62%)');   // upper ~55%, fades out 42-62%
+                                echoB = makeEcho('hero-craft-echo-b', 'linear-gradient(to bottom, transparent 38%, #000 58%, #000 100%)'); // lower ~42%, fades in 38-58%
                                 echoA.style.backgroundImage = 'url("' + craft.src + '")';
                                 echoB.style.backgroundImage = 'url("' + craft.src + '")';
 
@@ -1034,7 +1056,7 @@ document.addEventListener('click', function(e) {
                                 syncBox();
                                 lastMoveX = x; lastMoveY = y; lastMoveT = performance.now();
                                 velX = 0; velY = 0;
-                                gsap.killTweensOf([echoA, echoB]);
+                                gsap.killTweensOf([echoA, echoB, craft].concat(nameLines)); // in case a leave-settle tween is still running
                                 // Smooth fade into the "alive" state; driveLoop takes over the actual
                                 // per-frame position immediately after.
                                 gsap.to(echoA, { opacity: 0.14, duration: 0.2, ease: 'power2.out' });
@@ -1055,13 +1077,18 @@ document.addEventListener('click', function(e) {
                                 if (!hovering) return;
                                 hovering = false; // driveLoop stops rescheduling itself
                                 velX = 0; velY = 0;
-                                gsap.killTweensOf([echoA, echoB]);
+                                gsap.killTweensOf([echoA, echoB, craft].concat(nameLines));
                                 // Smooth, premium settle back to perfect registration — same bezier
                                 // used for the hero-craft entrance elsewhere on this page. Releases
                                 // any residual velocity/inertia: curAx/curBx reset immediately so a
                                 // re-entry starts clean rather than resuming mid-drag.
                                 gsap.to(echoA, { x: 0, y: 0, skewX: 0, opacity: 0, duration: 0.4, ease: 'cubic-bezier(0.22, 1, 0.36, 1)' });
                                 gsap.to(echoB, { x: 0, y: 0, skewX: 0, opacity: 0, duration: 0.4, ease: 'cubic-bezier(0.22, 1, 0.36, 1)' });
+                                // Original's counter-motion eases back to exactly 0 in step with the
+                                // ghosts — same duration/ease, so the "tension" releases as one motion
+                                // rather than the original snapping back ahead of or behind the ghosts.
+                                gsap.to(craft, { '--craft-counter-x': '0px', '--craft-counter-y': '0px', duration: 0.4, ease: 'cubic-bezier(0.22, 1, 0.36, 1)' });
+                                if (nameLines.length) gsap.to(nameLines, { x: 0, y: 0, duration: 0.4, ease: 'cubic-bezier(0.22, 1, 0.36, 1)' });
                                 curAx = curAy = curBx = curBy = 0;
                             }
 
@@ -1075,6 +1102,9 @@ document.addEventListener('click', function(e) {
                             function forceHide() {
                                 hovering = false;
                                 if (driveRaf) { cancelAnimationFrame(driveRaf); driveRaf = 0; }
+                                gsap.killTweensOf([craft].concat(nameLines));
+                                gsap.set(craft, { '--craft-counter-x': '0px', '--craft-counter-y': '0px' });
+                                if (nameLines.length) gsap.set(nameLines, { x: 0, y: 0 });
                                 if (!echoA || !echoB) return;
                                 gsap.killTweensOf([echoA, echoB]);
                                 gsap.set([echoA, echoB], { x: 0, y: 0, skewX: 0, opacity: 0 });
@@ -1099,9 +1129,9 @@ document.addEventListener('click', function(e) {
                                 var idleY = Math.cos(idlePhase * 0.7) * 0.15;
 
                                 var targetAx = clamp(velX * VELOCITY_GAIN, -MAX_X, MAX_X) + idleX;
-                                var targetAy = clamp(velY * VELOCITY_GAIN * 0.22, -MAX_Y, MAX_Y) + idleY;
+                                var targetAy = clamp(velY * VELOCITY_GAIN * Y_INFLUENCE, -MAX_Y, MAX_Y) + idleY;
                                 var targetBx = clamp(velX * VELOCITY_GAIN * 1.2, -MAX_X * 1.2, MAX_X * 1.2) + idleX * 1.3;
-                                var targetBy = clamp(velY * VELOCITY_GAIN * 0.28, -MAX_Y * 1.2, MAX_Y * 1.2) + idleY * 1.3;
+                                var targetBy = clamp(velY * VELOCITY_GAIN * Y_INFLUENCE * 1.2, -MAX_Y * 1.2, MAX_Y * 1.2) + idleY * 1.3;
 
                                 curAx += (targetAx - curAx) * 0.16;
                                 curAy += (targetAy - curAy) * 0.16;
@@ -1111,6 +1141,23 @@ document.addEventListener('click', function(e) {
                                 var speed = Math.min(Math.abs(velX) + Math.abs(velY), 1);
                                 gsap.set(echoA, { x: curAx, y: curAy, skewX: curAx * 0.05, opacity: 0.12 + speed * 0.22 });
                                 gsap.set(echoB, { x: curBx, y: curBy, skewX: curBx * 0.05, opacity: 0.14 + speed * 0.26 });
+
+                                // Elastic ink tension: the original resists slightly opposite the
+                                // ghosts' combined ("center of mass") displacement — same smoothed
+                                // curAx/curBx values driving the echoes, not a separate cursor read.
+                                // Composed via a CSS custom property already plugged into #hero-craft's
+                                // transform chain (same pattern as --craft-parallax), so it never
+                                // overwrites the reveal/parallax/scale transform.
+                                var ghostX = (curAx + curBx) * 0.5;
+                                var ghostY = (curAy + curBy) * 0.5;
+                                craft.style.setProperty('--craft-counter-x', (-ghostX * COUNTER_RATIO).toFixed(2) + 'px');
+                                craft.style.setProperty('--craft-counter-y', (-ghostY * COUNTER_RATIO).toFixed(2) + 'px');
+
+                                // Name lines accompany the ghosts (same sign, tiny fraction) via GSAP
+                                // x/y — leaves the reveal's own y (already settled at 0) untouched.
+                                if (nameLines.length) {
+                                    gsap.set(nameLines, { x: (ghostX * NAME_RATIO).toFixed(2) + 'px', y: (ghostY * NAME_RATIO).toFixed(2) + 'px' });
+                                }
 
                                 driveRaf = requestAnimationFrame(driveLoop);
                             }
@@ -1122,7 +1169,9 @@ document.addEventListener('click', function(e) {
                                 revealDone = false; // a rebuild must wait for the reveal signal again
                                 if (interactivityCancel) interactivityCancel(); // in case the reveal hadn't finished yet
                                 if (driveRaf) { cancelAnimationFrame(driveRaf); driveRaf = 0; }
-                                gsap.killTweensOf([echoA, echoB]);
+                                gsap.killTweensOf([echoA, echoB, craft].concat(nameLines));
+                                gsap.set(craft, { '--craft-counter-x': '0px', '--craft-counter-y': '0px' }); // craft/nameLines outlive build/teardown cycles — no residual left for next build()
+                                if (nameLines.length) gsap.set(nameLines, { x: 0, y: 0 });
                                 echoA.remove(); echoB.remove();
                                 echoA = echoB = null;
                                 interactivityCancel = null;
@@ -1131,7 +1180,7 @@ document.addEventListener('click', function(e) {
                             }
 
                             function refresh() {
-                                var shouldRun = window.innerWidth >= 2560;
+                                var shouldRun = window.innerWidth >= 769; // now enabled on every desktop width — normal, retina, and UW alike
                                 if (shouldRun && !built) build();
                                 if (!shouldRun && built) teardown();
                                 if (shouldRun) syncBox();
@@ -1415,6 +1464,226 @@ document.addEventListener('click', function(e) {
                         </div>
                     </div>
                 </div>
+                <!-- ═══ EXPERIMENT: "Ink Shift" hover on with.svg, UW+Retina — same effect/constants
+                     as #hero-craft's (see above), adapted to a normal-flow, scroll-scrubbed target.
+                     To revert: delete this <style> + <script> pair; nothing elsewhere depends on it. -->
+                <style>
+                #services-with-echo-a, #services-with-echo-b {
+                    position: absolute;
+                    pointer-events: none;
+                    z-index: 4;
+                    background-repeat: no-repeat;
+                    background-size: 100% 100%;
+                    mix-blend-mode: hard-light;
+                    opacity: 0;
+                    will-change: transform, opacity;
+                }
+                </style>
+                <script>
+                (function () {
+                    var withEl = document.getElementById('services-with');
+                    if (!withEl) return;
+                    var servicesBig = withEl.closest('.services-big');
+                    if (!servicesBig) return;
+
+                    var gsapPoll = setInterval(function () {
+                        if (typeof gsap === 'undefined') return;
+                        clearInterval(gsapPoll);
+                        initWithInkShift();
+                    }, 100);
+
+                    function initWithInkShift() {
+                    var built = false, echoA = null, echoB = null;
+                    var raf = 0;
+                    var hovering = false;
+                    var driveRaf = 0;
+                    var velX = 0, velY = 0;
+                    var lastMoveX = null, lastMoveY = null, lastMoveT = 0;
+                    var curAx = 0, curAy = 0, curBx = 0, curBy = 0;
+                    function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
+                    var VELOCITY_GAIN = 26, MAX_X = 11, Y_INFLUENCE = 0.6, MAX_Y = MAX_X * Y_INFLUENCE;
+                    // Original counter-motion is X-only here (see driveLoop) — withEl's y/scale
+                    // are already continuously owned by the scroll-scrub ScrollTrigger tween a
+                    // few hundred lines down; adding Y counter-motion would fight it frame by
+                    // frame. X is never touched by that tween, so it's safe on its own.
+                    var COUNTER_RATIO = 0.2;
+
+                    var lastGlobalX = null, lastGlobalY = null;
+                    document.addEventListener('mousemove', function (e) {
+                        lastGlobalX = e.clientX; lastGlobalY = e.clientY;
+                        evaluateHover(e.clientX, e.clientY);
+                    }, { passive: true });
+
+                    function syncBox() {
+                        if (!built) return;
+                        var withRect = withEl.getBoundingClientRect();
+                        var bigRect = servicesBig.getBoundingClientRect();
+                        // .services-big itself is transform:scale(1.5) on UW (not on retina) — a
+                        // plain visual-pixel diff would land wrong on a scaled ancestor, since the
+                        // echoes are its children and get that same scale applied a second time.
+                        // Dividing by the live scale factor (1 on retina, 1.5 on UW) converts the
+                        // visual gap back into the parent's own local units before assigning it.
+                        var scaleFactor = bigRect.width / servicesBig.offsetWidth || 1;
+                        var left = (withRect.left - bigRect.left) / scaleFactor;
+                        var top = (withRect.top - bigRect.top) / scaleFactor;
+                        [echoA, echoB].forEach(function (el) {
+                            el.style.left = left + 'px';
+                            el.style.top = top + 'px';
+                            el.style.width = (withRect.width / scaleFactor) + 'px';
+                            el.style.height = (withRect.height / scaleFactor) + 'px';
+                        });
+                    }
+
+                    function makeEcho(id, maskGradient) {
+                        var el = document.createElement('div');
+                        el.id = id;
+                        el.setAttribute('aria-hidden', 'true');
+                        el.style.webkitMaskImage = maskGradient;
+                        el.style.maskImage = maskGradient;
+                        servicesBig.appendChild(el);
+                        return el;
+                    }
+
+                    function build() {
+                        if (built) return;
+                        built = true;
+                        echoA = makeEcho('services-with-echo-a', 'linear-gradient(to bottom, #000 0%, #000 42%, transparent 62%)');
+                        echoB = makeEcho('services-with-echo-b', 'linear-gradient(to bottom, transparent 38%, #000 58%, #000 100%)');
+                        echoA.style.backgroundImage = 'url("' + withEl.src + '")';
+                        echoB.style.backgroundImage = 'url("' + withEl.src + '")';
+                        syncBox();
+                        // with.svg has no reveal/blur entrance to wait for (it sits at its resting
+                        // opacity as soon as it's positioned/scaled — see the comment by withScale
+                        // a few hundred lines down), so hover can go live as soon as it's built.
+                    }
+
+                    function evaluateHover(x, y) {
+                        if (!built || x === null) {
+                            if (hovering) onLeave();
+                            return;
+                        }
+                        var r = withEl.getBoundingClientRect();
+                        var inside = x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+                        if (inside && !hovering) onEnter(x, y);
+                        else if (inside && hovering) onMove(x, y);
+                        else if (!inside && hovering) onLeave();
+                    }
+
+                    function onEnter(x, y) {
+                        if (hovering) return;
+                        hovering = true;
+                        syncBox();
+                        lastMoveX = x; lastMoveY = y; lastMoveT = performance.now();
+                        velX = 0; velY = 0;
+                        gsap.killTweensOf([echoA, echoB]);
+                        gsap.killTweensOf(withEl, 'x'); // property-scoped: never touches the scroll-scrub tween (y/scale)
+                        gsap.to(echoA, { opacity: 0.14, duration: 0.2, ease: 'power2.out' });
+                        gsap.to(echoB, { opacity: 0.16, duration: 0.2, ease: 'power2.out' });
+                        if (!driveRaf) driveRaf = requestAnimationFrame(driveLoop);
+                    }
+
+                    function onMove(x, y) {
+                        if (!hovering) return;
+                        var now = performance.now();
+                        var dt = Math.max(now - lastMoveT, 1);
+                        velX = (x - lastMoveX) / dt;
+                        velY = (y - lastMoveY) / dt;
+                        lastMoveX = x; lastMoveY = y; lastMoveT = now;
+                    }
+
+                    function onLeave() {
+                        if (!hovering) return;
+                        hovering = false;
+                        velX = 0; velY = 0;
+                        gsap.killTweensOf([echoA, echoB]);
+                        gsap.killTweensOf(withEl, 'x');
+                        gsap.to(echoA, { x: 0, y: 0, skewX: 0, opacity: 0, duration: 0.4, ease: 'cubic-bezier(0.22, 1, 0.36, 1)' });
+                        gsap.to(echoB, { x: 0, y: 0, skewX: 0, opacity: 0, duration: 0.4, ease: 'cubic-bezier(0.22, 1, 0.36, 1)' });
+                        gsap.to(withEl, { x: 0, duration: 0.4, ease: 'cubic-bezier(0.22, 1, 0.36, 1)' });
+                        curAx = curAy = curBx = curBy = 0;
+                    }
+
+                    function forceHide() {
+                        hovering = false;
+                        if (driveRaf) { cancelAnimationFrame(driveRaf); driveRaf = 0; }
+                        gsap.killTweensOf(withEl, 'x');
+                        gsap.set(withEl, { x: 0 });
+                        if (!echoA || !echoB) return;
+                        gsap.killTweensOf([echoA, echoB]);
+                        gsap.set([echoA, echoB], { x: 0, y: 0, skewX: 0, opacity: 0 });
+                        curAx = curAy = curBx = curBy = 0;
+                        velX = velY = 0;
+                    }
+
+                    function driveLoop(ts) {
+                        if (!hovering) { driveRaf = 0; return; }
+                        velX *= 0.82; velY *= 0.82;
+
+                        var idlePhase = ts * 0.0011;
+                        var idleX = Math.sin(idlePhase) * 0.35;
+                        var idleY = Math.cos(idlePhase * 0.7) * 0.15;
+
+                        var targetAx = clamp(velX * VELOCITY_GAIN, -MAX_X, MAX_X) + idleX;
+                        var targetAy = clamp(velY * VELOCITY_GAIN * Y_INFLUENCE, -MAX_Y, MAX_Y) + idleY;
+                        var targetBx = clamp(velX * VELOCITY_GAIN * 1.2, -MAX_X * 1.2, MAX_X * 1.2) + idleX * 1.3;
+                        var targetBy = clamp(velY * VELOCITY_GAIN * Y_INFLUENCE * 1.2, -MAX_Y * 1.2, MAX_Y * 1.2) + idleY * 1.3;
+
+                        curAx += (targetAx - curAx) * 0.16;
+                        curAy += (targetAy - curAy) * 0.16;
+                        curBx += (targetBx - curBx) * 0.10;
+                        curBy += (targetBy - curBy) * 0.10;
+
+                        var speed = Math.min(Math.abs(velX) + Math.abs(velY), 1);
+                        gsap.set(echoA, { x: curAx, y: curAy, skewX: curAx * 0.05, opacity: 0.12 + speed * 0.22 });
+                        gsap.set(echoB, { x: curBx, y: curBy, skewX: curBx * 0.05, opacity: 0.14 + speed * 0.26 });
+
+                        var ghostX = (curAx + curBx) * 0.5;
+                        gsap.set(withEl, { x: (-ghostX * COUNTER_RATIO).toFixed(2) });
+
+                        driveRaf = requestAnimationFrame(driveLoop);
+                    }
+
+                    function teardown() {
+                        if (!built) return;
+                        built = false;
+                        hovering = false;
+                        if (driveRaf) { cancelAnimationFrame(driveRaf); driveRaf = 0; }
+                        gsap.killTweensOf([echoA, echoB]);
+                        gsap.killTweensOf(withEl, 'x');
+                        gsap.set(withEl, { x: 0 }); // withEl outlives build/teardown — no residual left for next build()
+                        echoA.remove(); echoB.remove();
+                        echoA = echoB = null;
+                        curAx = curAy = curBx = curBy = 0;
+                        velX = velY = 0;
+                    }
+
+                    function refresh() {
+                        var shouldRun = window.innerWidth >= 769; // now enabled on every desktop width — normal, retina, and UW alike
+                        if (shouldRun && !built) build();
+                        if (!shouldRun && built) teardown();
+                        if (shouldRun) syncBox();
+                    }
+
+                    window.addEventListener('resize', function () {
+                        if (raf) return;
+                        raf = requestAnimationFrame(function () { raf = 0; refresh(); });
+                    }, { passive: true });
+
+                    setTimeout(function () {
+                        var sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
+                        if (sb) sb.addListener(function () { syncBox(); });
+                    }, 900);
+
+                    // Small delay before the first build(): the with-rt.svg/with-uw.svg src swap
+                    // lives in a separate, later script (the services-big parallax block) that
+                    // isn't gated behind this same gsap-ready poll, so ordering between the two
+                    // isn't guaranteed on first load. This is the same buffer used elsewhere in
+                    // this file (see the Scrollbar listener above) to let that settle first —
+                    // without it, the echoes could occasionally bake in the wrong image on load.
+                    setTimeout(refresh, 200);
+                    } // end initWithInkShift
+                })();
+                </script>
                 <div class="services-grid">
                     <div class="services-grid-item"><h3><img src="./assets/svg/services-item1.svg" alt="" /> Web Design</h3><p>I design clean, responsive websites<br class="mob-br" />that look great and work even better.</p></div>
                     <div class="services-grid-item"><h3><img src="./assets/svg/services-item2.svg" alt="" /> Branding</h3><p>I help you shape a brand that's clear,<br class="mob-br" />consistent, and built to last.</p></div>
@@ -2078,10 +2347,10 @@ window.addEventListener('load', () => {
             var introLogoEl = document.querySelector('.tt-logo.mob-no');
             if (introLogoEl) { introLogoEl.classList.add('intro-hover'); setTimeout(() => { introLogoEl.classList.remove('intro-hover'); }, 1400); }
             gsap.to(minTitlesReveal, { y: 0, duration: 1.4, ease: 'power3.out', delay: 0 });
-            gsap.to(lineFed, { y: 0, duration: 1.6, ease: 'power3.out', delay: 0.24, onComplete: () => { document.querySelectorAll('.name-reveal-mask').forEach(m => m.style.overflow = 'visible'); document.querySelectorAll('.ph-caption .min-titles').forEach(m => { if (m.parentNode) m.parentNode.style.overflow = 'visible'; }); } });
-            gsap.to(lineVac, { y: 0, duration: 1.6, ease: 'power3.out', delay: 0.68 });
-            if (heroMetaRow) gsap.to(heroMetaRow, { opacity: 1, y: 0, duration: 1.4, ease: 'power3.out', delay: 0.84 });
-            gsap.to(heroSubtitle, { y: 0, duration: 1.4, ease: 'power3.out', delay: 0.64, onComplete: () => {
+            gsap.to(lineFed, { y: 0, duration: 1.6, ease: 'power3.out', delay: 0.15, onComplete: () => { document.querySelectorAll('.name-reveal-mask').forEach(m => m.style.overflow = 'visible'); document.querySelectorAll('.ph-caption .min-titles').forEach(m => { if (m.parentNode) m.parentNode.style.overflow = 'visible'; }); } });
+            gsap.to(lineVac, { y: 0, duration: 1.6, ease: 'power3.out', delay: 0.45 });
+            if (heroMetaRow) gsap.to(heroMetaRow, { opacity: 1, y: 0, duration: 1.4, ease: 'power3.out', delay: 0.55 });
+            gsap.to(heroSubtitle, { y: 0, duration: 1.4, ease: 'power3.out', delay: 0.4, onComplete: () => {
                 window._heroParallaxReady = true;
                 const masks = document.querySelectorAll('.name-reveal-mask');
                 const heroPortLabel = document.getElementById('hero-portfolio-label');
