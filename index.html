@@ -582,7 +582,7 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
     .services-btns-connect { height: 36px !important; width: 350px !important; max-width: 350px !important; }
     #footer-bg-orange { width: 100vw !important; left: 50% !important; margin-left: -50vw !important; }
     #contact .tt-section-inner.tt-wrap { transform: translateY(24px) !important; }
-    .services-big > img { width: auto !important; height: 110px !important; max-width: none !important; }
+    .services-big > img, .services-big .sb-line-hover > img { width: auto !important; height: 110px !important; max-width: none !important; }
     #figma-logo { transform: scale(0.8) translateX(-20px); transform-origin: bottom right; }
     .footer-social-icons img { width: 25.5px !important; height: 25.5px !important; }
     /* FAQ title SVGs - retina */
@@ -1453,7 +1453,36 @@ document.addEventListener('click', function(e) {
                 <div class="tt-section-inner tt-wrap">
                 <style>
                     .services-big { position:relative; margin-top:100px; margin-bottom:180px; cursor:default; text-align:center; }
-                    .services-big > img { display:block; width:auto; max-width:100%; margin:0 auto; }
+                    .services-big > img, .services-big .sb-line-hover > img { display:block; width:auto; max-width:100%; margin:0 auto; }
+                    /* Literal copy of the hero name's hover rule (index.html ~191-192,
+                       #hero-name-link:hover #line-federico/#line-vaccarezza .name-letter):
+                       transform:scale(1.015), 0.7s cubic-bezier(0.25,0.46,0.45,0.94), line 2
+                       staggered +0.06s. Extended to a 3rd line by continuing that same 0.06s
+                       step (hero only ever had 2 lines, so there's no hero value for a 3rd —
+                       this is the same increment applied once more, not a new number). No
+                       mouse-tracking: the hero's own hover is a plain on/off scale, not a
+                       tilt — confirmed directly in its CSS, it does not compute cursor
+                       position at all. If the hero's values ever change, update both here
+                       and there — not centralized to avoid touching hero's existing rules.
+                       Applied to a wrapper div around each line, not the <img> itself: the
+                       images already have GSAP driving their own transform continuously
+                       (scroll-scrub parallax, see the .sb-line1/2/3 forEach further down) —
+                       a hover transform on the image would replace that inline transform
+                       outright and snap the line to a different position mid-scroll. The
+                       wrapper carries no transform of its own, so the two compose
+                       independently instead of fighting. */
+                    /* .sb-line-sway (new outer wrapper, see markup below) is the mouse-driven
+                       sway target — see the services-sway script further down, ported from the
+                       hero name's own velocity-driven sway (#line-federico/#line-vaccarezza,
+                       same constants). Kept on its own layer, outside .sb-line-hover, for the
+                       same reason .sb-line-hover itself sits outside the <img>: GSAP owns this
+                       wrapper's transform (x/y) exclusively, so it can't fight the scale()
+                       !important below or the scroll-scrub transform GSAP already owns on the
+                       <img> two levels in. */
+                    .sb-line-hover { transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
+                    .services-big:hover .sb-line-hover { transform: scale(1.015) !important; }
+                    .services-big:hover .sb-line-hover-2 { transition-delay: 0.06s !important; }
+                    .services-big:hover .sb-line-hover-3 { transition-delay: 0.12s !important; }
                     .sb-tag-parallax { position:absolute; bottom:-120px; right:0; width:25.2%; }
                     .sb-tag { display:flex; flex-direction:column; align-items:center; gap:0; }
                     .sb-tag1 { margin-top:24px; } .sb-tag2 { margin-top:-50px; } .sb-tag3 { margin-top:-25px; }
@@ -1513,9 +1542,9 @@ document.addEventListener('click', function(e) {
                     <div class="mob-phrase-tags-overlay"><img src="./assets/svg/services-tag-complete.svg" id="mob-services-tag" class="mob-tag-complete" alt="" style="width:auto;height:auto;" /></div>
                 </div>
                 <div class="services-big">
-                    <img class="sb-line1" src="./assets/svg/services-1.svg" alt="" />
-                    <img class="sb-line2" src="./assets/svg/services-2.svg" alt="" />
-                    <img class="sb-line3" src="./assets/svg/services-3.svg" alt="" />
+                    <div class="sb-line-sway" style="display:block;line-height:0;"><div class="sb-line-hover" style="display:block;line-height:0;"><img class="sb-line1" src="./assets/svg/services-1.svg" alt="" /></div></div>
+                    <div class="sb-line-sway" style="display:block;line-height:0;"><div class="sb-line-hover sb-line-hover-2" style="display:block;line-height:0;"><img class="sb-line2" src="./assets/svg/services-2.svg" alt="" /></div></div>
+                    <div class="sb-line-sway" style="display:block;line-height:0;"><div class="sb-line-hover sb-line-hover-3" style="display:block;line-height:0;"><img class="sb-line3" src="./assets/svg/services-3.svg" alt="" /></div></div>
                     <!-- Centered over the phrase. Desktop-normal only; intrinsic 1092x674, no scaling. -->
                     <img id="services-with" src="./assets/svg/with.svg" data-src-rt="./assets/svg/with-rt.svg" data-src-uw="./assets/svg/with-uw.svg" alt="" aria-hidden="true" />
                     <div class="sb-tag-parallax">
@@ -1747,10 +1776,10 @@ document.addEventListener('click', function(e) {
                 })();
                 </script>
                 <div class="services-grid">
-                    <div class="services-grid-item"><h3><img src="./assets/svg/services-item1.svg" alt="" /> Web Design</h3><p>I design clean, responsive websites<br class="mob-br" />that look great and work even better.</p></div>
-                    <div class="services-grid-item"><h3><img src="./assets/svg/services-item2.svg" alt="" /> Branding</h3><p>I help you shape a brand that's clear,<br class="mob-br" />consistent, and built to last.</p></div>
-                    <div class="services-grid-item"><h3><img src="./assets/svg/services-item4.svg" alt="" /> Graphic Design</h3><p>Bold, creative visuals that tell your story.<br class="mob-br" />From logos to social posts.</p></div>
-                    <div class="services-grid-item"><h3><img src="./assets/svg/services-item3.svg" alt="" /> Product Design</h3><p>I create interfaces that guide,<br class="mob-br" />engage, and convert.</p></div>
+                    <div class="services-grid-item"><h3><img src="./assets/svg/services-item1.svg" alt="" /> Web Design</h3><p>I design clean and<br class="mob-br" /> responsive websites.</p></div>
+                    <div class="services-grid-item"><h3><img src="./assets/svg/services-item2.svg" alt="" /> Branding</h3><p>I help you shape a brand that's<br class="mob-br" /> clear, consistent and built to last.</p></div>
+                    <div class="services-grid-item"><h3><img src="./assets/svg/services-item4.svg" alt="" /> Graphic Design</h3><p>I create bold visuals that make<br /> brands stand out</p></div>
+                    <div class="services-grid-item"><h3><img src="./assets/svg/services-item3.svg" alt="" /> Product Design</h3><p>I create interfaces that feel good<br /> and make sense.</p></div>
                 </div>
                 <div class="services-btns">
                     <a href="#contact" data-offset="14" class="services-btns-connect"><span>Connect</span><span style="letter-spacing:0;margin-left:10px;font-size:1.3em;line-height:1;display:inline-flex;align-items:center;">↗</span></a>
@@ -2836,6 +2865,90 @@ window.addEventListener('load', () => {
             }
         }
         } catch (e) { console.error('[anim] services-big parallax failed:', e); }
+
+        try {
+        if (window.innerWidth > 768) {
+            /* Mouse-driven sway for the three services-big phrase lines, ported from the
+               hero name's own velocity-driven sway (#line-federico/#line-vaccarezza — see
+               the hero-craft "Ink Shift" block: nameLines/NAME_RATIO/driveLoop). Same
+               constants, same velocity -> clamp -> dual-rate-ease -> average pipeline;
+               only the trigger differs (.services-big's own rect, not #hero-craft's —
+               Services has no craft artwork/echo trail, so there's nothing to key off of
+               there, and the user asked to port only the name-sway piece, not the ghost
+               echoes or the counter-motion). If the hero's numbers ever change, update
+               both here and there — not centralized, same reasoning as the scale-hover
+               comment above.
+               DEV NOTE (do not change without updating both): VELOCITY_GAIN, MAX_X,
+               Y_INFLUENCE, MAX_Y, ratio, decay, ease rates, and idle amplitudes below are
+               a byte-for-byte copy of the hero's own VELOCITY_GAIN/MAX_X/Y_INFLUENCE/
+               MAX_Y/NAME_RATIO and driveLoop math. */
+            const swayEls = Array.prototype.slice.call(document.querySelectorAll('.services-big .sb-line-sway'));
+            const servicesBigEl = document.querySelector('.services-big');
+            if (swayEls.length && servicesBigEl) {
+                const VELOCITY_GAIN = 26, MAX_X = 11, Y_INFLUENCE = 0.6, MAX_Y = MAX_X * Y_INFLUENCE;
+                const RATIO = 0.07;
+                function clamp(n, a, b) { return Math.max(a, Math.min(b, n)); }
+                let velX = 0, velY = 0;
+                let lastMoveX = null, lastMoveY = null, lastMoveT = 0;
+                let curAx = 0, curAy = 0, curBx = 0, curBy = 0;
+                let hovering = false, raf = 0;
+
+                function onEnter(x, y) {
+                    hovering = true;
+                    lastMoveX = x; lastMoveY = y; lastMoveT = performance.now();
+                    velX = 0; velY = 0;
+                    gsap.killTweensOf(swayEls);
+                    if (!raf) raf = requestAnimationFrame(driveLoop);
+                }
+                function onMove(x, y) {
+                    const now = performance.now();
+                    const dt = Math.max(now - lastMoveT, 1);
+                    velX = (x - lastMoveX) / dt;
+                    velY = (y - lastMoveY) / dt;
+                    lastMoveX = x; lastMoveY = y; lastMoveT = now;
+                }
+                function onLeave() {
+                    hovering = false;
+                    velX = 0; velY = 0;
+                    gsap.killTweensOf(swayEls);
+                    gsap.to(swayEls, { x: 0, y: 0, duration: 0.4, ease: 'cubic-bezier(0.22, 1, 0.36, 1)' });
+                    curAx = curAy = curBx = curBy = 0;
+                }
+                function driveLoop(ts) {
+                    if (!hovering) { raf = 0; return; }
+                    velX *= 0.82; velY *= 0.82;
+
+                    const idlePhase = ts * 0.0011;
+                    const idleX = Math.sin(idlePhase) * 0.35;
+                    const idleY = Math.cos(idlePhase * 0.7) * 0.15;
+
+                    const targetAx = clamp(velX * VELOCITY_GAIN, -MAX_X, MAX_X) + idleX;
+                    const targetAy = clamp(velY * VELOCITY_GAIN * Y_INFLUENCE, -MAX_Y, MAX_Y) + idleY;
+                    const targetBx = clamp(velX * VELOCITY_GAIN * 1.2, -MAX_X * 1.2, MAX_X * 1.2) + idleX * 1.3;
+                    const targetBy = clamp(velY * VELOCITY_GAIN * Y_INFLUENCE * 1.2, -MAX_Y * 1.2, MAX_Y * 1.2) + idleY * 1.3;
+
+                    curAx += (targetAx - curAx) * 0.16;
+                    curAy += (targetAy - curAy) * 0.16;
+                    curBx += (targetBx - curBx) * 0.10;
+                    curBy += (targetBy - curBy) * 0.10;
+
+                    const ghostX = (curAx + curBx) * 0.5;
+                    const ghostY = (curAy + curBy) * 0.5;
+                    gsap.set(swayEls, { x: (ghostX * RATIO).toFixed(2) + 'px', y: (ghostY * RATIO).toFixed(2) + 'px' });
+
+                    raf = requestAnimationFrame(driveLoop);
+                }
+
+                document.addEventListener('mousemove', function (e) {
+                    const r = servicesBigEl.getBoundingClientRect();
+                    const inside = e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom;
+                    if (inside && !hovering) onEnter(e.clientX, e.clientY);
+                    else if (inside && hovering) onMove(e.clientX, e.clientY);
+                    else if (!inside && hovering) onLeave();
+                }, { passive: true });
+            }
+        }
+        } catch (e) { console.error('[anim] services-big name sway failed:', e); }
 
         try {
         const testiTag = document.querySelector('.desktop-testi-tag');
