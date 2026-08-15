@@ -1319,7 +1319,7 @@ document.addEventListener('click', function(e) {
                 <div class="mob-about-clip" style="display:none;"><img src="./assets/svg/mobile-about.svg" id="mob-about-svg" alt="about" style="display:block;width:auto;height:auto;" /></div>
                 <img src="./assets/svg/pill-aboutme.svg" alt="About Me" style="display:block;height:28px;width:auto;margin:0 auto;" />
                 <div class="mob-about-clip"><img src="./assets/svg/mob-core.svg" alt="" style="display:block;width:auto;height:auto;max-width:92vw;" /></div>
-                <div class="mob-about-clip-text"><p class="mob-about-text">Educated at the University of Buenos Aires (UBA), I began in Industrial Design before transitioning to Graphic Design.</p><p class="mob-about-text" style="margin-top:24px;">Over the years, my work has spanned branding, web design, and UI/UX, collaborating with startups and established companies to create brands, websites, and digital experiences that are clear, effective, and thoughtfully designed.</p></div>
+                <div class="mob-about-clip-text"><p class="mob-about-text">Educated at the University of Buenos Aires (UBA), I began in Industrial Design before transitioning to Graphic Design.</p><p class="mob-about-text" style="margin-top:24px;">Over the years, my work has spanned branding, web design, and UI/UX, working with startups and established companies to create brands, websites, and digital experiences that are clear, effective, and thoughtfully designed.</p></div>
             </div>
 
             <script>
@@ -1408,8 +1408,8 @@ document.addEventListener('click', function(e) {
                                 <img id="desk-about-me" src="./assets/svg/desk-story-uw.svg" alt="Story" class="mob-no" style="display:block;width:auto;max-width:100%;filter:blur(20px);border-radius:0 !important;" />
                             </div>
                             <div class="info" style="width:100%;display:flex;flex-direction:column;gap:16px;text-align:left;" id="fede-text-wrap">
-                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;text-wrap:pretty;">Educated at the University of Buenos Aires (UBA), I began in Industrial Design before transitioning to Graphic Design.</p>
-                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;text-wrap:pretty;">Over the years, my work has spanned branding, web design, and UI/UX, collaborating with startups and established companies to create brands, websites, and digital experiences <span id="fede-that-are">that are</span>&nbsp;clear, effective, and thoughtfully designed.</p>
+                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;text-wrap:pretty;">Educated at the University of Buenos Aires (UBA), I began in Industrial Design<br>before transitioning to Graphic Design.</p>
+                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;text-wrap:pretty;">Over the years, my work has spanned branding, web design, and UI/UX,<br>working with startups and established companies to create brands, websites,<br>and digital experiences <span id="fede-that-are">that are</span>&nbsp;clear, effective, and thoughtfully designed.</p>
                             </div>
                         </div>
                     </div>
@@ -2018,6 +2018,16 @@ document.addEventListener('click', function(e) {
                 .gallery .card.in-view:nth-child(2n) { animation: card-float-alt 8s cubic-bezier(0.45,0,0.55,1) infinite; animation-delay: -2.6s; }
                 .gallery .card.in-view:nth-child(3n) { animation-delay: -5.2s; }
                 .gallery .card:hover { animation-play-state: paused; }
+                /* These two are the only INFINITE, auto-playing decorative loops on this
+                   page (verified: nothing else with animation-iteration-count:infinite is
+                   actually used in this markup). They used to be stopped only as a side
+                   effect of normalize.min.css's blanket reduced-motion reset; now that that
+                   reset is scoped down to leave short hover feedback alone, these need their
+                   own explicit stop so reduced-motion users don't get an indefinite loop. */
+                @media (prefers-reduced-motion: reduce) {
+                    .faq-plus { animation: none; }
+                    .gallery .card.in-view, .gallery .card.in-view:nth-child(2n) { animation: none; }
+                }
                 .card { border-radius:10px 10px 0 0; overflow:visible; }
                 .card .meta { padding-top:14px; } .card .meta h3, .card .meta p { transform:none !important; }
                 .card .img-hover { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transform:scale(1); transition:opacity 1.4s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.4s cubic-bezier(0.25,0.46,0.45,0.94); }
@@ -2513,6 +2523,18 @@ window.addEventListener('load', () => {
             card.addEventListener('mouseleave', () => { viewCursor.style.width = '10px'; viewCursor.style.height = '10px'; viewCursorText.style.fontSize = '0px'; viewCursor.style.opacity = '1'; if (fxCursor) { fxCursor.style.filter='blur(0px)'; fxCursor.style.opacity='1'; } if (mediaLink) { mediaLink.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)'; mediaLink.style.transition = 'transform 0.6s cubic-bezier(0.34,1.5,0.9,1)'; } });
             card.addEventListener('mousemove', (e) => { if (!mediaLink) return; const rect = mediaLink.getBoundingClientRect(); const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2, dx = (e.clientX - cx) / (rect.width / 2), dy = (e.clientY - cy) / (rect.height / 2); mediaLink.style.transform = 'perspective(1200px) rotateX(' + (-dy * 1.5) + 'deg) rotateY(' + (dx * 1.5) + 'deg)'; mediaLink.style.transition = 'transform 0.15s ease'; });
         });
+        // Trial: same mouse-follow tilt as the card thumbnails (perspective + rotateX/
+        // rotateY tracking the cursor, fast 0.15s while moving, bouncier 0.6s snap-back
+        // on leave) on the Story and Projects titles, plus a touch of scale so it reads
+        // as "lifting" toward the cursor. Independent per element, not paired like the
+        // hero's two name lines. Skipped on mobile — same window.innerWidth gate as the
+        // card tilt above, and both elements carry mob-no besides.
+        if (window.innerWidth > 768) {
+            document.querySelectorAll('#desk-about-me, #desk-work').forEach(el => {
+                el.addEventListener('mousemove', (e) => { const rect = el.getBoundingClientRect(); const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2, dx = (e.clientX - cx) / (rect.width / 2), dy = (e.clientY - cy) / (rect.height / 2); el.style.transform = 'scale(1.015) perspective(1200px) rotateX(' + (-dy * 1.5) + 'deg) rotateY(' + (dx * 1.5) + 'deg)'; el.style.transition = 'transform 0.15s ease'; });
+                el.addEventListener('mouseleave', () => { el.style.transform = 'scale(1) perspective(1200px) rotateX(0deg) rotateY(0deg)'; el.style.transition = 'transform 0.6s cubic-bezier(0.34,1.5,0.9,1)'; });
+            });
+        }
         document.querySelectorAll('.services-btns-row a, .services-btns-connect').forEach(btn => {
             btn.addEventListener('mousemove', (e) => { const rect = btn.getBoundingClientRect(); const dx = (e.clientX - (rect.left + rect.width/2)) / (rect.width/2), dy = (e.clientY - (rect.top + rect.height/2)) / (rect.height/2); btn.style.transform = 'perspective(400px) rotateX(' + (-dy*4) + 'deg) rotateY(' + (dx*4) + 'deg) translate(' + (dx*8) + 'px,' + (dy*8) + 'px)'; btn.style.transition = 'transform 0.15s ease'; });
             btn.addEventListener('mouseleave', () => { btn.style.transform = 'perspective(400px) rotateX(0deg) rotateY(0deg) translate(0px,0px)'; btn.style.transition = 'transform 0.5s cubic-bezier(0.34,1.5,0.9,1)'; });

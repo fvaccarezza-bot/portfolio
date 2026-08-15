@@ -270,14 +270,18 @@ input[type='number']::-webkit-inner-spin-button {
    }
 }
 
-/* 18) Animaciones y usuarios con reducción de movimiento */
+/* 18) Animaciones y usuarios con reducción de movimiento
+   NOTE: this used to force EVERY animation/transition on the page to ~0
+   duration via a `*` selector — including short hover/opacity/filter
+   micro-interactions (card hover blur, hero-craft fade-in, footer roll
+   links, etc.), which just made them look inert rather than "reduced".
+   Site-specific large/looping motion already has its own targeted
+   reduced-motion rule next to where it's defined (trusted-logos marquee in
+   responsive.css, the cursor-follow trail in cursor.css, page-transition
+   view-transitions in transition.css, the preloader/modal exits) — this
+   block only needs to keep instant-jump anchor scrolling for everyone. */
 @media (prefers-reduced-motion: reduce) {
    * {
-      -webkit-animation-duration: 0.01ms !important;
-      animation-duration: 0.01ms !important;
-      -webkit-animation-iteration-count: 1 !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
    }
 }
