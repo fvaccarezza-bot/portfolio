@@ -239,13 +239,32 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
 #desk-extra { display:block; width:auto; height:auto; transform:translateY(160%); filter:blur(20px); }
 #deck-guidelines-frame { transition: aspect-ratio 1.2s cubic-bezier(0.16,1,0.3,1); }
 #deck-guidelines-frame:hover { aspect-ratio: 1320/700; }
+/* UW-only manual line breaks for the About description — hidden everywhere
+   else so those paragraphs keep their original breaks below 2560px. */
+.br-uw-only { display: none; }
 @media (min-width: 2560px) {
     .gallery .stamp { width: 84px !important; height: 84px !important; }
     #stickers-img { width: 1300px !important; }
-    .desk-works-phrase { transform:scale(1.5); transform-origin:center bottom; margin-bottom:150px; margin-top:50px; }
+    /* gap: 32px (base) -> 50/1.5, so that once this element's own scale(1.5)
+       below scales the whole column uniformly, the pill->title and
+       title->desc gaps land on exactly the requested 50px with no margin
+       hacks. Works because #work-them/#desk-work below use zoom (not
+       transform) for their own counter-scale — zoom shrinks their LAYOUT
+       box together with their paint, so their contribution to this gap math
+       is already their true post-zoom size; a transform-based counter-scale
+       would leave each one's pre-transform layout box at its full un-shrunk
+       size while only its content painted small, making the resulting gap
+       depend unpredictably on each asset's own intrinsic height instead of
+       just this gap value. */
+    .desk-works-phrase { transform:scale(1.5); transform-origin:center bottom; margin-bottom:150px; margin-top:50px; gap: calc(50px / 1.5); }
     .desk-works-afew p { font-size: 16px !important; letter-spacing: 0.5em !important; transform: scale(0.6667); transform-origin: center center; }
     #works-afew-desc { font-size: calc(var(--fv-body) / 1.5) !important; }
-    #work-them { height: 21px !important; width: auto !important; }
+    /* pill-afew-uw.svg / projects-uw.svg are already at their final UW size;
+       zoom 0.6667 exactly cancels .desk-works-phrase's inherited scale(1.5)
+       (1.5 x 0.6667 = 1.0 net), so both render at true intrinsic size. See
+       the gap comment above for why zoom (not transform) is required here. */
+    #work-them { zoom: 0.6667; }
+    #desk-work { zoom: 0.6667; }
     .desktop-testi-tag { zoom: 0.6667; }
     #deck-guidelines { width: 1980px !important; max-width: 1980px !important; }
     #deck-guidelines-frame { width: 1980px !important; max-width: 1980px !important; }
@@ -338,9 +357,31 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
     #testimonials-section .verbatim img { width: 88px !important; height: 88px !important; }
     #faq-section { margin-bottom: 100px !important; }
     #hola-foto { width: 1480px !important; }
-    #fede-photo-wrap { flex-basis: 400px !important; }
-    #about-text-col { max-width: 780px !important; }
-    #fede-text-wrap { max-width: calc(100% - 30px) !important; }
+    /* No fixed flex-basis: width is set by JS to match the column's own
+       rendered height (see syncAboutPhotoWidth near the closing </script>),
+       so the photo is always a perfect square sized off the content stack.
+       aspect-ratio is a paint-order fallback only, for the moment before that
+       script's first ResizeObserver callback runs — height already comes for
+       free from #hola-foto's existing align-items:stretch (unchanged). */
+    #fede-photo-wrap { flex-basis: auto !important; aspect-ratio: 1 / 1 !important; }
+    /* gap:24px -> 50px gives the exact requested pill->title and title->text
+       gaps directly as real flex gap: nothing in About's ancestry scales or
+       zooms it, so unlike Projects/Testimonials this needs no compensation. */
+    #about-text-col { max-width: 780px !important; gap: 50px !important; }
+    /* 768px = core-uw.svg's own intrinsic width (both it and this text are
+       left-aligned off the same column edge), so the description now runs
+       flush to the artwork's right edge instead of stopping short of it. */
+    #fede-text-wrap { max-width: 768px !important; }
+    /* Hides all 3 original breaks (Design/before, UI/UX,/working,
+       websites,/and) so the two paragraphs reflow as continuous prose, then
+       .br-uw-only below reintroduces breaks at exactly the 3 spots requested:
+       after "before", after "with", after "experiences". */
+    #fede-text-wrap p br.uw-reflow { display: none !important; }
+    #fede-text-wrap p br.br-uw-only { display: revert !important; }
+    /* Un-clamp the pill's fixed 31px so pill-aboutme-uw.svg (JS swap below)
+       renders at its own true intrinsic size instead of being squeezed/
+       stretched into the old asset's height. */
+    #about-pill { height: auto !important; width: auto !important; }
     #fede-that-are { white-space: nowrap; }
     #works-afew-desc { max-width: 433px !important; }
 }
@@ -1409,8 +1450,8 @@ document.addEventListener('click', function(e) {
                                 <img id="desk-about-me" src="./assets/svg/desk-story-uw.svg" alt="Story" class="mob-no" style="display:block;width:auto;max-width:100%;filter:blur(20px);border-radius:0 !important;" />
                             </h2>
                             <div class="info" style="width:100%;display:flex;flex-direction:column;gap:16px;text-align:left;" id="fede-text-wrap">
-                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;text-wrap:pretty;">Educated at the University of Buenos Aires (UBA), I began in Industrial Design<br>before transitioning to Graphic Design.</p>
-                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;text-wrap:pretty;">Over the years, my work has spanned branding, web design, and UI/UX,<br>working with startups and established companies to create brands, websites,<br>and digital experiences <span id="fede-that-are">that are</span>&nbsp;clear, effective, and thoughtfully designed.</p>
+                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;text-wrap:pretty;">Educated at the University of Buenos Aires (UBA), I began in Industrial Design<br class="uw-reflow"> before<br class="br-uw-only"> transitioning to Graphic Design.</p>
+                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;text-wrap:pretty;">Over the years, my work has spanned branding, web design, and UI/UX,<br class="uw-reflow"> working with<br class="br-uw-only"> startups and established companies to create brands, websites,<br class="uw-reflow"> and digital experiences<br class="br-uw-only"> <span id="fede-that-are">that are</span>&nbsp;clear, effective, and thoughtfully designed.</p>
                             </div>
                         </div>
                     </div>
@@ -2926,6 +2967,54 @@ window.addEventListener('load', () => {
             }
         }
         } catch (e) { console.error('[anim] services-big parallax failed:', e); }
+
+        try {
+            /* About UW-only asset swap: same pattern as swapHeroSVGs() above,
+               just for the pill + Core artwork. desk-about-me keeps its
+               existing id/alt ("story") — only its src changes. */
+            if (window.innerWidth >= 2560) {
+                var aboutPillEl = document.getElementById('about-pill');
+                var aboutStoryEl = document.getElementById('desk-about-me');
+                if (aboutPillEl) aboutPillEl.src = './assets/svg/pill-aboutme-uw.svg';
+                if (aboutStoryEl) aboutStoryEl.src = './assets/svg/core-uw.svg';
+            }
+        } catch (e) { console.error('[anim] About UW asset swap failed:', e); }
+
+        try {
+            /* Projects UW-only asset swap: same pattern as swapHeroSVGs()/the
+               About swap above. #work-them/#desk-work keep their existing
+               ids/alt text — only their src changes. */
+            if (window.innerWidth >= 2560) {
+                var worksPillEl = document.getElementById('work-them');
+                var worksTitleEl = document.getElementById('desk-work');
+                if (worksPillEl) worksPillEl.src = './assets/svg/pill-afew-uw.svg';
+                if (worksTitleEl) worksTitleEl.src = './assets/svg/projects-uw.svg';
+            }
+        } catch (e) { console.error('[anim] Projects UW asset swap failed:', e); }
+
+        try {
+            /* About photo (UW only): width tracks #about-text-col's own
+               rendered height so #fede-photo-wrap ends up a perfect square.
+               Height already matches via #hola-foto's existing
+               align-items:stretch (untouched) — this only supplies the
+               matching width, which flexbox has no way to derive on its own
+               from a stretched cross-size. ResizeObserver (not a one-time
+               read) because the column's real height only settles once the
+               pill/title/text images finish loading their real intrinsic
+               size, and re-fires again on any later resize. */
+            var aboutTextColEl = document.getElementById('about-text-col');
+            var aboutPhotoWrapEl = document.getElementById('fede-photo-wrap');
+            if (aboutTextColEl && aboutPhotoWrapEl && window.ResizeObserver) {
+                var syncAboutPhotoWidth = function () {
+                    if (window.innerWidth < 2560) { aboutPhotoWrapEl.style.removeProperty('width'); return; }
+                    var h = aboutTextColEl.getBoundingClientRect().height;
+                    if (h > 0) aboutPhotoWrapEl.style.setProperty('width', h + 'px', 'important');
+                };
+                new ResizeObserver(syncAboutPhotoWidth).observe(aboutTextColEl);
+                window.addEventListener('resize', syncAboutPhotoWidth, { passive: true });
+                syncAboutPhotoWidth();
+            }
+        } catch (e) { console.error('[anim] About photo width-sync failed:', e); }
 
         try {
         if (window.innerWidth > 768) {
