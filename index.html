@@ -2553,18 +2553,6 @@ window.addEventListener('load', () => {
             card.addEventListener('mouseleave', () => { viewCursor.style.width = '10px'; viewCursor.style.height = '10px'; viewCursorText.style.fontSize = '0px'; viewCursor.style.opacity = '1'; if (fxCursor) { fxCursor.style.filter='blur(0px)'; fxCursor.style.opacity='1'; } if (mediaLink) { mediaLink.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)'; mediaLink.style.transition = 'transform 0.6s cubic-bezier(0.34,1.5,0.9,1)'; } });
             card.addEventListener('mousemove', (e) => { if (!mediaLink) return; const rect = mediaLink.getBoundingClientRect(); const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2, dx = (e.clientX - cx) / (rect.width / 2), dy = (e.clientY - cy) / (rect.height / 2); mediaLink.style.transform = 'perspective(1200px) rotateX(' + (-dy * 1.5) + 'deg) rotateY(' + (dx * 1.5) + 'deg)'; mediaLink.style.transition = 'transform 0.15s ease'; });
         });
-        // Trial: same mouse-follow tilt as the card thumbnails (perspective + rotateX/
-        // rotateY tracking the cursor, fast 0.15s while moving, bouncier 0.6s snap-back
-        // on leave) on the Story and Projects titles, plus a touch of scale so it reads
-        // as "lifting" toward the cursor. Independent per element, not paired like the
-        // hero's two name lines. Skipped on mobile — same window.innerWidth gate as the
-        // card tilt above, and both elements carry mob-no besides.
-        if (window.innerWidth > 768) {
-            document.querySelectorAll('#desk-about-me, #desk-work').forEach(el => {
-                el.addEventListener('mousemove', (e) => { const rect = el.getBoundingClientRect(); const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2, dx = (e.clientX - cx) / (rect.width / 2), dy = (e.clientY - cy) / (rect.height / 2); el.style.transform = 'scale(1.015) perspective(1200px) rotateX(' + (-dy * 1.5) + 'deg) rotateY(' + (dx * 1.5) + 'deg)'; el.style.transition = 'transform 0.15s ease'; });
-                el.addEventListener('mouseleave', () => { el.style.transform = 'scale(1) perspective(1200px) rotateX(0deg) rotateY(0deg)'; el.style.transition = 'transform 0.6s cubic-bezier(0.34,1.5,0.9,1)'; });
-            });
-        }
         document.querySelectorAll('.services-btns-row a, .services-btns-connect').forEach(btn => {
             btn.addEventListener('mousemove', (e) => { const rect = btn.getBoundingClientRect(); const dx = (e.clientX - (rect.left + rect.width/2)) / (rect.width/2), dy = (e.clientY - (rect.top + rect.height/2)) / (rect.height/2); btn.style.transform = 'perspective(400px) rotateX(' + (-dy*4) + 'deg) rotateY(' + (dx*4) + 'deg) translate(' + (dx*8) + 'px,' + (dy*8) + 'px)'; btn.style.transition = 'transform 0.15s ease'; });
             btn.addEventListener('mouseleave', () => { btn.style.transform = 'perspective(400px) rotateX(0deg) rotateY(0deg) translate(0px,0px)'; btn.style.transition = 'transform 0.5s cubic-bezier(0.34,1.5,0.9,1)'; });
@@ -2695,15 +2683,88 @@ window.addEventListener('load', () => {
                 const fedeSolo = document.getElementById('fede-solo-img');
                 const fedeWrap = document.getElementById('fede-photo-wrap');
                 if (!fedeBlur || !fedeWrap) return;
+
+                /* fede-solo: subtle mouse-parallax, layered on top of the existing
+                   scroll-driven scale rather than replacing it — both write to the
+                   same transform, so they're combined into one string via
+                   applySoloTransform() instead of one clobbering the other each
+                   scroll/mousemove tick.
+                   SOLO_SLACK_SCALE (1.05) exists purely to give the translate room:
+                   fedeSolo is object-fit:cover inside overflow:hidden with zero
+                   slack at rest (scale 1 exactly fills the box), so any translate
+                   without extra size would expose a gap at one edge. 5% headroom
+                   comfortably covers the small ±7px max offset below. Baked in as a
+                   multiplier (not an added constant) so the existing "shrinks 10%
+                   over the scroll range" trajectory is preserved, just uniformly
+                   larger — invisible in itself since the crop already hides it,
+                   only the intentional translate makes use of the extra room. */
+                // Shared hover state: true while the cursor is anywhere over the
+                // photo box. Drives fede-blur's zoom-out AND fede-solo's zoom-in
+                // below — one flag, two opposite reactions, same "foreground lifts
+                // off the background" separation.
+                var photoHovering = false;
+                fedeWrap.addEventListener('mouseenter', function () { photoHovering = true; });
+                fedeWrap.addEventListener('mouseleave', function () { photoHovering = false; });
+
+                if (fedeSolo) {
+                    var SOLO_SLACK_SCALE = 1.05;
+                    var SOLO_MAX_PX = 1.2; // kept tiny on purpose — "mega sutil"
+                    var soloScrollScale = 1;
+                    var soloHoverCur = 1; // eased toward 1.03 while hovering, 1 at rest
+                    var soloTargetX = 0, soloTargetY = 0;
+                    var soloCurX = 0, soloCurY = 0;
+
+                    fedeSolo.style.transformOrigin = 'center bottom';
+                    function applySoloTransform() {
+                        fedeSolo.style.transform = 'translate(' + soloCurX.toFixed(2) + 'px, ' + soloCurY.toFixed(2) + 'px) scale(' + (SOLO_SLACK_SCALE * soloScrollScale * soloHoverCur).toFixed(4) + ')';
+                    }
+
+                    document.addEventListener('mousemove', function (e) {
+                        var r = fedeWrap.getBoundingClientRect();
+                        var nx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
+                        var ny = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
+                        soloTargetX = Math.max(-1, Math.min(1, nx)) * SOLO_MAX_PX;
+                        soloTargetY = Math.max(-1, Math.min(1, ny)) * SOLO_MAX_PX;
+                    }, { passive: true });
+
+                    (function driveSoloParallax() {
+                        // Gentle chase (0.035) is the whole "mega sutil" feel — the
+                        // photo drifts toward the cursor rather than tracking it.
+                        soloCurX += (soloTargetX - soloCurX) * 0.035;
+                        soloCurY += (soloTargetY - soloCurY) * 0.035;
+                        soloHoverCur += ((photoHovering ? 1.03 : 1) - soloHoverCur) * 0.05;
+                        applySoloTransform();
+                        requestAnimationFrame(driveSoloParallax);
+                    })();
+                }
+
+                /* fede-blur: slight zoom-out on hover, layered on top of the
+                   scroll-driven zoom-in the same way fede-solo's parallax is above
+                   — blurScrollScale (scroll) and blurHoverCur (hover, eased)
+                   multiply together into one transform instead of one clobbering
+                   the other. Hovering the photo nudges the background slightly
+                   smaller than wherever the scroll progress currently has it,
+                   while fede-solo (above) nudges slightly BIGGER — opposite
+                   directions reinforcing the same separation. */
+                var blurScrollScale = 1;
+                var blurHoverCur = 1;
+                function applyBlurTransform() {
+                    fedeBlur.style.transform = 'scale(' + (blurScrollScale * blurHoverCur).toFixed(4) + ')';
+                }
+                (function driveBlurHover() {
+                    blurHoverCur += ((photoHovering ? 0.97 : 1) - blurHoverCur) * 0.05;
+                    applyBlurTransform();
+                    requestAnimationFrame(driveBlurHover);
+                })();
+
                 sb.addListener(function({ offset }) {
                     const wrapTop = fedeWrap.getBoundingClientRect().top;
                     const vh = window.innerHeight;
                     const progress = Math.max(0, Math.min(1, (vh - wrapTop) / (vh + fedeWrap.offsetHeight)));
                     fedeBlur.style.filter = 'blur(' + (progress * 6) + 'px)';
-                    fedeBlur.style.transform = 'scale(' + (1 + progress * 0.15) + ')';
+                    blurScrollScale = 1 + progress * 0.15;
                     if (fedeSolo) {
-                        fedeSolo.style.transformOrigin = 'center bottom';
-                        fedeSolo.style.transform = 'scale(' + (1 - progress * 0.1) + ')';
+                        soloScrollScale = 1 - progress * 0.1;
                     }
                 });
             }, 800);
