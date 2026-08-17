@@ -356,22 +356,47 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
     #testimonials-section .verbatim p:first-child { font-size: 18px !important; margin-bottom: 20px !important; }
     #testimonials-section .verbatim img { width: 88px !important; height: 88px !important; }
     #faq-section { margin-bottom: 100px !important; }
-    #hola-foto { width: 1480px !important; }
+    /* Photo -> Pill -> Story -> Text, single centered column instead of the
+       row layout, gap:50px matching #about-text-col's own internal gap below
+       so the same 50px system now also covers Photo->Pill. Nothing about any
+       individual element's own size/scale/typography changes here — only
+       direction, gap, and centering. */
+    #hola-foto { width: 1480px !important; flex-direction: column !important; align-items: center !important; gap: 50px !important; }
     /* No fixed flex-basis: width is set by JS to match the column's own
        rendered height (see syncAboutPhotoWidth near the closing </script>),
        so the photo is always a perfect square sized off the content stack.
        aspect-ratio is a paint-order fallback only, for the moment before that
-       script's first ResizeObserver callback runs — height already comes for
-       free from #hola-foto's existing align-items:stretch (unchanged). */
+       script's first ResizeObserver callback runs. That measurement is
+       order/direction-independent (getBoundingClientRect reads whatever
+       layout actually resulted), so it keeps working unchanged now that
+       #hola-foto is a column instead of a row. */
     #fede-photo-wrap { flex-basis: auto !important; aspect-ratio: 1 / 1 !important; }
-    /* gap:24px -> 50px gives the exact requested pill->title and title->text
-       gaps directly as real flex gap: nothing in About's ancestry scales or
-       zooms it, so unlike Projects/Testimonials this needs no compensation. */
-    #about-text-col { max-width: 780px !important; gap: 50px !important; }
-    /* 768px = core-uw.svg's own intrinsic width (both it and this text are
-       left-aligned off the same column edge), so the description now runs
-       flush to the artwork's right edge instead of stopping short of it. */
-    #fede-text-wrap { max-width: 768px !important; }
+    /* flex:0 0 auto (overriding the inline flex:1 1 600px, a row-axis grow
+       rule that would otherwise try to grow this element's HEIGHT to fill
+       #hola-foto now that it's a column) + width:100% so it centers as a
+       block via #hola-foto's align-items:center above, capped at its
+       existing max-width. gap:24px -> 50px gives the exact requested
+       pill->title and title->desc gaps directly as real flex gap: nothing in
+       About's ancestry scales or zooms it, so unlike Projects/Testimonials
+       this needs no compensation. */
+    #about-text-col { flex: 0 0 auto !important; width: 100% !important; max-width: 780px !important; gap: 50px !important; }
+    /* STORY's own mask wrapper keeps its existing width:100% + padding/
+       margin trick untouched (that's what the reveal animation clips
+       against) — only justify-content changes, from flex-start to center, so
+       the artwork itself renders centered inside that unchanged mask.
+       align-self:center is also required: the -40px/-40px margin shrinks
+       this element's own margin-box below #about-text-col's full width, and
+       without an explicit align-self it falls back to flex-start (flush
+       left) instead of using the slack symmetrically — verified empirically,
+       not just derived, since border-box sizing here made the box math
+       non-obvious. */
+    #about-text-col h2 { justify-content: center !important; align-self: center !important; }
+    /* 768px = core-uw.svg's own intrinsic width. width:auto + align-self:center
+       (was width:100%, left-edge-aligned under the old row layout) keeps this
+       at its existing readable width instead of stretching to the column, now
+       centered as its own block; text-align:center (was left, per explicit
+       follow-up request) centers the copy itself within that block too. */
+    #fede-text-wrap { max-width: 768px !important; width: auto !important; align-self: center !important; text-align: center !important; }
     /* Hides all 3 original breaks (Design/before, UI/UX,/working,
        websites,/and) so the two paragraphs reflow as continuous prose, then
        .br-uw-only below reintroduces breaks at exactly the 3 spots requested:
@@ -380,10 +405,16 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
     #fede-text-wrap p br.br-uw-only { display: revert !important; }
     /* Un-clamp the pill's fixed 31px so pill-aboutme-uw.svg (JS swap below)
        renders at its own true intrinsic size instead of being squeezed/
-       stretched into the old asset's height. */
-    #about-pill { height: auto !important; width: auto !important; }
+       stretched into the old asset's height. align-self:center replaces the
+       inline align-self:flex-start now that the composition is centered
+       instead of left-aligned. */
+    #about-pill { height: auto !important; width: auto !important; align-self: center !important; }
     #fede-that-are { white-space: nowrap; }
     #works-afew-desc { max-width: 433px !important; }
+    /* +100px gap between About and Projects, UW only (not Retina) per explicit
+       request. #about has no scale/zoom ancestor, so this margin adds
+       directly to the rendered gap with no amplification math needed. */
+    #about { margin-bottom: 200px !important; }
 }
 @media (max-width:768px) { .name-letter { height:29px !important; } .home-title { gap:16px; } .name-line { gap:2px !important; } }
 @media (max-width: 768px) {
@@ -602,11 +633,46 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
     #contact { margin-top: -300px !important; }
     #deck-guidelines-frame { width: 1200px !important; max-width: 1200px !important; }
     #deck-guidelines { width: 1200px !important; max-width: 1200px !important; }
-    #fede-photo-wrap { flex-basis: 280px !important; }
-    #about-text-col { max-width: 600px !important; }
-    #about-pill { height: 25px !important; }
+    /* Photo -> Pill -> Story -> Text, single centered column instead of the
+       row layout (requested for Retina as well as UW) — gap:50px matches
+       #about-text-col's own internal gap below, extending that same 50px
+       system to include Photo->Pill. Nothing about any individual element's
+       own size/scale/typography changes here — only direction, gap, and
+       centering. */
+    #hola-foto { flex-direction: column !important; align-items: center !important; gap: 50px !important; }
+    /* Width stays the existing 280px (was flex-basis, a row-axis/horizontal
+       reading of this number) — flex-basis:auto stops that same 280 from
+       being reinterpreted as a HEIGHT now that #hola-foto is a column, and
+       aspect-ratio:1/1 gives it a defined height derived from that same
+       width, since there's no longer a sibling to stretch-match in a
+       stacked layout. */
+    #fede-photo-wrap { flex-basis: auto !important; width: 280px !important; aspect-ratio: 1 / 1 !important; }
+    /* flex:0 0 auto (overriding the inline flex:1 1 600px, a row-axis grow
+       rule that would otherwise try to grow this element's HEIGHT to fill
+       #hola-foto now that it's a column) + width:100% so it centers as a
+       block via #hola-foto's align-items:center above, capped at its
+       existing max-width. gap:24px -> 50px extends the same pill->title and
+       title->desc spacing system used at UW to Retina too. */
+    #about-text-col { flex: 0 0 auto !important; width: 100% !important; max-width: 600px !important; gap: 50px !important; }
+    /* STORY's own mask wrapper keeps its existing width:100% + padding/
+       margin trick untouched (that's what the reveal animation clips
+       against) — only justify-content changes, from flex-start to center, so
+       the artwork itself renders centered inside that unchanged mask.
+       align-self:center is also required: the -40px/-40px margin shrinks
+       this element's own margin-box below #about-text-col's full width, and
+       without an explicit align-self it falls back to flex-start (flush
+       left) instead of using the slack symmetrically — verified empirically,
+       not just derived, since border-box sizing here made the box math
+       non-obvious. */
+    #about-text-col h2 { justify-content: center !important; align-self: center !important; }
+    #about-pill { height: 25px !important; align-self: center !important; }
     #desk-about-me { height: 110px !important; width: auto !important; }
-    #fede-text-wrap { max-width: 506px !important; }
+    /* width:auto + align-self:center (was width:100%, left-edge-aligned under
+       the old row layout) keeps this at its existing readable width instead
+       of stretching to the column, now centered as its own block;
+       text-align:center (was left, per explicit follow-up request) centers
+       the copy itself within that block too. */
+    #fede-text-wrap { max-width: 506px !important; width: auto !important; align-self: center !important; text-align: center !important; }
     /* FAQ: tighten question / line / answer spacing - retina only */
     .faq-question { padding-bottom: 4px !important; }
     .fq-sep { margin-top: 4px !important; }
