@@ -139,13 +139,18 @@
          class AnchorPlugin extends Scrollbar.ScrollbarPlugin {
             static pluginName = 'anchor';
             onHashChange = () => { this.jumpToHash(window.location.hash); };
-            onClick = (event) => {
-               const target = event.target.closest('a');
-               if (!target) { return; }
-               const hash = target.getAttribute('href');
-               if (!hash || hash.charAt(0) !== '#') { return; }
-               this.jumpToHash(hash);
-            };
+            // onClick (removed): this used to also jump-to-hash on every click of
+            // any a[href^="#"] inside the scroll content, via a native listener on
+            // contentEl — completely redundant with, and running independently of,
+            // the site's actual menu/anchor scroll handler ("Scroll between
+            // anchors" below), which already covers every such link with its own
+            // gsap.to(scrollbar, {scrollTo:...}) call. Two independent systems
+            // both reacting to the same click — one clearing scrollTop to 0 first,
+            // the other easing toward the real target — is what produced the
+            // "jumps to the top first" bug. jumpToHash/onHashChange stay: they
+            // only fire on browser back/forward and on direct #hash page loads,
+            // which the other handler doesn't cover and which don't compete with
+            // it (no click involved).
             jumpToHash = (hash) => {
                if (!hash) { return; }
                const { scrollbar } = this;
@@ -157,11 +162,9 @@
             onInit() {
                this.jumpToHash(window.location.hash);
                window.addEventListener('hashchange', this.onHashChange);
-               this.scrollbar.contentEl.addEventListener('click', this.onClick);
             }
             onDestory() {
                window.removeEventListener('hashchange', this.onHashChange);
-               this.scrollbar.contentEl.removeEventListener('click', this.onClick);
             }
          }
          Scrollbar.use(AnchorPlugin);
@@ -570,7 +573,23 @@
    $('.tt-tabs').each(function () { $(this).find('.tt-tab-btn').on('click', function () { var $ttTabButton = $(this); var $ttTabs = $ttTabButton.parents('.tt-tabs'); $ttTabs.find('.tt-tab-btn').removeClass('active'); $ttTabButton.addClass('active'); var $ttTabName = $ttTabButton.attr('data-content-id'); $ttTabs.find('.tt-tab-content').removeClass('active'); $ttTabs.find('.tt-tab-content-wrap #' + $ttTabName).addClass('active'); }); });
 
    // Scroll between anchors
-   $('a[href^="#"]').not('[href$="#"]').not('[href$="#0"]').on('click', function () {
+   var $scrollAnchors = $('a[href^="#"]').not('[href$="#"]').not('[href$="#0"]');
+   // Mobile only: the overlay menu's own links already get a dedicated
+   // close-then-scroll handler further down (bound when the menu opens) that
+   // waits for the close animation and the menu.js body-scroll-lock to
+   // finish before scrolling. Without this exclusion, this generic handler
+   // ALSO fires on the same click (jQuery's return false here doesn't stop
+   // the other handler on the same element), firing immediately while body
+   // is still position:fixed from the scroll lock — at that instant the
+   // page's real scrollable height collapses to ~viewport height, so this
+   // handler's scrollTop animation gets clamped toward 0. When the lock is
+   // released a moment later that clamped position becomes visible as a
+   // flash to the top/Hero before the real handler's scroll takes over —
+   // most visible on iOS Safari. Kept desktop-exempt: there, the dedicated
+   // handler intentionally skips scrolling (`if (isMob && ...)`), so desktop
+   // overlay-menu navigation still relies on THIS handler, unchanged.
+   if (isMobile) { $scrollAnchors = $scrollAnchors.not('.tt-overlay-menu a').not('.tt-logo a'); }
+   $scrollAnchors.on('click', function () {
       var target = this.hash;
       if ($('#tt-header').hasClass('tt-header-fixed')) { var $offset = $('#tt-header').height(); } else { var $offset = 0; }
       if ($(this).data('offset') != undefined) $offset = $(this).data('offset');

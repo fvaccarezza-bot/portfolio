@@ -242,6 +242,9 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
 /* UW-only manual line breaks for the About description — hidden everywhere
    else so those paragraphs keep their original breaks below 2560px. */
 .br-uw-only { display: none; }
+/* Retina-only line breaks for the same About paragraphs — hidden everywhere
+   else so retina keeps out of UW's and normal desktop's own break points. */
+.br-retina-only { display: none; }
 @media (min-width: 2560px) {
     .gallery .stamp { width: 84px !important; height: 84px !important; }
     #stickers-img { width: 1300px !important; }
@@ -440,6 +443,13 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
     .mob-about-block { display: flex !important; flex-direction: column; align-items: center; width: 92vw; max-width: 360px; margin: 148px auto 0; gap: 32px; }
     #footer-shape-left, #footer-shape-right { display: none !important; }
     .mob-about-clip { overflow: hidden; display: flex; justify-content: center; }
+    /* Core wrapper also carries .mob-phrase-clip (see markup) so it's swept
+       by the SAME shared observer as every other section title, instead of
+       a separate one-off — this overrides that class's fixed height:80px
+       (double-class selector beats the single-class rule regardless of
+       source order), since Core's own natural height differs from the other
+       titles' and shouldn't be force-clipped to theirs. */
+    .mob-about-clip.mob-phrase-clip { height: auto; }
     #mob-about-svg { transform: translateY(100%); transition: transform 1.1s cubic-bezier(0.76,0,0.24,1); }
     #mob-about-svg.in-view { transform: translateY(0); }
     .mob-about-clip-text { overflow: hidden; width: 320px; max-width: 100%; }
@@ -491,6 +501,19 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
     .mob-services-phrase { position: relative; display: flex; flex-direction: column; align-items: center; width: 100%; gap: 8px; margin-top: 75px !important; margin-bottom: 125px !important; }
     .mob-phrase-clip { overflow: hidden; display: flex; justify-content: center; width: 92vw; max-width: 340px; height: 80px; }
     .mob-phrase-word { display: block; width: auto; height: 80px; max-width: 340px; transform: translateY(110%); transition: transform 1.1s cubic-bezier(0.76,0,0.24,1); }
+    /* Services only: serivces-above.svg is wider relative to its height than
+       its 7 siblings (intrinsic ratio 4.78 vs. the shared height:80px +
+       max-width:340px combo, which forces a max ratio of 4.25) — at the
+       shared fixed height it gets non-uniformly squeezed horizontally once
+       max-width clamps it. height:auto (only for Services' words) lets each
+       word keep its own true aspect ratio; align-items:center on the clip
+       keeps the row's own height (80px, unchanged, so nothing else in this
+       section's spacing shifts) while vertically centering the now
+       auto-height image inside it. The other 7 words are already under the
+       340px cap so this is visually a no-op for them (their auto height
+       matches the previous fixed 80px to within ~1px). */
+    .mob-services-phrase .mob-phrase-clip { align-items: center; }
+    .mob-services-phrase .mob-phrase-word { height: auto; }
     .mob-phrase-word.in-view { transform: translateY(0); }
     .mob-phrase-tags-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 92vw; max-width: 340px; pointer-events: none; z-index: 2; }
     .mob-tag-complete { display: block; width: 100%; height: auto; opacity: 0; will-change: opacity; transition: opacity 1.2s cubic-bezier(0.25,0.46,0.45,0.94); transform: translateZ(0); -webkit-transform: translateZ(0); }
@@ -503,7 +526,7 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
     .mob-process-step:not(:last-child)::after { content: ''; display: block; width: 50px; height: 1px; background: #979797; margin: 32px auto 32px; }
     .mob-process-num { font-family: 'PP Telegraf', sans-serif; font-size: 32px; font-weight: 800; color: #FF6600; line-height: 1; margin-bottom: 16px; }
     .mob-process-label { font-family: 'PP Telegraf', sans-serif; font-size: 14px; font-weight: 400; letter-spacing: 0.4em; text-transform: uppercase; color: #3A3A39; margin: 0 0 8px; }
-    .mob-process-desc { font-family: 'PP Telegraf', sans-serif; font-size: 15px; font-weight: 400; color: #979797; margin: 0; line-height: 1.6; max-width: 280px; }
+    .mob-process-desc { font-family: 'PP Telegraf', sans-serif; font-size: 15px; font-weight: 400; color: #979797; margin: 0; line-height: 1.6; width: 320px; max-width: 100%; }
     .services-btns-row { display: none !important; }
     #services .tt-row:first-of-type { display: none !important; }
     .words-container { overflow: visible !important; }
@@ -671,8 +694,12 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
        the old row layout) keeps this at its existing readable width instead
        of stretching to the column, now centered as its own block;
        text-align:center (was left, per explicit follow-up request) centers
-       the copy itself within that block too. */
-    #fede-text-wrap { max-width: 506px !important; width: auto !important; align-self: center !important; text-align: center !important; }
+       the copy itself within that block too. 530px (was 506px): the longest
+       requested line ("working with startups and established companies to
+       create brands, websites,") measures ~523px at this breakpoint's font
+       settings — 506px was narrower than that, so the line wrapped a second
+       time on its own and silently broke the requested 3-line shape into 4. */
+    #fede-text-wrap { max-width: 530px !important; width: auto !important; align-self: center !important; text-align: center !important; }
     /* FAQ: tighten question / line / answer spacing - retina only */
     .faq-question { padding-bottom: 4px !important; }
     .fq-sep { margin-top: 4px !important; }
@@ -733,6 +760,22 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
     #hero-craft { display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) translate(var(--craft-counter-x, 0px), var(--craft-counter-y, 0px)) scale(1.2) scale(var(--craft-scale, 1)); pointer-events: none; z-index: 12; mix-blend-mode: hard-light; opacity: 0; filter: blur(16px); transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), filter 3.5s cubic-bezier(0.22, 1, 0.36, 1), transform 3.5s cubic-bezier(0.22, 1, 0.36, 1); }
     #hero-craft.is-in { opacity: 0.8; filter: blur(0); transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) translate(var(--craft-counter-x, 0px), var(--craft-counter-y, 0px)) scale(1) scale(var(--craft-scale, 1)); }
     #hero-craft.craft-settled { transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), filter 3.5s cubic-bezier(0.22, 1, 0.36, 1), --craft-scale 20s ease-in-out; }
+    /* About description — retina-only line breaks, independent of UW's own
+       (different) break points above and the default breaks below both.
+       Hides all 4 of the paragraphs' existing tagged breaks, then #br-uiux
+       and #br-websites (each higher-specificity via their own id) override
+       back to visible — those two need the OPPOSITE state from the rest of
+       their own class (uw-reflow/br-uw-only) at this breakpoint specifically,
+       which a class-only rule can't express since each class is shared by one
+       break that stays hidden here and one that doesn't. */
+    #fede-text-wrap p br.uw-reflow { display: none !important; }
+    #fede-text-wrap p br.br-uw-only { display: none !important; }
+    #fede-text-wrap p br.br-retina-only { display: revert !important; }
+    /* Plain #br-uiux/#br-websites would lose to the blanket hide rules above:
+       #fede-text-wrap p br.uw-reflow carries an id + a class + 2 elements
+       (higher specificity than a bare id alone), so the override needs the
+       same shape to actually win. */
+    #fede-text-wrap p br#br-uiux, #fede-text-wrap p br#br-websites { display: revert !important; }
 }
 
 /* ── Hero craft-uw.svg — UW ONLY (>=2560) ─────────────────────────────────────
@@ -1425,8 +1468,8 @@ document.addEventListener('click', function(e) {
             <p class="mobile-hero-text" style="display:none;">VISUAL DESIGNER BASED IN BUENOS AIRES, ARGENTINA</p>
             <div class="mob-about-block" id="mob-about-block" style="display:none;">
                 <div class="mob-about-clip" style="display:none;"><img src="./assets/svg/mobile-about.svg" id="mob-about-svg" alt="about" style="display:block;width:auto;height:auto;" /></div>
-                <img src="./assets/svg/pill-aboutme.svg" alt="About Me" style="display:block;height:28px;width:auto;margin:0 auto;" />
-                <div class="mob-about-clip"><img src="./assets/svg/mob-core.svg" alt="" style="display:block;width:auto;height:auto;max-width:92vw;" /></div>
+                <img src="./assets/svg/pill-aboutme.svg" alt="About Me" class="mob-pill" id="mob-about-pill" />
+                <div class="mob-about-clip mob-phrase-clip"><img src="./assets/svg/mob-core.svg" alt="" class="mob-phrase-word" id="mob-core-svg" style="display:block;width:auto;height:auto;max-width:92vw;" /></div>
                 <div class="mob-about-clip-text"><p class="mob-about-text">Educated at the University of Buenos Aires (UBA), I began in Industrial Design before transitioning to Graphic Design.</p><p class="mob-about-text" style="margin-top:24px;">Over the years, my work has spanned branding, web design, and UI/UX, working with startups and established companies to create brands, websites, and digital experiences that are clear, effective, and thoughtfully designed.</p></div>
             </div>
 
@@ -1499,6 +1542,98 @@ document.addEventListener('click', function(e) {
             })();
             </script>
 
+            <script>
+            /* ── Mobile hero photo — accelerometer depth effect ──────────────────────
+               Subtly pans #mob-fede-solo (the sharp foreground cutout) against the
+               static #mob-fede-blur background layer using device tilt, for a small
+               parallax/depth illusion. Nothing here touches size, positioning, or
+               composition — it only appends a small translate3d on top of whatever
+               transform the existing reveal above already settles on.
+
+               Sequencing: waits for #mob-fede-solo's own entrance transition (the
+               "transition: transform 4.5s ..." + "transform: scale(0.93)" set at
+               t+1200ms in the reveal script above) to genuinely finish via
+               transitionend, so this never fights or cancels that animation by
+               overwriting .style.transform mid-transition. A timeout is a safety net
+               only, in case transitionend never fires for some reason.
+
+               iOS 13+ Safari gates DeviceOrientationEvent behind
+               requestPermission(), which must be called synchronously inside a user
+               gesture handler — it cannot run on page load. There is no dedicated
+               "enable" button in this design, so the first tap/click anywhere on the
+               page (whatever the user does first) is used as that gesture. Browsers
+               without the gate (Android, desktop) skip straight to listening. If the
+               API is missing, permission is denied, or anything errors, the photo
+               just stays at its existing static reveal position — nothing else on
+               the page is affected. */
+            (function () {
+                if (window.innerWidth > 768) return;
+                var solo = document.getElementById('mob-fede-solo');
+                if (!solo || !window.DeviceOrientationEvent) return;
+
+                var MAX_OFFSET = 6; // px — subtle, clamped so the shrink-scaled
+                                     // layer never pans far enough to look wrong
+                var LERP = 0.08; // smoothing factor: higher = snappier, lower = smoother
+                var targetX = 0, targetY = 0, curX = 0, curY = 0;
+                var baseTransform = '';
+                var permissionGranted = false, entranceSettled = false, tiltStarted = false, permissionRequested = false;
+
+                function applyFrame() {
+                    curX += (targetX - curX) * LERP;
+                    curY += (targetY - curY) * LERP;
+                    solo.style.transform = baseTransform + ' translate3d(' + curX.toFixed(2) + 'px, ' + curY.toFixed(2) + 'px, 0)';
+                    requestAnimationFrame(applyFrame);
+                }
+
+                function onOrientation(e) {
+                    if (e.gamma === null || e.beta === null) return;
+                    // gamma: left/right tilt, beta: front/back tilt. Both clamped to
+                    // a small input range so only gentle, natural phone movement
+                    // (not a full tilt-to-90-degrees gesture) reaches full offset.
+                    // beta's -45 accounts for a phone's natural resting hold angle
+                    // (roughly 45deg back from flat) as the effective "center".
+                    var gamma = Math.max(-20, Math.min(20, e.gamma));
+                    var beta = Math.max(-20, Math.min(20, e.beta - 45));
+                    targetX = (gamma / 20) * MAX_OFFSET;
+                    targetY = (beta / 20) * MAX_OFFSET;
+                }
+
+                function maybeStartTilt() {
+                    if (tiltStarted || !permissionGranted || !entranceSettled) return;
+                    tiltStarted = true;
+                    baseTransform = getComputedStyle(solo).transform;
+                    if (baseTransform === 'none') baseTransform = '';
+                    solo.style.transition = 'none'; // per-frame updates below replace the entrance's own transition
+                    window.addEventListener('deviceorientation', onOrientation, { passive: true });
+                    requestAnimationFrame(applyFrame);
+                }
+
+                solo.addEventListener('transitionend', function (e) {
+                    if (e.propertyName !== 'transform') return;
+                    entranceSettled = true;
+                    maybeStartTilt();
+                });
+                setTimeout(function () { entranceSettled = true; maybeStartTilt(); }, 8000);
+
+                function onPermissionState(state) {
+                    if (state === 'granted') { permissionGranted = true; maybeStartTilt(); }
+                    // 'denied' or anything else: leave the photo static, no error.
+                }
+
+                function requestOrientationPermission() {
+                    if (permissionRequested) return;
+                    permissionRequested = true;
+                    if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+                        DeviceOrientationEvent.requestPermission().then(onPermissionState).catch(function () {});
+                    } else {
+                        onPermissionState('granted');
+                    }
+                }
+                document.addEventListener('touchend', requestOrientationPermission, { once: true, passive: true });
+                document.addEventListener('click', requestOrientationPermission, { once: true });
+            })();
+            </script>
+
             <div class="mob-no" id="hero-scroll-spacer" aria-hidden="true" style="height:30vh;"></div>
 
             <div id="about" data-offset="-50" class="tt-section padding-bottom-xlg-90 psi-image-is-light">
@@ -1516,8 +1651,8 @@ document.addEventListener('click', function(e) {
                                 <img id="desk-about-me" src="./assets/svg/desk-story-uw.svg" alt="Story" class="mob-no" style="display:block;width:auto;max-width:100%;filter:blur(20px);border-radius:0 !important;" />
                             </h2>
                             <div class="info" style="width:100%;display:flex;flex-direction:column;gap:16px;text-align:left;" id="fede-text-wrap">
-                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;text-wrap:pretty;">Educated at the University of Buenos Aires (UBA), I began in Industrial Design<br class="uw-reflow"> before<br class="br-uw-only"> transitioning to Graphic Design.</p>
-                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;text-wrap:pretty;">Over the years, my work has spanned branding, web design, and UI/UX,<br class="uw-reflow"> working with<br class="br-uw-only"> startups and established companies to create brands, websites,<br class="uw-reflow"> and digital experiences<br class="br-uw-only"> <span id="fede-that-are">that are</span>&nbsp;clear, effective, and thoughtfully designed.</p>
+                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;text-wrap:pretty;">Educated at the University of Buenos Aires (UBA),<br class="br-retina-only"> I began in Industrial Design<br class="uw-reflow"> before<br class="br-uw-only"> transitioning to Graphic Design.</p>
+                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;text-wrap:pretty;">Over the years, my work has spanned branding, web design, and UI/UX,<br id="br-uiux" class="uw-reflow"> working with<br id="br-with" class="br-uw-only"> startups and established companies to create brands, websites,<br id="br-websites" class="uw-reflow"> and digital experiences<br id="br-experiences" class="br-uw-only"> <span id="fede-that-are">that are</span>&nbsp;clear, effective, and thoughtfully designed.</p>
                             </div>
                         </div>
                     </div>
@@ -2793,9 +2928,8 @@ window.addEventListener('load', () => {
 
                 /* fede-solo: subtle mouse-parallax, layered on top of the existing
                    scroll-driven scale rather than replacing it — both write to the
-                   same transform, so they're combined into one string via
-                   applySoloTransform() instead of one clobbering the other each
-                   scroll/mousemove tick.
+                   same transform, combined into one string in tick() below instead
+                   of one clobbering the other each scroll/mousemove tick.
                    SOLO_SLACK_SCALE (1.05) exists purely to give the translate room:
                    fedeSolo is object-fit:cover inside overflow:hidden with zero
                    slack at rest (scale 1 exactly fills the box), so any translate
@@ -2804,75 +2938,110 @@ window.addEventListener('load', () => {
                    multiplier (not an added constant) so the existing "shrinks 10%
                    over the scroll range" trajectory is preserved, just uniformly
                    larger — invisible in itself since the crop already hides it,
-                   only the intentional translate makes use of the extra room. */
-                // Shared hover state: true while the cursor is anywhere over the
-                // photo box. Drives fede-blur's zoom-out AND fede-solo's zoom-in
-                // below — one flag, two opposite reactions, same "foreground lifts
-                // off the background" separation.
+                   only the intentional translate makes use of the extra room.
+
+                   PERF: this used to be two independent, unconditional
+                   requestAnimationFrame loops that ran forever, plus a
+                   document-level mousemove listener calling getBoundingClientRect()
+                   on every single pointer move anywhere on the page — a permanent,
+                   site-wide cost (including while hovering Project cards, far from
+                   here) that a profiling pass traced as the source of a broader
+                   FPS regression. Rebuilt below as ONE controlled loop (tick/wake)
+                   that only requests another frame while something is still
+                   actually converging, and mousemove now reads a CACHED rect
+                   instead of measuring live. Every numeric constant, lerp factor,
+                   and the resulting transform strings are unchanged — this is a
+                   scheduling change only, not a visual one. */
                 var photoHovering = false;
-                fedeWrap.addEventListener('mouseenter', function () { photoHovering = true; });
-                fedeWrap.addEventListener('mouseleave', function () { photoHovering = false; });
-
-                if (fedeSolo) {
-                    var SOLO_SLACK_SCALE = 1.05;
-                    var SOLO_MAX_PX = 1.2; // kept tiny on purpose — "mega sutil"
-                    var soloScrollScale = 1;
-                    var soloHoverCur = 1; // eased toward 1.03 while hovering, 1 at rest
-                    var soloTargetX = 0, soloTargetY = 0;
-                    var soloCurX = 0, soloCurY = 0;
-
-                    fedeSolo.style.transformOrigin = 'center bottom';
-                    function applySoloTransform() {
-                        fedeSolo.style.transform = 'translate(' + soloCurX.toFixed(2) + 'px, ' + soloCurY.toFixed(2) + 'px) scale(' + (SOLO_SLACK_SCALE * soloScrollScale * soloHoverCur).toFixed(4) + ')';
-                    }
-
-                    document.addEventListener('mousemove', function (e) {
-                        var r = fedeWrap.getBoundingClientRect();
-                        var nx = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
-                        var ny = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
-                        soloTargetX = Math.max(-1, Math.min(1, nx)) * SOLO_MAX_PX;
-                        soloTargetY = Math.max(-1, Math.min(1, ny)) * SOLO_MAX_PX;
-                    }, { passive: true });
-
-                    (function driveSoloParallax() {
-                        // Gentle chase (0.035) is the whole "mega sutil" feel — the
-                        // photo drifts toward the cursor rather than tracking it.
-                        soloCurX += (soloTargetX - soloCurX) * 0.035;
-                        soloCurY += (soloTargetY - soloCurY) * 0.035;
-                        soloHoverCur += ((photoHovering ? 1.03 : 1) - soloHoverCur) * 0.05;
-                        applySoloTransform();
-                        requestAnimationFrame(driveSoloParallax);
-                    })();
-                }
-
-                /* fede-blur: slight zoom-out on hover, layered on top of the
-                   scroll-driven zoom-in the same way fede-solo's parallax is above
-                   — blurScrollScale (scroll) and blurHoverCur (hover, eased)
-                   multiply together into one transform instead of one clobbering
-                   the other. Hovering the photo nudges the background slightly
-                   smaller than wherever the scroll progress currently has it,
-                   while fede-solo (above) nudges slightly BIGGER — opposite
-                   directions reinforcing the same separation. */
+                var SOLO_SLACK_SCALE = 1.05;
+                var SOLO_MAX_PX = 1.2; // kept tiny on purpose — "mega sutil"
+                var soloScrollScale = 1;
+                var soloHoverCur = 1; // eased toward 1.03 while hovering, 1 at rest
+                var soloTargetX = 0, soloTargetY = 0;
+                var soloCurX = 0, soloCurY = 0;
                 var blurScrollScale = 1;
                 var blurHoverCur = 1;
-                function applyBlurTransform() {
-                    fedeBlur.style.transform = 'scale(' + (blurScrollScale * blurHoverCur).toFixed(4) + ')';
-                }
-                (function driveBlurHover() {
+                if (fedeSolo) { fedeSolo.style.transformOrigin = 'center bottom'; }
+
+                // Cached bounds for mousemove — refreshed by the scroll listener
+                // below (which already measures this rect every scroll frame for
+                // its own progress calc, so caching it here adds no extra
+                // measurement), on resize, and on entering the "active" zone.
+                // Never measured from mousemove itself.
+                var wrapRect = fedeWrap.getBoundingClientRect();
+
+                // "Active" = the photo is anywhere near the viewport (generous
+                // margin so tracking is already warm by the time it's visible,
+                // same spirit as the scroll progress window below). While
+                // inactive, mousemove is a single boolean check — no DOM reads,
+                // no target updates, no frames requested.
+                var aboutActive = false;
+                var aboutActiveObserver = new IntersectionObserver(function (entries) {
+                    entries.forEach(function (entry) {
+                        aboutActive = entry.isIntersecting;
+                        if (aboutActive) { wrapRect = fedeWrap.getBoundingClientRect(); wake(); }
+                    });
+                }, { rootMargin: '100% 0px 100% 0px' });
+                aboutActiveObserver.observe(fedeWrap);
+
+                window.addEventListener('resize', function () {
+                    if (aboutActive) { wrapRect = fedeWrap.getBoundingClientRect(); }
+                }, { passive: true });
+
+                fedeWrap.addEventListener('mouseenter', function () { photoHovering = true; wake(); });
+                fedeWrap.addEventListener('mouseleave', function () { photoHovering = false; wake(); });
+
+                document.addEventListener('mousemove', function (e) {
+                    if (!aboutActive || !fedeSolo) return;
+                    var nx = (e.clientX - (wrapRect.left + wrapRect.width / 2)) / (wrapRect.width / 2);
+                    var ny = (e.clientY - (wrapRect.top + wrapRect.height / 2)) / (wrapRect.height / 2);
+                    soloTargetX = Math.max(-1, Math.min(1, nx)) * SOLO_MAX_PX;
+                    soloTargetY = Math.max(-1, Math.min(1, ny)) * SOLO_MAX_PX;
+                    wake();
+                }, { passive: true });
+
+                var rafRunning = false;
+                var lastSoloStr = null, lastBlurStr = null;
+                function tick() {
+                    // Gentle chase (0.035) is the whole "mega sutil" feel — the
+                    // photo drifts toward the cursor rather than tracking it.
+                    soloCurX += (soloTargetX - soloCurX) * 0.035;
+                    soloCurY += (soloTargetY - soloCurY) * 0.035;
+                    soloHoverCur += ((photoHovering ? 1.03 : 1) - soloHoverCur) * 0.05;
                     blurHoverCur += ((photoHovering ? 0.97 : 1) - blurHoverCur) * 0.05;
-                    applyBlurTransform();
-                    requestAnimationFrame(driveBlurHover);
-                })();
+
+                    var changed = false;
+                    if (fedeSolo) {
+                        var soloStr = 'translate(' + soloCurX.toFixed(2) + 'px, ' + soloCurY.toFixed(2) + 'px) scale(' + (SOLO_SLACK_SCALE * soloScrollScale * soloHoverCur).toFixed(4) + ')';
+                        if (soloStr !== lastSoloStr) { fedeSolo.style.transform = soloStr; lastSoloStr = soloStr; changed = true; }
+                    }
+                    var blurStr = 'scale(' + (blurScrollScale * blurHoverCur).toFixed(4) + ')';
+                    if (blurStr !== lastBlurStr) { fedeBlur.style.transform = blurStr; lastBlurStr = blurStr; changed = true; }
+
+                    // Converged: the rounded output (same precision as what's
+                    // actually written to the DOM) stopped changing, so another
+                    // frame would paint nothing different. Stop requesting frames
+                    // until wake() is called again by real input.
+                    if (!changed) { rafRunning = false; return; }
+                    requestAnimationFrame(tick);
+                }
+                function wake() {
+                    if (rafRunning) return;
+                    rafRunning = true;
+                    requestAnimationFrame(tick);
+                }
+                wake(); // apply the initial at-rest transform once
 
                 sb.addListener(function({ offset }) {
-                    const wrapTop = fedeWrap.getBoundingClientRect().top;
+                    wrapRect = fedeWrap.getBoundingClientRect();
                     const vh = window.innerHeight;
-                    const progress = Math.max(0, Math.min(1, (vh - wrapTop) / (vh + fedeWrap.offsetHeight)));
+                    const progress = Math.max(0, Math.min(1, (vh - wrapRect.top) / (vh + fedeWrap.offsetHeight)));
                     fedeBlur.style.filter = 'blur(' + (progress * 6) + 'px)';
                     blurScrollScale = 1 + progress * 0.15;
                     if (fedeSolo) {
                         soloScrollScale = 1 - progress * 0.1;
                     }
+                    wake();
                 });
             }, 800);
         }
