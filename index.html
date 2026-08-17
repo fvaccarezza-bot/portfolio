@@ -128,6 +128,19 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .process-step:hover > div:first-child { transform: translateX(-8px); color: #FF6600 !important; }
 .process-step:hover > div:last-child { transform: translateX(8px); }
 .process-step:hover > div:last-child p { color: #FF6600 !important; }
+/* Description reveals on hover, same technique as .faq-answer-wrap above:
+   position:absolute + opacity so it overlays instead of pushing later steps
+   down when it appears. div:last-child needs its own position:relative since
+   .process-step itself spans the whole row (number+dot+text), which would
+   otherwise anchor the overlay under the wrong column. */
+/* flex:1 keeps this column's width fixed to the row's own available space
+   (row minus the two fixed-width columns before it), so taking the
+   description out of flow below doesn't shrink it down to just the title's
+   width — the description's frame (via right:0 below) stays exactly the
+   size it always rendered at. */
+.process-step > div:last-child { position: relative; flex: 1 1 auto; }
+.process-step > div:last-child p:last-of-type { opacity: 0; transition: opacity 0.6s ease, color 0.75s ease; position: absolute; left: 0; right: 0; top: 100%; padding-top: 8px; }
+.process-step:hover > div:last-child p:last-of-type { opacity: 1; }
 .faq-title-wrap { pointer-events:none; }
 .faq-block-wrap { max-width: 1320px; }
 
@@ -400,12 +413,18 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
        centered as its own block; text-align:center (was left, per explicit
        follow-up request) centers the copy itself within that block too. */
     #fede-text-wrap { max-width: 768px !important; width: auto !important; align-self: center !important; text-align: center !important; }
-    /* Hides all 3 original breaks (Design/before, UI/UX,/working,
+    /* Hides the original breaks (Design/before, UI/UX,/working,
        websites,/and) so the two paragraphs reflow as continuous prose, then
-       .br-uw-only below reintroduces breaks at exactly the 3 spots requested:
-       after "before", after "with", after "experiences". */
+       .br-uw-only below reintroduces breaks at the 2 spots still wanted:
+       after "with", after "experiences". Paragraph 1's own break now comes
+       from #br-uba below instead (right after "(UBA)", comma hidden) since
+       "before transitioning..." should stay on one line at UW. */
     #fede-text-wrap p br.uw-reflow { display: none !important; }
     #fede-text-wrap p br.br-uw-only { display: revert !important; }
+    /* UW-only variant of the "(UBA)," break: same physical <br> also used at
+       Retina (class="br-retina-only" above), reused here via its own id so
+       both breakpoints can independently show/hide it. */
+    #fede-text-wrap p br#br-uba { display: revert !important; }
     /* Un-clamp the pill's fixed 31px so pill-aboutme-uw.svg (JS swap below)
        renders at its own true intrinsic size instead of being squeezed/
        stretched into the old asset's height. align-self:center replaces the
@@ -804,6 +823,8 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
        of just being added. */
     .services-grid-item p br.br-retina-only { display: revert !important; }
     .services-grid-item p br.br-retina-hide { display: none !important; }
+    #testi-afew-desc br.br-retina-only { display: revert !important; }
+    #works-afew-desc br.br-retina-only { display: revert !important; }
 }
 
 /* ── Hero craft-uw.svg — UW ONLY (>=2560) ─────────────────────────────────────
@@ -1676,10 +1697,10 @@ document.addEventListener('click', function(e) {
                         <div id="about-text-col" style="flex:1 1 600px;min-width:0;display:flex;flex-direction:column;justify-content:flex-start;gap:24px;max-width:600px;">
                             <img id="about-pill" src="./assets/svg/pill-aboutme.svg" alt="About Me" class="mob-no" style="display:block;width:auto;height:31px;align-self:flex-start;opacity:0;transform:translateY(20px);filter:blur(20px);" />
                             <h2 style="overflow:hidden;line-height:0;display:flex;justify-content:flex-start;width:100%;padding:0 40px;margin:0 -40px;">
-                                <img id="desk-about-me" src="./assets/svg/desk-story-uw.svg" alt="Story" class="mob-no" style="display:block;width:auto;max-width:100%;filter:blur(20px);border-radius:0 !important;" />
+                                <img id="desk-about-me" src="./assets/svg/desk-story.svg" alt="Story" class="mob-no" style="display:block;width:auto;max-width:100%;filter:blur(20px);border-radius:0 !important;" />
                             </h2>
-                            <div class="info" style="width:100%;display:flex;flex-direction:column;gap:16px;text-align:left;" id="fede-text-wrap">
-                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;text-wrap:pretty;">Educated at the University of Buenos Aires (UBA),<br class="br-retina-only"> I began in Industrial Design<br class="uw-reflow"> before<br class="br-uw-only"> transitioning to Graphic Design.</p>
+                            <div class="info" style="width:100%;display:flex;flex-direction:column;gap:16px;text-align:left;opacity:0;transform:translateY(40px);filter:blur(20px);" id="fede-text-wrap">
+                                <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;text-wrap:pretty;">Educated at the University of Buenos Aires (UBA)<span id="uba-comma">,</span><br id="br-uba" class="br-retina-only"> I began in Industrial Design<br class="uw-reflow"> before transitioning to Graphic Design.</p>
                                 <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;text-wrap:pretty;">Over the years, my work has spanned branding, web design, and UI/UX,<br id="br-uiux" class="uw-reflow"> working with<br id="br-with" class="br-uw-only"> startups and established companies to create brands, websites,<br id="br-websites" class="uw-reflow"> and digital experiences<br id="br-experiences" class="br-uw-only"> <span id="fede-that-are">that are</span>&nbsp;clear, effective, and thoughtfully designed.</p>
                             </div>
                         </div>
@@ -1692,15 +1713,15 @@ document.addEventListener('click', function(e) {
                 <div class="desk-works-phrase mob-no">
                     <div class="desk-works-clip"><img id="desk-featured" src="./assets/svg/desk-featured.svg" alt="featured" /></div>
                     <div class="desk-works-afew mob-no">
-                        <img id="work-them" src="./assets/svg/a-few-of.svg" alt="A Few of Them" style="display:block;height:auto;width:auto;" />
+                        <img id="work-them" src="./assets/svg/pill-afew.svg" alt="A Few of Them" style="display:block;height:auto;width:auto;" />
                         <p style="display:none;">A Few of Them</p>
                     </div>
                     <h2 class="desk-works-clip" style="margin:0;"><img id="desk-work" src="./assets/svg/desk-projects.svg" alt="projects" /></h2>
-                    <p id="works-afew-desc" class="mob-no" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;max-width:600px;text-align:center;position:relative;z-index:1;opacity:0;transform:translateY(40px);filter:blur(20px);">No two projects are the same, and that's what keeps things interesting. Some started from scratch, others were redesigns, but all of them were built around clarity, usability, and careful attention to detail.</p>
+                    <p id="works-afew-desc" class="mob-no" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;max-width:600px;text-align:center;position:relative;z-index:1;opacity:0;transform:translateY(40px);filter:blur(20px);">No two projects are the same, and that's what keeps things interesting.<br class="br-retina-only"> Some started from scratch, others were redesigns, but all of them were built<br class="br-retina-only"> around clarity, usability and attention to detail.</p>
                 </div>
                 <div class="tt-section-inner tt-wrap">
                     <div class="mob-works-phrase mob-ok" style="display:none;position:relative;">
-                        <img src="./assets/svg/a-few-of.svg" alt="A Few of Them" class="mob-pill" id="mob-works-pill" />
+                        <img src="./assets/svg/pill-afew.svg" alt="A Few of Them" class="mob-pill" id="mob-works-pill" />
                         <div class="mob-phrase-clip"><img src="./assets/svg/mob-pro.svg" class="mob-phrase-word" alt="" /></div>
                         <div class="mob-phrase-clip" id="mob-works-red-clip"><img src="./assets/svg/mob-jects.svg" class="mob-phrase-word" alt="" /></div>
                     </div>
@@ -2092,7 +2113,7 @@ document.addEventListener('click', function(e) {
         <div id="mob-workflow-section" class="mob-workflow-wrap" style="position:relative;z-index:2;background:#F8F8F8;">
             <div class="tt-section-inner tt-wrap">
                 <div class="mob-workflow-phrase" style="position:relative;display:flex;flex-direction:column;align-items:center;width:100%;gap:8px;">
-                    <img src="./assets/svg/and-they.svg" alt="From Idea To Execution" class="mob-pill" id="mob-workflow-pill" />
+                    <img src="./assets/svg/pill-andthey.svg" alt="From Idea To Execution" class="mob-pill" id="mob-workflow-pill" />
                     <div class="mob-phrase-clip"><img src="./assets/svg/work-work.svg" class="mob-phrase-word" alt="" /></div>
                     <div class="mob-phrase-clip"><img src="./assets/svg/work-flow.svg" class="mob-phrase-word" alt="" /></div>
                 </div>
@@ -2127,16 +2148,16 @@ document.addEventListener('click', function(e) {
                     <div class="tt-col-md-6 d-flex-center flex-col max-width-full" style="position:relative;">
                         <div class="desktop-testi-wrap">
                             <div class="desktop-testi-tag">
-                                <img src="./assets/svg/some-kind.svg" alt="Some Kind Words" style="display:block;height:auto;width:auto;" />
+                                <img id="testi-tag-img" src="./assets/svg/pill-somekind.svg" alt="Some Kind Words" style="display:block;height:auto;width:auto;" />
                                 <p style="display:none;">Some Kind Words</p>
                             </div>
                             <h2 class="testi-phrase-clip" style="margin:0;">
-                                <img src="./assets/svg/testimonials-phrase.svg" alt="They said it" id="testi-phrase-img" />
+                                <img src="./assets/svg/desk-they.svg" alt="They said it" id="testi-phrase-img" />
                             </h2>
-                            <p id="testi-afew-desc" class="mob-no" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;max-width:600px;text-align:center;position:relative;z-index:1;opacity:0;transform:translateY(40px);filter:blur(20px);">Over the years, I've been lucky to work with amazing founders, marketers, developers, and teams from all kinds of industries. Here are a few words they shared after working together.</p>
+                            <p id="testi-afew-desc" class="mob-no" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;max-width:600px;text-align:center;position:relative;z-index:1;opacity:0;transform:translateY(40px);filter:blur(20px);">Over the years, I've been lucky to work with amazing founders, marketers,<br class="br-retina-only"> developers, and teams from all kinds of industries.<br class="br-retina-only"> Here are a few words they shared after working together.</p>
                         </div>
                         <div class="mob-somekind-phrase" style="position:relative;display:flex;flex-direction:column;align-items:center;width:100%;gap:8px;margin-bottom:8px;">
-                            <img src="./assets/svg/some-kind.svg" alt="Some Kind Words" class="mob-pill" id="mob-testi-pill" />
+                            <img src="./assets/svg/pill-somekind.svg" alt="Some Kind Words" class="mob-pill" id="mob-testi-pill" />
                             <div class="mob-phrase-clip"><img src="./assets/svg/testimonials-they.svg" class="mob-phrase-word" alt="" /></div>
                             <div class="mob-phrase-clip"><img src="./assets/svg/testimonials-said.svg" class="mob-phrase-word" alt="" /></div>
                             <div class="mob-phrase-clip"><img src="./assets/svg/testimonials-it.svg" class="mob-phrase-word" alt="" /></div>
@@ -2167,35 +2188,35 @@ document.addEventListener('click', function(e) {
                         <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line" style="display:none;"></div><img src="./assets/svg/desk-iget.svg" alt="I GET" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-2000px);filter:blur(20px);" /></div>
                         <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line" style="display:none;"></div><img src="./assets/svg/desk-asked.svg" alt="ASKED" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-2000px);filter:blur(20px);" /></div>
                         <div style="overflow:hidden;padding:0 40px;margin:0 -40px;">
-                            <img src="./assets/svg/people-need.svg" id="faq-pill-1" style="display:block;height:auto;width:auto;transform:translateX(-110%);filter:blur(20px);" alt="People Need To Know" />
+                            <img src="./assets/svg/pill-peopleneed.svg" id="faq-pill-1" style="display:block;height:auto;width:auto;transform:translateX(-110%);filter:blur(20px);" alt="People Need To Know" />
                         </div>
                     </h2>
                     <div class="faq-questions-wrap" style="display:flex;flex-direction:column;gap:0;padding-top:0;padding-bottom:0;justify-content:space-between;">
                         <div class="faq-question">
                             <div class="faq-question-inner">
                             <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(01)</span> Who do I work with?</p><span class="faq-plus"></span></div>
-                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">I work with startups, agencies, and companies of different sizes. Some clients need help with a single project, while others bring me in as an ongoing design partner.</p></div>
+                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">Startups, agencies, and companies of all sizes, for one-off projects or ongoing work.</p></div>
                             </div>
                             <div class="fq-sep"></div>
                         </div>
                         <div class="faq-question">
                             <div class="faq-question-inner">
                             <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(02)</span> What kind of projects do I take on?</p><span class="faq-plus"></span></div>
-                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">Mostly websites, product design, branding, presentations, and design systems. If it's design-related, there's a good chance I can help.</p></div>
+                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">Mostly websites, product design, branding, presentations, and design systems.</p></div>
                             </div>
                             <div class="fq-sep"></div>
                         </div>
                         <div class="faq-question">
                             <div class="faq-question-inner">
                             <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(03)</span> How long does a project usually take?</p><span class="faq-plus"></span></div>
-                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">It depends on the size of the project. Some are finished in a couple of weeks, while others take a few months. We'll define a timeline before getting started.</p></div>
+                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">Anywhere from a couple of weeks to a few months, depending on the scope.</p></div>
                             </div>
                             <div class="fq-sep"></div>
                         </div>
                         <div class="faq-question">
                             <div class="faq-question-inner">
                             <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(04)</span> Can I join an existing team?</p><span class="faq-plus"></span></div>
-                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">Yes. I often work with founders, designers, developers, and agencies. I'm happy to adapt to the way your team already works.</p></div>
+                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">Absolutely. Happy to plug into your team and adapt to how you work.</p></div>
                             </div>
                             <div class="fq-sep"></div>
                         </div>
@@ -2233,7 +2254,7 @@ document.addEventListener('click', function(e) {
                         <div class="process-step" style="display:flex;flex-direction:row;align-items:flex-start;opacity:0;transform:translateY(20px);filter:blur(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:26px;font-weight:800;color:#3A3A39;line-height:1;width:80px;flex-shrink:0;">(01)</div>
                             <div style="padding-right:24px;padding-top:2px;flex-shrink:0;"><div class="process-dot" style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div></div>
-                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Get The Context</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">You tell me what you're building and what you need. I ask questions until I understand the problem.</p></div>
+                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Get The Context</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">You tell me what you need. I ask questions until I understand the idea.</p></div>
                         </div>
                         <!-- step 02 -->
                         <div class="process-step" style="display:flex;flex-direction:row;align-items:flex-start;opacity:0;transform:translateY(20px);filter:blur(20px);">
@@ -2245,7 +2266,7 @@ document.addEventListener('click', function(e) {
                         <div class="process-step" style="display:flex;flex-direction:row;align-items:flex-start;opacity:0;transform:translateY(20px);filter:blur(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:26px;font-weight:800;color:#3A3A39;line-height:1;width:80px;flex-shrink:0;">(03)</div>
                             <div style="padding-right:24px;padding-top:2px;flex-shrink:0;"><div class="process-dot" style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div></div>
-                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Make It Real</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">I design, refine and build things out. You'll see progress along the way, not a big reveal at the end.</p></div>
+                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Make It Real</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">I design, refine and build things out.<br> You'll see progress along the way.</p></div>
                         </div>
                         <!-- step 04 -->
                         <div class="process-step" style="display:flex;flex-direction:row;align-items:flex-start;opacity:0;transform:translateY(20px);filter:blur(20px);">
@@ -2259,7 +2280,7 @@ document.addEventListener('click', function(e) {
                         <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line-2" style="display:none;"></div><img id="faq-things-flow" src="./assets/svg/desk-things.svg" alt="THINGS" class="faq-title-img faq-title-img-2" style="display:block;height:auto;width:auto;transform:translateX(2000px);filter:blur(20px);" /></div>
                         <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line-2" style="display:none;"></div><img src="./assets/svg/desk-flow.svg" alt="FLOW" class="faq-title-img faq-title-img-2" style="display:block;height:auto;width:auto;transform:translateX(2000px);filter:blur(20px);" /></div>
                         <div style="overflow:hidden;display:flex;justify-content:flex-end;padding:0 40px;margin:0 -40px;">
-                            <img src="./assets/svg/and-they.svg" id="faq-pill-2" style="display:block;height:auto;width:auto;transform:translateX(110%);filter:blur(20px);" alt="And They Also Need To Know About This" />
+                            <img src="./assets/svg/pill-andthey.svg" id="faq-pill-2" style="display:block;height:auto;width:auto;transform:translateX(110%);filter:blur(20px);" alt="And They Also Need To Know About This" />
                         </div>
                     </h2>
                 </div>
@@ -2573,14 +2594,18 @@ window.addEventListener('load', () => {
     swapExtraSVG();
     window.addEventListener('resize', swapExtraSVG);
 
-    // ── UW SVG swap — testi phrase ──
+    // ── UW SVG swap — testi phrase + testi tag ──
     function swapTestiSVG() {
         if (window.innerWidth <= 768) return; // mobile: these targets are display:none, do not request desktop assets
+        var isUWTesti = window.innerWidth >= 2560;
         var testiImg = document.getElementById('testi-phrase-img');
-        if (!testiImg) return;
-        testiImg.src = window.innerWidth >= 2560
-            ? './assets/svg/testimonials-phrase-uw.svg'
-            : './assets/svg/testimonials-phrase.svg';
+        if (testiImg) {
+            testiImg.src = isUWTesti ? './assets/svg/they-uw.svg' : './assets/svg/desk-they.svg';
+        }
+        var testiTagImg = document.getElementById('testi-tag-img');
+        if (testiTagImg) {
+            testiTagImg.src = isUWTesti ? './assets/svg/pill-somekind-uw.svg' : './assets/svg/pill-somekind.svg';
+        }
     }
     swapTestiSVG();
     window.addEventListener('resize', swapTestiSVG);
