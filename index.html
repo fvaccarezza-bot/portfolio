@@ -418,6 +418,14 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
        request. #about has no scale/zoom ancestor, so this margin adds
        directly to the rendered gap with no amplification math needed. */
     #about { margin-bottom: 200px !important; }
+    /* Branding card line break ONLY — same "brand / that's built to last."
+       split already used at Retina (index.html:757 block), now also
+       requested for UW. Targeted by id (#br-brand-uw), not the shared
+       .br-retina-only class: that class is also used by the Graphic
+       Design/Product Design cards for their own (Retina-only, unchanged)
+       breaks, and a class-based selector here would have wrongly shown
+       those at UW too, adding an extra unwanted line to each. */
+    #br-brand-uw { display: revert !important; }
 }
 @media (max-width:768px) { .name-letter { height:29px !important; } .home-title { gap:16px; } .name-line { gap:2px !important; } }
 @media (max-width: 768px) {
@@ -776,6 +784,26 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
        (higher specificity than a bare id alone), so the override needs the
        same shape to actually win. */
     #fede-text-wrap p br#br-uiux, #fede-text-wrap p br#br-websites { display: revert !important; }
+    /* Photo->pill->Story->text rhythm — match Projects' own rendered gap
+       instead of the 50px inherited from the unscoped retina block above
+       (index.html:665/679). Projects' .desk-works-phrase gap is a plain,
+       uncompensated 32px (unchanged since before this session) that both
+       sections render under the same global --uiScale factor (ui-scale.js,
+       untouched) — reusing that same 32px here guarantees an identical
+       rendered gap at any viewport with zero compensation math. Scoped with
+       the UW ceiling (unlike the block above) specifically so it cannot win
+       on a combined UW+Retina screen — verified: 32px overrides the 50px
+       only inside 769-2559px, leaving UW's own 50px (and the unscoped
+       block's 50px, which UW alone still reads) completely alone. */
+    #hola-foto { gap: 32px !important; }
+    #about-text-col { gap: 32px !important; }
+    /* Services card copy — retina-only line breaks. br-retina-only is hidden
+       by default (see its global base rule) and shown only here; br-retina-hide
+       is the opposite (a real break everywhere by default, hidden only here),
+       used where the existing break needs to move to an earlier word instead
+       of just being added. */
+    .services-grid-item p br.br-retina-only { display: revert !important; }
+    .services-grid-item p br.br-retina-hide { display: none !important; }
 }
 
 /* ── Hero craft-uw.svg — UW ONLY (>=2560) ─────────────────────────────────────
@@ -2019,9 +2047,9 @@ document.addEventListener('click', function(e) {
                 </script>
                 <div class="services-grid">
                     <div class="services-grid-item"><h3><img src="./assets/svg/services-item1.svg" alt="" /> Web Design</h3><p>I design clean and<br class="mob-br" /> responsive websites.</p></div>
-                    <div class="services-grid-item"><h3><img src="./assets/svg/services-item2.svg" alt="" /> Branding</h3><p>I help you shape a brand that's<br class="mob-br" /> clear, consistent and built to last.</p></div>
-                    <div class="services-grid-item"><h3><img src="./assets/svg/services-item4.svg" alt="" /> Graphic Design</h3><p>I create bold visuals that make<br /> brands stand out</p></div>
-                    <div class="services-grid-item"><h3><img src="./assets/svg/services-item3.svg" alt="" /> Product Design</h3><p>I create interfaces that feel good<br /> and make sense.</p></div>
+                    <div class="services-grid-item"><h3><img src="./assets/svg/services-item2.svg" alt="" /> Branding</h3><p>I help you shape a brand<br id="br-brand-uw" class="br-retina-only"> that's<br class="mob-br" /> built to last.</p></div>
+                    <div class="services-grid-item"><h3><img src="./assets/svg/services-item4.svg" alt="" /> Graphic Design</h3><p>I create bold visuals that<br class="br-retina-only"> make<br class="br-retina-hide" /> brands stand out.</p></div>
+                    <div class="services-grid-item"><h3><img src="./assets/svg/services-item3.svg" alt="" /> Product Design</h3><p>I create interfaces that feel<br class="br-retina-only"> good<br class="br-retina-hide" /> and make sense.</p></div>
                 </div>
                 <div class="services-btns">
                     <a href="#contact" data-offset="14" class="services-btns-connect"><span>Connect</span><span style="letter-spacing:0;margin-left:10px;font-size:1.3em;line-height:1;display:inline-flex;align-items:center;">↗</span></a>
@@ -3662,6 +3690,12 @@ if (window.innerWidth > 768) {
                     var about = document.getElementById('about');
                     if (!sbNow || !about) return;
                     var topY = $(about).offset().top - $('#scroll-container > .scroll-content').offset().top + 50;
+                    /* Retina/high-DPI correction — see uiScaleCorrectScrollY in
+                       theme.js for why this is needed (topY above is visual-space,
+                       the scrollbar's own offset.y is layout-space, so this
+                       undershoots the target below UW without it). No-op
+                       everywhere else, including UW. */
+                    if (window.__uiScaleCorrectScrollY) topY = window.__uiScaleCorrectScrollY(topY);
                     gsap.to(sbNow, { duration: 2.2, scrollTo: { y: topY, autoKill: true }, ease: Expo.easeInOut });
                 };
 

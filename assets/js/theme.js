@@ -39,6 +39,17 @@
 (function ($) {
    'use strict';
 
+   // ── Retina/high-DPI scroll-to nudge ────────────────────────────────────
+   // Flat px nudge on scroll-to targets, Retina desktop only. Amount differs
+   // per target (Services sits further down the page than Hero/About, so it
+   // needs a bigger nudge) — defaults to the Hero/About amount (100) when no
+   // amount is passed.
+   function uiScaleCorrectScrollY(y, amount) {
+      if (!window.matchMedia('(min-resolution: 2dppx) and (min-width: 769px) and (max-width: 2559px)').matches) return y;
+      return y + (typeof amount === 'number' ? amount : 100);
+   }
+   window.__uiScaleCorrectScrollY = uiScaleCorrectScrollY;
+
    // ========================================
    // Detect browser and add class to </body>
    // ========================================
@@ -594,7 +605,7 @@
       if ($('#tt-header').hasClass('tt-header-fixed')) { var $offset = $('#tt-header').height(); } else { var $offset = 0; }
       if ($(this).data('offset') != undefined) $offset = $(this).data('offset');
       if (!isMobile) {
-         if ($('body').hasClass('tt-smooth-scroll')) { var $scrollbar = Scrollbar.init(document.getElementById('scroll-container')); var topY = target === '#contact' ? $scrollbar.limit.y : $(target).offset().top - $('#scroll-container > .scroll-content').offset().top - $offset; gsap.to($scrollbar, { duration: 2.2, scrollTo: { y: topY, autoKill: true }, ease: Expo.easeInOut }); }
+         if ($('body').hasClass('tt-smooth-scroll')) { var $scrollbar = Scrollbar.init(document.getElementById('scroll-container')); var topY = target === '#contact' ? $scrollbar.limit.y : uiScaleCorrectScrollY($(target).offset().top - $('#scroll-container > .scroll-content').offset().top - $offset, target === '#services' ? -50 : 100); gsap.to($scrollbar, { duration: 2.2, scrollTo: { y: topY, autoKill: true }, ease: Expo.easeInOut }); }
          else { var topY = $(target).offset().top - $('body').offset().top - $offset; $('html,body').animate({ scrollTop: topY }, 800); }
       } else { var topY = $(target).offset().top - $('body').offset().top - $offset; $('html,body').animate({ scrollTop: topY }, 800); }
       return false;
