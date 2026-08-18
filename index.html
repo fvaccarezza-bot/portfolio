@@ -965,6 +965,23 @@ document.addEventListener('click', function(e) {
             <div aria-hidden="true" style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:hidden;pointer-events:none;z-index:0;">
                 <img id="hero-bg-img" data-dsrc="./assets/images/home/herobg.png" alt="" style="display:block;position:absolute;bottom:0;left:0;width:100%;height:auto;transform:rotate(180deg);" />
                 <img id="hero-bg-img-2" data-dsrc="./assets/images/home/herobg.png" alt="" style="display:block;position:absolute;top:0;right:0;width:100%;height:auto;" />
+                <script>
+                /* Same data-dsrc→src promotion the batch hydrator below does for every
+                   desktop-only image, just run right here at parse time for the two
+                   hero-critical ones instead of waiting for the whole ~2400-line document
+                   to parse first — the browser's preload scanner can then discover this
+                   request immediately instead of after the late batch hydrator runs.
+                   Mobile guard matches the batch hydrator's exactly (window.innerWidth<=768),
+                   so mobile still never requests this. The batch hydrator's own resize/
+                   orientationchange listeners remain the fallback for a tablet rotating
+                   into desktop width — nothing removed there, this is purely additive. */
+                (function () {
+                    if (window.innerWidth <= 768) return;
+                    var b1 = document.getElementById('hero-bg-img'), b2 = document.getElementById('hero-bg-img-2');
+                    if (b1 && b1.hasAttribute('data-dsrc')) { b1.src = b1.getAttribute('data-dsrc'); b1.removeAttribute('data-dsrc'); }
+                    if (b2 && b2.hasAttribute('data-dsrc')) { b2.src = b2.getAttribute('data-dsrc'); b2.removeAttribute('data-dsrc'); }
+                })();
+                </script>
             </div>
             <div id="about-enter-shadow" aria-hidden="true" style="position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to top, rgba(0,0,0,0.16), rgba(0,0,0,0));pointer-events:none;z-index:1;opacity:0;"></div>
             <div class="page-header-inner tt-wrap">
@@ -984,6 +1001,22 @@ document.addEventListener('click', function(e) {
                                     </span>
                                 </span>
                             </a>
+                            <script>
+                            /* Early data-dsrc→src promotion for the two name-letter SVGs, same
+                               reasoning as the hero-bg-img script above: run at parse time instead
+                               of waiting for the late batch hydrator. This only sets the BASE
+                               (non-retina, non-UW) file — swapHeroSVGs() further down still runs
+                               exactly as before and unconditionally overwrites .src with the
+                               correct retina/UW variant for the current breakpoint/DPR, so which
+                               SVG variant ultimately loads is untouched by this change. */
+                            (function () {
+                                if (window.innerWidth <= 768) return;
+                                var nl = document.querySelectorAll('#line-federico .name-letter, #line-vaccarezza .name-letter');
+                                for (var i = 0; i < nl.length; i++) {
+                                    if (nl[i].hasAttribute('data-dsrc')) { nl[i].src = nl[i].getAttribute('data-dsrc'); nl[i].removeAttribute('data-dsrc'); }
+                                }
+                            })();
+                            </script>
                             <!-- DESKTOP ONLY. src is set from JS so mobile / retina / UW never request it. -->
                             <img id="hero-craft" alt="" aria-hidden="true" data-src="./assets/svg/craft.svg" data-src-rt="./assets/svg/craft-rt.svg" data-src-uw="./assets/svg/craft-uw.svg" />
                         </h1>
@@ -2459,12 +2492,17 @@ document.addEventListener('click', function(e) {
 <script src="./assets/vendor/gsap/ScrollToPlugin.min.js?v=20260815-01"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="./assets/vendor/smooth-scrollbar.js?v=20260815-01"></script>
-<script src="./assets/vendor/swiper/js/swiper-bundle.min.js?v=20260815-01"></script>
+<!-- Swiper / LightGallery / jquery.mousewheel: no matching markup on Home (.tt-portfolio-slider,
+     .lightgallery, .lg-trigger all absent; jquery.mousewheel has no caller here either) — their
+     init calls in theme.js are guarded (if ($('.tt-portfolio-slider').length) / if ($.fn.lightGallery)),
+     so not loading them on Home is a no-op there. Still loaded on the work/* case-study pages that
+     use them (separate <script> tags in those files, untouched).
+     imagesloaded/isotope/packery-mode are NOT removed: theme.js calls $('.isotope-items-wrap').imagesLoaded(...)
+     unconditionally (no length guard), so removing those specific 3 would throw
+     "imagesLoaded is not a function" on Home even though the resulting isotope layout is empty. -->
 <script src="./assets/vendor/isotope/imagesloaded.pkgd.min.js?v=20260815-01"></script>
 <script src="./assets/vendor/isotope/isotope.pkgd.min.js?v=20260815-01"></script>
 <script src="./assets/vendor/isotope/packery-mode.pkgd.min.js?v=20260815-01"></script>
-<script src="./assets/vendor/lightgallery/js/lightgallery-all.min.js?v=20260815-01"></script>
-<script src="./assets/vendor/jquery.mousewheel.min.js?v=20260815-01"></script>
 <script src="./assets/js/ui-scale.js?v=20260815-01"></script>
 <script src="./assets/js/theme.js?v=20260815-01"></script>
 <script src="./assets/js/preload.js?v=20260815-01"></script>
@@ -2478,12 +2516,21 @@ document.addEventListener('click', function(e) {
 (function() {
     if (window.innerWidth <= 768) return;
     const REPEL_RADIUS = 220, REPEL_STRENGTH = 18, PUSH_NEIGHBOR = 0.25;
-    document.addEventListener('mousemove', (e) => {
-        const cards = Array.from(document.querySelectorAll('.gallery .card'));
+    /* Cards are static (created at parse time, never added/removed), so the
+       element list itself is safe to cache once. Their geometry is NOT cached
+       across frames though — getBoundingClientRect() below still runs fresh
+       every tick, since the page uses smooth scrolling and card positions
+       change as the user scrolls. The only thing batched via rAF is *how often*
+       we read+write per raw mousemove event (at most once per animation frame
+       instead of once per event) — same math, same values, same easing. */
+    const cards = Array.from(document.querySelectorAll('.gallery .card'));
+    let mx = 0, my = 0, ticking = false;
+    function applyRepel() {
+        ticking = false;
         const moves = cards.map(card => {
             const rect = card.getBoundingClientRect();
             const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
-            const dx = e.clientX - cx, dy = e.clientY - cy;
+            const dx = mx - cx, dy = my - cy;
             const dist = Math.sqrt(dx*dx + dy*dy);
             if (dist < REPEL_RADIUS) { const force = (1 - dist / REPEL_RADIUS) * REPEL_STRENGTH; return { x: -(dx / dist) * force, y: -(dy / dist) * force }; }
             return { x: 0, y: 0 };
@@ -2495,10 +2542,19 @@ document.addEventListener('click', function(e) {
             card.style.transform = 'translate(' + tx + 'px, ' + ty + 'px)';
             card.style.transition = tx === 0 && ty === 0 ? 'transform 0.6s cubic-bezier(0.34,1.5,0.9,1), filter 0.4s ease, opacity 0.4s ease' : 'transform 0.15s ease, filter 0.4s ease, opacity 0.4s ease';
         });
+    }
+    document.addEventListener('mousemove', (e) => {
+        mx = e.clientX; my = e.clientY;
+        if (!ticking) { ticking = true; requestAnimationFrame(applyRepel); }
     });
 })();
 </script>
-<script src="./assets/js/cursor-follow.js?v=20260815-01" defer></script>
+<!-- cursor-follow.js: not loaded on Home. Its target, .fx-cursor (index.html:903), is set to
+     display:none unconditionally a few lines below (search fxCursor.style.display) with no code
+     path anywhere on Home that ever reverses it, so the file's rAF loop would run forever for an
+     element that can never be visible here. Confirmed nothing on Home reads window.__fxCursor or
+     its exported iframe-bridge helpers. On work/* case-study pages .fx-cursor is NOT hidden this
+     way (verified in work/web/index.html) and cursor-follow.js is still loaded there unchanged. -->
 <script src="./assets/js/scroll.js?v=20260815-01"></script>
 <script src="./assets/js/transition.js?v=20260815-01" defer></script>
 <script>
@@ -2836,8 +2892,22 @@ window.addEventListener('load', () => {
         }
 
         let vcX = -300, vcY = -300, vcTargetX = -300, vcTargetY = -300;
-        document.addEventListener('mousemove', (e) => { vcTargetX = e.clientX; vcTargetY = e.clientY; });
-        (function animateViewCursor() { vcX += (vcTargetX - vcX) * 0.08; vcY += (vcTargetY - vcY) * 0.08; viewCursor.style.left = vcX + 'px'; viewCursor.style.top = vcY + 'px'; viewCursor.style.transform = 'translate(-50%, -50%)'; requestAnimationFrame(animateViewCursor); })();
+        let vcRafRunning = false, vcLastLeft = null, vcLastTop = null;
+        function vcTick() {
+            vcX += (vcTargetX - vcX) * 0.08; vcY += (vcTargetY - vcY) * 0.08;
+            var leftStr = vcX + 'px', topStr = vcY + 'px';
+            /* Same convergence check as the About-photo tick() below: if the
+               rounded output stopped changing, another frame would paint
+               nothing different, so stop requesting frames until the next
+               real mousemove wakes it back up (see wake-on-move below). */
+            if (leftStr === vcLastLeft && topStr === vcLastTop) { vcRafRunning = false; return; }
+            viewCursor.style.left = leftStr; viewCursor.style.top = topStr; viewCursor.style.transform = 'translate(-50%, -50%)';
+            vcLastLeft = leftStr; vcLastTop = topStr;
+            requestAnimationFrame(vcTick);
+        }
+        function vcWake() { if (!vcRafRunning) { vcRafRunning = true; requestAnimationFrame(vcTick); } }
+        document.addEventListener('mousemove', (e) => { vcTargetX = e.clientX; vcTargetY = e.clientY; vcWake(); });
+        vcWake();
         const fxCursor = document.querySelector('.fx-cursor');
         if (fxCursor) fxCursor.style.display = 'none';
         document.querySelectorAll('.card').forEach(card => {
@@ -3615,51 +3685,59 @@ if (window.innerWidth > 768) {
         }
 
         // Drag
+        /* Consolidated from one document-level mousemove/mouseup pair PER sticker
+           (14 of them) to one shared pair for all of them. Safe because a single
+           mouse pointer can only have one sticker "down" at a time anyway — the
+           original per-wrap `dragging` boolean was never true for more than one
+           wrap simultaneously, so tracking "which wrap is currently being dragged"
+           in one shared object is behaviorally identical, just fewer listeners.
+           Per-wrap geometry (stkHalfW/H, drag-start deltas, velocity) that used to
+           live in each wrap's own closure now lives on this shared `drag` object,
+           populated fresh on every mousedown exactly as before. */
+        var drag = { wrap: null, stkEl: null, stkHalfW: 0, stkHalfH: 0, startMX: 0, startMY: 0, origBX: 0, origBY: 0, vx: 0, vy: 0, lastMX: 0, lastMY: 0 };
         regularWraps.forEach(function(wrap) {
             var stkEl = wrap.querySelector('.stk');
-            var stkHalfW = 0, stkHalfH = 0;
-            var startMX, startMY, origBX, origBY, dragging = false;
-            var vx = 0, vy = 0, lastMX, lastMY;
-
             stkEl.addEventListener('mousedown', function(e) {
-                dragging = true; vx = 0; vy = 0;
-                startMX = e.clientX; startMY = e.clientY;
-                origBX = wrap._baseX; origBY = wrap._baseY;
-                lastMX = e.clientX; lastMY = e.clientY;
+                drag.wrap = wrap; drag.stkEl = stkEl;
+                drag.vx = 0; drag.vy = 0;
+                drag.startMX = e.clientX; drag.startMY = e.clientY;
+                drag.origBX = wrap._baseX; drag.origBY = wrap._baseY;
+                drag.lastMX = e.clientX; drag.lastMY = e.clientY;
                 var zf = parseFloat(getComputedStyle(stkEl).zoom) || 1;
-                stkHalfW = (stkEl.offsetWidth * zf) / 2;
-                stkHalfH = (stkEl.offsetHeight * zf) / 2;
+                drag.stkHalfW = (stkEl.offsetWidth * zf) / 2;
+                drag.stkHalfH = (stkEl.offsetHeight * zf) / 2;
                 wrap.style.zIndex = ++topZ;
                 if (bolsitaWrap) bolsitaWrap.style.zIndex = topZ + 1;
                 stkEl.classList.add('is-grabbed');
                 wrap.style.transition = 'none';
                 e.preventDefault();
             });
-            document.addEventListener('mousemove', function(e) {
-                if (!dragging) return;
-                vx = e.clientX - lastMX; vy = e.clientY - lastMY;
-                lastMX = e.clientX; lastMY = e.clientY;
-                var b = bagBounds();
-                var maxX = Math.max(0, b.hw - stkHalfW - 100);
-                var maxY = Math.max(0, b.hh - stkHalfH - 100);
-                var clamped = clampInBag(origBX + (e.clientX - startMX), origBY + (e.clientY - startMY), maxX, maxY, b.rot);
-                wrap._baseX = clamped.x; wrap._baseY = clamped.y;
-                setTransform(wrap, wrap._baseX, wrap._baseY);
-            });
-            document.addEventListener('mouseup', function(e) {
-                if (!dragging) return;
-                dragging = false;
-                var b = bagBounds();
-                var maxX = Math.max(0, b.hw - stkHalfW - 100);
-                var maxY = Math.max(0, b.hh - stkHalfH - 100);
-                var clamped = clampInBag(wrap._baseX + vx * 4, wrap._baseY + vy * 4, maxX, maxY, b.rot);
-                var tx = clamped.x, ty = clamped.y;
-                wrap._baseX = tx; wrap._baseY = ty;
-                wrap.style.transition = 'transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1)';
-                setTransform(wrap, tx, ty);
-                stkEl.classList.remove('is-grabbed');
-                setTimeout(function() { wrap.style.transition = ''; }, 450);
-            });
+        });
+        document.addEventListener('mousemove', function(e) {
+            if (!drag.wrap) return;
+            drag.vx = e.clientX - drag.lastMX; drag.vy = e.clientY - drag.lastMY;
+            drag.lastMX = e.clientX; drag.lastMY = e.clientY;
+            var b = bagBounds();
+            var maxX = Math.max(0, b.hw - drag.stkHalfW - 100);
+            var maxY = Math.max(0, b.hh - drag.stkHalfH - 100);
+            var clamped = clampInBag(drag.origBX + (e.clientX - drag.startMX), drag.origBY + (e.clientY - drag.startMY), maxX, maxY, b.rot);
+            drag.wrap._baseX = clamped.x; drag.wrap._baseY = clamped.y;
+            setTransform(drag.wrap, drag.wrap._baseX, drag.wrap._baseY);
+        });
+        document.addEventListener('mouseup', function(e) {
+            if (!drag.wrap) return;
+            var wrap = drag.wrap, stkEl = drag.stkEl;
+            var b = bagBounds();
+            var maxX = Math.max(0, b.hw - drag.stkHalfW - 100);
+            var maxY = Math.max(0, b.hh - drag.stkHalfH - 100);
+            var clamped = clampInBag(wrap._baseX + drag.vx * 4, wrap._baseY + drag.vy * 4, maxX, maxY, b.rot);
+            var tx = clamped.x, ty = clamped.y;
+            wrap._baseX = tx; wrap._baseY = ty;
+            wrap.style.transition = 'transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1)';
+            setTransform(wrap, tx, ty);
+            stkEl.classList.remove('is-grabbed');
+            setTimeout(function() { wrap.style.transition = ''; }, 450);
+            drag.wrap = null;
         });
     })();
 
