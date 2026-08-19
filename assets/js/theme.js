@@ -383,6 +383,18 @@
    if ($('#tt-header').hasClass('tt-header-fixed')) { $('body').addClass('tt-header-fixed-on'); }
 
    var $olMenuToggleBtn = $('.tt-ol-menu-toggle-btn-text, .tt-ol-menu-toggle-btn');
+   /* SHARED ROOT CAUSE for About/Works/Services all feeling jerky/jumpy on mobile:
+      the '.tt-overlay-menu a, .tt-logo a' click handler further down used to be
+      (re-)bound with .on('click', ...) every single time the menu opened, with no
+      .off() anywhere in this file. Open the menu, close it without clicking a
+      link, reopen, click a link — now 2 handlers fire off that ONE tap, each
+      starting its own full close timeline AND (on mobile) its own
+      gsap.to(window, {scrollTo...}) tween, both trying to drive the same scroll
+      position at once. That's what "jerky/not smooth" actually was — not
+      something specific to any one of the three links, since they all share this
+      exact binding. olMenuLinksBound below makes the binding happen exactly
+      once, ever, regardless of how many times the menu is opened/closed. */
+   var olMenuLinksBound = false;
 
    $olMenuToggleBtn.on('click', function () {
       $('html').toggleClass('tt-no-scroll');
@@ -406,7 +418,10 @@
             tl_olMenuIn.from('.tt-ol-menu-list > li', { duration: 0.7, y: 80, autoAlpha: 0, stagger: 0.07, ease: 'power3.out', clearProps: 'all' }, '-=0.4');
          }
 
+         if (!olMenuLinksBound) {
+         olMenuLinksBound = true;
          $('.tt-overlay-menu a, .tt-logo a').not('[target="_blank"]').not('[href="#"]').not('[href^="mailto"]').not('[href^="tel"]').on('click', function () {
+            var isMob = window.innerWidth <= 768; // recomputed per click now that this binds once instead of once per menu-open
             $('body').addClass('olm-toggle-no-click');
             var $clickedHref = $(this).attr('href') || $(this).data('href') || null;
             var $clickedOffset = $(this).data('offset') || 0;
@@ -420,7 +435,24 @@
                   $('body').removeClass('olm-toggle-no-click');
                   $('body').removeClass('tt-ol-menu-open');
                   if (isMob && $clickedHref && $clickedHref.charAt(0) === '#') {
-                     setTimeout(function() {
+                     /* MOBILE ONLY (isMob, <=768px) — was a 50ms setTimeout, which left a
+                        visible gap between menu.js's own scroll-lock MutationObserver
+                        (unlockScroll, assets/js/menu.js) restoring the pre-menu-open
+                        scroll position — reactively, the instant .tt-ol-menu-open is
+                        removed just above — and this tween actually starting. That gap
+                        painted the restored position as a visible snap/jump before the
+                        real scroll-to-target animation kicked in.
+                        requestAnimationFrame instead of setTimeout: rAF callbacks run
+                        after the current microtask queue (which is where the
+                        MutationObserver callback lives) has fully drained, but before
+                        the next paint — so unlockScroll's restore has already happened
+                        by the time this runs, but nothing has been painted yet. Starting
+                        the tween here means the browser's first actual painted frame is
+                        already mid-animation toward the target, not sitting at the
+                        restored position — one continuous scroll, no visible snap.
+                        Does not touch menu.js (shared, used by desktop's overlay menu
+                        too) — only reschedules when this mobile-gated tween starts. */
+                     requestAnimationFrame(function() {
                         var target = document.querySelector($clickedHref);
                         if (target) {
                            var offset = parseInt($clickedOffset) || 0;
@@ -430,7 +462,7 @@
                            else { topY = target.getBoundingClientRect().top + window.pageYOffset - offset; }
                            gsap.to(window, { duration: 1.6, scrollTo: { y: topY, autoKill: false }, ease: 'power2.inOut' });
                         }
-                     }, 50);
+                     });
                   }
                }
             });
@@ -444,6 +476,7 @@
             tl_olMenuClick.set('.tt-ol-menu-list > li', { clearProps: 'all' });
             if (isMob && $clickedHref && $clickedHref.charAt(0) === '#') { return false; }
          });
+         } // end if (!olMenuLinksBound)
 
          if ($('.tt-sliding-sidebar-wrap').length) { gsap.to('.tt-sliding-sidebar-trigger', { duration: 1, autoAlpha: 0, ease: Expo.easeOut }); }
 
