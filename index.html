@@ -243,6 +243,72 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
 .home-title,.home-title:hover,.home-title:focus,.home-title .name-line,.home-title:hover .name-line,.home-title:focus .name-line { color:inherit !important; -webkit-text-stroke:0 !important; text-decoration:none !important; }
 #title-hola, #title-works { cursor: default !important; }
 .desk-works-phrase { display:flex; flex-direction:column; align-items:center; margin-top:75px; margin-bottom:100px; gap:32px; width:fit-content; margin-left:auto; margin-right:auto; position:relative; }
+/* Photo->Pill->Story->Text as a single vertical column — NORMAL desktop only
+   (769-2559, any DPI below 2dppx). Same technique already proven at Retina
+   (min-resolution:2dppx block further down) and UW, just written for this
+   one remaining range, which had no override at all before and was still
+   rendering the original row layout (photo beside a separate text column).
+   gap:32px on both rules is .desk-works-phrase's own real rendered gap above
+   (unscoped, un-transformed at this width) — Projects' actual Desktop
+   rhythm, not an invented number; every other value here (widths, alignment)
+   is only what's structurally required to turn the existing row into a
+   column without changing any element's own size. Scoped to this exact width
+   range so UW (>=2560, its own column block) and mobile/tablet (<=768,
+   display:none on #hola-foto entirely) are untouched. */
+@media (min-width: 769px) and (max-width: 2559px) {
+    #hola-foto { flex-direction: column !important; align-items: center !important; gap: 32px !important; }
+    /* flex-basis:340px was a row-axis (width) reading of this number; in a
+       column, flex-basis resolves against height instead, which would
+       distort the photo. flex-basis:auto neutralizes that, and an explicit
+       width + aspect-ratio:1/1 gives the box a defined height derived from
+       that same 340px — its existing size, just no longer dependent on a
+       row sibling to stretch-match. */
+    #fede-photo-wrap { flex-basis: auto !important; width: 340px !important; aspect-ratio: 1 / 1 !important; }
+    /* flex:0 0 auto overrides the inline flex:1 1 600px (a row-axis grow/
+       basis rule that would otherwise misread as a height target now that
+       #hola-foto is a column) + width:100% so it centers as a block via
+       #hola-foto's own align-items:center above, capped at its existing
+       max-width:600px from the inline style. */
+    #about-text-col { flex: 0 0 auto !important; width: 100% !important; gap: 32px !important; }
+    /* STORY's own mask wrapper keeps its existing width:100% + padding/
+       margin trick untouched (that's what the reveal animation clips
+       against) — only justify-content changes, from flex-start to center,
+       so the artwork renders centered inside that unchanged mask; align-self
+       is required for the same reason as at Retina/UW: the -40px/-40px
+       margin shrinks this element's own margin-box below #about-text-col's
+       full width, and without an explicit align-self it falls back to
+       flex-start instead of using the slack symmetrically. */
+    #about-text-col h2 { justify-content: center !important; align-self: center !important; }
+    #about-pill { align-self: center !important; }
+    /* Was left-aligned under the row layout, flush with the pill/title above
+       it; centered here so it stays flush with a pill/title that are now
+       themselves centered under a photo no longer beside them. */
+    #fede-text-wrap { align-self: center !important; text-align: center !important; }
+}
+/* Testimonial card shadow was getting clipped on hover/active at Normal
+   desktop: .carousel (testimonials.css) has overflow:hidden, which cuts off
+   .verbatim's box-shadow whenever the card's hover/active state pushes it
+   larger than the carousel's own padding box. Retina and UW already carry
+   this exact fix (see "Testi cards - retina fix overflow" below, and
+   #testimonials-section .carousel in the UW block above) — this is the same
+   fix for the one range that didn't have it yet. max-resolution excludes
+   Retina (already fixed on its own), max-width excludes UW (already fixed),
+   min-width excludes mobile/tablet. */
+@media (min-width: 769px) and (max-width: 2559px) and (max-resolution: 1.99dppx) {
+    #testimonials-section .carousel { overflow: visible !important; }
+    /* Sticker block, 50px lower. Retina/UW only override padding-bottom on
+       this element (see #stickers-outer elsewhere), so padding-top is free
+       here without touching either. */
+    #stickers-outer { padding-top: 50px !important; }
+    /* Text -> Carousel gap, from the audited 98.77px real/rendered value down
+       to 50px real/rendered. Base rule (.desktop-testi-wrap margin-bottom:
+       120px, unscoped, shared with Retina) renders at 98.77px here after
+       --uiScale; this raw value is calibrated to land on 50px rendered at
+       this same scale, verified live via getBoundingClientRect() — not a
+       straight 120*(50/98.77) guess, since --uiScale isn't guaranteed
+       perfectly linear/constant across the whole page. */
+    .desktop-testi-wrap { margin-bottom: 61px !important; }
+}
 .desk-works-clip { overflow:hidden; line-height:0; display:flex; justify-content:center; width:100%; padding:0 40px; margin:0 -40px; }
 #desk-featured, #desk-work { display:block; width:auto; max-width:100%; }
 #desk-featured { display:none !important; }
@@ -1820,6 +1886,15 @@ document.addEventListener('click', function(e) {
                 <div class="tt-section-inner tt-wrap">
                 <style>
                     .services-big { position:relative; margin-top:100px; margin-bottom:180px; cursor:default; text-align:center; }
+                    /* Gap to the services-grid row below: 180px margin-bottom here minus
+                       the grid's own translateY(-50px) (untouched, see .services-grid
+                       further down) nets to 130px today. Scoped to Normal desktop only
+                       (max-resolution excludes Retina, max-width excludes UW, min-width
+                       excludes mobile/tablet) so it shrinks that net gap to 80px there
+                       specifically, leaving Retina/UW/mobile at their existing values. */
+                    @media (min-width: 769px) and (max-width: 2559px) and (max-resolution: 1.99dppx) {
+                        .services-big { margin-bottom: 130px !important; }
+                    }
                     .services-big > img, .services-big .sb-line-hover > img { display:block; width:auto; max-width:100%; margin:0 auto; }
                     /* Literal copy of the hero name's hover rule (index.html ~191-192,
                        #hero-name-link:hover #line-federico/#line-vaccarezza .name-letter):
@@ -2230,7 +2305,7 @@ document.addEventListener('click', function(e) {
                             <h2 class="testi-phrase-clip" style="margin:0;">
                                 <img src="./assets/svg/desk-they.svg" alt="They said it" id="testi-phrase-img" />
                             </h2>
-                            <p id="testi-afew-desc" class="mob-no" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;max-width:600px;text-align:center;position:relative;z-index:1;opacity:0;transform:translateY(40px);filter:blur(20px);">Over the years, I've been lucky to work with amazing founders, marketers,<br class="br-retina-only"> developers, and teams from all kinds of industries.<br class="br-retina-only"> Here are a few words they shared after working together.</p>
+                            <p id="testi-afew-desc" class="mob-no" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;max-width:600px;text-align:center;position:relative;z-index:1;opacity:0;transform:translateY(40px);filter:blur(20px);">Over the years, I've been lucky to work with amazing founders, marketers<br class="br-desktop-only"> developers and teams from all kinds of industries.<br class="br-retina-only"><br class="br-desktop-only"> Here are a few words they shared after working together.</p>
                         </div>
                         <div class="mob-somekind-phrase" style="position:relative;display:flex;flex-direction:column;align-items:center;width:100%;gap:8px;margin-bottom:8px;">
                             <img src="./assets/svg/pill-somekind.svg" alt="Some Kind Words" class="mob-pill" id="mob-testi-pill" />
@@ -2547,12 +2622,12 @@ document.addEventListener('click', function(e) {
 <script src="./assets/vendor/isotope/isotope.pkgd.min.js?v=20260815-01"></script>
 <script src="./assets/vendor/isotope/packery-mode.pkgd.min.js?v=20260815-01"></script>
 <script src="./assets/js/ui-scale.js?v=20260815-01"></script>
-<script src="./assets/js/theme.js?v=20260815-01"></script>
+<script src="./assets/js/theme.js?v=20260819-01"></script>
 <script src="./assets/js/preload.js?v=20260815-01"></script>
 <script src="./assets/js/menu.js?v=20260815-01"></script>
 <script src="./assets/js/gallery.js?v=20260815-01"></script>
 <script src="./assets/js/reel-logos.js?v=20260815-01"></script>
-<script src="./assets/js/testimonials.js?v=20260815-01"></script>
+<script src="./assets/js/testimonials.js?v=20260819-01"></script>
 <script src="./assets/js/form.js?v=20260815-01"></script>
 <script src="./assets/js/modal.js?v=20260815-01"></script>
 <script>
@@ -3922,9 +3997,22 @@ if (window.innerWidth > 768) {
                        theme.js for why this is needed (topY above is visual-space,
                        the scrollbar's own offset.y is layout-space, so this
                        undershoots the target below UW without it). No-op
-                       everywhere else, including UW. */
+                       everywhere else, including UW. Only matters for the fallback
+                       path below, if the pin isn't found. */
                     if (window.__uiScaleCorrectScrollY) topY = window.__uiScaleCorrectScrollY(topY);
-                    if (window.innerWidth >= 2560) topY += 50; // UW only, same nudge as the nav-menu About scroll-to in theme.js
+                    /* Land where the About reading-sweep pin (id 'about-read-pin', see
+                       the "About body-copy reading sweep" block above) actually
+                       releases, not a guessed offset. ScrollTrigger computes .start/.end
+                       off the SAME scroller ('body', proxied straight to this
+                       scrollbar's own scrollTop/offset.y — see theme.js) using live
+                       getBoundingClientRect(), so .end already lands in this exact
+                       coordinate space at Normal, Retina AND UW alike — same criterion
+                       as the nav-menu About scroll-to in theme.js. Falls back to the
+                       old UW-only +50 nudge only if the pin isn't found (shouldn't
+                       normally happen). */
+                    var readPinST = typeof ScrollTrigger !== 'undefined' && ScrollTrigger.getById('about-read-pin');
+                    if (readPinST) topY = readPinST.end;
+                    else if (window.innerWidth >= 2560) topY += 50; // UW-only fallback, same nudge as the nav-menu About scroll-to in theme.js
                     gsap.to(sbNow, { duration: 2.2, scrollTo: { y: topY, autoKill: true }, ease: Expo.easeInOut });
                 };
 

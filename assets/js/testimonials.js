@@ -261,6 +261,9 @@
     let dragging = false;
     let dx = 0;
     let startX = 0;
+    let dy = 0;
+    let startY = 0;
+    const DRAG_MAX_VERTICAL = 10; // px — very subtle vertical follow, on top of the fixed -6px lift below
 
     function rubberBand(raw) {
       const abs = Math.abs(raw);
@@ -280,8 +283,11 @@
     function renderDrag() {
       const baseScale = UW_MQ.matches ? 1.2 : 1;
       const rot = (dx / DRAG_LIMIT) * DRAG_MAX_ROTATE;
-      // -6px fijo: es el mismo lift que ya puso el hover, así no hay salto al empezar a arrastrar
-      activeEl.style.transform = `translate(-50%, -50%) translate(${dx}px, -6px) scale(${baseScale}) rotate(${rot}deg)`;
+      // -6px fijo: es el mismo lift que ya puso el hover, así no hay salto al empezar a arrastrar.
+      // dy se suma encima, muy amortiguado (15%) y clampeado a +-DRAG_MAX_VERTICAL, para que
+      // acompañe el gesto sin que la card se vaya lejos verticalmente.
+      const liftY = -6 + Math.max(-DRAG_MAX_VERTICAL, Math.min(DRAG_MAX_VERTICAL, dy * 0.15));
+      activeEl.style.transform = `translate(-50%, -50%) translate(${dx}px, ${liftY}px) scale(${baseScale}) rotate(${rot}deg)`;
     }
 
     activeEl.onpointerdown = function (e) {
@@ -289,7 +295,9 @@
       e.preventDefault(); // evita que el navegador arranque un drag nativo si el click cae sobre la <img>
       dragging = true;
       dx = 0;
+      dy = 0;
       startX = e.clientX;
+      startY = e.clientY;
       if (activeEl.setPointerCapture) activeEl.setPointerCapture(e.pointerId);
       activeEl.style.transition = "none";
       activeEl.style.cursor = "grabbing";
@@ -300,6 +308,7 @@
     activeEl.onpointermove = function (e) {
       if (!dragging) return;
       dx = rubberBand(e.clientX - startX);
+      dy = e.clientY - startY;
       renderDrag();
     };
 
@@ -317,6 +326,7 @@
         applyLayout();
       }
       dx = 0;
+      dy = 0;
     }
 
     activeEl.onpointerup = endDrag;
