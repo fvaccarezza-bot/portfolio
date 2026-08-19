@@ -258,7 +258,13 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
 /* Retina-only line breaks for the same About paragraphs — hidden everywhere
    else so retina keeps out of UW's and normal desktop's own break points. */
 .br-retina-only { display: none; }
+/* Opposite of .br-retina-only: visible by default (normal <br>, no base rule
+   needed), hidden at retina and UW so it only ever shows at plain desktop
+   width. Used for the Projects description's "...interesting. [break] Some"
+   break, which only needs to exist where the paragraph's own natural line
+   wrap doesn't already put "Some" at the start of a line. */
 @media (min-width: 2560px) {
+    .br-desktop-only { display: none !important; }
     .gallery .stamp { width: 84px !important; height: 84px !important; }
     #stickers-img { width: 1300px !important; }
     /* gap: 32px (base) -> 50/1.5, so that once this element's own scale(1.5)
@@ -782,6 +788,7 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
    just re-enabled for retina instead of being hidden. UW keeps its own blocks below,
    which come later and win on a HiDPI ultrawide regardless of this. */
 @media (min-resolution: 2dppx) and (min-width: 769px) and (max-width: 2559px) {
+    .br-desktop-only { display: none !important; }
     #services-with { display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: auto !important; height: auto !important; max-width: none; pointer-events: none; z-index: 3; mix-blend-mode: hard-light; opacity: 0.8; }
     .sb-tag-parallax { display: none; }
     #hero-craft { display: block; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) translateY(var(--craft-parallax, 0px)) translate(var(--craft-counter-x, 0px), var(--craft-counter-y, 0px)) scale(1.2) scale(var(--craft-scale, 1)); pointer-events: none; z-index: 12; mix-blend-mode: hard-light; opacity: 0; filter: blur(16px); transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1), filter 3.5s cubic-bezier(0.22, 1, 0.36, 1), transform 3.5s cubic-bezier(0.22, 1, 0.36, 1); }
@@ -1750,7 +1757,7 @@ document.addEventListener('click', function(e) {
                         <p style="display:none;">A Few of Them</p>
                     </div>
                     <h2 class="desk-works-clip" style="margin:0;"><img id="desk-work" src="./assets/svg/desk-projects.svg" alt="projects" /></h2>
-                    <p id="works-afew-desc" class="mob-no" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;max-width:600px;text-align:center;position:relative;z-index:1;opacity:0;transform:translateY(40px);filter:blur(20px);">No two projects are the same, and that's what keeps things interesting.<br class="br-retina-only"> Some started from scratch, others were redesigns, but all of them were built<br class="br-retina-only"> around clarity, usability and attention to detail.</p>
+                    <p id="works-afew-desc" class="mob-no" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;max-width:600px;text-align:center;position:relative;z-index:1;opacity:0;transform:translateY(40px);filter:blur(20px);">No two projects are the same, and that's what keeps things interesting.<br class="br-retina-only"><br class="br-desktop-only"> Some started from scratch, others were redesigns, but all of them were built<br class="br-retina-only"> around clarity, usability and attention to detail.</p>
                 </div>
                 <div class="tt-section-inner tt-wrap">
                     <div class="mob-works-phrase mob-ok" style="display:none;position:relative;">
@@ -2930,6 +2937,88 @@ window.addEventListener('load', () => {
             a.addEventListener('mouseleave', () => { a.style.transform = ''; a.style.transition = 'transform 0.4s cubic-bezier(0.34,1.5,0.9,1)'; });
         });
 
+        try {
+        if (window.innerWidth > 768) {
+            /* About body-copy "reading sweep" — real pin. #about freezes once its
+               center hits the viewport center, scroll is consumed by the word-by-word
+               gray->dark sweep, pin releases once the sweep hits 100%. Verified in an
+               isolated test (Scrollbar.get('#scroll-container').setPosition() driving
+               real ScrollTrigger.update() calls, not raw scrollTop — raw scrollTop
+               does NOT correctly drive this page's proxy, setPosition does) before
+               landing this: pinType is forced to 'transform' rather than left on
+               GSAP's auto-detected default, because #scroll-container gets
+               transform:scale(var(--uiScale)) from ui-scale.css in the 961px-baseW
+               "in-between" zone — position:fixed pinning breaks under a transformed
+               ancestor, transform-based pinning doesn't. scroller:'body' is explicit
+               to match the existing ScrollTrigger.scrollerProxy('body', ...)
+               registration in theme.js (untouched, not modified here). One timeline,
+               one ScrollTrigger owns both the pin and the color sweep, so they can
+               never drift out of sync with each other.
+               PLACEMENT MATTERS — THIS MUST STAY THE FIRST SCROLLTRIGGER-USING BLOCK
+               IN THE WHOLE SCRIPT, before the "#title-hola" IIFE right below it and
+               before every other reveal on the page (hero, works, contact, testimonials,
+               services, etc). A pin inserts a real spacer element that pushes everything
+               after it down by the pin's scroll distance (1900px) — any trigger created
+               BEFORE that spacer exists calculates its start/end against the old,
+               unshifted layout. A later ScrollTrigger.refresh() re-measures scrub-based
+               effects correctly (they just read live progress), but does NOT re-arm
+               one-shot toggleActions triggers ("have I already played?") — those stay
+               stuck. Confirmed by testing: with this block positioned after the
+               services-big parallax block, its blur-clear tween (toggleActions:'play
+               none none none') never fired; with it positioned after that block AND
+               after everything else too (i.e. anywhere but first), the testimonials
+               "They Said It" reveal broke the same way. Moving this to be the very
+               first ScrollTrigger created fixed both. Do not move this block below any
+               other ScrollTrigger-using code without re-testing every toggleActions
+               reveal on the page (hero, works, contact, testimonials, about, services,
+               trusted-by, footer). */
+            var readWrap = document.getElementById('fede-text-wrap');
+            if (readWrap) {
+                var readGray = '#D8D8D6', readDark = '#3A3A39'; // readDark matches --color-fede-fv's actual value — the paragraphs' current resting color, unchanged once the sweep completes
+                var readWords = [];
+                Array.prototype.forEach.call(readWrap.querySelectorAll('p'), function (p) {
+                    Array.prototype.slice.call(p.childNodes).forEach(function (node) {
+                        if (node.nodeType === 3) { // plain text node: split into word spans, keep the whitespace between them as real text so wrapping can't change layout/wrapping
+                            var frag = document.createDocumentFragment();
+                            var parts = node.textContent.split(/(\s+)/);
+                            parts.forEach(function (part) {
+                                if (part === '') return;
+                                if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+                                var span = document.createElement('span');
+                                span.className = 'rw-word';
+                                span.textContent = part;
+                                frag.appendChild(span);
+                                readWords.push(span);
+                            });
+                            p.replaceChild(frag, node);
+                        } else if (node.nodeType === 1 && node.tagName === 'SPAN') {
+                            // existing spans (the UBA comma, "that are") already isolate their own text — fold them into the same sweep instead of splitting further
+                            node.classList.add('rw-word');
+                            readWords.push(node);
+                        }
+                        // <br> elements (and anything else) are left completely untouched
+                    });
+                });
+                if (readWords.length) {
+                    gsap.timeline({
+                        scrollTrigger: {
+                            trigger: '#about',
+                            start: 'center center-=50', // needs 50px more scroll than pure center before the pin engages
+                            end: '+=1900',
+                            scroller: 'body',
+                            pin: true,
+                            pinType: 'transform',
+                            scrub: 0.5,
+                            id: 'about-read-pin'
+                        }
+                    })
+                    .set(readWords, { color: readGray })
+                    .to(readWords, { color: readDark, ease: 'none', duration: 0.6, stagger: 0.05 });
+                }
+            }
+        }
+        } catch (e) { console.error('[anim] About reading sweep failed:', e); }
+
         (function() {
             const holaInner = document.querySelector('#title-hola');
             if (holaInner) {
@@ -3799,6 +3888,7 @@ if (window.innerWidth > 768) {
                        undershoots the target below UW without it). No-op
                        everywhere else, including UW. */
                     if (window.__uiScaleCorrectScrollY) topY = window.__uiScaleCorrectScrollY(topY);
+                    if (window.innerWidth >= 2560) topY += 50; // UW only, same nudge as the nav-menu About scroll-to in theme.js
                     gsap.to(sbNow, { duration: 2.2, scrollTo: { y: topY, autoKill: true }, ease: Expo.easeInOut });
                 };
 
