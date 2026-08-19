@@ -299,7 +299,8 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
     /* Sticker block, 50px lower. Retina/UW only override padding-bottom on
        this element (see #stickers-outer elsewhere), so padding-top is free
        here without touching either. */
-    #stickers-outer { padding-top: 50px !important; }
+    #stickers-outer { padding-top: 100px !important; padding-bottom: 0px !important; }
+    #faq-section-2 { padding-top: 40px !important; }
     /* Text -> Carousel gap, from the audited 98.77px real/rendered value down
        to 50px real/rendered. Base rule (.desktop-testi-wrap margin-bottom:
        120px, unscoped, shared with Retina) renders at 98.77px here after
@@ -2405,13 +2406,13 @@ document.addEventListener('click', function(e) {
                         <div class="process-step" style="display:flex;flex-direction:row;align-items:flex-start;opacity:0;transform:translateY(20px);filter:blur(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:26px;font-weight:800;color:#3A3A39;line-height:1;width:80px;flex-shrink:0;">(01)</div>
                             <div style="padding-right:24px;padding-top:2px;flex-shrink:0;"><div class="process-dot" style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div></div>
-                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Get The Context</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">You tell me what you need. I ask questions until I understand the idea.</p></div>
+                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Get The Context</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">You tell me what you need. I ask questions<br class="br-desktop-only"> until I understand the idea.</p></div>
                         </div>
                         <!-- step 02 -->
                         <div class="process-step" style="display:flex;flex-direction:row;align-items:flex-start;opacity:0;transform:translateY(20px);filter:blur(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:26px;font-weight:800;color:#3A3A39;line-height:1;width:80px;flex-shrink:0;">(02)</div>
                             <div style="padding-right:24px;padding-top:2px;flex-shrink:0;"><div class="process-dot" style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div></div>
-                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Find A Direction</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">I explore a few ways forward and we agree on a direction before going too deep.</p></div>
+                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Find A Direction</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">I explore a few ways forward and we agree<br class="br-desktop-only"> on a direction before going too deep.</p></div>
                         </div>
                         <!-- step 03 -->
                         <div class="process-step" style="display:flex;flex-direction:row;align-items:flex-start;opacity:0;transform:translateY(20px);filter:blur(20px);">
@@ -2423,7 +2424,7 @@ document.addEventListener('click', function(e) {
                         <div class="process-step" style="display:flex;flex-direction:row;align-items:flex-start;opacity:0;transform:translateY(20px);filter:blur(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:26px;font-weight:800;color:#3A3A39;line-height:1;width:80px;flex-shrink:0;">(04)</div>
                             <div style="padding-right:24px;padding-top:2px;flex-shrink:0;"><div class="process-dot" style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div></div>
-                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Tweak Together</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">We review, adjust and get it where it needs to be. Simple as that.</p></div>
+                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Tweak Together</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">We review, adjust and get it where it<br class="br-desktop-only"> needs to be. Simple as that.</p></div>
                         </div>
                     </div>
                     <h2 class="faq-title-wrap" style="overflow:visible;display:flex;flex-direction:column;gap:16px;flex:1;align-items:flex-end;margin:0;">
@@ -3123,8 +3124,8 @@ window.addEventListener('load', () => {
                             id: 'about-read-pin'
                         }
                     })
-                    .set(readWords, { color: readGray })
-                    .to(readWords, { color: readDark, ease: 'none', duration: 0.6, stagger: 0.05 });
+                    .set(readWords, { color: readGray, filter: 'blur(20px)' })
+                    .to(readWords, { color: readDark, filter: 'blur(0px)', ease: 'none', duration: 0.6, stagger: 0.05 });
                 }
             }
         }
