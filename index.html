@@ -2485,6 +2485,14 @@ document.addEventListener('click', function(e) {
                 .card:hover a.media, .card:hover .pgi-image-holder { border-radius:10px !important; }
                 .gallery:has(.card:hover) .card:not(:hover) { filter:blur(5px); }
                 .gallery .card { transition:filter 0.7s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.7s cubic-bezier(0.25,0.46,0.45,0.94); will-change:transform; }
+                /* Blur is the most expensive part of the hover effect to paint. Hinting
+                   filter as a will-change candidate lets the browser pre-allocate a
+                   compositing layer for it instead of discovering mid-transition — but
+                   only while the cursor is actually inside the grid (:hover on the
+                   container itself), so there's no permanent resident layer/memory cost
+                   the rest of the time, same as every other hover-only effect on this
+                   page. Same blur value, same timing, same look — just cheaper to render. */
+                .gallery:hover .card { will-change: filter; }
                 @keyframes card-float { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-5px) rotate(-0.5deg); } }
                 @keyframes card-float-alt { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-5px) rotate(0.5deg); } }
                 .gallery .card.in-view { animation: card-float 8s cubic-bezier(0.45,0,0.55,1) infinite; }
@@ -3035,7 +3043,24 @@ window.addEventListener('load', () => {
             card.addEventListener('mouseenter', (e) => { if (e.target.closest('.stamp')) return; viewCursor.style.width = '70px'; viewCursor.style.height = '70px'; viewCursorText.style.fontSize = '12px'; if (fxCursor) { fxCursor.style.filter='blur(4px)'; fxCursor.style.opacity='0'; } });
             card.addEventListener('mouseover', (e) => { if (e.target.closest('.stamp')) { viewCursor.style.width = '10px'; viewCursor.style.height = '10px'; viewCursorText.style.fontSize = '0px'; viewCursor.style.opacity = '0'; if (fxCursor) { fxCursor.style.filter='blur(0px)'; fxCursor.style.opacity='1'; } } else if (e.target.closest('a.media')) { viewCursor.style.width = '70px'; viewCursor.style.height = '70px'; viewCursorText.style.fontSize = '12px'; viewCursor.style.opacity = '1'; if (fxCursor) { fxCursor.style.filter='blur(4px)'; fxCursor.style.opacity='0'; } } });
             card.addEventListener('mouseleave', () => { viewCursor.style.width = '10px'; viewCursor.style.height = '10px'; viewCursorText.style.fontSize = '0px'; viewCursor.style.opacity = '1'; if (fxCursor) { fxCursor.style.filter='blur(0px)'; fxCursor.style.opacity='1'; } if (mediaLink) { mediaLink.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)'; mediaLink.style.transition = 'transform 0.6s cubic-bezier(0.34,1.5,0.9,1)'; } });
-            card.addEventListener('mousemove', (e) => { if (!mediaLink) return; const rect = mediaLink.getBoundingClientRect(); const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2, dx = (e.clientX - cx) / (rect.width / 2), dy = (e.clientY - cy) / (rect.height / 2); mediaLink.style.transform = 'perspective(1200px) rotateX(' + (-dy * 1.5) + 'deg) rotateY(' + (dx * 1.5) + 'deg)'; mediaLink.style.transition = 'transform 0.15s ease'; });
+            /* rAF-batched, same math/values as before — was reading mediaLink's rect
+               and writing its transform on every raw mousemove event; now it stores
+               the latest cursor position and does the read+write at most once per
+               animation frame, mirroring the gallery-repel handler's own fix above. */
+            let tiltMx = 0, tiltMy = 0, tiltTicking = false;
+            function applyTilt() {
+                tiltTicking = false;
+                if (!mediaLink) return;
+                const rect = mediaLink.getBoundingClientRect();
+                const cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2, dx = (tiltMx - cx) / (rect.width / 2), dy = (tiltMy - cy) / (rect.height / 2);
+                mediaLink.style.transform = 'perspective(1200px) rotateX(' + (-dy * 1.5) + 'deg) rotateY(' + (dx * 1.5) + 'deg)';
+                mediaLink.style.transition = 'transform 0.15s ease';
+            }
+            card.addEventListener('mousemove', (e) => {
+                if (!mediaLink) return;
+                tiltMx = e.clientX; tiltMy = e.clientY;
+                if (!tiltTicking) { tiltTicking = true; requestAnimationFrame(applyTilt); }
+            });
         });
         document.querySelectorAll('.services-btns-row a, .services-btns-connect').forEach(btn => {
             btn.addEventListener('mousemove', (e) => { const rect = btn.getBoundingClientRect(); const dx = (e.clientX - (rect.left + rect.width/2)) / (rect.width/2), dy = (e.clientY - (rect.top + rect.height/2)) / (rect.height/2); btn.style.transform = 'perspective(400px) rotateX(' + (-dy*4) + 'deg) rotateY(' + (dx*4) + 'deg) translate(' + (dx*8) + 'px,' + (dy*8) + 'px)'; btn.style.transition = 'transform 0.15s ease'; });
