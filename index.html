@@ -509,7 +509,7 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
     /* +100px gap between About and Projects, UW only (not Retina) per explicit
        request. #about has no scale/zoom ancestor, so this margin adds
        directly to the rendered gap with no amplification math needed. */
-    #about { margin-bottom: 200px !important; }
+    #about { margin-bottom: 500px !important; }
     /* Branding card line break ONLY — same "brand / that's built to last."
        split already used at Retina (index.html:757 block), now also
        requested for UW. Targeted by id (#br-brand-uw), not the shared
@@ -1842,7 +1842,7 @@ document.addEventListener('click', function(e) {
                             <h2 style="overflow:hidden;line-height:0;display:flex;justify-content:flex-start;width:100%;padding:0 40px;margin:0 -40px;">
                                 <img id="desk-about-me" src="./assets/svg/desk-story.svg" alt="Story" class="mob-no" style="display:block;width:auto;max-width:100%;filter:blur(20px);border-radius:0 !important;" />
                             </h2>
-                            <div class="info" style="width:100%;display:flex;flex-direction:column;gap:16px;text-align:left;opacity:0;transform:translateY(40px);filter:blur(20px);" id="fede-text-wrap">
+                            <div class="info" style="width:100%;display:flex;flex-direction:column;gap:16px;text-align:left;" id="fede-text-wrap">
                                 <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;text-wrap:pretty;">Educated at the University of Buenos Aires (UBA)<span id="uba-comma">,</span><br id="br-uba" class="br-retina-only"> I began in Industrial Design<br class="uw-reflow"> before transitioning to Graphic Design.</p>
                                 <p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;letter-spacing:0.03em;color:var(--color-fede-fv);line-height:1.6;margin:0;text-wrap:pretty;">Over the years, my work has spanned branding, web design, and UI/UX,<br id="br-uiux" class="uw-reflow"> working with<br id="br-with" class="br-uw-only"> startups and established companies to create brands, websites,<br id="br-websites" class="uw-reflow"> and digital experiences<br id="br-experiences" class="br-uw-only"> <span id="fede-that-are">that are</span>&nbsp;clear, effective, and thoughtfully designed.</p>
                             </div>
@@ -3146,6 +3146,7 @@ window.addEventListener('load', () => {
                             pin: true,
                             pinType: 'transform',
                             scrub: 0.5,
+                            anticipatePin: 1, // softens the moment the pin engages — without this, ScrollTrigger only "notices" it should pin on the exact frame the threshold is crossed, which feels like a hard stop under Smooth Scrollbar's momentum; anticipating it a touch early smooths that catch
                             id: 'about-read-pin'
                         }
                     })
@@ -3208,17 +3209,21 @@ window.addEventListener('load', () => {
             const stage = document.getElementById('stage');
             const testiSection = document.getElementById('testimonials-section');
             if (!stage || !testiSection) return;
-            const roleDelay = { active: 0, prev: 0.15, next: 0.15 };
+            const roleDelay = { active: 0, prev: 0.3, next: 0.3 };
             const cards = Array.from(stage.querySelectorAll('.verbatim.active, .verbatim.prev, .verbatim.next'));
             if (!cards.length) return;
+            const activeCard = cards.find(function(el) { return el.classList.contains('active'); });
+            const centerTransform = activeCard ? activeCard.style.transform : null;
             const targets = cards.map(function(el) {
-                return { el: el, transform: el.style.transform, opacity: el.style.opacity, delay: roleDelay[el.classList.contains('active') ? 'active' : (el.classList.contains('prev') ? 'prev' : 'next')] };
+                var isActive = el.classList.contains('active');
+                var role = isActive ? 'active' : (el.classList.contains('prev') ? 'prev' : 'next');
+                return { el: el, transform: el.style.transform, opacity: el.style.opacity, isActive: isActive, delay: roleDelay[role] };
             });
-            cards.forEach(function(el) {
-                el.style.transition = 'none';
-                el.style.opacity = '0';
-                el.style.filter = 'blur(22px)';
-                el.style.transform = el.style.transform + ' translateY(40px)';
+            targets.forEach(function(t) {
+                t.el.style.transition = 'none';
+                t.el.style.opacity = '0';
+                t.el.style.filter = 'blur(22px)';
+                t.el.style.transform = (t.isActive || !centerTransform) ? (t.transform + ' translateY(40px)') : centerTransform;
             });
             void stage.offsetWidth;
             const reveal = function() {
@@ -3234,7 +3239,7 @@ window.addEventListener('load', () => {
             };
             const obs = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) { if (entry.isIntersecting) { reveal(); obs.disconnect(); } });
-            }, { threshold: 0.25 });
+            }, { threshold: 0.6 });
             obs.observe(testiSection);
         })();
 
@@ -3261,10 +3266,10 @@ window.addEventListener('load', () => {
                 gsap.set(fedePhoto, { opacity:0, y:40, filter:'blur(20px)' });
                 gsap.to(fedePhoto, { opacity:1, y:0, filter:'blur(0px)', duration:1.2, ease:'power3.out', scrollTrigger: { trigger:'#hola-foto', start:'top 85%', toggleActions:'play none none none' } });
             }
-            if (fedeText) {
-                gsap.set(fedeText, { opacity:0, y:40, filter:'blur(20px)' });
-                gsap.to(fedeText, { opacity:1, y:0, filter:'blur(0px)', duration:1.2, ease:'power3.out', scrollTrigger: { trigger:'#hola-foto', start:'top 85%', toggleActions:'play none none none' } });
-            }
+            // fedeText's own blur/opacity/translateY entrance was removed — the word-by-word
+            // gray->color sweep (About reading-sweep pin, above) is now the only reveal for
+            // this text: no blur, no offset, just color from light gray to the original font
+            // color, matching the request to drop blur entirely for the About text reveal.
 
             // fede-blur zoom + fede-solo scale down anchored to bottom
             setTimeout(function() {
