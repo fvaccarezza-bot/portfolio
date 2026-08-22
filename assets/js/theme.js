@@ -635,6 +635,7 @@
    if (isMobile) { $scrollAnchors = $scrollAnchors.not('.tt-overlay-menu a').not('.tt-logo a'); }
    $scrollAnchors.on('click', function () {
       var target = this.hash;
+      if (target === '#services' && window.__playServicesReveal) { window.__playServicesReveal(); }
       if ($('#tt-header').hasClass('tt-header-fixed')) { var $offset = $('#tt-header').height(); } else { var $offset = 0; }
       if ($(this).data('offset') != undefined) $offset = $(this).data('offset');
       if (!isMobile) {

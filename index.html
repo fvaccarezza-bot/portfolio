@@ -1896,6 +1896,10 @@ document.addEventListener('click', function(e) {
                     @media (min-width: 769px) and (max-width: 2559px) and (max-resolution: 1.99dppx) {
                         .services-big { margin-bottom: 130px !important; }
                     }
+                    /* UW: same net-gap formula, set to 150px (200 - the grid's translateY(-50px)). */
+                    @media (min-width: 2560px) {
+                        .services-big { margin-bottom: 200px !important; }
+                    }
                     .services-big > img, .services-big .sb-line-hover > img { display:block; width:auto; max-width:100%; margin:0 auto; }
                     /* Literal copy of the hero name's hover rule (index.html ~191-192,
                        #hero-name-link:hover #line-federico/#line-vaccarezza .name-letter):
@@ -3420,17 +3424,28 @@ window.addEventListener('load', () => {
 
             // ── Services grid items: staggered reveal ──
             var serviceItems = document.querySelectorAll('.services-grid-item');
+            var serviceItemsTween = null;
             if (serviceItems.length) {
                 gsap.set(serviceItems, { opacity: 0, y: 30, filter: 'blur(20px)' });
-                gsap.to(serviceItems, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.0, ease: 'power3.out', stagger: 0.12, scrollTrigger: { trigger: '.services-grid', start: 'top 82%', toggleActions: 'play none none none' } });
+                serviceItemsTween = gsap.to(serviceItems, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.0, ease: 'power3.out', stagger: 0.12, scrollTrigger: { trigger: '.services-grid', start: 'top 82%', toggleActions: 'play none none none' } });
             }
 
             // ── Services connect button: reveal ──
             var servicesBtns = document.querySelector('.services-btns');
+            var servicesBtnsTween = null;
             if (servicesBtns) {
                 gsap.set(servicesBtns, { opacity: 0, y: 24, filter: 'blur(20px)' });
-                gsap.to(servicesBtns, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: '.services-btns', start: 'top 88%', toggleActions: 'play none none none' } });
+                servicesBtnsTween = gsap.to(servicesBtns, { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: '.services-btns', start: 'top 88%', toggleActions: 'play none none none' } });
             }
+
+            // Nav "Services" scroll-to (theme.js) lands directly on the section before
+            // these two ever cross their own reveal thresholds, so they'd still be
+            // sitting hidden/blurred when the scroll arrives. Exposed so that handler
+            // can force both straight to their finished state before/at the jump.
+            window.__playServicesReveal = function() {
+                if (serviceItemsTween) serviceItemsTween.progress(1);
+                if (servicesBtnsTween) servicesBtnsTween.progress(1);
+            };
 
             // ── Trusted by logos: reveal (matches project-page image reveal) ──
             var trustedImg = document.getElementById('trusted-logos-img');
