@@ -146,6 +146,7 @@
 
    if ($('body').hasClass('tt-smooth-scroll')) {
       if (!isMobile) {
+       try {
          var Scrollbar = window.Scrollbar;
          class AnchorPlugin extends Scrollbar.ScrollbarPlugin {
             static pluginName = 'anchor';
@@ -256,6 +257,16 @@
             $('.tt-overflow').each(function () { var $this = $(this); if ($this.ttIsScrollable()) { $this.on('wheel', function (e) { e.stopPropagation(); }); } });
          }
          $('input[type=number]').on('focus', function () { $(this).on('wheel', function (e) { e.stopPropagation(); }); });
+       } catch (e) {
+         // Safety net: this whole block leans on gsap/ScrollTrigger being defined
+         // (Scrollbar.init, ScrollTrigger.scrollerProxy, gsap.to for the anchor/hero
+         // effects). Those now load from ./assets/vendor/gsap/ instead of a CDN, so
+         // this shouldn't fire in normal operation — but if it ever does (a corrupted
+         // local file, a future edit reintroducing a CDN dependency, etc.), logging
+         // and continuing beats a silent ReferenceError that kills every line of
+         // theme.js after it, including the code the mobile branch below needs.
+         console.error('[theme.js] Smooth Scrollbar init failed:', e);
+       }
       } else {
          // ── Mobile: no Scrollbar/AnchorPlugin — do native anchor scroll honoring data-offset ──
          var mobileJumpToHash = function (hash) {
@@ -639,7 +650,7 @@
       if ($('#tt-header').hasClass('tt-header-fixed')) { var $offset = $('#tt-header').height(); } else { var $offset = 0; }
       if ($(this).data('offset') != undefined) $offset = $(this).data('offset');
       if (!isMobile) {
-         if ($('body').hasClass('tt-smooth-scroll')) { var $scrollbar = Scrollbar.init(document.getElementById('scroll-container')); var topY = target === '#contact' ? $scrollbar.limit.y : uiScaleCorrectScrollY($(target).offset().top - $('#scroll-container > .scroll-content').offset().top - $offset, target === '#services' ? -50 : 100); /* '#about': land where the About reading-sweep pin (index.html, id 'about-read-pin') actually releases, not a guessed offset. ScrollTrigger computes .start/.end off the SAME scroller ('body', proxied straight to this scrollbar's own scrollTop/offset.y — see the ScrollTrigger.scrollerProxy call above) using live getBoundingClientRect(), so .end already lands in this exact coordinate space at Normal, Retina AND UW alike — no uiScaleCorrectScrollY / per-breakpoint nudge needed here, unlike the other targets above. Falls back to the old UW-only +50 nudge only if the pin isn't found (shouldn't normally happen). */ if (target === '#about') { var readPinST = typeof ScrollTrigger !== 'undefined' && ScrollTrigger.getById('about-read-pin'); if (readPinST) { topY = readPinST.end; } else if (window.innerWidth >= 2560) { topY += 50; } } gsap.to($scrollbar, { duration: 2.2, scrollTo: { y: topY, autoKill: true }, ease: Expo.easeInOut }); }
+         if ($('body').hasClass('tt-smooth-scroll')) { var $scrollbar = Scrollbar.init(document.getElementById('scroll-container')); var topY = target === '#contact' ? $scrollbar.limit.y : uiScaleCorrectScrollY($(target).offset().top - $('#scroll-container > .scroll-content').offset().top - $offset, target === '#services' ? -50 : 100); gsap.to($scrollbar, { duration: 2.2, scrollTo: { y: topY, autoKill: true }, ease: Expo.easeInOut }); }
          else { var topY = $(target).offset().top - $('body').offset().top - $offset; $('html,body').animate({ scrollTop: topY }, 800); }
       } else { var topY = $(target).offset().top - $('body').offset().top - $offset; $('html,body').animate({ scrollTop: topY }, 800); }
       return false;
