@@ -103,9 +103,6 @@
 
     // MOBILE: 1 solo visible
     if (isMobile) {
-      // opcional: tap en bordes sin tapar la card (48px a cada lado)
-      // hitLeft.style.width = "48px";
-      // hitRight.style.width = "48px";
       hitLeft.style.width = "0px";
       hitRight.style.width = "0px";
 

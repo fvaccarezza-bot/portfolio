@@ -650,7 +650,7 @@
       if ($('#tt-header').hasClass('tt-header-fixed')) { var $offset = $('#tt-header').height(); } else { var $offset = 0; }
       if ($(this).data('offset') != undefined) $offset = $(this).data('offset');
       if (!isMobile) {
-         if ($('body').hasClass('tt-smooth-scroll')) { var $scrollbar = Scrollbar.init(document.getElementById('scroll-container')); var topY = target === '#contact' ? $scrollbar.limit.y : uiScaleCorrectScrollY($(target).offset().top - $('#scroll-container > .scroll-content').offset().top - $offset, target === '#services' ? -50 : 100); gsap.to($scrollbar, { duration: 2.2, scrollTo: { y: topY, autoKill: true }, ease: Expo.easeInOut }); }
+         if ($('body').hasClass('tt-smooth-scroll')) { var $scrollbar = Scrollbar.init(document.getElementById('scroll-container')); var topY = target === '#contact' ? $scrollbar.limit.y : uiScaleCorrectScrollY($(target).offset().top - $('#scroll-container > .scroll-content').offset().top - $offset, target === '#services' ? 0 : 100); gsap.to($scrollbar, { duration: 2.2, scrollTo: { y: topY, autoKill: true }, ease: Expo.easeInOut }); }
          else { var topY = $(target).offset().top - $('body').offset().top - $offset; $('html,body').animate({ scrollTop: topY }, 800); }
       } else { var topY = $(target).offset().top - $('body').offset().top - $offset; $('html,body').animate({ scrollTop: topY }, 800); }
       return false;
