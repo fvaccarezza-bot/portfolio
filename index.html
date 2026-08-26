@@ -34,8 +34,8 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 <link rel="icon" type="image/png" href="./assets/images/home/favicon.png" />
 <link rel="stylesheet" href="./assets/vendor/normalize/normalize.min.css?v=20260815-01" />
 <link rel="stylesheet" href="./assets/vendor/fontawesome/css/fontawesome-all.min.css?v=20260815-01" />
-<link rel="stylesheet" href="./assets/css/helper.css?v=20260815-01" />
-<link rel="stylesheet" href="./assets/css/theme.css?v=20260815-01" />
+<link rel="stylesheet" href="./assets/vendor/helper.css?v=20260815-01" />
+<link rel="stylesheet" href="./assets/vendor/theme.css?v=20260815-01" />
 <link rel="stylesheet" href="./assets/fonts/fonts.css?v=20260815-01" />
 <link rel="stylesheet" href="./assets/css/config.css?v=20260815-01">
 <link rel="stylesheet" href="./assets/css/fede.css?v=20260815-01" />
@@ -103,7 +103,10 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .faq-question:first-child { padding-top: 0; }
 .faq-question-inner { transition: transform 0.75s cubic-bezier(0.16,1,0.3,1); }
 .faq-question-inner p { transition: color 0.75s ease; }
-.faq-question:hover .faq-question-inner p, .faq-question:hover .faq-question-inner p span { color: #FF6600 !important; }
+.faq-question:hover .faq-q-row p, .faq-question:hover .faq-q-row p span { color: #FF6600 !important; }
+.faq-q-num { display:inline-block; margin-right: 10px; }
+.faq-q-text { display:inline-block; transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+.faq-question:hover .faq-q-text { transform: translateX(8px); }
 .fq-sep { width:50px; height:1px; background:#FF6600; margin-top:16px; transition: width 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
 .faq-question:hover .fq-sep { width:200px; }
 .faq-q-row { display:flex; align-items:center; justify-content:space-between; gap:16px; transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
@@ -119,13 +122,13 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .faq-plus::before { top:50%; left:0; width:100%; height:2px; transform:translateY(-50%); }
 .faq-plus::after { left:50%; top:0; width:2px; height:100%; transform:translateX(-50%); }
 .faq-question:hover .faq-plus::after { transform: translateX(-50%) rotate(90deg); }
-.process-step { cursor:default; position:relative; z-index:2; }
+.process-step { cursor:pointer; position:relative; z-index:2; }
 .process-step > div:first-child, .process-step > div:last-child { transition: transform 0.75s cubic-bezier(0.16,1,0.3,1); }
 .process-step > div:first-child { transition: transform 0.75s cubic-bezier(0.16,1,0.3,1), color 0.75s ease; }
 .process-step > div:last-child p { transition: color 0.75s ease; }
 .process-step:hover > div:first-child { transform: translateX(-8px); color: #FF6600 !important; }
 .process-step:hover > div:last-child { transform: translateX(8px); }
-.process-step:hover > div:last-child p { color: #FF6600 !important; }
+.process-step:hover > div:last-child p:first-of-type { color: #FF6600 !important; }
 /* Description reveals on hover, same technique as .faq-answer-wrap above:
    position:absolute + opacity so it overlays instead of pushing later steps
    down when it appears. div:last-child needs its own position:relative since
@@ -854,7 +857,7 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
     #footer-bg-orange { width: 100vw !important; left: 50% !important; margin-left: -50vw !important; }
     #contact .tt-section-inner.tt-wrap { transform: translateY(24px) !important; }
     .services-big > img, .services-big .sb-line-hover > img { width: auto !important; height: 110px !important; max-width: none !important; }
-    #figma-logo { transform: scale(0.8) translateX(-20px); transform-origin: bottom right; }
+    #figma-logo { transform: scale(0.8) translateX(-60px) translateY(-20px); transform-origin: bottom right; }
     .footer-social-icons img { width: 25.5px !important; height: 25.5px !important; }
     /* FAQ title SVGs - retina */
     #faq-section .faq-title-img { height: 110px !important; width: auto !important; }
@@ -2353,29 +2356,29 @@ document.addEventListener('click', function(e) {
                     <div class="faq-questions-wrap" style="display:flex;flex-direction:column;gap:0;padding-top:0;padding-bottom:0;justify-content:space-between;">
                         <div class="faq-question">
                             <div class="faq-question-inner">
-                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(01)</span> Who do I work with?</p><span class="faq-plus"></span></div>
-                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">Startups, agencies, and companies of all sizes, for one-off projects or ongoing work.</p></div>
+                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span class="faq-q-num" style="font-weight:800;color:#3A3A39;">(01)</span><span class="faq-q-text"> Who do I work with?</span></p><span class="faq-plus"></span></div>
+                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0;line-height:1.6;">Startups, agencies, and companies of all sizes, for one-off projects or ongoing work.</p></div>
                             </div>
                             <div class="fq-sep"></div>
                         </div>
                         <div class="faq-question">
                             <div class="faq-question-inner">
-                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(02)</span> What kind of projects do I take on?</p><span class="faq-plus"></span></div>
-                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">Mostly websites, product design, branding, presentations, and design systems.</p></div>
+                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span class="faq-q-num" style="font-weight:800;color:#3A3A39;">(02)</span><span class="faq-q-text"> What kind of projects do I take on?</span></p><span class="faq-plus"></span></div>
+                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0;line-height:1.6;">Mostly websites, product design, branding, presentations, and design systems.</p></div>
                             </div>
                             <div class="fq-sep"></div>
                         </div>
                         <div class="faq-question">
                             <div class="faq-question-inner">
-                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(03)</span> How long does a project usually take?</p><span class="faq-plus"></span></div>
-                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">Anywhere from a couple of weeks to a few months, depending on the scope.</p></div>
+                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span class="faq-q-num" style="font-weight:800;color:#3A3A39;">(03)</span><span class="faq-q-text"> How long does a project usually take?</span></p><span class="faq-plus"></span></div>
+                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0;line-height:1.6;">Anywhere from a couple of weeks to a few months, depending on the scope.</p></div>
                             </div>
                             <div class="fq-sep"></div>
                         </div>
                         <div class="faq-question">
                             <div class="faq-question-inner">
-                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span style="font-weight:800;color:#3A3A39;">(04)</span> Can I join an existing team?</p><span class="faq-plus"></span></div>
-                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">Absolutely. Happy to plug into your team and adapt to how you work.</p></div>
+                            <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span class="faq-q-num" style="font-weight:800;color:#3A3A39;">(04)</span><span class="faq-q-text"> Can I join an existing team?</span></p><span class="faq-plus"></span></div>
+                            <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0;line-height:1.6;">Absolutely. Happy to plug into your team and adapt to how you work.</p></div>
                             </div>
                             <div class="fq-sep"></div>
                         </div>
@@ -2413,25 +2416,25 @@ document.addEventListener('click', function(e) {
                         <div class="process-step" style="display:flex;flex-direction:row;align-items:flex-start;opacity:0;transform:translateY(20px);filter:blur(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:26px;font-weight:800;color:#3A3A39;line-height:1;width:80px;flex-shrink:0;">(01)</div>
                             <div style="padding-right:24px;padding-top:2px;flex-shrink:0;"><div class="process-dot" style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div></div>
-                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Get The Context</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">You tell me what you need. I ask questions<br class="br-desktop-only"> until I understand the idea.</p></div>
+                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Get The Context</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0;line-height:1.6;">You tell me what you need. I ask questions<br class="br-desktop-only"> until I understand the idea.</p></div>
                         </div>
                         <!-- step 02 -->
                         <div class="process-step" style="display:flex;flex-direction:row;align-items:flex-start;opacity:0;transform:translateY(20px);filter:blur(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:26px;font-weight:800;color:#3A3A39;line-height:1;width:80px;flex-shrink:0;">(02)</div>
                             <div style="padding-right:24px;padding-top:2px;flex-shrink:0;"><div class="process-dot" style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div></div>
-                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Find A Direction</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">I explore a few ways forward and we agree<br class="br-desktop-only"> on a direction before going too deep.</p></div>
+                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Find A Direction</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0;line-height:1.6;">I explore a few ways forward and we agree<br class="br-desktop-only"> on a direction before going too deep.</p></div>
                         </div>
                         <!-- step 03 -->
                         <div class="process-step" style="display:flex;flex-direction:row;align-items:flex-start;opacity:0;transform:translateY(20px);filter:blur(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:26px;font-weight:800;color:#3A3A39;line-height:1;width:80px;flex-shrink:0;">(03)</div>
                             <div style="padding-right:24px;padding-top:2px;flex-shrink:0;"><div class="process-dot" style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div></div>
-                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Make It Real</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">I design, refine and build things out.<br> You'll see progress along the way.</p></div>
+                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Make It Real</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0;line-height:1.6;">I design, refine and build things out.<br> You'll see progress along the way.</p></div>
                         </div>
                         <!-- step 04 -->
                         <div class="process-step" style="display:flex;flex-direction:row;align-items:flex-start;opacity:0;transform:translateY(20px);filter:blur(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:26px;font-weight:800;color:#3A3A39;line-height:1;width:80px;flex-shrink:0;">(04)</div>
                             <div style="padding-right:24px;padding-top:2px;flex-shrink:0;"><div class="process-dot" style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div></div>
-                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Tweak Together</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#979797;margin:0;line-height:1.6;">We review, adjust and get it where it<br class="br-desktop-only"> needs to be. Simple as that.</p></div>
+                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Tweak Together</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0;line-height:1.6;">We review, adjust and get it where it<br class="br-desktop-only"> needs to be. Simple as that.</p></div>
                         </div>
                     </div>
                     <h2 class="faq-title-wrap" style="overflow:visible;display:flex;flex-direction:column;gap:16px;flex:1;align-items:flex-end;margin:0;">

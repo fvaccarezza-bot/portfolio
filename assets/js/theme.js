@@ -179,7 +179,66 @@
                window.removeEventListener('hashchange', this.onHashChange);
             }
          }
+         // ── Soft landing near top/bottom ──────────────────────────────
+         // Two earlier approaches were tried and measured, not just
+         // reasoned about, before this one:
+         //  1) transformDelta (input-time delta scaling) — no visible
+         //     effect: on a real flick, wheel/touch events stop firing well
+         //     before the glide finishes, so almost all the deceleration
+         //     happens after input has already ended, outside its reach.
+         //  2) scaling this._momentum every frame in onRender — reaches
+         //     the boundary, but is unstable across flick strengths: tuned
+         //     strong/wide enough to be noticeable, it kills the momentum
+         //     before the glide covers the remaining distance and the
+         //     scroll visibly stalls short of the edge; tuned safe, it's
+         //     indistinguishable from the page's own already-heavy damping.
+         //     Also discovered along the way: the library already clamps
+         //     offset to [0, limit.y] with zero overshoot entirely on its
+         //     own — momentum-scaling was never providing that part.
+         // This version stops trying to reshape momentum and instead takes
+         // over for a fixed final stretch: once within CATCH_PX of an edge
+         // *while already coasting toward it*, momentum is zeroed (so the
+         // library's own render loop stops moving offset) and a single
+         // fixed-duration GSAP tween eases the exact remaining distance to
+         // 0 or limit.y, driven through the library's own setPosition —
+         // the same method its internal render loop uses, so this is still
+         // "the existing Smooth Scrollbar", just told the landing position
+         // directly instead of being asked to decay its way there. Any new
+         // real wheel/touch input cancels the tween immediately, so a
+         // deliberate scroll away from the edge is never fought. Distance
+         // moved is always the true remaining distance (never overshoots),
+         // and normal scrolling anywhere outside CATCH_PX is untouched.
+         class SoftLandingPlugin extends Scrollbar.ScrollbarPlugin {
+            static pluginName = 'softLanding';
+            constructor(scrollbar, options) {
+               super(scrollbar, options);
+               this._landingTween = null;
+            }
+            transformDelta(delta) {
+               if (this._landingTween) { this._landingTween.kill(); this._landingTween = null; }
+               return delta;
+            }
+            onRender() {
+               if (this._landingTween) return;
+               var sb = this.scrollbar, mom = sb._momentum;
+               if (!mom) return;
+               var CATCH_PX = 70, DURATION = 0.45;
+               var offsetY = sb.offset.y, limitY = sb.limit.y, self = this;
+               var target = null;
+               if (mom.y < 0 && offsetY > 0 && offsetY < CATCH_PX) { target = 0; }
+               else if (mom.y > 0 && offsetY < limitY && offsetY > limitY - CATCH_PX) { target = limitY; }
+               if (target === null) return;
+               mom.y = 0;
+               var state = { y: offsetY };
+               this._landingTween = gsap.to(state, {
+                  y: target, duration: DURATION, ease: 'expo.out', overwrite: true,
+                  onUpdate: function () { sb.setPosition(sb.offset.x, state.y); },
+                  onComplete: function () { self._landingTween = null; }
+               });
+            }
+         }
          Scrollbar.use(AnchorPlugin);
+         Scrollbar.use(SoftLandingPlugin);
          Scrollbar.init(document.querySelector('#scroll-container'), { damping: 0.06, renderByPixel: true, continuousScrolling: true, alwaysShowTracks: true });
          let scrollPositionX = 0, scrollPositionY = 0, bodyScrollBar = Scrollbar.init(document.getElementById('scroll-container'));
          bodyScrollBar.addListener(({ offset }) => { scrollPositionX = offset.x; scrollPositionY = offset.y; });
