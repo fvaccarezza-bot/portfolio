@@ -986,7 +986,7 @@ window.addEventListener('load', () => {
                     const wrapRect = wrap.getBoundingClientRect();
                     const firstRect = processDots[0].getBoundingClientRect();
                     const lastRect = processDots[processDots.length - 1].getBoundingClientRect();
-                    processLine.style.left = (firstRect.left + firstRect.width / 2 - wrapRect.left) + 'px';
+                    processLine.style.left = (firstRect.left + firstRect.width / 2 - wrapRect.left - processLine.offsetWidth / 2) + 'px';
                     processLine.style.top = (firstRect.top + firstRect.height / 2 - wrapRect.top) + 'px';
                     processLine.style.height = ((lastRect.top + lastRect.height / 2) - (firstRect.top + firstRect.height / 2)) + 'px';
                 };

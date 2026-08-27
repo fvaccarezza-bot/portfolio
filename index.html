@@ -101,16 +101,15 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 #faq-pill-1, #faq-pill-2 { height: 31px; width: auto; }
 .faq-question { opacity:0; transform:translateY(20px); filter:blur(20px); padding-top:16px; padding-bottom: 16px; position:relative; cursor:pointer; }
 .faq-question:first-child { padding-top: 0; }
-.faq-question-inner { transition: transform 0.75s cubic-bezier(0.16,1,0.3,1); }
+.faq-question-inner { transition: transform 0.75s cubic-bezier(0.16,1,0.3,1); display:flex; flex-direction:column; gap:16px; }
 .faq-question-inner p { transition: color 0.75s ease; }
 .faq-question:hover .faq-q-row p, .faq-question:hover .faq-q-row p span { color: #FF6600 !important; }
 .faq-q-num { display:inline-block; margin-right: 10px; }
 .faq-q-text { display:inline-block; transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
 .faq-question:hover .faq-q-text { transform: translateX(8px); }
-.fq-sep { width:50px; height:1px; background:#FF6600; margin-top:16px; transition: width 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
+.fq-sep { width:50px; height:1px; background:#FF6600; flex-shrink:0; transition: width 0.75s cubic-bezier(0.16,1,0.3,1), transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
 .faq-question:hover .fq-sep { width:200px; }
-.faq-q-row { display:flex; align-items:center; justify-content:space-between; gap:16px; transition: transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); }
-.faq-question:hover .faq-q-row { transform: translateY(-8px); }
+.faq-q-row { display:flex; align-items:center; justify-content:space-between; gap:16px; }
 .faq-q-row p { min-width:0; max-width: calc(100% - 32px); }
 .faq-answer-wrap { opacity:0; transform:translateY(0); transition: opacity 0.6s ease, transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94); position:absolute; left:0; right:0; top:100%; padding-bottom:24px; z-index:5; background:#F8F8F8; }
 .faq-question:hover .faq-answer-wrap { opacity:1; transform:translateY(8px); }
@@ -129,6 +128,10 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .process-step:hover > div:first-child { transform: translateX(-8px); color: #FF6600 !important; }
 .process-step:hover > div:last-child { transform: translateX(8px); }
 .process-step:hover > div:last-child p:first-of-type { color: #FF6600 !important; }
+/* Flow dots: hovered one grows slightly, the rest shrink slightly. */
+.process-dot { left: 1px; transition: transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
+.process-step:hover .process-dot { transform: scale(1.3); }
+.faq-questions-wrap:has(.process-step:hover) .process-step:not(:hover) .process-dot { transform: scale(0.583); }
 /* Description reveals on hover, same technique as .faq-answer-wrap above:
    position:absolute + opacity so it overlays instead of pushing later steps
    down when it appears. div:last-child needs its own position:relative since
@@ -143,6 +146,16 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 .process-step > div:last-child p:last-of-type { opacity: 0; transition: opacity 0.6s ease, color 0.75s ease; position: absolute; left: 0; right: 0; top: 100%; padding-top: 8px; }
 .process-step:hover > div:last-child p:last-of-type { opacity: 1; }
 .faq-title-wrap { pointer-events:none; }
+/* "HOW THINGS FLOW" phrase hover: same leve-breath scale as .services-big's
+   sb-line-hover (index.html ~1936-1939) — scale(1.015) per line, staggered
+   0.06s/0.12s. Wrapper carries the hover transform, not the <img>: the img's
+   own transform is GSAP-owned (x + filter entrance, see faqLines2.forEach in
+   home-load-animations.js), so a hover transform straight on it would replace
+   that inline transform outright instead of composing with it. */
+.faq-title-hover { transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94); }
+.faq-title-wrap:hover .faq-title-hover { transform: scale(1.015) !important; }
+.faq-title-wrap:hover .faq-title-hover-2 { transition-delay: 0.06s !important; }
+.faq-title-wrap:hover .faq-title-hover-3 { transition-delay: 0.12s !important; }
 .faq-block-wrap { max-width: 1320px; }
 
 /* ── Intermediate-width hardening ─────────────────────────────────────────────
@@ -839,7 +852,7 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
     #fede-text-wrap { max-width: 530px !important; width: auto !important; align-self: center !important; text-align: center !important; }
     /* FAQ: tighten question / line / answer spacing - retina only */
     .faq-question { padding-bottom: 4px !important; }
-    .fq-sep { margin-top: 4px !important; }
+    .faq-question-inner { gap: 4px !important; }
     /* FAQ: narrow the answer frame so lines don't run so wide - retina only */
     .faq-answer-wrap { right: auto !important; width: 380px !important; }
     /* Footer roll links (CALL ME / WRITE ME / SOCIAL) - match caps scale, retina only.
@@ -847,7 +860,7 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
        NOT on .brace too, which would also kill the hover translateX below. */
     .footer-roll-wrap { font-size: var(--fv-caps) !important; transform: none !important; }
     .footer-roll-wrap .brace { font-size: var(--fv-caps) !important; }
-    .services-grid-item h3 img { width: auto !important; height: 26px !important; }
+    .services-grid-item h3 img { width: auto !important; height: 22.1px !important; }
     #desk-extra { height: 110px !important; width: auto !important; max-width: 1320px !important; }
     #desk-work { height: 110px !important; width: auto !important; max-width: 1320px !important; }
     #testi-phrase-img { height: 110px !important; width: auto !important; max-width: 1320px !important; }
@@ -2345,10 +2358,10 @@ document.addEventListener('click', function(e) {
         <div id="faq-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#F8F8F8;padding-top:100px;padding-bottom:40px;">
             <div class="tt-section-inner tt-wrap">
                 <div class="faq-block-wrap" style="margin:0 auto;display:grid;gap:60px;">
-                    <h2 class="faq-title-wrap" style="overflow:visible;display:flex;flex-direction:column;gap:16px;align-self:start;margin:0;">
-                        <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line" style="display:none;"></div><img src="./assets/svg/desk-things.svg" alt="THINGS" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-2000px);filter:blur(20px);" /></div>
-                        <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line" style="display:none;"></div><img src="./assets/svg/desk-iget.svg" alt="I GET" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-2000px);filter:blur(20px);" /></div>
-                        <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line" style="display:none;"></div><img src="./assets/svg/desk-asked.svg" alt="ASKED" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-2000px);filter:blur(20px);" /></div>
+                    <h2 class="faq-title-wrap" style="overflow:visible;display:flex;flex-direction:column;gap:16px;align-self:start;margin:0;pointer-events:auto;">
+                        <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line" style="display:none;"></div><div class="faq-title-hover" style="display:block;line-height:0;"><img src="./assets/svg/desk-things.svg" alt="THINGS" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-2000px);filter:blur(20px);" /></div></div>
+                        <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line" style="display:none;"></div><div class="faq-title-hover faq-title-hover-2" style="display:block;line-height:0;"><img src="./assets/svg/desk-iget.svg" alt="I GET" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-2000px);filter:blur(20px);" /></div></div>
+                        <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line" style="display:none;"></div><div class="faq-title-hover faq-title-hover-3" style="display:block;line-height:0;"><img src="./assets/svg/desk-asked.svg" alt="ASKED" class="faq-title-img" style="display:block;height:auto;width:auto;transform:translateX(-2000px);filter:blur(20px);" /></div></div>
                         <div style="overflow:hidden;padding:0 40px;margin:0 -40px;">
                             <img src="./assets/svg/pill-peopleneed.svg" id="faq-pill-1" style="display:block;height:auto;width:auto;transform:translateX(-110%);filter:blur(20px);" alt="People Need To Know" />
                         </div>
@@ -2357,30 +2370,30 @@ document.addEventListener('click', function(e) {
                         <div class="faq-question">
                             <div class="faq-question-inner">
                             <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span class="faq-q-num" style="font-weight:800;color:#3A3A39;">(01)</span><span class="faq-q-text"> Who do I work with?</span></p><span class="faq-plus"></span></div>
+                            <div class="fq-sep"></div>
                             <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0;line-height:1.6;">Startups, agencies, and companies of all sizes, for one-off projects or ongoing work.</p></div>
                             </div>
-                            <div class="fq-sep"></div>
                         </div>
                         <div class="faq-question">
                             <div class="faq-question-inner">
                             <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span class="faq-q-num" style="font-weight:800;color:#3A3A39;">(02)</span><span class="faq-q-text"> What kind of projects do I take on?</span></p><span class="faq-plus"></span></div>
+                            <div class="fq-sep"></div>
                             <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0;line-height:1.6;">Mostly websites, product design, branding, presentations, and design systems.</p></div>
                             </div>
-                            <div class="fq-sep"></div>
                         </div>
                         <div class="faq-question">
                             <div class="faq-question-inner">
                             <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span class="faq-q-num" style="font-weight:800;color:#3A3A39;">(03)</span><span class="faq-q-text"> How long does a project usually take?</span></p><span class="faq-plus"></span></div>
+                            <div class="fq-sep"></div>
                             <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0;line-height:1.6;">Anywhere from a couple of weeks to a few months, depending on the scope.</p></div>
                             </div>
-                            <div class="fq-sep"></div>
                         </div>
                         <div class="faq-question">
                             <div class="faq-question-inner">
                             <div class="faq-q-row"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0 0 8px;"><span class="faq-q-num" style="font-weight:800;color:#3A3A39;">(04)</span><span class="faq-q-text"> Can I join an existing team?</span></p><span class="faq-plus"></span></div>
+                            <div class="fq-sep"></div>
                             <div class="faq-answer-wrap"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0;line-height:1.6;">Absolutely. Happy to plug into your team and adapt to how you work.</p></div>
                             </div>
-                            <div class="fq-sep"></div>
                         </div>
                     </div>
                 </div>
@@ -2416,31 +2429,31 @@ document.addEventListener('click', function(e) {
                         <div class="process-step" style="display:flex;flex-direction:row;align-items:flex-start;opacity:0;transform:translateY(20px);filter:blur(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:26px;font-weight:800;color:#3A3A39;line-height:1;width:80px;flex-shrink:0;">(01)</div>
                             <div style="padding-right:24px;padding-top:2px;flex-shrink:0;"><div class="process-dot" style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div></div>
-                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Get The Context</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0;line-height:1.6;">You tell me what you need. I ask questions<br class="br-desktop-only"> until I understand the idea.</p></div>
+                            <div style="padding-top:4px;"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Get The Context</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0;line-height:1.6;">You tell me what you need. I ask questions<br class="br-desktop-only"> until I understand the idea.</p></div>
                         </div>
                         <!-- step 02 -->
                         <div class="process-step" style="display:flex;flex-direction:row;align-items:flex-start;opacity:0;transform:translateY(20px);filter:blur(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:26px;font-weight:800;color:#3A3A39;line-height:1;width:80px;flex-shrink:0;">(02)</div>
                             <div style="padding-right:24px;padding-top:2px;flex-shrink:0;"><div class="process-dot" style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div></div>
-                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Find A Direction</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0;line-height:1.6;">I explore a few ways forward and we agree<br class="br-desktop-only"> on a direction before going too deep.</p></div>
+                            <div style="padding-top:4px;"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Find A Direction</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0;line-height:1.6;">I explore a few ways forward and we agree<br class="br-desktop-only"> on a direction before going too deep.</p></div>
                         </div>
                         <!-- step 03 -->
                         <div class="process-step" style="display:flex;flex-direction:row;align-items:flex-start;opacity:0;transform:translateY(20px);filter:blur(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:26px;font-weight:800;color:#3A3A39;line-height:1;width:80px;flex-shrink:0;">(03)</div>
                             <div style="padding-right:24px;padding-top:2px;flex-shrink:0;"><div class="process-dot" style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div></div>
-                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Make It Real</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0;line-height:1.6;">I design, refine and build things out.<br> You'll see progress along the way.</p></div>
+                            <div style="padding-top:4px;"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Make It Real</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0;line-height:1.6;">I design, refine and build things out.<br> You'll see progress along the way.</p></div>
                         </div>
                         <!-- step 04 -->
                         <div class="process-step" style="display:flex;flex-direction:row;align-items:flex-start;opacity:0;transform:translateY(20px);filter:blur(20px);">
                             <div style="font-family:'PP Telegraf',sans-serif;font-size:26px;font-weight:800;color:#3A3A39;line-height:1;width:80px;flex-shrink:0;">(04)</div>
                             <div style="padding-right:24px;padding-top:2px;flex-shrink:0;"><div class="process-dot" style="width:12px;height:12px;border-radius:50%;background:#FF6600;position:relative;z-index:1;"></div></div>
-                            <div><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Tweak Together</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0;line-height:1.6;">We review, adjust and get it where it<br class="br-desktop-only"> needs to be. Simple as that.</p></div>
+                            <div style="padding-top:4px;"><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;color:#3A3A39;letter-spacing:0.4em;text-transform:uppercase;margin:0 0 8px;">Tweak Together</p><p style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-body);font-weight:400;color:#3A3A39;margin:0;line-height:1.6;">We review, adjust and get it where it<br class="br-desktop-only"> needs to be. Simple as that.</p></div>
                         </div>
                     </div>
-                    <h2 class="faq-title-wrap" style="overflow:visible;display:flex;flex-direction:column;gap:16px;flex:1;align-items:flex-end;margin:0;">
-                        <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line-2" style="display:none;"></div><img src="./assets/svg/desk-how.svg" alt="HOW" class="faq-title-img faq-title-img-2" style="display:block;height:auto;width:auto;transform:translateX(2000px);filter:blur(20px);" /></div>
-                        <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line-2" style="display:none;"></div><img id="faq-things-flow" src="./assets/svg/desk-things.svg" alt="THINGS" class="faq-title-img faq-title-img-2" style="display:block;height:auto;width:auto;transform:translateX(2000px);filter:blur(20px);" /></div>
-                        <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line-2" style="display:none;"></div><img src="./assets/svg/desk-flow.svg" alt="FLOW" class="faq-title-img faq-title-img-2" style="display:block;height:auto;width:auto;transform:translateX(2000px);filter:blur(20px);" /></div>
+                    <h2 class="faq-title-wrap" style="overflow:visible;display:flex;flex-direction:column;gap:16px;flex:1;align-items:flex-end;margin:0;pointer-events:auto;">
+                        <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line-2" style="display:none;"></div><div class="faq-title-hover" style="display:block;line-height:0;"><img src="./assets/svg/desk-how.svg" alt="HOW" class="faq-title-img faq-title-img-2" style="display:block;height:auto;width:auto;transform:translateX(2000px);filter:blur(20px);" /></div></div>
+                        <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line-2" style="display:none;"></div><div class="faq-title-hover faq-title-hover-2" style="display:block;line-height:0;"><img id="faq-things-flow" src="./assets/svg/desk-things.svg" alt="THINGS" class="faq-title-img faq-title-img-2" style="display:block;height:auto;width:auto;transform:translateX(2000px);filter:blur(20px);" /></div></div>
+                        <div style="overflow:hidden;padding:0 40px;margin:0 -40px;"><div class="faq-title-line-2" style="display:none;"></div><div class="faq-title-hover faq-title-hover-3" style="display:block;line-height:0;"><img src="./assets/svg/desk-flow.svg" alt="FLOW" class="faq-title-img faq-title-img-2" style="display:block;height:auto;width:auto;transform:translateX(2000px);filter:blur(20px);" /></div></div>
                         <div style="overflow:hidden;display:flex;justify-content:flex-end;padding:0 40px;margin:0 -40px;">
                             <img src="./assets/svg/pill-andthey.svg" id="faq-pill-2" style="display:block;height:auto;width:auto;transform:translateX(110%);filter:blur(20px);" alt="And They Also Need To Know About This" />
                         </div>
