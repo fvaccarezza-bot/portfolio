@@ -52,9 +52,7 @@
     z-index: 11111111;
   }
   .tt-ol-menu-toggle-btn {
-    background-color: #f8f8f8aa;
-    border-radius: 10px;
-    backdrop-filter: blur(11px);
+    background-color: transparent;
   }
   body:not(.tt-boxed) .tt-header-inner,
   .tt-header-inner:not(.tt-wrap) {

@@ -1002,4 +1002,76 @@ window.addEventListener('load', () => {
         }
         } catch (e) { console.error('[anim] FAQ / process steps failed:', e); }
     }
+
+    try {
+        // Mobile-only project card parallax — EXACT same structure as the
+        // mobile testimonials photo drift below, not just the same numbers:
+        // one shared trigger (.gallery) for every card, not a separate
+        // trigger per card. A per-card trigger meant each card only ever
+        // animated during ITS OWN scroll entry — at any moment only one or
+        // two cards near the viewport edge were moving while the rest sat
+        // static, which read as individual cards floating rather than the
+        // whole stack fanning out together like testimonials does. Doesn't
+        // touch opacity: the existing one-time reveal (.gallery .card.in-view,
+        // CSS-driven) still owns the fade-in; this only adds a continuous
+        // translateY on top of whatever that leaves the card at.
+        if (window.innerWidth <= 768) {
+            const accordionCards = Array.from(document.querySelectorAll('.gallery .card'));
+            const CARD_DRIFT_PX = [-45, -22, 0, 22, 45];
+            accordionCards.forEach((card, i) => {
+                gsap.fromTo(card,
+                    { y: -CARD_DRIFT_PX[i % CARD_DRIFT_PX.length] },
+                    {
+                        y: CARD_DRIFT_PX[i % CARD_DRIFT_PX.length],
+                        ease: 'sine.inOut',
+                        scrollTrigger: {
+                            trigger: '.gallery',
+                            start: 'top 95%',
+                            end: 'bottom 25%',
+                            scrub: 0.4 + i * 0.5,
+                        },
+                    }
+                );
+            });
+        }
+    } catch (e) { console.error('[anim] mobile project card parallax failed:', e); }
+
+    try {
+        // Mobile-only testimonial photo parallax: straight (no tilt — the
+        // rotated version didn't land, this is just the scroll-linked drift
+        // kept and pushed further), each photo traveling a different
+        // distance so the stack fans apart more noticeably as you scroll
+        // past instead of every photo moving in lockstep.
+        if (window.innerWidth <= 768) {
+            // Midpoint between the first (±24) and second (±70) pass, and
+            // sine.inOut instead of linear ('none') — on a scrubbed tween the
+            // ease reshapes how scroll PROGRESS maps to position instead of
+            // time, so this eases the drift in and out smoothly (slow start,
+            // fast middle, slow finish) instead of moving at a constant rate
+            // the whole way — reads as a gliding slide rather than a
+            // scroll-locked drag.
+            const testiImgsForTilt = Array.from(document.querySelectorAll('.mobile-testimonials img'));
+            const DRIFT_PX = [-45, -22, 0, 22, 45];
+            testiImgsForTilt.forEach((img, i) => {
+                gsap.fromTo(img,
+                    { y: -DRIFT_PX[i % DRIFT_PX.length] },
+                    {
+                        y: DRIFT_PX[i % DRIFT_PX.length],
+                        ease: 'sine.inOut',
+                        scrollTrigger: {
+                            trigger: '.mobile-testimonials',
+                            start: 'top 95%',
+                            end: 'bottom 25%',
+                            // scrub:true (no lag) had every photo tracking scroll
+                            // at the exact same rate — different travel distance
+                            // but identical timing reads as "moving together".
+                            // A per-photo scrub NUMBER staggers them in time
+                            // too, not just in distance.
+                            scrub: 0.4 + i * 0.5,
+                        },
+                    }
+                );
+            });
+        }
+    } catch (e) { console.error('[anim] mobile testimonials photo pile failed:', e); }
 });

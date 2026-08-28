@@ -665,8 +665,33 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
     /* Same issue, same fix: native 346px was being capped to the generic
        340px, a ~1.7% undersize. This container is only ever used by
        services-tag-complete.svg, so raising it doesn't touch anything else. */
-    .mob-phrase-tags-overlay { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 92vw; max-width: 346px; pointer-events: none; z-index: 2; }
-    .mob-tag-complete { display: block; width: 100%; height: auto; opacity: 0; will-change: opacity; transition: opacity 1.2s cubic-bezier(0.25,0.46,0.45,0.94); transform: translateZ(0); -webkit-transform: translateZ(0); }
+    /* inset:0 + margin:auto instead of top/left:50% + transform:translate(-50%,-50%):
+       that transform opened a stacking context on this element, which confined
+       #mob-services-tag's mix-blend-mode (added for the hero-craft-matching blend)
+       to blending against nothing inside it — same trap #hero-craft's own CSS
+       comment warns about avoiding. inset:0 + margin:auto + an explicit (non-auto)
+       width/height centers the same way without a transform, so the blend reaches
+       the real content behind it again. */
+    /* flex centering, not the inset:0+margin:auto+height:fit-content trick this
+       replaced: fit-content's support for the auto-margin absolute-centering
+       algorithm is inconsistent, so the tag may not actually have been landing
+       centered over the phrase words at all — this is the safer, well-supported
+       way to center without a transform (still avoiding the blend-mode-breaking
+       stacking context that top/left:50%+transform:translate(-50%,-50%) caused).
+       No z-index here either: position:absolute + a numeric z-index ALSO creates
+       its own stacking context — same trap as the transform, just missed the
+       first time. Being the last child in DOM order already paints this above
+       its .mob-phrase-clip siblings, so z-index was never needed for stacking
+       order anyway. */
+    .mob-phrase-tags-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+    /* will-change:opacity is back: the actual blend-breaker turned out to be
+       .mob-phrase-tags-overlay's z-index (fixed above), not this. Re-added
+       specifically to fix a different issue — the browser promoting this
+       element to its own GPU layer only once the opacity transition/scroll
+       transform (home-mobile-interactions.js) actually starts, instead of
+       from the start, which read as a visible "pop" right as the tag
+       reveals. Hinting it upfront avoids that mid-animation promotion. */
+    .mob-tag-complete { display: block; width: 100%; height: auto; opacity: 0; mix-blend-mode: hard-light; will-change: opacity, transform; transition: opacity 1.2s cubic-bezier(0.25,0.46,0.45,0.94); }
     .mob-tag-complete.in-view { opacity: 1; }
     .mob-pill { display: block; height: 28px; width: auto; margin-top: 16px; margin-bottom: 16px; opacity: 0; transform: translateY(16px); transition: opacity 1.1s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.1s cubic-bezier(0.25,0.46,0.45,0.94); }
     .mob-pill.in-view { opacity: 1; transform: translateY(0); }
@@ -674,7 +699,7 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
     .mob-process-list { display: flex; flex-direction: column; align-items: center; width: 92vw; max-width: 340px; margin: 48px auto 0; }
     .mob-process-step { display: flex; flex-direction: column; align-items: center; text-align: center; width: 100%; }
     .mob-process-step:not(:last-child)::after { content: ''; display: block; width: 50px; height: 1px; background: #979797; margin: 32px auto 32px; }
-    .mob-process-num { font-family: 'PP Telegraf', sans-serif; font-size: 32px; font-weight: 800; color: #FF6600; line-height: 1; margin-bottom: 16px; }
+    .mob-process-num { font-family: 'PP Telegraf', sans-serif; font-size: 24px; font-weight: 800; color: #FF6600; line-height: 1; margin-bottom: 16px; }
     .mob-process-label { font-family: 'PP Telegraf', sans-serif; font-size: 14px; font-weight: 400; letter-spacing: 0.4em; text-transform: uppercase; color: #3A3A39; margin: 0 0 8px; }
     .mob-process-desc { font-family: 'PP Telegraf', sans-serif; font-size: 15px; font-weight: 400; color: #979797; margin: 0; line-height: 1.6; width: 320px; max-width: 100%; }
     .services-btns-row { display: none !important; }
@@ -684,7 +709,7 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
     .words-container .verbatim { display: none !important; }
     .hit { display: none !important; }
     .mobile-testimonials { display: flex !important; flex-direction: column !important; gap: 0 !important; align-items: center !important; position: relative; z-index: 10; transform: translateY(-50px); margin-bottom: -50px; }
-    .mobile-testimonials img { width: 380px !important; max-width: 100% !important; display: block !important; margin-bottom: -40px !important; }
+    .mobile-testimonials img { width: 411px !important; max-width: none !important; display: block !important; margin-bottom: -40px !important; }
     .mobile-testimonials img:last-child { margin-bottom: 0 !important; }
     .card { border-radius: 0 !important; }
     .card a.media, .card .pgi-image-holder { border-radius: 0 !important; }
@@ -702,10 +727,16 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
     .services-grid-item:hover h3 { color: #3A3A39 !important; }
     .services-grid-item:hover h3 img { filter: none !important; }
     .services-grid-item:hover { transform: translateY(0) !important; }
-    .gallery { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 32px !important; }
-    .card { width: 360px !important; max-width: 92vw !important; }
+    .gallery { display: flex !important; flex-direction: column !important; align-items: center !important; gap: 52px !important; }
+    /* width:100vw + the calc(50%-50vw) margins break out of .tt-wrap's own side
+       padding/max-width to reach the true viewport edges, same technique used
+       elsewhere on this page (e.g. #mob-above-clip) for the same purpose. */
+    /* +2px width / -1px extra margin each side: bleeds 1px past the viewport edge
+       on both sides instead of landing exactly on it, so a subpixel rounding gap
+       doesn't show a hairline sliver of background at the crop. */
+    .card { width: calc(100vw + 2px) !important; max-width: calc(100vw + 2px) !important; margin-left: calc(50% - 50vw - 1px) !important; margin-right: calc(50% - 50vw - 1px) !important; }
     .gallery .card { display: flex !important; flex-direction: column !important; }
-    .card .meta { display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: baseline !important; padding: 6px 0 0 !important; margin: 0 !important; }
+    .card .meta { display: flex !important; flex-direction: row !important; justify-content: space-between !important; align-items: baseline !important; padding: 6px 20px 0 !important; margin: 0 !important; }
     .card .meta h3 { display: none !important; }
     .card .meta p { display: none !important; }
     .card .meta .meta-name { display: inline !important; font-family: 'PP Telegraf', sans-serif !important; font-size: 12px !important; font-weight: 400 !important; letter-spacing: 0.5em !important; text-transform: uppercase !important; color: #3A3A39 !important; line-height: 1 !important; vertical-align: baseline !important; }
@@ -1985,7 +2016,10 @@ document.addEventListener('click', function(e) {
                     @media (max-width: 768px) {
                         .services-grid { grid-template-columns:1fr; gap:40px; transform:none; margin-top:40px; }
                         .services-btns { width:auto; transform:none; }
-                        .services-btns-connect { width:320px; height:40px; }
+                        .services-btns-connect { width:320px; height:48px; font-size:14px !important; }
+                        /* !important needed: margin-left:10px is set inline on the span
+                           (index.html:2282), which beats a plain class rule. */
+                        .connect-arrow { transform: translateY(-1px) rotate(45deg); margin-left: 15px !important; }
                         .services-grid-item { align-items:center; text-align:center; }
                         .services-grid-item h3 { align-items:center; }
                         .services-grid-item p { text-align:center; }
@@ -2288,7 +2322,7 @@ document.addEventListener('click', function(e) {
         <div id="mob-workflow-section" class="mob-workflow-wrap" style="position:relative;z-index:2;background:#F8F8F8;">
             <div class="tt-section-inner tt-wrap">
                 <div class="mob-workflow-phrase" style="position:relative;display:flex;flex-direction:column;align-items:center;width:100%;gap:8px;">
-                    <img src="./assets/svg/pill-andthey.svg" alt="From Idea To Execution" class="mob-pill" id="mob-workflow-pill" />
+                    <img src="./assets/svg/pill-howits.svg" alt="From Idea To Execution" class="mob-pill" id="mob-workflow-pill" />
                     <div class="mob-phrase-clip"><img src="./assets/svg/work-work.svg" class="mob-phrase-word" alt="" /></div>
                     <div class="mob-phrase-clip"><img src="./assets/svg/work-flow.svg" class="mob-phrase-word" alt="" /></div>
                 </div>
@@ -2533,6 +2567,21 @@ document.addEventListener('click', function(e) {
                     .gallery .card.in-view, .gallery .card.in-view:nth-child(2n) { animation: none; }
                 }
                 .card { border-radius:10px 10px 0 0; overflow:visible; }
+                /* Mobile override: index.html:714-716 (inside @media max-width:768px)
+                   tries to zero this out already, but loses the specificity tie to
+                   this unscoped rule since this one comes later in source order.
+                   Placed right after it, so it wins the same way. */
+                @media (max-width: 768px) {
+                    .card { border-radius: 0 !important; }
+                    .card a.media, .card .pgi-image-holder { border-radius: 0 !important; }
+                    /* :hover adds specificity, so index.html:2536's
+                       .card:hover a.media rule (border-radius:10px) beats the
+                       plain override above regardless of source order — needs
+                       its own :hover-matching override. Touch can leave :hover
+                       "stuck" active after a tap, so this isn't just a desktop
+                       concern here. */
+                    .card:hover a.media, .card:hover .pgi-image-holder { border-radius: 0 !important; }
+                }
                 .card .meta { padding-top:14px; } .card .meta h3, .card .meta p { transform:none !important; }
                 .card .img-hover { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transform:scale(1); transition:opacity 1.4s cubic-bezier(0.25,0.46,0.45,0.94), transform 1.4s cubic-bezier(0.25,0.46,0.45,0.94); }
                 .card .img-base { transition:transform 1.4s cubic-bezier(0.25,0.46,0.45,0.94); display:block; width:100%; }
@@ -2705,7 +2754,7 @@ document.addEventListener('click', function(e) {
      way (verified in work/web/index.html) and cursor-follow.js is still loaded there unchanged. -->
 <script src="./assets/js/scroll.js?v=20260815-01"></script>
 <script src="./assets/js/transition.js?v=20260815-01" defer></script>
-<script src="./assets/js/home-load-animations.js"></script>
+<script src="./assets/js/home-load-animations.js?v=20260828-16"></script>
 <script src="./assets/js/home-mobile-interactions.js"></script>
 </body>
 </html>
