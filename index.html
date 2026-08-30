@@ -38,10 +38,10 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 <link rel="stylesheet" href="./assets/vendor/theme.css?v=20260815-01" />
 <link rel="stylesheet" href="./assets/fonts/fonts.css?v=20260815-01" />
 <link rel="stylesheet" href="./assets/css/config.css?v=20260815-01">
-<link rel="stylesheet" href="./assets/css/fede.css?v=20260815-01" />
+<link rel="stylesheet" href="./assets/css/fede.css?v=20260829-37" />
 <link rel="stylesheet" href="./assets/css/preload.css?v=20260815-01">
 <link rel="stylesheet" href="./assets/css/gallery.css?v=20260815-01" />
-<link rel="stylesheet" href="./assets/css/modal.css?v=20260815-01" />
+<link rel="stylesheet" href="./assets/css/modal.css?v=20260829-02" />
 <link rel="stylesheet" href="./assets/css/testimonials.css?v=20260815-01" /><link rel="stylesheet" href="./assets/css/cursor.css?v=20260815-01">
 <link rel="stylesheet" href="./assets/css/responsive.css?v=20260815-01" />
 <link rel="stylesheet" href="./assets/css/transition.css?v=20260815-01" />
@@ -56,7 +56,12 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 @media (min-width: 2560px) { :root { --fv-caps: 15px; --fv-body: 16px; } }
 @media (min-resolution: 2dppx) and (max-width: 2559px) { :root { --fv-caps: 12px; --fv-body: 14px; } }
 @media (min-width: 769px) and (max-width: 2559px) { #testimonials-section { margin-bottom: 150px; } }
-@media (min-width: 769px) and (max-width: 2559px) { #contact { margin-top: -200px !important; } }
+/* Was -200px, tuned to overlap FAQ-section-2's own trailing whitespace when
+   #contact sat directly after it. #brands-carru-section is now the real
+   immediate sibling before the footer, so that same overlap ate 200px of
+   ITS box instead (clipping the carousel) — dropped to 0 now that a real
+   content section, not decorative padding, precedes the footer. */
+@media (min-width: 769px) and (max-width: 2559px) { #contact { margin-top: 0 !important; } }
 
 /* Registered so it can be transitioned. The slow drift has to ride its own
    property: `transform` already carries the centring AND the scroll parallax,
@@ -359,7 +364,7 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
        size while only its content painted small, making the resulting gap
        depend unpredictably on each asset's own intrinsic height instead of
        just this gap value. */
-    .desk-works-phrase { transform:scale(1.5); transform-origin:center bottom; margin-bottom:150px; margin-top:50px; gap: calc(50px / 1.5); }
+    .desk-works-phrase { transform:scale(1.5); transform-origin:center bottom; margin-bottom:150px; margin-top:350px; gap: calc(50px / 1.5); }
     .desk-works-afew p { font-size: 16px !important; letter-spacing: 0.5em !important; transform: scale(0.6667); transform-origin: center center; }
     #works-afew-desc { font-size: calc(var(--fv-body) / 1.5) !important; }
     /* pill-afew-uw.svg / projects-uw.svg are already at their final UW size;
@@ -520,10 +525,6 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
     #about-pill { height: auto !important; width: auto !important; align-self: center !important; }
     #fede-that-are { white-space: nowrap; }
     #works-afew-desc { max-width: 433px !important; }
-    /* +100px gap between About and Projects, UW only (not Retina) per explicit
-       request. #about has no scale/zoom ancestor, so this margin adds
-       directly to the rendered gap with no amplification math needed. */
-    #about { margin-bottom: 500px !important; }
     /* Branding card line break ONLY — same "brand / that's built to last."
        split already used at Retina (index.html:757 block), now also
        requested for UW. Targeted by id (#br-brand-uw), not the shared
@@ -834,7 +835,7 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
 #hero-meta-location:hover .meta-loc-coords { opacity: 1; }
 #noise-overlay { display: none; }
 @media (min-resolution: 2dppx) {
-    #contact { margin-top: -300px !important; }
+    #contact { margin-top: 100px !important; }
     #deck-guidelines-frame { width: 1200px !important; max-width: 1200px !important; }
     #deck-guidelines { width: 1200px !important; max-width: 1200px !important; }
     /* Photo -> Pill -> Story -> Text, single centered column instead of the
@@ -1899,6 +1900,39 @@ document.addEventListener('click', function(e) {
                 </div>
             </div>
 
+            <div id="stats-pin" class="tt-section mob-no">
+                <div class="stats-pin-inner" id="stats-pin-inner">
+                    <div class="stats-pin-content" id="stats-pin-content">
+                        <div class="stats-pin-stage">
+                            <div class="stats-pin-item" data-stat="0">
+                                <div class="stats-pin-num">+50</div>
+                                <div class="stats-pin-label">Projects<br>Completed</div>
+                            </div>
+                            <div class="stats-pin-item" data-stat="1">
+                                <div class="stats-pin-num">+16</div>
+                                <div class="stats-pin-label">Years Of<br>Experience</div>
+                            </div>
+                            <div class="stats-pin-item" data-stat="2">
+                                <div class="stats-pin-num">+18</div>
+                                <div class="stats-pin-label">Brands<br>Trusted</div>
+                            </div>
+                            <div class="stats-pin-item" data-stat="3">
+                                <div class="stats-pin-num">2AM</div>
+                                <div class="stats-pin-label">"Just One<br>More Fix"</div>
+                            </div>
+                            <div class="stats-pin-item" data-stat="4">
+                                <div class="stats-pin-num">76K</div>
+                                <div class="stats-pin-label">Ctrl+Z<br>Presses</div>
+                            </div>
+                            <div class="stats-pin-bar"></div>
+                        </div>
+                        <div class="stats-pin-counter" id="stats-pin-counter">
+                            <span id="stats-pin-counter-current">01</span>/<span id="stats-pin-counter-total">05</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div id="works" class="tt-section">
                 <div class="bg-vectors" id="bg-vectors-3"><div class="pos top-left"><img src="./assets/svg/bg-lines/bg-lines3.svg" alt="" /></div></div>
                 <div class="desk-works-phrase mob-no">
@@ -1991,21 +2025,16 @@ document.addEventListener('click', function(e) {
                     .services-grid-item h3 { flex-direction:column; align-items:flex-start; gap:14px; }
                     .services-grid-item h3 img { width:auto; height:26px; }
                     .services-grid-item p { text-align:left; }
-                    .services-grid-item p::before { content:''; display:block; width:40px; height:1px; background:#FF6600; margin-bottom:12px; transition:width 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
-                    .services-grid-item:hover p::before { width:140px; }
-                    .services-grid:has(.services-grid-item:hover) .services-grid-item:not(:hover) { filter: none; opacity: 1; }
-                    .services-grid-item:hover h3 { color:#FF6600; transform:translateY(-4px); }
-                    .services-grid-item:hover h3 img { filter:brightness(0) saturate(100%) invert(45%) sepia(99%) saturate(700%) hue-rotate(1deg) brightness(103%); transform:translateY(-8px); }
-                    .services-grid-item:hover p { transform:translateY(8px); color:#FF6600; }
+                    .services-grid-item p::before { content:''; display:block; width:40px; height:1px; background:#FF6600; margin-bottom:12px; }
                     #services-follow-img { position:fixed; top:0; left:0; pointer-events:none; z-index:1; width:420px; height:240px; object-fit:cover; border-radius:10px; opacity:0; transition:opacity 0.3s ease; will-change:transform; }
                     .services-btns { display:flex; flex-direction:column; align-items:center; gap:32px; width:445px; margin:0 auto; padding-bottom:40px; transform:translateY(-50px); }
                     .services-btns-row { display:flex; gap:45px; width:100%; justify-content:center; }
                     .services-btns-row a { width:200px; text-align:center; height:40px; display:flex; align-items:center; justify-content:center; border:none; border-radius:5px; text-decoration:none; color:#3A3A39; font-family:'PP Telegraf',sans-serif; font-size:16px; letter-spacing:0; box-sizing:border-box; position:relative; overflow:hidden; background:transparent; background-image:url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='5' ry='5' stroke='%233A3A39' stroke-width='1.5' stroke-dasharray='8%2c8' stroke-dashoffset='0' stroke-linecap='round'/%3e%3c/svg%3e"); transition:color 0.5s ease; }
                     .services-btns-row a::after { content:''; position:absolute; inset:0; background:#3A3A39; opacity:0; transition:opacity 0.5s ease; z-index:0; }
                     .services-btns-row a:hover::after { opacity:0.9; }
-                    .services-btns-row a:hover { background-image:none; color:#fff; }
+                    .services-btns-row a:hover { background-image:none; color:var(--color-fede-white); }
                     .services-btns-row a span { position:relative; z-index:1; }
-                    .services-btns-connect { display:flex; width:100%; height:40px; align-items:center; justify-content:center; background:#1C1C1A; color:#fff; text-decoration:none; font-family:'PP Telegraf',sans-serif; font-size:var(--fv-caps); letter-spacing:0.5em; text-transform:uppercase; padding-left:0.5em; box-sizing:border-box; border-radius:5px; position:relative; overflow:hidden; transition:color 0.4s ease; }
+                    .services-btns-connect { display:flex; width:100%; height:40px; align-items:center; justify-content:center; background:#1C1C1A; color:var(--color-fede-white); text-decoration:none; font-family:'PP Telegraf',sans-serif; font-size:var(--fv-caps); letter-spacing:0.5em; text-transform:uppercase; padding-left:0.5em; box-sizing:border-box; border-radius:5px; position:relative; overflow:hidden; transition:color 0.4s ease; }
                     .services-btns-connect::before { content:''; position:absolute; bottom:-100%; left:0; width:100%; height:100%; background:#FF6600; transition:bottom 0.5s cubic-bezier(0.76,0,0.24,1); z-index:0; }
                     .connect-arrow { transition: transform 0.3s ease; transform-origin: center; }
                     @media (hover: hover) and (pointer: fine) {
@@ -2311,7 +2340,7 @@ document.addEventListener('click', function(e) {
                                 </h2>
                                 <img id="figma-logo" data-dsrc="./assets/images/home/figma-logo.png" alt="Figma" style="position:absolute;bottom:-60px;right:-100px;width:auto;height:auto;display:block;pointer-events:none;opacity:0;" />
                             </div>
-                            <p id="extra-text" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:#FFFFFF;line-height:1.7;margin:0;opacity:0;">THIS WILL OPEN A FIGMA OF MY BRAND GUIDELINES AND DECKS<br>(A FEW I'M ALLOWED TO SHARE)</p>
+                            <p id="extra-text" style="font-family:'PP Telegraf',sans-serif;font-size:var(--fv-caps);font-weight:400;letter-spacing:0.5em;text-transform:uppercase;color:var(--color-fede-white);line-height:1.7;margin:0;opacity:0;">THIS WILL OPEN A FIGMA OF MY BRAND GUIDELINES AND DECKS<br>(A FEW I'M ALLOWED TO SHARE)</p>
                         </div>
                     </a>
                 </div>
@@ -2378,6 +2407,7 @@ document.addEventListener('click', function(e) {
                             <article class="verbatim hidden" tabindex="0"><img data-dsrc="./assets/images/home/word4.jpg" alt="" /><div><p><span>Tristan Kemitzis</span> (K.C.)</p><p>"Working with Fede has been a true pleasure. Quick turnarounds, immediate responsiveness... all in all extremely high quality, white-glove service."</p></div></article>
                             <article class="verbatim hidden" tabindex="0"><img data-dsrc="./assets/images/home/word5.jpg" alt="" /><div><p><span>Nick Godin</span> (Netwrk Ventures)</p><p>"Fede nailed it. He instantly got what we were about and came up with fresh, modern branding that tells our story perfectly. Super easy to work with and always on point"</p></div></article>
                             <article class="verbatim hidden" tabindex="0"><img data-dsrc="./assets/images/home/word6.png" alt="" /><div><p><span>Hana Elster</span> (VYA)</p><p>"Fede did an amazing job helping me with my design. He effectively took feedback and was able to create an amazing brand guideline for me in just two weeks. Will be a forever customer"</p></div></article>
+                            <article class="verbatim hidden" tabindex="0"><img data-dsrc="./assets/images/home/word7.png" alt="" /><div><p><span>Cally Bruce</span> (Silver Fern Financial)</p><p>"Fede is a dream design partner. He's creative, thoughtful, and a true team player. I've worked with him in support of clients of mine across different verticals and am always so impressed by what he creates. I recommend him highly."</p></div></article>
                             <div class="hit left" aria-hidden="true"></div>
                             <div class="hit right" aria-hidden="true"></div>
                         </div></div></div>
@@ -2494,6 +2524,25 @@ document.addEventListener('click', function(e) {
                     </h2>
                 </div>
             </div>
+        </div>
+
+        <div id="brands-carru-section" class="tt-section mob-no" style="position:relative;z-index:2;background:#F8F8F8;padding:60px 0 100px;">
+            <div class="brands-carru-label">Trusted By</div>
+            <div class="brands-carru-mask">
+                <div class="brands-carru-track" id="brands-carru-track">
+                    <div class="brands-carru-item"><img src="./assets/svg/icons/brands-carru.svg" data-src-uw="./assets/svg/brands-carru-uw.svg" alt="Trusted brands" class="brands-carru-img" /></div>
+                    <div class="brands-carru-item"><img src="./assets/svg/icons/brands-carru.svg" data-src-uw="./assets/svg/brands-carru-uw.svg" alt="" class="brands-carru-img" aria-hidden="true" /></div>
+                </div>
+            </div>
+            <script>
+            (function () {
+                if (window.innerWidth < 2560) return;
+                document.querySelectorAll('.brands-carru-img').forEach(function (img) {
+                    var uwSrc = img.getAttribute('data-src-uw');
+                    if (uwSrc) img.src = uwSrc;
+                });
+            })();
+            </script>
         </div>
 
         <footer id="contact" class="tt-section">
@@ -2754,7 +2803,7 @@ document.addEventListener('click', function(e) {
      way (verified in work/web/index.html) and cursor-follow.js is still loaded there unchanged. -->
 <script src="./assets/js/scroll.js?v=20260815-01"></script>
 <script src="./assets/js/transition.js?v=20260815-01" defer></script>
-<script src="./assets/js/home-load-animations.js?v=20260828-16"></script>
+<script src="./assets/js/home-load-animations.js?v=20260829-09"></script>
 <script src="./assets/js/home-mobile-interactions.js"></script>
 </body>
 </html>

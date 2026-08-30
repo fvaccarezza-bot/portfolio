@@ -104,7 +104,7 @@ body.work footer .talk-section .socials a:hover img {
   filter: grayscale(1) brightness(5);
 }
 body.work footer .talk-section .socials a:hover p {
-  color: #fff;
+  color: var(--color-fede-white);
 }
 body.work footer .talk-buttons {
   display: flex;
@@ -736,7 +736,7 @@ body.work footer .footer-ink.footer3 {
   padding: 0;
   border: 0;
   border-radius: 20px;
-  color: #dbdbdb;
+  color: var(--color-fede-fv-gray);
   box-shadow: none;
   pointer-events: all;
   cursor: pointer;

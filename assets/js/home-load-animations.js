@@ -242,8 +242,12 @@ window.addEventListener('load', () => {
             gsap.to(lineFed, { y: 0, duration: 1.6, ease: 'power3.out', delay: 0.15, onComplete: () => { document.querySelectorAll('.name-reveal-mask').forEach(m => m.style.overflow = 'visible'); document.querySelectorAll('.ph-caption .min-titles').forEach(m => { if (m.parentNode) m.parentNode.style.overflow = 'visible'; }); } });
             gsap.to(lineVac, { y: 0, duration: 1.6, ease: 'power3.out', delay: 0.45 });
             if (heroMetaRow) gsap.to(heroMetaRow.children, { opacity: 1, y: 0, duration: 1.4, ease: 'power3.out', delay: 0.55, stagger: 0.12 });
+            // Flips 0.5s ahead of heroSubtitle's own onComplete below (which fires at
+            // delay 0.4 + duration 1.4 = 1.8s) so the hero-craft fade-in (index.html,
+            // gated on this flag) starts half a second earlier, without moving the
+            // hero reveal tweens themselves or anything else in that onComplete body.
+            gsap.delayedCall(1.3, () => { window._heroParallaxReady = true; });
             gsap.to(heroSubtitle, { y: 0, duration: 1.4, ease: 'power3.out', delay: 0.4, onComplete: () => {
-                window._heroParallaxReady = true;
                 const masks = document.querySelectorAll('.name-reveal-mask');
                 const heroPortLabel = document.getElementById('hero-portfolio-label');
                 const heroPortLabelWrap = heroPortLabel ? heroPortLabel.parentNode : null;
@@ -395,14 +399,43 @@ window.addEventListener('load', () => {
                 gsap.to(holaInner, { y: 0, ease: 'none', scrollTrigger: { trigger: '#about', start: 'top bottom', end: 'center center', scrub: 1.2 } });
                 gsap.to(holaInner, { filter: 'blur(0px)', duration: 1.2, ease: 'power3.out', scrollTrigger: { trigger: '#about', start: 'top bottom', toggleActions: 'play none none none' } });
             }
+            // #works's reveal tweens (pill, desc, featured/projects clips) used to
+            // each carry their own scrollTrigger:{trigger:'#works', start:'top 85%'}.
+            // Once #stats-pin above it holds a real GSAP pin, ScrollTrigger's cached
+            // start value for any string/percent trigger positioned AFTER a pinned
+            // section comes out wrong (verified directly: computed start ignored the
+            // pin's whole reserved scroll distance, firing thousands of px too early
+            // — reproduces with a bare pin:true, independent of pinType/pinSpacing/
+            // nesting, so it's not something tunable away). Building these as paused
+            // tweens and firing them off a manual, live getBoundingClientRect check
+            // sidesteps that cached-position bug entirely.
+            var worksRevealTweens = [];
             const workThem = document.getElementById('work-them');
-            if (workThem) { gsap.set(workThem, { opacity:0, y:20, filter:'blur(20px)', force3D:false }); gsap.to(workThem, { opacity:1, y:0, filter:'blur(0px)', ease:'power3.out', duration:1.2, delay:0, force3D:false, scrollTrigger: { trigger:'#works', start:'top 85%', toggleActions:'play none none none' } }); }
+            if (workThem) { gsap.set(workThem, { opacity:0, y:20, filter:'blur(20px)', force3D:false }); worksRevealTweens.push(gsap.to(workThem, { opacity:1, y:0, filter:'blur(0px)', ease:'power3.out', duration:1.2, delay:0, force3D:false, paused:true })); }
             const worksAfewDesc = document.getElementById('works-afew-desc');
-            if (worksAfewDesc) { gsap.to(worksAfewDesc, { opacity:1, y:0, filter:'blur(0px)', ease:'power3.out', duration:1.2, delay:0.35, scrollTrigger: { trigger:'#works', start:'top 85%', toggleActions:'play none none none' } }); }
+            if (worksAfewDesc) { worksRevealTweens.push(gsap.to(worksAfewDesc, { opacity:1, y:0, filter:'blur(0px)', ease:'power3.out', duration:1.2, delay:0.35, paused:true })); }
             const deskFeatured = document.getElementById('desk-featured'), deskWork = document.getElementById('desk-work');
             const isRetina = window.matchMedia('(min-resolution: 2dppx)').matches;
-            if (deskFeatured) { gsap.set(deskFeatured, { y: '160%', filter: 'blur(20px)' }); gsap.to(deskFeatured, { y: 0, filter: 'blur(0px)', ease: 'power3.out', duration: 1.4, scrollTrigger: { trigger: '#works', start: 'top 85%', toggleActions: 'play none none none' } }); }
-            if (deskWork) { gsap.set(deskWork, { y: '160%', filter: 'blur(20px)' }); gsap.to(deskWork, { y: 0, filter: 'blur(0px)', ease: 'power3.out', duration: 1.4, delay: 0.15, scrollTrigger: { trigger: '#works', start: 'top 85%', toggleActions: 'play none none none' } }); }
+            if (deskFeatured) { gsap.set(deskFeatured, { y: '160%', filter: 'blur(20px)' }); worksRevealTweens.push(gsap.to(deskFeatured, { y: 0, filter: 'blur(0px)', ease: 'power3.out', duration: 1.4, paused:true })); }
+            if (deskWork) { gsap.set(deskWork, { y: '160%', filter: 'blur(20px)' }); worksRevealTweens.push(gsap.to(deskWork, { y: 0, filter: 'blur(0px)', ease: 'power3.out', duration: 1.4, delay: 0.15, paused:true })); }
+            if (worksRevealTweens.length) {
+                var worksEl = document.getElementById('works');
+                var worksRevealFired = false;
+                var checkWorksReveal = function () {
+                    if (worksRevealFired || !worksEl) return;
+                    if (worksEl.getBoundingClientRect().top <= window.innerHeight * 0.85) {
+                        worksRevealFired = true;
+                        worksRevealTweens.forEach(function (tw) { tw.play(); });
+                        gsap.ticker.remove(checkWorksReveal);
+                    }
+                };
+                // ScrollTrigger's global 'update' event never fired in this setup
+                // (only individual triggers' own onUpdate do, via bodyScrollBar's
+                // listener) — gsap.ticker runs every animation frame regardless,
+                // so it's a reliable place to poll a plain getBoundingClientRect.
+                gsap.ticker.add(checkWorksReveal);
+                checkWorksReveal();
+            }
             if (window.innerWidth <= 768) {
                 var mobStickersImg = document.getElementById('mob-stickers-img');
                 if (mobStickersImg) {
@@ -631,6 +664,148 @@ window.addEventListener('load', () => {
             }, 800);
         }
         } catch (e) { console.error('[anim] breathe parallax failed:', e); }
+
+        try {
+        if (window.innerWidth > 768) {
+            // ── Home: pinned stats cycler (50+ Projects / 16+ Years / 20+ Brands) ──
+            // Three stacked, independently-tweened items (not a shared textContent
+            // swap via .call()) so the crossfade is fully reversible: a .call()-based
+            // text swap only fires correctly going forward, and scrubbing backward
+            // (or any micro reverse from real scroll/trackpad jitter) left the
+            // outgoing stat's text stuck on screen across the wrong segment.
+            var statsPinSection = document.getElementById('stats-pin');
+            var statsPinItems = statsPinSection ? statsPinSection.querySelectorAll('.stats-pin-item') : null;
+            var statsPinCounterCurrent = statsPinSection ? statsPinSection.querySelector('#stats-pin-counter-current') : null;
+            var statsPinCounterTotal = statsPinSection ? statsPinSection.querySelector('#stats-pin-counter-total') : null;
+            if (statsPinSection && statsPinItems && statsPinItems.length > 1 && statsPinCounterCurrent && statsPinCounterTotal) {
+                var padStatsPinCount = function (n) { return n < 10 ? '0' + n : '' + n; };
+                statsPinCounterTotal.textContent = padStatsPinCount(statsPinItems.length);
+                var setStatsPinCounter = function (i) {
+                    statsPinCounterCurrent.textContent = padStatsPinCount(i + 1);
+                };
+                var PIN_HOLD = 0.6, PIN_FADE = 0.7, PIN_LAST_HOLD = 1.0;
+                var statsPinBoundaries = [];
+
+                // Precompute each item's fully-settled (opacity:1, no blur) time
+                // center so scroll can snap to them — otherwise stopping mid-scroll
+                // mid-fade leaves a stat frozen half-revealed, with no way forward
+                // or back short of scrolling again. PIN_LAST_HOLD pads the timeline
+                // AFTER the final stat settles (mirrored in the tween loop below) so
+                // that stat's snap point lands before scrollProgress:1 instead of
+                // exactly at it — leaving real scroll room where the last stat just
+                // sits there, fully visible, before the pin releases into the outro
+                // fade (see the separate ScrollTrigger keyed off cycleST.end further
+                // down). Without this, the outro started the instant the last stat's
+                // fade-in finished.
+                var statsPinStableCenters = [PIN_HOLD / 2];
+                var precomputeCursor = PIN_HOLD;
+                for (var sci = 1; sci < statsPinItems.length; sci++) {
+                    precomputeCursor += PIN_FADE + PIN_FADE;
+                    if (sci < statsPinItems.length - 1) {
+                        statsPinStableCenters.push(precomputeCursor + PIN_HOLD / 2);
+                        precomputeCursor += PIN_HOLD;
+                    } else {
+                        statsPinStableCenters.push(precomputeCursor);
+                        precomputeCursor += PIN_LAST_HOLD;
+                    }
+                }
+                var statsPinSnapPoints = statsPinStableCenters.map(function (t) { return t / precomputeCursor; });
+
+                var statsPinTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: statsPinSection,
+                        start: 'top top',
+                        end: '+=' + (Math.round(90 * statsPinItems.length) + 40) + '%',
+                        pin: true,
+                        pinType: 'transform',
+                        scrub: 0.9,
+                        anticipatePin: 1,
+                        snap: { snapTo: statsPinSnapPoints, duration: { min: 0.15, max: 0.4 }, delay: 0.05, ease: 'power2.inOut' }
+                    },
+                    onUpdate: function () {
+                        var t = this.time(), active = 0;
+                        for (var b = 0; b < statsPinBoundaries.length; b++) { if (t >= statsPinBoundaries[b]) active = b + 1; }
+                        setStatsPinCounter(active);
+                    }
+                });
+                var statsPinCursor = PIN_HOLD;
+                for (var pi = 1; pi < statsPinItems.length; pi++) {
+                    statsPinBoundaries.push(statsPinCursor);
+                    var outNum = statsPinItems[pi - 1].querySelector('.stats-pin-num');
+                    var outLabel = statsPinItems[pi - 1].querySelector('.stats-pin-label');
+                    var inNum = statsPinItems[pi].querySelector('.stats-pin-num');
+                    var inLabel = statsPinItems[pi].querySelector('.stats-pin-label');
+                    // Opacity/blur stay on the whole item (shared fade), but y moves on
+                    // the number and label separately, at different distances — the
+                    // number travels further/faster than the label, so they drift out
+                    // of sync instead of sliding as one rigid block.
+                    // Num rests at y:12 (matches the static translateY(12px) nudge in
+                    // fede.css's .stats-pin-num — GSAP writes an inline transform once
+                    // it touches this element, which would otherwise silently override
+                    // and lose that CSS offset).
+                    statsPinTl.to(statsPinItems[pi - 1], { opacity: 0, filter: 'blur(14px)', duration: PIN_FADE, ease: 'power2.in' }, statsPinCursor);
+                    if (outNum) statsPinTl.to(outNum, { y: -24, duration: PIN_FADE, ease: 'power2.in' }, statsPinCursor);
+                    if (outLabel) statsPinTl.to(outLabel, { y: -14, duration: PIN_FADE, ease: 'power2.in' }, statsPinCursor);
+                    statsPinCursor += PIN_FADE;
+                    statsPinTl.fromTo(statsPinItems[pi], { opacity: 0, filter: 'blur(14px)' }, { opacity: 1, filter: 'blur(0px)', duration: PIN_FADE, ease: 'power2.out', immediateRender: false }, statsPinCursor);
+                    if (inNum) statsPinTl.fromTo(inNum, { y: 48 }, { y: 12, duration: PIN_FADE, ease: 'power2.out', immediateRender: false }, statsPinCursor);
+                    if (inLabel) statsPinTl.fromTo(inLabel, { y: 14 }, { y: 0, duration: PIN_FADE, ease: 'power2.out', immediateRender: false }, statsPinCursor);
+                    statsPinCursor += PIN_FADE;
+                    if (pi < statsPinItems.length - 1) {
+                        statsPinCursor += PIN_HOLD;
+                    } else {
+                        // Empty tween: no property changes, just padding so the
+                        // timeline (and therefore the pin) keeps holding on the
+                        // final, fully-settled stat for a bit before releasing.
+                        statsPinTl.to({}, { duration: PIN_LAST_HOLD }, statsPinCursor);
+                        statsPinCursor += PIN_LAST_HOLD;
+                    }
+                }
+
+                // ── Outro: once the last stat is showing, keep it pinned WITHOUT
+                // reserving space (pinSpacing:false) so #works scrolls up and
+                // covers it, blurring/fading it out the same way the hero does
+                // (filter+opacity driven directly by scroll progress). Pins
+                // .stats-pin-inner (the CHILD), not #stats-pin itself — GSAP
+                // keeps one pin-spacer per element, so pinning the same node
+                // #stats-pin twice (once for the cycle, once for the outro)
+                // stomps the first spacer and collapses the whole section's
+                // reserved height. The child already fills 100% of the parent,
+                // so pinning it with pinSpacing:false reserves exactly the
+                // parent's own natural height — no extra space, no layout jump
+                // — while #stats-pin itself scrolls away underneath it and
+                // #works (its next sibling) paints over it as it does. ──
+                var cycleST = statsPinTl.scrollTrigger;
+                var statsPinInnerEl = statsPinSection.querySelector('.stats-pin-inner');
+                var statsPinContentEl = statsPinSection.querySelector('.stats-pin-content');
+                var statsPinOutroDist = Math.round(window.innerHeight * 1.2);
+                if (statsPinInnerEl && statsPinContentEl) {
+                    ScrollTrigger.create({
+                        trigger: statsPinInnerEl,
+                        start: function () { return cycleST.end; },
+                        end: function () { return cycleST.end + statsPinOutroDist; },
+                        pin: true,
+                        pinType: 'transform',
+                        pinSpacing: false,
+                        scrub: true,
+                        onUpdate: function (self) {
+                            // Styled on .stats-pin-content (a child), not the pinned
+                            // .stats-pin-inner itself — GSAP's pinType:'transform'
+                            // continuously writes .stats-pin-inner's own transform to
+                            // hold it in place, so setting transform there too would
+                            // fight that on every tick. Same blur+opacity+upward-drift
+                            // combo the hero's own scroll-out uses (theme.js's
+                            // HERO STICKY FADE), just written directly since this
+                            // section isn't driven by that same listener.
+                            statsPinContentEl.style.filter = 'blur(' + (self.progress * 28) + 'px)';
+                            statsPinContentEl.style.opacity = 1 - self.progress;
+                            statsPinContentEl.style.transform = 'translateY(' + (self.progress * -140) + 'px)';
+                        }
+                    });
+                }
+            }
+        }
+        } catch (e) { console.error('[anim] stats pin cycler failed:', e); }
 
         try {
         if (window.innerWidth > 768) {

@@ -81,52 +81,6 @@
 /* SCROLL */
 .scrollbar-thumb { background: var(--color-fede-fv-gray, #979797) !important; opacity: 0.35; }
 .scrollbar-track:hover .scrollbar-thumb { opacity: 0.6; }
-.scroll {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-  z-index: 111;
-  margin: 65px 0 0;
-}
-.scroll .arrow {
-  width: 23px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  -webkit-filter: var(--filter-fede-gray);
-  filter: var(--filter-fede-gray);
-  transition: all 0.4s cubic-bezier(0.34, 3, 0.44, 1);
-}
-.scroll .arrow .scroll-arrow {
-  position: absolute;
-  margin-top: 2px;
-  width: 8px;
-  transform: translateY(0px);
-}
-.scroll p {
-  color: var(--color-fede-orange);
-  -webkit-filter: var(--filter-fede-gray);
-  filter: var(--filter-fede-gray);
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 22px;
-  letter-spacing: 0.2px;
-  margin-left: 0.2px;
-  margin-top: 4px;
-  margin-bottom: 0;
-  transform: translateY(0px);
-  transition: all 0.4s cubic-bezier(0.34, 3, 0.44, 1);
-}
-.scroll:hover .arrow .scroll-arrow,
-.scroll:hover p { transform: translateY(5px); }
-.scroll:hover .arrow,
-.scroll:hover p {
-  -webkit-filter: var(--filter-fede-orange);
-  filter: var(--filter-fede-orange);
-}
-.scroll.bottom { position: absolute; bottom: 60px; }
-
 /* HEADER MENU */
 .nav-fixed { display: none; }
 #tt-ol-menu-toggle-btn-wrap { display: none; }
@@ -313,36 +267,6 @@ body.tt-boxed .tt-wrap .tt-row {
 }
 #about h2.section-title { margin-bottom: 38px; }
 
-/* WORK */
-#work { padding-top: 190px; padding-bottom: 200px !important; }
-#work h2 + span { margin-bottom: 0; }
-body.tt-boxed #work .tt-wrap { padding: 0; }
-#work .tt-grid.ttgr-gap-2 .ttgr-item-inner { margin: 0 0.3vw 4vw 0.3vw; }
-#work .pgi-image-holder { border-radius: 10px; }
-#work .pgi-caption { padding: 5px 0 0 0; }
-#work .pgi-caption-inner {
-  min-height: 40px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-#work .pgi-caption-inner .pgi-category,
-#work .pgi-caption-inner .pgi-title {
-  font-size: calc(13px + 0.1vw);
-  line-height: 1;
-  font-weight: 400;
-  color: var(--color-fede-white);
-  opacity: 1;
-  padding-bottom: 10px;
-}
-#work .pgi-caption-inner .pgi-title {
-  text-transform: uppercase;
-  letter-spacing: calc(5px + 0.1vw);
-  margin-left: calc(5px + 0.1vw);
-}
-#work .pgi-caption-inner .pgi-category { text-transform: lowercase; }
-
 /* SERVICES */
 #services {
   display: flex;
@@ -351,74 +275,6 @@ body.tt-boxed #work .tt-wrap { padding: 0; }
 }
 #services h2 + span { margin-bottom: 60px; }
 body.tt-boxed #services .tt-wrap { padding: 0; }
-#services .services-container {
-  width: 568px;
-  display: flex;
-  flex-direction: column;
-  padding: 0px;
-  gap: 80px;
-  color: var(--color-fede-fv);
-}
-#services .services-container .services-items {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 0px;
-  gap: 40px;
-}
-#services .services-container .items {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-}
-#services .services-container .items .icon { padding-top: 3px; width: 38px; }
-#services .services-container .items .services-text { width: 530px; }
-#services .services-container .items .services-text p:nth-child(1) { line-height: 28px; margin-bottom: 4px; }
-#services .services-container .items .services-text p:nth-child(2) {
-  line-height: 22px;
-  letter-spacing: 0.05em;
-  margin-left: 0.05em;
-  color: #979797;
-  margin-bottom: 0;
-}
-#services .services-container .items:nth-child(1) img { width: 20px; }
-#services .services-container .items:nth-child(2) img { width: 24px; }
-#services .services-container .items:nth-child(3) img { width: 22px; }
-#services .services-container .items:nth-child(4) img { width: 24px; }
-#services .services-container .services-buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-#services .services-container .services-buttons a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 41px;
-  background-size: contain;
-  font-size: 16px;
-  line-height: 90%;
-  color: var(--color-fede-fv);
-  border-radius: 7px;
-  transition: all 0.35s ease-in-out;
-}
-#services .services-container .services-buttons .buttons1 {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-#services .services-container .services-buttons .buttons1 a {
-  width: 266px;
-}
-#services .services-container .services-buttons a.buttons2 {
-  width: 100%;
-}
-#services .services-container .services-buttons a:hover {
-  color: var(--color-fede-white);
-  background-color: var(--color-fede-fv);
-  border-radius: 10px;
-}
 #services h4 {
   margin: 150px auto 0;
   color: var(--color-fede-fv);
@@ -498,13 +354,6 @@ footer .footer-texture.orange { background-image: url("../images/home/noise-oran
   margin-bottom: 20px;
   margin-top: 60px;
 }
-#contact .fw-200 {
-  margin-top: 2px;
-  margin-bottom: 12px;
-  letter-spacing: 0.5px;
-  margin-left: 0.5px;
-  line-height: 22px;
-}
 #contact a {
   font-family: "PP Telegraf";
   font-size: 16px;
@@ -521,3 +370,208 @@ footer .btn:hover { color: var(--color-fede-orange); }
 /* MODAL */
 .tt-logo a img:last-child { filter: brightness(1); }
 .tt-main-menu { transition: all 1s ease; }
+
+/* HOME: pinned stats cycler (desktop/UW only) */
+@media (min-width: 2560px) {
+  #about { margin-bottom: -200px; }
+}
+/* The resting gap above the "A Few Of Them" pill (after the scroll-linked
+   reveal finishes and opacity settles at 1) is padding-bottom minus #works'
+   own fixed spacing above the pill — so it has to be sized as a percentage
+   of viewport HEIGHT (vh), not width: a vw-based value put the same px
+   figure behind screens of different heights and landed way off (measured
+   30% of viewport at 1920x1080 but only 12% at 2560x1440 — same formula,
+   different height, different result). Targeting ~20vh of actual gap.
+   #works' own fixed offset also jumps for an unrelated reason right at
+   2560px: .desk-works-phrase (elsewhere in this file) gets transform:
+   scale(1.5) and a smaller margin-top there, a pre-existing UW rule not
+   part of this feature — so this is split at that same breakpoint rather
+   than smoothed over, since the underlying geometry itself isn't smooth
+   there either. Measured offset ≈74px below 2560px, ≈307px at/above it. */
+#stats-pin { position: relative; padding: 0 0 clamp(220px, calc(20vh + 80px), 500px) 0 !important; }
+@media (min-width: 2560px) {
+  #stats-pin { padding-bottom: clamp(450px, calc(20vh + 310px), 750px) !important; }
+}
+@media (min-width: 961px) {
+  #works { box-shadow: 0 -80px 140px -60px rgba(0, 0, 0, 0.03); }
+}
+.stats-pin-inner {
+  position: relative;
+  height: 100vh;
+}
+.stats-pin-content {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+}
+.stats-pin-stage {
+  position: relative;
+  display: grid;
+}
+.stats-pin-bar {
+  position: absolute;
+  /* Sits exactly 24px right of the number's own fixed-width column edge —
+     constant for every stat, since .stats-pin-num is right-aligned inside
+     that fixed column instead of shrink-wrapping to its own text. */
+  left: 344px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 60px;
+  background: var(--color-fede-orange);
+  z-index: 2;
+  pointer-events: none;
+}
+.stats-pin-heading {
+  position: absolute;
+  top: calc(50% - 130px);
+  left: 50%;
+  transform: translate(-50%, -100%);
+  font-family: 'PP Telegraf', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--color-fede-fv);
+  white-space: nowrap;
+}
+.stats-pin-item {
+  grid-column: 1;
+  grid-row: 1;
+  display: grid;
+  /* Fixed column widths (not content-driven): col1 comfortably fits the
+     widest number ("100%") and .stats-pin-num is right-aligned inside it,
+     so its right edge — and therefore its distance to the bar — never
+     changes between stats. */
+  grid-template-columns: 320px 240px;
+  align-items: center;
+  opacity: 0;
+}
+.stats-pin-item[data-stat="0"] { opacity: 1; }
+.stats-pin-num {
+  font-family: "PP Telegraf", sans-serif;
+  font-weight: 800;
+  font-size: 140px;
+  line-height: 0.9;
+  color: var(--color-fede-fv);
+  justify-self: end;
+  transform: translateY(12px);
+}
+@media (min-resolution: 2dppx) and (max-width: 2559px) {
+  .stats-pin-num { font-size: 120px; }
+}
+.stats-pin-label {
+  font-family: "PP Telegraf", sans-serif;
+  font-weight: 400;
+  font-size: var(--fv-body);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--color-fede-fv);
+  line-height: 1.5;
+  justify-self: start;
+  /* Text starts exactly 24px past the bar's own right edge, same 24px the
+     number keeps on the other side — offset is relative to col2's own
+     start (wherever col1 ends), so it's correct regardless of col1's width:
+     bar_left - col1_width = 24 always, then + bar's 2px + the 24px gap =
+     50px from col2's start to the text. */
+  padding-left: 50px;
+}
+.stats-pin-side-label {
+  font-family: "PP Telegraf", sans-serif;
+  font-weight: 400;
+  font-size: var(--fv-body);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-fede-fv);
+}
+.stats-pin-counter {
+  font-family: "PP Telegraf", sans-serif;
+  font-weight: 400;
+  font-size: var(--fv-body);
+  letter-spacing: 0.1em;
+  color: var(--color-fede-fv);
+  font-variant-numeric: tabular-nums;
+}
+.stats-pin-counter #stats-pin-counter-current {
+  color: var(--color-fede-orange);
+  transition: color 0.3s ease;
+}
+
+.brands-carru-label {
+  font-family: 'PP Telegraf', sans-serif;
+  font-weight: 400;
+  font-size: var(--fv-caps, 14px);
+  text-transform: uppercase;
+  letter-spacing: 0.4em;
+  text-align: center;
+  color: var(--color-fede-fv);
+  margin-top: -100px;
+  margin-bottom: 75px;
+}
+.brands-carru-mask {
+  position: relative;
+  max-width: 1320px;
+  margin: 0 auto;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,0.4) 100px, #000 240px, #000 calc(100% - 240px), rgba(0,0,0,0.4) calc(100% - 100px), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,0.4) 100px, #000 240px, #000 calc(100% - 240px), rgba(0,0,0,0.4) calc(100% - 100px), transparent 100%);
+}
+/* Progressive blur on top of the opacity fade above: backdrop-filter blurs
+   whatever scrolls underneath, and each pseudo-element's own mask fades
+   that blur from full strength at the outer edge down to none toward the
+   center, so logos visibly soften as they exit instead of just fading. */
+.brands-carru-mask::before,
+.brands-carru-mask::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 240px;
+  z-index: 2;
+  pointer-events: none;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.brands-carru-mask::before {
+  left: 0;
+  -webkit-mask-image: linear-gradient(to right, #000 0%, transparent 100%);
+  mask-image: linear-gradient(to right, #000 0%, transparent 100%);
+}
+.brands-carru-mask::after {
+  right: 0;
+  -webkit-mask-image: linear-gradient(to left, #000 0%, transparent 100%);
+  mask-image: linear-gradient(to left, #000 0%, transparent 100%);
+}
+@media (min-width: 2560px) {
+  #brands-carru-section { margin-top: 0px; }
+  .brands-carru-mask { max-width: 1750px; }
+}
+@media (min-resolution: 2dppx) and (max-width: 2559px) {
+  /* padding-bottom set !important: overriding the inline padding:60px 0 100px
+     on #brands-carru-section (index.html) — inline style otherwise beats any
+     external stylesheet rule regardless of selector specificity. */
+  #brands-carru-section { margin-top: -50px; padding-bottom: 0 !important; }
+  .brands-carru-mask { max-width: 1550px; }
+  .brands-carru-label { margin-bottom: 43px; }
+}
+.brands-carru-track {
+  display: flex;
+  width: max-content;
+  animation: brands-carru-scroll 26s linear infinite;
+}
+.brands-carru-item {
+  display: flex;
+  align-items: center;
+  padding-right: 120px;
+  flex-shrink: 0;
+}
+.brands-carru-img { display: block; width: auto; height: auto; }
+@keyframes brands-carru-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
