@@ -683,6 +683,47 @@ window.addEventListener('load', () => {
                 var setStatsPinCounter = function (i) {
                     statsPinCounterCurrent.textContent = padStatsPinCount(i + 1);
                 };
+
+                // ── Approach reveal: the mirror image of how a stat LEAVES during
+                // the pin (see the crossfade loop below: outgoing goes
+                // { opacity:0, y:-24, filter:'blur(14px)' } with ease power2.in).
+                // Reversed for the entrance — starts at that same offset/blur and
+                // settles down into place (y:-24 -> 0) as it fades/unblurs in, ease
+                // power2.out (the same out-easing the pin's own incoming stat
+                // uses). Same y distance and blur amount as the exit, just run
+                // backward, so the approach reads as one consistent motion
+                // language with the rest of the section instead of a separate,
+                // invented style. .stats-pin-bar and the 01/05 counter get the
+                // same treatment for consistency.
+                // MUST be scroll-scrubbed, not a fixed-duration tween on a toggle:
+                // progress is tied directly to scroll position and guaranteed to
+                // finish (everything settled) exactly at 'top top' — the same
+                // instant the pin timeline below starts controlling
+                // .stats-pin-item's own opacity/filter for the stat-to-stat
+                // crossfade. A real-time tween firing at that same instant can
+                // still be mid-flight on a fast scroll, fighting the pin timeline
+                // for the same property and leaving stat 0 visibly stuck on top of
+                // stat 1 — scrub rules that out entirely.
+                var statsPinBarEl = statsPinSection.querySelector('.stats-pin-bar');
+                var statsPinCounterEl = statsPinCounterCurrent ? (statsPinCounterCurrent.closest('.stats-pin-counter') || statsPinCounterCurrent) : null;
+                var statsPinApproachTargets = [statsPinItems[0]];
+                if (statsPinBarEl) statsPinApproachTargets.push(statsPinBarEl);
+                if (statsPinCounterEl) statsPinApproachTargets.push(statsPinCounterEl);
+                gsap.set(statsPinApproachTargets, { opacity: 0, y: -24, filter: 'blur(14px)' });
+                gsap.to(statsPinApproachTargets, {
+                    opacity: 1, y: 0, filter: 'blur(0px)', ease: 'power2.out',
+                    // start: 'center bottom' — #stats-pin is a full 100vh section
+                    // with its content centered inside, so 'top 80%' was starting
+                    // the reveal while the actual visible number/label were still
+                    // well below the viewport; by the time they scrolled into view
+                    // the tween was already well underway (already visibly
+                    // unblurred/opaque). Keying off the section's own vertical
+                    // CENTER — where the content actually sits — hitting the
+                    // viewport bottom means it starts fully hidden right as it
+                    // first appears on screen.
+                    scrollTrigger: { trigger: statsPinSection, start: 'center bottom', end: 'top top', scrub: 0.3 }
+                });
+
                 var PIN_HOLD = 0.6, PIN_FADE = 0.7, PIN_LAST_HOLD = 1.0;
                 var statsPinBoundaries = [];
 
