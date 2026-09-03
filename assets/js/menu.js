@@ -12,6 +12,12 @@
     if (locked) return;
     locked = true;
 
+    // Pause Lenis's own raf loop so it doesn't keep animating toward a scroll
+    // target while the body is frozen below — otherwise its internal position
+    // can drift out of sync with the real (locked) scrollY, visible as a jump
+    // once unlockScroll() restores it.
+    if (window.__lenis) window.__lenis.stop();
+
     scrollY = window.scrollY || window.pageYOffset || 0;
     const sbw = getScrollbarWidth();
 
@@ -43,6 +49,7 @@
 
     // Vuelve al scroll exacto
     window.scrollTo(0, scrollY);
+    if (window.__lenis) window.__lenis.start();
   }
 
   function sync() {

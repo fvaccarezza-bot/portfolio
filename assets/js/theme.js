@@ -3,7 +3,7 @@
 // Detect browser
 // Detect mobile device
 // Page transitions
-// Smooth Scrollbar
+// Smooth Scroll (Lenis)
 // Image lazy loading
 // Header tools
 // Main menu (classic)
@@ -49,6 +49,11 @@
       return y + (typeof amount === 'number' ? amount : 100);
    }
    window.__uiScaleCorrectScrollY = uiScaleCorrectScrollY;
+
+   // Lenis's own exponential ease-out, reused for every animated scrollTo
+   // (anchor links, scroll-to-top) so the click-triggered scroll feels like
+   // the same engine as wheel/touch scrolling, not a different curve.
+   function lenisEase(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
 
    // ========================================
    // Detect browser and add class to </body>
@@ -141,124 +146,61 @@
    }
 
    // =======================================================================================
-   // Smooth Scrollbar
+   // Smooth Scroll (Lenis)
    // =======================================================================================
 
    if ($('body').hasClass('tt-smooth-scroll')) {
       if (!isMobile) {
        try {
-         var Scrollbar = window.Scrollbar;
-         class AnchorPlugin extends Scrollbar.ScrollbarPlugin {
-            static pluginName = 'anchor';
-            onHashChange = () => { this.jumpToHash(window.location.hash); };
-            // onClick (removed): this used to also jump-to-hash on every click of
-            // any a[href^="#"] inside the scroll content, via a native listener on
-            // contentEl — completely redundant with, and running independently of,
-            // the site's actual menu/anchor scroll handler ("Scroll between
-            // anchors" below), which already covers every such link with its own
-            // gsap.to(scrollbar, {scrollTo:...}) call. Two independent systems
-            // both reacting to the same click — one clearing scrollTop to 0 first,
-            // the other easing toward the real target — is what produced the
-            // "jumps to the top first" bug. jumpToHash/onHashChange stay: they
-            // only fire on browser back/forward and on direct #hash page loads,
-            // which the other handler doesn't cover and which don't compete with
-            // it (no click involved).
-            jumpToHash = (hash) => {
-               if (!hash) { return; }
-               const { scrollbar } = this;
-               scrollbar.containerEl.scrollTop = 0;
-               if (hash === '#contact') { scrollbar.scrollTo(0, scrollbar.limit.y, 600); return; }
-               const target = document.querySelector(hash);
-               if (target) { scrollbar.scrollIntoView(target, { offsetTop: parseFloat(target.getAttribute('data-offset')) || 0 }); }
-            };
-            onInit() {
-               this.jumpToHash(window.location.hash);
-               window.addEventListener('hashchange', this.onHashChange);
-            }
-            onDestory() {
-               window.removeEventListener('hashchange', this.onHashChange);
-            }
+         // Migrated from smooth-scrollbar to Lenis: native document scroll,
+         // smoothed by Lenis itself, read directly by GSAP ScrollTrigger — no
+         // scrollerProxy needed, native window is ScrollTrigger's default
+         // scroller once body scroll is no longer hidden (see theme.css).
+         var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+         var lenis = null;
+         if (window.Lenis && !reduceMotion) {
+            lenis = new Lenis({
+               duration: 1.6,
+               easing: function (t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); },
+               smoothWheel: true
+            });
+            (function raf(time) {
+               lenis.raf(time);
+               requestAnimationFrame(raf);
+            })();
+            lenis.on('scroll', ScrollTrigger.update);
          }
-         // ── Soft landing near top/bottom ──────────────────────────────
-         // Two earlier approaches were tried and measured, not just
-         // reasoned about, before this one:
-         //  1) transformDelta (input-time delta scaling) — no visible
-         //     effect: on a real flick, wheel/touch events stop firing well
-         //     before the glide finishes, so almost all the deceleration
-         //     happens after input has already ended, outside its reach.
-         //  2) scaling this._momentum every frame in onRender — reaches
-         //     the boundary, but is unstable across flick strengths: tuned
-         //     strong/wide enough to be noticeable, it kills the momentum
-         //     before the glide covers the remaining distance and the
-         //     scroll visibly stalls short of the edge; tuned safe, it's
-         //     indistinguishable from the page's own already-heavy damping.
-         //     Also discovered along the way: the library already clamps
-         //     offset to [0, limit.y] with zero overshoot entirely on its
-         //     own — momentum-scaling was never providing that part.
-         // This version stops trying to reshape momentum and instead takes
-         // over for a fixed final stretch: once within CATCH_PX of an edge
-         // *while already coasting toward it*, momentum is zeroed (so the
-         // library's own render loop stops moving offset) and a single
-         // fixed-duration GSAP tween eases the exact remaining distance to
-         // 0 or limit.y, driven through the library's own setPosition —
-         // the same method its internal render loop uses, so this is still
-         // "the existing Smooth Scrollbar", just told the landing position
-         // directly instead of being asked to decay its way there. Any new
-         // real wheel/touch input cancels the tween immediately, so a
-         // deliberate scroll away from the edge is never fought. Distance
-         // moved is always the true remaining distance (never overshoots),
-         // and normal scrolling anywhere outside CATCH_PX is untouched.
-         class SoftLandingPlugin extends Scrollbar.ScrollbarPlugin {
-            static pluginName = 'softLanding';
-            constructor(scrollbar, options) {
-               super(scrollbar, options);
-               this._landingTween = null;
-            }
-            transformDelta(delta) {
-               if (this._landingTween) { this._landingTween.kill(); this._landingTween = null; }
-               return delta;
-            }
-            onRender() {
-               if (this._landingTween) return;
-               var sb = this.scrollbar, mom = sb._momentum;
-               if (!mom) return;
-               var CATCH_PX = 70, DURATION = 0.45;
-               var offsetY = sb.offset.y, limitY = sb.limit.y, self = this;
-               var target = null;
-               if (mom.y < 0 && offsetY > 0 && offsetY < CATCH_PX) { target = 0; }
-               else if (mom.y > 0 && offsetY < limitY && offsetY > limitY - CATCH_PX) { target = limitY; }
-               if (target === null) return;
-               mom.y = 0;
-               var state = { y: offsetY };
-               this._landingTween = gsap.to(state, {
-                  y: target, duration: DURATION, ease: 'expo.out', overwrite: true,
-                  onUpdate: function () { sb.setPosition(sb.offset.x, state.y); },
-                  onComplete: function () { self._landingTween = null; }
-               });
-            }
-         }
-         Scrollbar.use(AnchorPlugin);
-         Scrollbar.use(SoftLandingPlugin);
-         Scrollbar.init(document.querySelector('#scroll-container'), { damping: 0.06, renderByPixel: true, continuousScrolling: true, alwaysShowTracks: true });
-         let scrollPositionX = 0, scrollPositionY = 0, bodyScrollBar = Scrollbar.init(document.getElementById('scroll-container'));
-         bodyScrollBar.addListener(({ offset }) => { scrollPositionX = offset.x; scrollPositionY = offset.y; });
-         bodyScrollBar.setPosition(0, 0);
-         bodyScrollBar.track.xAxis.element.remove();
-         ScrollTrigger.scrollerProxy('body', { scrollTop(value) { if (arguments.length) { bodyScrollBar.scrollTop = value; } return bodyScrollBar.scrollTop; } });
-         bodyScrollBar.addListener(ScrollTrigger.update);
+         window.__lenis = lenis;
+         // Shim: translates Lenis's scroll event into the {offset:{x,y}, limit:{y}}
+         // shape every existing "sb.addListener(status => ...)" call-site elsewhere
+         // in the codebase (hero parallax, craft parallax, etc.) already expects —
+         // so those tuned callback bodies don't need rewriting, only their two-line
+         // "get a scroll handle" preamble at each site.
+         window.__lenisListen = function (fn) {
+            if (!lenis) return;
+            lenis.on('scroll', function (l) {
+               fn({ offset: { x: 0, y: l.scroll }, limit: { y: l.limit } });
+            });
+         };
 
-         // ── Arrow/Page/Home/End keys should scroll even if focus drifted off #scroll-container ──
-         document.addEventListener('keydown', function (e) {
-            var navKeyCodes = [33, 34, 35, 36, 38, 40];
-            if (navKeyCodes.indexOf(e.keyCode) === -1) { return; }
-            var active = document.activeElement;
-            var isEditable = active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.tagName === 'SELECT' || active.isContentEditable);
-            if (isEditable) { return; }
-            var container = document.getElementById('scroll-container');
-            if (container && active !== container && !container.contains(active)) {
-               container.focus();
+         // ── Hash jump-to-anchor (replaces the old AnchorPlugin: fires on load
+         // and on browser back/forward hash changes — doesn't compete with the
+         // click handler further down, which handles actual link clicks, so no
+         // "jumps to the top first" double-handling risk). ──
+         function jumpToHash(hash) {
+            if (!hash) { return; }
+            if (hash === '#contact') {
+               var bottomY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+               if (lenis) { lenis.scrollTo(bottomY, { immediate: true }); } else { window.scrollTo(0, bottomY); }
+               return;
             }
-         }, true);
+            var target = document.querySelector(hash);
+            if (!target) { return; }
+            var offset = parseFloat(target.getAttribute('data-offset')) || 0;
+            if (lenis) { lenis.scrollTo(target, { offset: -offset, immediate: true }); } else { target.scrollIntoView(); }
+         }
+         jumpToHash(window.location.hash);
+         window.addEventListener('hashchange', function () { jumpToHash(window.location.hash); });
 
          // ── HERO STICKY FADE (solo home, solo desktop) ──
          var $pageHeader = $('#page-header');
@@ -290,7 +232,7 @@
             };
             window.addEventListener('resize', scheduleContentWrapMarginSync, { passive: true });
 
-            bodyScrollBar.addListener(function(status) {
+            window.__lenisListen(function(status) {
                var scrollY = status.offset.y;
                var heroH = $pageHeader.outerHeight();
                // #page-header is display:none at mobile widths (outerHeight() = 0);
@@ -317,17 +259,15 @@
          }
          $('input[type=number]').on('focus', function () { $(this).on('wheel', function (e) { e.stopPropagation(); }); });
        } catch (e) {
-         // Safety net: this whole block leans on gsap/ScrollTrigger being defined
-         // (Scrollbar.init, ScrollTrigger.scrollerProxy, gsap.to for the anchor/hero
-         // effects). Those now load from ./assets/vendor/gsap/ instead of a CDN, so
-         // this shouldn't fire in normal operation — but if it ever does (a corrupted
-         // local file, a future edit reintroducing a CDN dependency, etc.), logging
-         // and continuing beats a silent ReferenceError that kills every line of
-         // theme.js after it, including the code the mobile branch below needs.
-         console.error('[theme.js] Smooth Scrollbar init failed:', e);
+         // Safety net: this whole block leans on gsap/ScrollTrigger/Lenis being
+         // defined. GSAP loads from ./assets/vendor/gsap/, Lenis from a CDN tag —
+         // if either fails, logging and continuing beats a silent ReferenceError
+         // that kills every line of theme.js after it, including the code the
+         // mobile branch below needs.
+         console.error('[theme.js] Lenis smooth-scroll init failed:', e);
        }
       } else {
-         // ── Mobile: no Scrollbar/AnchorPlugin — do native anchor scroll honoring data-offset ──
+         // ── Mobile: no Lenis — do native anchor scroll honoring data-offset ──
          var mobileJumpToHash = function (hash) {
             if (!hash) { return; }
             var target = document.querySelector(hash);
@@ -709,7 +649,7 @@
       if ($('#tt-header').hasClass('tt-header-fixed')) { var $offset = $('#tt-header').height(); } else { var $offset = 0; }
       if ($(this).data('offset') != undefined) $offset = $(this).data('offset');
       if (!isMobile) {
-         if ($('body').hasClass('tt-smooth-scroll')) { var $scrollbar = Scrollbar.init(document.getElementById('scroll-container')); var topY = target === '#contact' ? $scrollbar.limit.y : uiScaleCorrectScrollY($(target).offset().top - $('#scroll-container > .scroll-content').offset().top - $offset, target === '#services' ? 0 : 100); gsap.to($scrollbar, { duration: 2.2, scrollTo: { y: topY, autoKill: true }, ease: Expo.easeInOut }); }
+         if ($('body').hasClass('tt-smooth-scroll') && window.__lenis) { var topY = target === '#contact' ? Math.max(0, document.documentElement.scrollHeight - window.innerHeight) : uiScaleCorrectScrollY($(target).offset().top - $offset, target === '#services' ? 0 : 100); window.__lenis.scrollTo(topY, { duration: 2.2, easing: lenisEase }); }
          else { var topY = $(target).offset().top - $('body').offset().top - $offset; $('html,body').animate({ scrollTop: topY }, 800); }
       } else { var topY = $(target).offset().top - $('body').offset().top - $offset; $('html,body').animate({ scrollTop: topY }, 800); }
       return false;
@@ -717,7 +657,7 @@
 
    // Scroll to top
    $('.scroll-to-top').on('click', function () {
-      if (!isMobile) { if ($('body').hasClass('tt-smooth-scroll')) { var $scrollbar = Scrollbar.init(document.getElementById('scroll-container')); gsap.to($scrollbar, { duration: 1.5, scrollTo: { y: 0, autoKill: true }, ease: Expo.easeInOut }); } else { $('html,body').animate({ scrollTop: 0 }, 800); } }
+      if (!isMobile) { if ($('body').hasClass('tt-smooth-scroll') && window.__lenis) { window.__lenis.scrollTo(0, { duration: 1.5, easing: lenisEase }); } else { $('html,body').animate({ scrollTop: 0 }, 800); } }
       else { $('html,body').animate({ scrollTop: 0 }, 800); }
       return false;
    });

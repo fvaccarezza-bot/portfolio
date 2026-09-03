@@ -208,15 +208,15 @@ if (window.innerWidth > 768) {
     })();
 
     setTimeout(function() {
-        var sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
-        if (!sb) return;
+        if (!window.__lenis) return;
+        var lenisEase = function (t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); };
 
         // logo → scroll to absolute top
         document.querySelectorAll('a[href="#page-header"]').forEach(function(logo) {
             logo.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopImmediatePropagation();
-                gsap.to(sb, { duration: 2.2, scrollTo: { y: 0, autoKill: true }, ease: Expo.easeInOut });
+                window.__lenis.scrollTo(0, { duration: 2.2, easing: lenisEase });
             }, true);
         });
 
@@ -255,19 +255,16 @@ if (window.innerWidth > 768) {
 
                 var heroNameEl = document.getElementById('hero-name-link');
                 var doHeroScroll = function () {
-                    var sbNow = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
                     var about = document.getElementById('about');
-                    if (!sbNow || !about) return;
-                    var topY = $(about).offset().top - $('#scroll-container > .scroll-content').offset().top + 50;
+                    if (!window.__lenis || !about) return;
+                    var topY = $(about).offset().top + 50;
                     /* Retina/high-DPI correction — see uiScaleCorrectScrollY in
-                       theme.js for why this is needed (topY above is visual-space,
-                       the scrollbar's own offset.y is layout-space, so this
-                       undershoots the target below UW without it). No-op
-                       everywhere else, including UW. Only matters for the fallback
-                       path below, if the pin isn't found. */
+                       theme.js for why this is needed. No-op everywhere else,
+                       including UW. Only matters for the fallback path below, if
+                       the pin isn't found. */
                     if (window.__uiScaleCorrectScrollY) topY = window.__uiScaleCorrectScrollY(topY);
                     if (window.innerWidth >= 2560) topY += 50; // UW-only nudge, same as the nav-menu About scroll-to in theme.js
-                    gsap.to(sbNow, { duration: 2.2, scrollTo: { y: topY, autoKill: true }, ease: Expo.easeInOut });
+                    window.__lenis.scrollTo(topY, { duration: 2.2, easing: lenisEase });
                 };
 
                 var syncHeroHitSize = function () { heroHit.style.height = pageHeader.offsetHeight + 'px'; };
@@ -281,7 +278,7 @@ if (window.innerWidth > 768) {
                 // area must keep working even if the Ink Shift prototype is deleted
                 // (its own header comment says it's safe to delete standalone).
                 var heroVisible = true;
-                sb.addListener(function (status) {
+                window.__lenisListen(function (status) {
                     syncHeroHitSize();
                     var nowVisible = status.offset.y < pageHeader.offsetHeight;
                     if (nowVisible === heroVisible) return;
@@ -306,36 +303,13 @@ if (window.innerWidth > 768) {
                     doHeroScroll();
                 });
 
-                // Wheel/trackpad: RE-DISPATCHED onto #scroll-container, not
-                // reimplemented. Confirmed in assets/vendor/smooth-scrollbar.js that
-                // its wheel listener is bound directly to containerEl
-                // (#scroll-container) — not document/window — so bubbling never
-                // reaches it from here (this element is a DOM sibling of
-                // #scroll-container by construction, see comment above). A native
-                // wheel event hit-tested against this element therefore needs
-                // rerouting, same class of gap as the old Ink Shift hit-zone bug.
-                // Earlier version "fixed" that by manually replicating the scroll
-                // itself (sb.scrollTo(offset+deltaY, duration:0)) — but that skipped
-                // the library's own deltaMode normalization AND its damping/momentum
-                // entirely, so every wheel tick over the hero was an abrupt, un-eased
-                // jump instead of matching the smooth feel everywhere else on the
-                // page. Re-dispatching a real WheelEvent at #scroll-container instead
-                // hands it to the library's own unmodified handler, so it processes
-                // exactly as it would for a wheel event anywhere else — same
-                // deltaMode handling, same damping, same momentum. No Smooth
-                // Scrollbar code touched or reconfigured.
-                heroHit.addEventListener('wheel', function (e) {
-                    var sc = document.getElementById('scroll-container');
-                    if (!sc) return;
-                    sc.dispatchEvent(new WheelEvent('wheel', {
-                        deltaX: e.deltaX, deltaY: e.deltaY, deltaZ: e.deltaZ, deltaMode: e.deltaMode,
-                        clientX: e.clientX, clientY: e.clientY, bubbles: true, cancelable: true
-                    }));
-                    // Prevents this element's own (nonexistent) default handling —
-                    // it isn't scrollable itself — as a safety net against any native
-                    // fallback scroll stacking on top of the redispatch above.
-                    e.preventDefault();
-                }, { passive: false });
+                // Wheel/trackpad over this element: no handler needed anymore.
+                // Previously (smooth-scrollbar) this required re-dispatching the
+                // event onto #scroll-container, since that library bound its wheel
+                // listener there specifically, not on document/window, so bubbling
+                // never reached it. Lenis listens at the window/document level by
+                // default, so a native wheel event over #heroHit just bubbles up
+                // and reaches it on its own — no redirect, no preventDefault.
 
                 // #hero-name-link's own :hover (scale on the letters, see CSS near
                 // top of file) stops firing natively once this element sits above

@@ -17,13 +17,14 @@
        anything hanging off this class is absent there rather than applied as a
        no-op. */
     htmlFitClass: "ui-scale-fit",
-    rootSelector: "#scroll-container",
     eps: 0.0005,
   };
 
   const html = document.documentElement;
-  const root = document.querySelector(CFG.rootSelector);
-  if (!root) return;
+  // Migrated to Lenis (native document scroll) — was "#scroll-container",
+  // smooth-scrollbar's own scrolling div. document.documentElement is now
+  // the thing that actually scrolls.
+  const root = html;
 
   const mqRetina = window.matchMedia(
     "(min-resolution: 2dppx), (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)"

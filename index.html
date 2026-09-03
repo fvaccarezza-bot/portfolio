@@ -35,7 +35,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 <link rel="stylesheet" href="./assets/vendor/normalize/normalize.min.css?v=20260815-01" />
 <link rel="stylesheet" href="./assets/vendor/fontawesome/css/fontawesome-all.min.css?v=20260815-01" />
 <link rel="stylesheet" href="./assets/vendor/helper.css?v=20260815-01" />
-<link rel="stylesheet" href="./assets/vendor/theme.css?v=20260815-01" />
+<link rel="stylesheet" href="./assets/vendor/theme.css?v=20260829-01" />
 <link rel="stylesheet" href="./assets/fonts/fonts.css?v=20260815-01" />
 <link rel="stylesheet" href="./assets/css/config.css?v=20260815-01">
 <link rel="stylesheet" href="./assets/css/fede.css?v=20260829-37" />
@@ -46,7 +46,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 <link rel="stylesheet" href="./assets/css/responsive.css?v=20260815-01" />
 <link rel="stylesheet" href="./assets/css/transition.css?v=20260815-01" />
 <link rel="stylesheet" href="./assets/css/retina-80.css?v=20260815-01" />
-<link rel="stylesheet" href="./assets/css/ui-scale.css?v=20260815-01" />
+<link rel="stylesheet" href="./assets/css/ui-scale.css?v=20260829-01" />
 <style>
 
 /* ── Normal-res text scale (excludes retina/UW, which keep their own hardcoded sizes) ──
@@ -1203,9 +1203,8 @@ document.addEventListener('click', function(e) {
                             var HERO_RATE = 0.025;
                             var drift = HERO_RATE * (1 - CRAFT_SPEED);
                             function startParallax() {
-                                var sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
-                                if (!sb) return;
-                                sb.addListener(function (status) {
+                                if (!window.__lenisListen) return;
+                                window.__lenisListen(function (status) {
                                     el.style.setProperty('--craft-parallax', (status.offset.y * drift).toFixed(2) + 'px');
                                 });
                             }
@@ -1668,8 +1667,7 @@ document.addEventListener('click', function(e) {
                             }
 
                             setTimeout(function () {
-                                var sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
-                                if (sb) sb.addListener(function (status) {
+                                if (window.__lenisListen) window.__lenisListen(function (status) {
                                     syncBox();
                                     updateHeroVisible(status.offset.y);
                                 });
@@ -2286,15 +2284,14 @@ document.addEventListener('click', function(e) {
                     }, { passive: true });
 
                     setTimeout(function () {
-                        var sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
-                        if (sb) sb.addListener(function () { syncBox(); });
+                        if (window.__lenisListen) window.__lenisListen(function () { syncBox(); });
                     }, 900);
 
                     // Small delay before the first build(): the with-rt.svg/with-uw.svg src swap
                     // lives in a separate, later script (the services-big parallax block) that
                     // isn't gated behind this same gsap-ready poll, so ordering between the two
                     // isn't guaranteed on first load. This is the same buffer used elsewhere in
-                    // this file (see the Scrollbar listener above) to let that settle first —
+                    // this file (see the scroll listener above) to let that settle first —
                     // without it, the echoes could occasionally bake in the wrong image on load.
                     setTimeout(refresh, 200);
                     } // end initWithInkShift
@@ -2735,7 +2732,7 @@ document.addEventListener('click', function(e) {
 <script src="./assets/vendor/gsap/gsap.min.js?v=20260825-01"></script>
 <script src="./assets/vendor/gsap/ScrollToPlugin.min.js?v=20260815-01"></script>
 <script src="./assets/vendor/gsap/ScrollTrigger.min.js?v=20260825-01"></script>
-<script src="./assets/vendor/smooth-scrollbar.js?v=20260815-01"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
 <!-- Swiper / LightGallery / jquery.mousewheel: no matching markup on Home (.tt-portfolio-slider,
      .lightgallery, .lg-trigger all absent; jquery.mousewheel has no caller here either) — their
      init calls in theme.js are guarded (if ($('.tt-portfolio-slider').length) / if ($.fn.lightGallery)),
@@ -2799,7 +2796,7 @@ document.addEventListener('click', function(e) {
      way (verified in work/web/index.html) and cursor-follow.js is still loaded there unchanged. -->
 <script src="./assets/js/scroll.js?v=20260815-01"></script>
 <script src="./assets/js/transition.js?v=20260815-01" defer></script>
-<script src="./assets/js/home-load-animations.js?v=20260829-18"></script>
+<script src="./assets/js/home-load-animations.js?v=20260829-19"></script>
 <script src="./assets/js/home-mobile-interactions.js"></script>
 </body>
 </html>

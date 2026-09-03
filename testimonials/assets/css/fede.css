@@ -1,6 +1,9 @@
 .mob-ok {
   display: none !important;
 }
+/* LENIS (smooth-scroll engine, replaces smooth-scrollbar) */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
 /* NOISE */
 .noise-fill-hover {
   position: relative;

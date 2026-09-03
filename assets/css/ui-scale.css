@@ -56,11 +56,21 @@ html.ui-scale-fit body.tt-smooth-scroll:not(.is-mobile) #scroll-container {
   overflow-x: hidden;
 }
 
-/* Scroll/altura sin clipping:
-   compenso el alto del scroller para que el alto VISUAL quede igual al viewport. */
-html.ui-scale-on body.tt-smooth-scroll:not(.is-mobile) #scroll-container {
-  height: calc(var(--uiVh) * var(--uiScaleInv));
-}
+/* Migrated to Lenis (native document scroll) — this used to force
+   #scroll-container to exactly one viewport tall (compensating the
+   scale() shrink above) because smooth-scrollbar needed that box to scroll
+   internally. Under native scroll, forcing a fixed height here (with
+   overflow:visible) stops body/html from ever seeing the real content
+   height — scroll travels the first viewport and then hits a wall. Left
+   at auto (no rule) so #scroll-container's layout height follows its real
+   content again, letting native scroll reach all of it.
+   Known tradeoff: transform:scale() only affects paint, not layout, so at
+   scale<1 (narrower than baseW) the pre-scale (unscaled) height is what
+   the document actually scrolls — some empty space past the visually
+   scaled-down content's true bottom. Only matters below baseW; fine at
+   scale:1 (the common case). Revisit with a JS-computed height
+   (scrollHeight * scale, in ui-scale.js) if that empty space is visible
+   enough to bother fixing. */
 
 /* Si querés que el fondo “sobrante” a los lados no genere barras */
 html.ui-scale-on body {

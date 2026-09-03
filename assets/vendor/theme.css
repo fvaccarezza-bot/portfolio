@@ -266,8 +266,7 @@ body.tt-boxed .tt-wrap .tt-wrap {
 
 #body-inner {
    position: relative;
-   overflow: hidden;
-   height: 100%;
+   overflow-x: hidden;
    min-height: 100vh;
 }
 
@@ -342,18 +341,10 @@ select::-webkit-scrollbar-thumb {
  * Source: https://github.com/idiotWu/smooth-scrollbar/
 /* ------------------------------------------------------------- */
 
-/* Hide default scrollbar */
-body:not(.is-mobile).tt-smooth-scroll {
-   overflow: hidden;
-}
-
-/* Scroll content (added if <body> contain class "tt-smooth-scroll". Disabled on mobile devices!) */
-body:not(.is-mobile).tt-smooth-scroll #scroll-container {
-   width: auto;
-   height: 100vh;
-   overflow: auto;
-   margin: 0;
-}
+/* Migrated to Lenis (native document scroll) — the rules that hid native
+   scroll and turned #scroll-container into its own overflow:auto viewport
+   are gone. #scroll-container keeps its other properties (position, etc.)
+   from the shared layout rules elsewhere; it's just a plain block now. */
 
 /* Styling scrollbar */
 .scrollbar-track {

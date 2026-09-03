@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="en">
 <head>
    <!-- Google tag (gtag.js) -->
@@ -706,7 +706,7 @@
 <script src="../../assets/vendor/gsap/gsap.min.js"></script>
 <script src="../../assets/vendor/gsap/ScrollToPlugin.min.js"></script>
 <script src="../../assets/vendor/gsap/ScrollTrigger.min.js"></script>
-<script src="../../assets/vendor/smooth-scrollbar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
 <script src="../../assets/vendor/swiper/js/swiper-bundle.min.js"></script>
 <script src="../../assets/vendor/isotope/imagesloaded.pkgd.min.js"></script>
 <script src="../../assets/vendor/isotope/isotope.pkgd.min.js"></script>
@@ -1252,12 +1252,6 @@ window.addEventListener('load', function() {
                 function refreshScrollSync() {
                     window.dispatchEvent(new Event('resize'));
                     if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
-                    try {
-                        if (typeof Scrollbar !== 'undefined' && document.getElementById('scroll-container')) {
-                            var sb = Scrollbar.init(document.getElementById('scroll-container'));
-                            if (sb && typeof sb.update === 'function') sb.update();
-                        }
-                    } catch (e) {}
                 }
                 var galleryImgs = document.querySelectorAll('.product-parallax-frame img');
                 var pending = galleryImgs.length;

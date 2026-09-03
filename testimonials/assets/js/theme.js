@@ -39,6 +39,11 @@
 (function ($) {
    'use strict';
 
+   // Lenis's own exponential ease-out, reused for every animated scrollTo
+   // (anchor links, scroll-to-top) so click-triggered scrolls feel like the
+   // same engine as wheel/touch scrolling.
+   function lenisEase(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
+
    // ========================================
    // Detect browser and add class to </body>
    // ========================================
@@ -317,95 +322,46 @@
    if ($('body').hasClass('tt-smooth-scroll')) {
       // Not for mobile devices!
       if (!isMobile) {
-         var Scrollbar = window.Scrollbar;
-
-         // AnchorPlugin (URL with hash links load in the right position)
-         // https://github.com/idiotWu/smooth-scrollbar/issues/440
-         // ==================================
-         class AnchorPlugin extends Scrollbar.ScrollbarPlugin {
-            static pluginName = 'anchor';
-
-            onHashChange = () => {
-               this.jumpToHash(window.location.hash);
-            };
-
-            onClick = (event) => {
-               const { target } = event;
-               if (target.tagName !== 'A') {
-                  return;
-               }
-               const hash = target.getAttribute('href');
-               if (!hash || hash.charAt(0) !== '#') {
-                  return;
-               }
-               this.jumpToHash(hash);
-            };
-
-            jumpToHash = (hash) => {
-               if (!hash) {
-                  return;
-               }
-               const { scrollbar } = this;
-               scrollbar.containerEl.scrollTop = 0;
-               const target = document.querySelector(hash);
-               if (target) {
-                  scrollbar.scrollIntoView(target, {
-                     offsetTop: parseFloat(target.getAttribute('data-offset')) || 0, // Change to set default offset
-                  });
-               }
-            };
-
-            onInit() {
-               this.jumpToHash(window.location.hash);
-               window.addEventListener('hashchange', this.onHashChange);
-               this.scrollbar.contentEl.addEventListener('click', this.onClick);
-            }
-
-            onDestory() {
-               window.removeEventListener('hashchange', this.onHashChange);
-               this.scrollbar.contentEl.removeEventListener('click', this.onClick);
-            }
+         // Migrated from smooth-scrollbar to Lenis: native document scroll,
+         // smoothed by Lenis itself, read directly by GSAP ScrollTrigger — no
+         // scrollerProxy needed. Mirrors the same migration on the main site's
+         // assets/js/theme.js.
+         var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+         var lenis = null;
+         if (window.Lenis && !reduceMotion) {
+            lenis = new Lenis({
+               duration: 1.6,
+               easing: function (t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); },
+               smoothWheel: true
+            });
+            (function raf(time) {
+               lenis.raf(time);
+               requestAnimationFrame(raf);
+            })();
+            lenis.on('scroll', ScrollTrigger.update);
          }
+         window.__lenis = lenis;
+         window.__lenisListen = function (fn) {
+            if (!lenis) return;
+            lenis.on('scroll', function (l) {
+               fn({ offset: { x: 0, y: l.scroll }, limit: { y: l.limit } });
+            });
+         };
 
-         // usage
-         Scrollbar.use(AnchorPlugin);
-
-         // Init Smooth Scrollbar
-         // ======================
-         Scrollbar.init(document.querySelector('#scroll-container'), {
-            damping: 0.06,
-            renderByPixel: true,
-            continuousScrolling: true,
-            alwaysShowTracks: true,
-         });
-
-         // 3rd party library setup
-         // More info: https://greensock.com/docs/v3/Plugins/ScrollTrigger/static.scrollerProxy()
-         // ========================
-         let scrollPositionX = 0,
-            scrollPositionY = 0,
-            bodyScrollBar = Scrollbar.init(document.getElementById('scroll-container'));
-
-         bodyScrollBar.addListener(({ offset }) => {
-            scrollPositionX = offset.x;
-            scrollPositionY = offset.y;
-         });
-
-         bodyScrollBar.setPosition(0, 0);
-         bodyScrollBar.track.xAxis.element.remove();
-
-         // tell ScrollTrigger to use these proxy getter/setter methods for the "body" element:
-         ScrollTrigger.scrollerProxy('body', {
-            scrollTop(value) {
-               if (arguments.length) {
-                  bodyScrollBar.scrollTop = value;
-               }
-               return bodyScrollBar.scrollTop;
-            },
-         });
-
-         // when smooth scroller updates, tell ScrollTrigger to update() too.
-         bodyScrollBar.addListener(ScrollTrigger.update);
+         // ── Hash jump-to-anchor (replaces AnchorPlugin) — fires on load and
+         // browser back/forward only, NOT on click (the separate "Scroll
+         // between anchors" click handler further down already covers every
+         // click; wiring both up is what causes a "jumps to the top first"
+         // bug on the main site — see assets/js/theme.js). ──
+         function jumpToHash(hash) {
+            if (!hash) { return; }
+            var target = document.querySelector(hash);
+            if (!target) { return; }
+            var offset = parseFloat(target.getAttribute('data-offset')) || 0;
+            if (lenis) { lenis.scrollTo(target, { offset: -offset, immediate: true }); } else { target.scrollIntoView(); }
+         }
+         jumpToHash(window.location.hash);
+         window.addEventListener('hashchange', function () { jumpToHash(window.location.hash); });
 
          // Move "tt-header" out of "scroll-container"
          // Expl: Since Smooth Scrollbar doesn't support element fixed position inside "scroll-container" move the "tt-header" out of it.
@@ -2952,17 +2908,9 @@
 
          if (!isMobile) {
             // Not for mobile devices!
-            if ($('body').hasClass('tt-smooth-scroll')) {
-               var topY =
-                  $(target).offset().top -
-                  $('#scroll-container > .scroll-content').offset().top -
-                  $offset;
-               var $scrollbar = Scrollbar.init(document.getElementById('scroll-container'));
-               gsap.to($scrollbar, {
-                  duration: 1.5,
-                  scrollTo: { y: topY, autoKill: true },
-                  ease: Expo.easeInOut,
-               });
+            if ($('body').hasClass('tt-smooth-scroll') && window.__lenis) {
+               var topY = $(target).offset().top - $offset;
+               window.__lenis.scrollTo(topY, { duration: 1.5, easing: lenisEase });
             } else {
                var topY = $(target).offset().top - $('body').offset().top - $offset;
                $('html,body').animate({ scrollTop: topY }, 800);
@@ -2982,13 +2930,8 @@
    $('.scroll-to-top').on('click', function () {
       if (!isMobile) {
          // Not for mobile devices!
-         if ($('body').hasClass('tt-smooth-scroll')) {
-            var $scrollbar = Scrollbar.init(document.getElementById('scroll-container'));
-            gsap.to($scrollbar, {
-               duration: 1.5,
-               scrollTo: { y: 0, autoKill: true },
-               ease: Expo.easeInOut,
-            });
+         if ($('body').hasClass('tt-smooth-scroll') && window.__lenis) {
+            window.__lenis.scrollTo(0, { duration: 1.5, easing: lenisEase });
          } else {
             $('html,body').animate({ scrollTop: 0 }, 800);
          }

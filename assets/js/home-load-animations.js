@@ -22,11 +22,10 @@ window.addEventListener('load', () => {
             if (!pill) return;
             e.preventDefault();
             e.stopImmediatePropagation();
-            var sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
-            if (sb && window.gsap && typeof jQuery !== 'undefined') {
-                var scrollContent = document.querySelector('#scroll-container > .scroll-content');
-                var topY = jQuery(pill).offset().top - jQuery(scrollContent).offset().top - 50;
-                gsap.to(sb, { duration: 2.2, scrollTo: { y: topY, autoKill: true }, ease: Expo.easeInOut });
+            var lenis = window.__lenis;
+            if (lenis && typeof jQuery !== 'undefined') {
+                var topY = jQuery(pill).offset().top - 50;
+                lenis.scrollTo(topY, { duration: 2.2, easing: function (t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); } });
             } else {
                 var y = pill.getBoundingClientRect().top + window.pageYOffset - 50;
                 window.scrollTo({ top: y, behavior: 'smooth' });
@@ -173,10 +172,9 @@ window.addEventListener('load', () => {
     // ── Fix: neutralize content-wrap upward shift that leaves a gap at the bottom ──
     if (window.innerWidth > 768) {
         setTimeout(function() {
-            const sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
             const contentWrap = document.getElementById('content-wrap');
-            if (sb && contentWrap) {
-                sb.addListener(function() {
+            if (window.__lenisListen && contentWrap) {
+                window.__lenisListen(function() {
                     contentWrap.style.transform = 'translateY(0px)';
                 });
             }
@@ -185,8 +183,7 @@ window.addEventListener('load', () => {
 
     if (window.innerWidth > 768) {
         setTimeout(function() {
-            const sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
-            if (!sb) return;
+            if (!window.__lenisListen) return;
             const heroLabel = document.getElementById('hero-portfolio-label');
             const lineFedEl = document.getElementById('line-federico');
             const lineVacEl = document.getElementById('line-vaccarezza');
@@ -195,7 +192,7 @@ window.addEventListener('load', () => {
             const hoverFv   = document.querySelector('.hover-fv');
             const aboutShadow = document.getElementById('about-enter-shadow');
             const heroMetaRowScroll = document.getElementById('hero-meta-row');
-            sb.addListener(function({ offset }) {
+            window.__lenisListen(function({ offset }) {
                 if (!window._heroParallaxReady) return;
                 const heroH = hero ? hero.offsetHeight : window.innerHeight;
                 const p = Math.min(offset.y / (heroH * 1.2), 1);
@@ -429,10 +426,10 @@ window.addEventListener('load', () => {
                         gsap.ticker.remove(checkWorksReveal);
                     }
                 };
-                // ScrollTrigger's global 'update' event never fired in this setup
-                // (only individual triggers' own onUpdate do, via bodyScrollBar's
-                // listener) — gsap.ticker runs every animation frame regardless,
-                // so it's a reliable place to poll a plain getBoundingClientRect.
+                // ScrollTrigger's global 'update' event isn't reliably available
+                // here (only individual triggers' own onUpdate is guaranteed) —
+                // gsap.ticker runs every animation frame regardless, so it's a
+                // reliable place to poll a plain getBoundingClientRect.
                 gsap.ticker.add(checkWorksReveal);
                 checkWorksReveal();
             }
@@ -537,8 +534,7 @@ window.addEventListener('load', () => {
 
             // fede-blur zoom + fede-solo scale down anchored to bottom
             setTimeout(function() {
-                const sb = window.Scrollbar && window.Scrollbar.get(document.getElementById('scroll-container'));
-                if (!sb) return;
+                if (!window.__lenisListen) return;
                 const fedeBlur = document.getElementById('fede-blur-img');
                 const fedeSolo = document.getElementById('fede-solo-img');
                 const fedeWrap = document.getElementById('fede-photo-wrap');
@@ -650,7 +646,7 @@ window.addEventListener('load', () => {
                 }
                 wake(); // apply the initial at-rest transform once
 
-                sb.addListener(function({ offset }) {
+                window.__lenisListen(function({ offset }) {
                     wrapRect = fedeWrap.getBoundingClientRect();
                     const vh = window.innerHeight;
                     const progress = Math.max(0, Math.min(1, (vh - wrapRect.top) / (vh + fedeWrap.offsetHeight)));
