@@ -81,9 +81,28 @@ html.lenis, html.lenis body { height: auto; }
   to { transform: none; }
 }
 
-/* SCROLL */
-.scrollbar-thumb { background: var(--color-fede-fv-gray, #979797) !important; opacity: 0.35; }
-.scrollbar-track:hover .scrollbar-thumb { opacity: 0.6; }
+/* SCROLL — native scrollbars always reserve real layout width (a visible
+   gutter/strip that shows through against non-white backgrounds, no matter
+   how transparent the track is styled), which is NOT what the old
+   smooth-scrollbar thumb did — that was a zero-width overlay floating on
+   top of the page. Hidden entirely here (only once Lenis is actually
+   driving scroll — html.lenis, set by Lenis itself — so a reduced-motion
+   visit without Lenis keeps the normal, more predictable native
+   scrollbar). #fede-scroll-thumb (created in theme.js) is the real
+   replacement: a fixed, pointer-events:none div synced to Lenis's own
+   scroll position, taking up zero layout space. */
+html.lenis { scrollbar-width: none; }
+html.lenis::-webkit-scrollbar { display: none; width: 0; height: 0; }
+#fede-scroll-thumb {
+  position: fixed;
+  top: 0;
+  right: 3px;
+  width: 6px;
+  border-radius: 999px;
+  background: rgba(151, 151, 151, 0.35);
+  z-index: 999999;
+  pointer-events: none;
+}
 /* HEADER MENU */
 .nav-fixed { display: none; }
 #tt-ol-menu-toggle-btn-wrap { display: none; }
@@ -127,6 +146,14 @@ html.lenis, html.lenis body { height: auto; }
 .tt-logo a:hover img:first-child {
   transform: rotate(2deg) scale(1.42) translate(-1px, 2px);
 }
+/* Mobile overlay-menu logo only (the big one) — the organic orange blob
+   (img:first-child, fv-logo-vector.svg) goes over the "PFFV 2026" text
+   (img:last-child, fv-logo.svg) instead of under it, same mix-blend-mode
+   as #hero-craft, so it inks over the letters instead of sitting behind
+   them as a flat shape. Scoped to .inside-menu only — the small header
+   logo (.outside-menu) keeps its original stacking/look. */
+.tt-logo.inside-menu a img:first-child { z-index: 2; mix-blend-mode: hard-light; }
+.tt-logo.inside-menu a img:last-child { z-index: 1; }
 .tt-main-menu-list {
   margin-top: 14px;
   display: flex;

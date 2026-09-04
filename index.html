@@ -38,7 +38,7 @@ document.querySelector('meta[name="viewport"]').setAttribute('content','width=14
 <link rel="stylesheet" href="./assets/vendor/theme.css?v=20260829-01" />
 <link rel="stylesheet" href="./assets/fonts/fonts.css?v=20260815-01" />
 <link rel="stylesheet" href="./assets/css/config.css?v=20260815-01">
-<link rel="stylesheet" href="./assets/css/fede.css?v=20260829-37" />
+<link rel="stylesheet" href="./assets/css/fede.css?v=20260829-42" />
 <link rel="stylesheet" href="./assets/css/preload.css?v=20260815-01">
 <link rel="stylesheet" href="./assets/css/gallery.css?v=20260815-01" />
 <link rel="stylesheet" href="./assets/css/modal.css?v=20260829-02" />
@@ -984,6 +984,10 @@ html.ui-scale-fit #page-header .hover-fv .home-title {
     .services-grid-item p br.br-retina-hide { display: none !important; }
     #testi-afew-desc br.br-retina-only { display: revert !important; }
     #works-afew-desc br.br-retina-only { display: revert !important; }
+    /* Gap between the "PROJECTS" title/description block and the project
+       cards grid below it — base is margin-bottom:100px (index.html:264),
+       tightened 50px for retina only. */
+    .desk-works-phrase { margin-bottom: 50px; }
 }
 
 /* ── Hero craft-uw.svg — UW ONLY (>=2560) ─────────────────────────────────────
@@ -2745,7 +2749,7 @@ document.addEventListener('click', function(e) {
 <script src="./assets/vendor/isotope/isotope.pkgd.min.js?v=20260815-01"></script>
 <script src="./assets/vendor/isotope/packery-mode.pkgd.min.js?v=20260815-01"></script>
 <script src="./assets/js/ui-scale.js?v=20260815-01"></script>
-<script src="./assets/js/theme.js?v=20260819-01"></script>
+<script src="./assets/js/theme.js?v=20260829-01"></script>
 <script src="./assets/js/preload.js?v=20260815-01"></script>
 <script src="./assets/js/menu.js?v=20260815-01"></script>
 <script src="./assets/js/gallery.js?v=20260815-01"></script>

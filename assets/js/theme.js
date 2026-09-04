@@ -169,6 +169,30 @@
                requestAnimationFrame(raf);
             })();
             lenis.on('scroll', ScrollTrigger.update);
+
+            // ── Overlay scroll thumb (replaces the native scrollbar, hidden via
+            // html.lenis in fede.css) — a zero-layout-width floating indicator,
+            // matching the old smooth-scrollbar thumb instead of a native
+            // scrollbar's reserved gutter. pointer-events:none on the CSS side
+            // means it never intercepts clicks or scroll input. ──
+            var scrollThumb = document.createElement('div');
+            scrollThumb.id = 'fede-scroll-thumb';
+            document.body.appendChild(scrollThumb);
+            var updateScrollThumb = function () {
+               var scrollH = document.documentElement.scrollHeight;
+               var clientH = window.innerHeight;
+               if (scrollH <= clientH) { scrollThumb.style.display = 'none'; return; }
+               scrollThumb.style.display = 'block';
+               var thumbH = Math.max(30, (clientH / scrollH) * clientH);
+               var maxScroll = scrollH - clientH;
+               var progress = maxScroll > 0 ? lenis.scroll / maxScroll : 0;
+               var thumbTop = progress * (clientH - thumbH);
+               scrollThumb.style.height = thumbH + 'px';
+               scrollThumb.style.transform = 'translateY(' + thumbTop + 'px)';
+            };
+            lenis.on('scroll', updateScrollThumb);
+            window.addEventListener('resize', updateScrollThumb, { passive: true });
+            updateScrollThumb();
          }
          window.__lenis = lenis;
          // Shim: translates Lenis's scroll event into the {offset:{x,y}, limit:{y}}
